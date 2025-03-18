@@ -9,21 +9,8 @@ import SwiftUI
 
 struct TicketView: View {
     var body: some View {
-        ZStack {
-            Image(.ticketBg)
-            
-            VStack {
-                Spacer()
-                    .frame(height: 111)
-                
-                mainTitleGroup
-                
-                Spacer().frame(height: 134)
-                
-                mainBottomGroup
-            }
-        }
-        .padding()
+//        useZStack()
+        noUseZStack()
     }
     
     private var mainTitleGroup: some View {
@@ -57,6 +44,46 @@ struct TicketView: View {
             .frame(width: 63, height: 40)
         }
 
+    }
+    
+    private func useZStack() -> some View {
+        ZStack {
+            Image(.ticketBg)
+                .resizable()
+                .scaledToFit()
+            
+            VStack {
+                Spacer()
+                    .frame(height: 111)
+                
+                mainTitleGroup
+                
+                Spacer().frame(height: 134)
+                
+                mainBottomGroup
+            }
+        }
+        .padding(.horizontal, 28)
+    }
+    
+    private func noUseZStack() -> some View {
+        VStack {
+            Spacer().frame(height: 111)
+            
+            mainTitleGroup
+            
+            Spacer().frame(height: 134)
+            
+            mainBottomGroup
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(alignment: .center) {
+            Image(.ticketBg)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 386, height: 386)
+        }
+        .padding(.horizontal, 28)
     }
 }
 
