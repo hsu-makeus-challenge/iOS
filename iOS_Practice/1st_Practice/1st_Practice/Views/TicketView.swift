@@ -11,7 +11,17 @@ struct TicketView: View {
     var body: some View {
         ZStack {
             Image(.ticketBg)
-            mainTitleGroup
+            
+            VStack {
+                Spacer()
+                    .frame(height: 111)
+                
+                mainTitleGroup
+                
+                Spacer().frame(height: 134)
+                
+                mainBottomGroup
+            }
         }
         .padding()
     }
@@ -30,6 +40,23 @@ struct TicketView: View {
             .foregroundStyle(Color.white)
         }
         .frame(height: 84)
+    }
+    
+    private var mainBottomGroup: some View {
+        Button {
+            print("Hello")
+        } label: {
+            VStack {
+                Image(systemName: "chevron.up")
+                    .resizable()
+                    .frame(width: 18, height: 12)
+                Text("예매하기")
+                    .font(.PretendardSemiBold18)
+                    .foregroundStyle(Color.white)
+            }
+            .frame(width: 63, height: 40)
+        }
+
     }
 }
 
