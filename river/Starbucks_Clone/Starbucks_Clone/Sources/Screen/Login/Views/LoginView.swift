@@ -104,12 +104,11 @@ struct LoginButtonView: View {
             Text("로그인하기")
                 .font(.mainTextMedium16)
                 .foregroundStyle(.white)
+                .frame(maxWidth: .infinity)
+                .frame(height: 46)
         }
-        .frame(maxWidth: .infinity)
-        .frame(height: 46)
         .background(Color(.green01))
         .clipShape(RoundedRectangle(cornerRadius: 20))
-
     }
 }
 
