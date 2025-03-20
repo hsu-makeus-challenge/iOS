@@ -12,6 +12,8 @@ struct SplashView: View {
         ZStack(alignment: .center) {
             Color(.green01)
             Image(.starbuckLogo)
+                .resizable()
+                .frame(width: 168, height: 168)
         }
         .ignoresSafeArea()
     }
