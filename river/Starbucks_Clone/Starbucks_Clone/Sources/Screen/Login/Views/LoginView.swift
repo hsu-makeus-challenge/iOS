@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+enum PREVIEW_DEVICE_TYPE : String, CaseIterable {
+    case iPhone_11 = "iPhone 11"
+    case iPhone_15_Pro = "iPhone 16 Pro"
+}
+
 struct LoginView: View {
     var body: some View {
         VStack {
@@ -171,6 +176,17 @@ struct SocialLoginButtonView: View {
     }
 }
 
-#Preview {
-    LoginView()
+struct SwiftUIView_Preview: PreviewProvider {
+    static var previews : some View {
+        ForEach(
+            PREVIEW_DEVICE_TYPE.allCases,
+            id: \.self
+        ) { deviceType in
+            LoginView()
+                .previewDevice(
+                    PreviewDevice(rawValue: deviceType.rawValue))
+                .previewDisplayName(deviceType.rawValue)
+            
+        }
+    }
 }
