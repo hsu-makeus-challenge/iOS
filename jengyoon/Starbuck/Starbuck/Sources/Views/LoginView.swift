@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct LoginView: View {
     
     var body: some View {
@@ -90,10 +91,10 @@ struct LoginView: View {
                 .foregroundStyle(.gray)
                 .underline()
             
-            SocialLoginButton(buttonColor: .yellow, textColor: .black, text: "카카오 로그인", font: .PretendardMedium16, icon: "kakao", action: {})
+            SocialLoginButton(buttonColor: Color.yellow, textColor: Color.black, text: "카카오 로그인", font: .PretendardMedium16, icon: "kakao", action: {})
             
             
-            SocialLoginButton(buttonColor: .black, textColor: .white, text: "Apple로 로그인", font: .PretendardMedium16, icon: "apple", action: {})
+            SocialLoginButton(buttonColor: Color.black, textColor: Color.white, text: "Apple로 로그인", font: .PretendardMedium16, icon: "apple", action: {})
         }
     }
 }
