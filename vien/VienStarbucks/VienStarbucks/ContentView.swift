@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  VienStarbucks
-//
-//  Created by 이은정 on 3/20/25.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -20,5 +13,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    LoginView()
 }

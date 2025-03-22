@@ -10,9 +10,23 @@
 		82BAA8542D8C4D7900F8FB43 /* VienStarbucks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VienStarbucks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		82BAA89B2D8D4C5300F8FB43 /* Exceptions for "VienStarbucks" folder in "VienStarbucks" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+				Models/LoginModel.swift,
+			);
+			target = 82BAA8532D8C4D7900F8FB43 /* VienStarbucks */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		82BAA8562D8C4D7900F8FB43 /* VienStarbucks */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				82BAA89B2D8D4C5300F8FB43 /* Exceptions for "VienStarbucks" folder in "VienStarbucks" target */,
+			);
 			path = VienStarbucks;
 			sourceTree = "<group>";
 		};
@@ -254,6 +268,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"VienStarbucks/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VienStarbucks/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -282,6 +297,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"VienStarbucks/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VienStarbucks/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
