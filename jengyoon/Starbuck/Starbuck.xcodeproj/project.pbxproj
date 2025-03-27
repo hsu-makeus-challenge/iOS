@@ -33,6 +33,7 @@
 		FF9684832D950014009914B3 /* SignupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9684822D950014009914B3 /* SignupModel.swift */; };
 		FF9684852D950022009914B3 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9684842D950022009914B3 /* SignupViewModel.swift */; };
 		FF9684872D95003A009914B3 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9684862D95003A009914B3 /* SignupView.swift */; };
+		FF9684892D952645009914B3 /* AdvertisementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9684882D952645009914B3 /* AdvertisementView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		FF9684822D950014009914B3 /* SignupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupModel.swift; sourceTree = "<group>"; };
 		FF9684842D950022009914B3 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		FF9684862D95003A009914B3 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		FF9684882D952645009914B3 /* AdvertisementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -172,6 +174,7 @@
 				599DCB5D8E26AA58B3FF9923 /* LoginView.swift */,
 				C51DE23FE5EB9F77F03285A5 /* SplashView.swift */,
 				FF9684862D95003A009914B3 /* SignupView.swift */,
+				FF9684882D952645009914B3 /* AdvertisementView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				B2EECE92459A9FE846F262F6 /* StarbuckApp.swift in Sources */,
 				3DBFCBBD74933E350323F1E7 /* LoginViewModel.swift in Sources */,
 				7FD37C54878C4A9692A2BB26 /* LoginView.swift in Sources */,
+				FF9684892D952645009914B3 /* AdvertisementView.swift in Sources */,
 				50AED738C0776D3AB66AF3AC /* SplashView.swift in Sources */,
 				FF9684832D950014009914B3 /* SignupModel.swift in Sources */,
 			);
