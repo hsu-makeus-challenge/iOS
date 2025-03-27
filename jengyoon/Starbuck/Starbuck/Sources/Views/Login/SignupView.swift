@@ -31,7 +31,7 @@ struct SignupView: View {
             
             Spacer().frame(height: 49)
             
-            TextField("비밀번호", text: $password)
+            SecureField("비밀번호", text: $password)
             
             Divider()
             
@@ -42,6 +42,7 @@ struct SignupView: View {
             Spacer().frame(height: 72)
         }
         .padding(.horizontal, 20)
+        .padding(.bottom, 20)
     }
     
     private var createButton: some View {

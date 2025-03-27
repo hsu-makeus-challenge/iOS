@@ -13,7 +13,7 @@ struct StarBuckTab: View {
         TabView {
             
             Tab {
-                HomeView()
+                EmptyView()
             } label: {
                 Label {
                     Text("Home")
@@ -24,7 +24,7 @@ struct StarBuckTab: View {
             } //: label
             
             Tab {
-                PayView()
+                EmptyView()
             } label: {
                 Label {
                     Text("Pay")
@@ -35,7 +35,7 @@ struct StarBuckTab: View {
             } //: label
             
             Tab {
-                OrderView()
+                EmptyView()
             } label: {
                 Label {
                     Text("Order")
@@ -46,7 +46,7 @@ struct StarBuckTab: View {
             } //: label
             
             Tab {
-                ShopView()
+                EmptyView()
             } label: {
                 Label {
                     Text("Shop")
@@ -96,13 +96,6 @@ struct OrderView: View {
 struct ShopView: View {
     var body: some View {
         Text("Shop")
-    }
-}
-
-
-struct OtherView: View {
-    var body: some View {
-        Text("Other")
     }
 }
 
