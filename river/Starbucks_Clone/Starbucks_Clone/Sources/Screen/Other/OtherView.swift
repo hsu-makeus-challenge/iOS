@@ -17,6 +17,7 @@ struct OtherView: View {
             
             OtherWelcomeView()
         }
+        .background(Color(.white01))
     }
 }
 
@@ -62,6 +63,25 @@ struct OtherWelcomeView: View {
                     .foregroundStyle(.black)
             }
             .font(.mainTextBold24)
+            
+            Spacer().frame(height: 24)
+            
+            HStack(spacing: 10.5) {
+                ShortcutButtonView(
+                    image: .starHistoryIcon,
+                    imageLabel: "별 히스토리"
+                )
+                
+                ShortcutButtonView(
+                    image: .receiptIcon,
+                    imageLabel: "전자영수증"
+                )
+                
+                ShortcutButtonView(
+                    image: .myMenuIcon,
+                    imageLabel: "나만의 메뉴"
+                )
+            }
         }
     }
 }
