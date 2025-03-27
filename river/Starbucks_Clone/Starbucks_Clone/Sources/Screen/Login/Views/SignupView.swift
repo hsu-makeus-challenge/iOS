@@ -9,6 +9,14 @@ import SwiftUI
 
 struct SignupView: View {
     
+    @StateObject private var signupViewModel: SignupViewModel = SignupViewModel()
+    
+    @State private var signupModel: SignupModel = .init(
+        nickname: "",
+        email: "",
+        pwd: ""
+    )
+    
     var body: some View {
         VStack {
             Spacer().frame(height: 172)
@@ -27,7 +35,10 @@ struct SignupView: View {
                 
                 Spacer()
                 
-                SignupButtonView()
+                SignupButtonView(
+                    signupViewModel: signupViewModel,
+                    signupModel: $signupModel
+                )
 
             }
             .padding(.horizontal, 19)
@@ -36,9 +47,10 @@ struct SignupView: View {
         }
     }
     
+    // REFACT: 함수화 하면 더 좋을듯
     private var nicknameTextField: some View {
         Group {
-            TextField("닉네임", text: .constant(""))
+            TextField("닉네임", text: $signupModel.nickname)
                 .textFieldStyle(PlainTextFieldStyle())
                 .font(.mainTextRegular13)
                 .foregroundStyle(Color(.black01))
@@ -50,7 +62,7 @@ struct SignupView: View {
     
     private var emailTextField: some View {
         Group {
-            TextField("이메일", text: .constant(""))
+            TextField("이메일", text: $signupModel.email)
                 .textFieldStyle(PlainTextFieldStyle())
                 .font(.mainTextRegular13)
                 .foregroundStyle(Color(.black01))
@@ -62,7 +74,7 @@ struct SignupView: View {
     
     private var passwordTextField: some View {
         Group {
-            SecureField("비밀번호", text: .constant(""))
+            SecureField("비밀번호", text: $signupModel.pwd)
                 .textFieldStyle(PlainTextFieldStyle())
                 .font(.mainTextRegular13)
                 .foregroundStyle(Color(.black01))
@@ -76,9 +88,20 @@ struct SignupView: View {
 // REFACT: - 로그인 버튼 뷰와 함께 컴토넌트와 필요
 struct SignupButtonView: View {
     
+    private let signupViewModel: SignupViewModel
+    @Binding private var signupModel: SignupModel
+    
+    init(
+        signupViewModel: SignupViewModel,
+        signupModel: Binding<SignupModel>
+    ) {
+        self.signupViewModel = signupViewModel
+        self._signupModel = signupModel
+    }
+    
     var body: some View {
         Button {
-            print("생성하기")
+            signupViewModel.createUser(with: signupModel)
         } label: {
             Text("생성하기")
                 .font(.mainTextMedium16)

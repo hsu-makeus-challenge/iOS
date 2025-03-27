@@ -20,5 +20,7 @@ class SignupViewModel: ObservableObject {
         
         // 서버 통신 성공 가정
         isSignedUp = true
+        
+        print(signupModel)
     }
 }
