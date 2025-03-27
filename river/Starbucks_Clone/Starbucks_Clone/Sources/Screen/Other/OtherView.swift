@@ -10,12 +10,12 @@ import SwiftUI
 struct OtherView: View {
     
     var body: some View {
-        VStack {
+        VStack(spacing: 41) {
             OtherHeaderView()
             
-            Spacer().frame(height: 41)
-            
             OtherWelcomeView()
+            
+            OtherPaySectionView()
         }
         .background(Color(.white01))
     }
@@ -81,6 +81,76 @@ struct OtherWelcomeView: View {
                     image: .myMenuIcon,
                     imageLabel: "나만의 메뉴"
                 )
+            }
+        }
+    }
+}
+
+struct OtherPaySectionView: View {
+    
+    private let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
+    private let items: [(icon: ImageResource, title: String)] = [
+        (.Pay.payCard, "스타벅스 카드 등록"),
+        (.Pay.payCouponExchange, "카드 교환권 등록"),
+        (.Pay.payCouponAdd, "쿠폰 등록"),
+        (.Pay.payCouponHistory, "쿠폰 히스토리")
+    ]
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Pay")
+                .font(.mainTextSemiBold18)
+                .foregroundStyle(.black)
+            
+            LazyVGrid(
+                columns: columns,
+                alignment: .leading,
+                spacing: 16
+            ) {
+                ForEach(items, id: \.title) { item in
+                    OtherSectionGridItem(
+                        icon: item.icon,
+                        title: item.title
+                    )
+                }
+            }
+            .padding(.vertical, 16)
+        }
+        .frame(width: 420, height: 164)
+    }
+}
+
+// MARK: - 각 섹션별 메뉴 버튼
+
+struct OtherSectionGridItem: View {
+    
+    private var icon: ImageResource
+    private var title: String
+    
+    init(
+        icon: ImageResource,
+        title: String
+    ) {
+        self.icon = icon
+        self.title = title
+    }
+    
+    var body: some View {
+        Button {
+            print("\(title)")
+        } label: {
+            HStack {
+                Image(icon)
+                    .resizable()
+                    .frame(width: 32, height: 32)
+                
+                Text("\(title)")
+                    .font(.mainTextSemiBold16)
+                    .foregroundStyle(.black)
             }
         }
     }
