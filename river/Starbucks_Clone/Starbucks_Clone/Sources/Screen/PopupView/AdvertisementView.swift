@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct AdvertisementView: View {
+    
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         VStack {
             Image(.advertisement)
@@ -20,23 +23,30 @@ struct AdvertisementView: View {
             AdvertisementBtnView()
                 .padding(.horizontal, 18)
             
-            HStack {
-                Spacer()
-                
-                Button {
-                    print("닫기")
-                } label: {
-                    Text("X 닫기")
-                        .font(.mainTextLight14)
-                        .foregroundStyle(Color(.gray05))
-                }
-                
-                Spacer().frame(width: 37)
-            }
+            Spacer().frame(height: 19)
+            
+            dismissButton
         }
         .frame(height: 920)
         
         Spacer().frame(height: 36)
+    }
+    
+    private var dismissButton: some View {
+        HStack {
+            Spacer()
+            
+            Button {
+                dismiss()
+                print("dismiss")
+            } label: {
+                Text("X 닫기")
+                    .font(.mainTextLight14)
+                    .foregroundStyle(Color(.gray05))
+            }
+            
+            Spacer().frame(width: 37)
+        }
     }
 }
 
