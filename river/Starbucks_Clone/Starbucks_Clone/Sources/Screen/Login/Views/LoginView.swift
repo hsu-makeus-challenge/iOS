@@ -61,6 +61,9 @@ struct WelcomeMessageView: View {
 }
 
 struct LoginFormView: View {
+    
+    @Bindable private var loginViewModel: LoginViewModel = .init()
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -68,7 +71,7 @@ struct LoginFormView: View {
                     .font(.mainTextRegular13)
                     .foregroundStyle(Color(.black01))
                 
-                TextField("", text: .constant(""))
+                TextField("", text: $loginViewModel.id)
                     .textFieldStyle(PlainTextFieldStyle())
                     .font(.mainTextRegular13)
                     .foregroundStyle(Color(.black01))
@@ -84,7 +87,7 @@ struct LoginFormView: View {
                     .font(.mainTextRegular13)
                     .foregroundStyle(Color(.black01))
                 
-                SecureField("", text: .constant(""))
+                SecureField("", text: $loginViewModel.pwd)
                     .textFieldStyle(PlainTextFieldStyle())
                     .font(.mainTextRegular13)
                     .foregroundStyle(Color(.black01))
