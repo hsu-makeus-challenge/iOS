@@ -37,7 +37,7 @@ struct MainTabView: View {
                 ? "orderIcon_selected" : "orderIcon",
                 value: 2
             ) {
-                EmptyView()
+                OtherView()
             }
             
             Tab(
