@@ -11,6 +11,7 @@ struct SignupView: View {
     
     @StateObject private var signupViewModel: SignupViewModel = SignupViewModel()
     
+    // 실제 SignupModel에 저장하기 위한 임시 저장 프로퍼티
     @State private var signupModel: SignupModel = .init(
         nickname: "",
         email: "",
