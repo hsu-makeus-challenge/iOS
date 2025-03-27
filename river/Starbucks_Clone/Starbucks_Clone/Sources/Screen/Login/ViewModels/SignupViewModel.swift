@@ -8,11 +8,10 @@
 import Foundation
 import SwiftUI
 
-@Observable
-class SignupViewModel {
+class SignupViewModel: ObservableObject {
     
     @AppStorage("isSignedUp") private var isSignedUp: Bool = false
-    private var signupModel: SignupModel = .init(nickname: "", email: "", pwd: "")
+    @Published private var signupModel: SignupModel = .init(nickname: "", email: "", pwd: "")
     
     func createUser(with model: SignupModel) {
         signupModel.nickname = model.nickname
