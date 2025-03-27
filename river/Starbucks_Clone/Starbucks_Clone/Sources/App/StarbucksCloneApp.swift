@@ -7,7 +7,7 @@ struct StarbucksCloneApp: App {
     var body: some Scene {
         WindowGroup {
             if showMainView {
-                LoginView()
+                MainTabView()
             } else {
                 SplashView()
                     .onAppear {

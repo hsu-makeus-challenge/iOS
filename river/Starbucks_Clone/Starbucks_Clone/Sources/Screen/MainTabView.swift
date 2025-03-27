@@ -19,7 +19,8 @@ struct MainTabView: View {
                 ? "homeIcon_selected"
                 : "homeIcon", value: 0
             ) {
-                EmptyView()
+                // FIXME: 테스트를 위한 LoginView 생성
+                LoginView()
             }
             
             Tab(
@@ -28,7 +29,8 @@ struct MainTabView: View {
                 ? "payIcon_selected"
                 : "payIcon", value: 1
             ) {
-                EmptyView()
+                // FIXME: 테스트를 위한 SignupView 생성
+                SignupView()
             }
             
             Tab(
@@ -62,6 +64,17 @@ struct MainTabView: View {
     }
 }
 
-#Preview {
-    MainTabView()
+struct MainTabView_Preview: PreviewProvider {
+    static var previews : some View {
+        ForEach(
+            PREVIEW_DEVICE_TYPE.allCases,
+            id: \.self
+        ) { deviceType in
+            MainTabView()
+                .previewDevice(
+                    PreviewDevice(rawValue: deviceType.rawValue))
+                .previewDisplayName(deviceType.rawValue)
+            
+        }
+    }
 }

@@ -194,6 +194,17 @@ struct OtherSectionGridItem: View {
     }
 }
 
-#Preview {
-    OtherView()
+struct OtherSectionView_Preview: PreviewProvider {
+    static var previews : some View {
+        ForEach(
+            PREVIEW_DEVICE_TYPE.allCases,
+            id: \.self
+        ) { deviceType in
+            OtherView()
+                .previewDevice(
+                    PreviewDevice(rawValue: deviceType.rawValue))
+                .previewDisplayName(deviceType.rawValue)
+            
+        }
+    }
 }
