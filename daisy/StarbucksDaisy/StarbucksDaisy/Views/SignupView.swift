@@ -27,7 +27,7 @@ struct SignupView: View {
     private var Frame3: some View {
         VStack(spacing: 49) {
             VStack(spacing: 9) {
-                TextField("닉네임", text: $viewModel.signupModel.nickname)
+                TextField("닉네임", text: $viewModel.user.nickname)
                     .focused($isNicknameFocused)
                     .underline(isNicknameFocused, pattern: .solid, color: .green01)
                     .font(.mainTextRegular18)
@@ -38,7 +38,7 @@ struct SignupView: View {
             .frame(width: 402, height: 30)
             
             VStack(spacing: 9) {
-                TextField("이메일", text: $viewModel.signupModel.email)
+                TextField("이메일", text: $viewModel.user.email)
                     .focused($isEmailFocused)
                     .underline(isEmailFocused, pattern: .solid, color: .green01)
                     .font(.mainTextRegular18)
@@ -49,7 +49,7 @@ struct SignupView: View {
             .frame(width: 402, height: 30)
             
             VStack(spacing: 9) {
-                TextField("비밀번호", text: $viewModel.signupModel.password)
+                TextField("비밀번호", text: $viewModel.user.password)
                     .focused($isPasswordFocused)
                     .underline(isPasswordFocused, pattern: .solid, color: .green01)
                     .font(.mainTextRegular18)
@@ -64,7 +64,7 @@ struct SignupView: View {
     
     private var ButtonView: some View {
         Button(action: {
-            
+            viewModel.saveUser()
         }, label: {
             RoundedRectangle(cornerRadius: 20)
                 .frame(height: 58)

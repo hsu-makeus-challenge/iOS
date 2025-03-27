@@ -7,16 +7,20 @@
 
 import Foundation
 import Observation
+import SwiftUI
 
-@Observable
-class SignupViewModel {
-    var signupModel = SignupModel()
+//@Observable
+class SignupViewModel: ObservableObject {
+    @AppStorage("nickname") private var storedNickname: String = ""
+    @AppStorage("email") private var storedEmail: String = ""
+    @AppStorage("password") private var storedPassword: String = ""
     
-//    var signupModel: [SignupModel] = [
-//        .init(nickname: "", email: "", password: "")
-//    ]
+    var user = SignupModel()
     
-    public func saveSignup() {
-//        currentSignup = self.signupModel
+    func saveUser() {
+        storedNickname = user.nickname
+        storedEmail = user.email
+        storedPassword = user.password
+        print("사용자 회원가입 및 유저 정보 저장 완료")
     }
 }
