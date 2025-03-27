@@ -13,17 +13,20 @@ enum PREVIEW_DEVICE_TYPE : String, CaseIterable {
 }
 
 struct LoginView: View {
+    
+    @Bindable private var loginViewModel = LoginViewModel()
+    
     var body: some View {
         VStack {
             WelcomeMessageView()
             
             Spacer().frame(height: 104)
             
-            LoginFormView()
+            LoginFormView(loginViewModel: loginViewModel)
             
             Spacer().frame(height: 47)
             
-            LoginButtonView()
+            LoginButtonView(loginViewModel: loginViewModel)
             
             Spacer().frame(height: 104)
             
@@ -62,7 +65,11 @@ struct WelcomeMessageView: View {
 
 struct LoginFormView: View {
     
-    @Bindable private var loginViewModel: LoginViewModel = .init()
+    @Bindable private var loginViewModel: LoginViewModel
+    
+    init(loginViewModel: LoginViewModel) {
+        self.loginViewModel = loginViewModel
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -100,6 +107,13 @@ struct LoginFormView: View {
 }
 
 struct LoginButtonView: View {
+    
+    @Bindable private var loginViewModel: LoginViewModel
+    
+    init(loginViewModel: LoginViewModel) {
+        self.loginViewModel = loginViewModel
+    }
+    
     var body: some View {
         Button {
             print("로그인하기")
@@ -110,7 +124,9 @@ struct LoginButtonView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 46)
         }
-        .background(Color(.green01))
+        .background(loginViewModel.isLoginEnabled
+                    ? Color(.green01)
+                    : Color(.green01).opacity(0.3))
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }

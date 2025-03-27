@@ -24,6 +24,10 @@ class LoginViewModel {
         set { loginModel.pwd = newValue }
     }
     
+    var isLoginEnabled: Bool {
+        !id.isEmpty && !pwd.isEmpty
+    }
+    
     /// 사용자가 입력한 id/pwd가 비어 있는지 검증한 후, 로그인 요청 로직 실행
     func login() {
         guard !id.isEmpty, !pwd.isEmpty else {
