@@ -2,6 +2,11 @@ import SwiftUI
 
 struct LoginView: View {
     var body: some View {
+        
+        @StateObject var loginViewModel: LoginViewModel = .init()
+
+        
+        
         GeometryReader { geometry in
             let screenHeight = geometry.size.height //geometry.size.height를 통해 현재 기기 화면 높이를 알 수 있게 해줌.
             
@@ -12,7 +17,8 @@ struct LoginView: View {
                 
                 Spacer().frame(height: screenHeight * 0.09)  //104
                 
-                IdPwdView(geometry: geometry)
+//                IdPwdView(geometry: geometry)
+                IdPwdView(geometry: geometry, loginViewModel: loginViewModel)
                 
                 Spacer().frame(height: screenHeight * 0.04)   // 47
                 
@@ -56,20 +62,31 @@ struct WelcomeView: View {
 
 struct IdPwdView: View {
     var geometry: GeometryProxy
+    @ObservedObject var loginViewModel: LoginViewModel
+    
+    @FocusState private var isIdFocused: Bool
+    @FocusState private var isPwdFocused: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("아이디")
-                .font(.mainTextRegular13)
+
+            TextField("아이디", text: $loginViewModel.id)
+                .textFieldStyle(.plain)
+                .focused($isIdFocused)
+            
+            
             Divider()
-                .background(Color("gray00"))
+                .background(isIdFocused ? Color("green01") : Color("gray00"))
                 
             Spacer().frame(height: geometry.size.height * 0.06)
                 
-            Text("비밀번호")
-                .font(.mainTextRegular13)
+            
+            SecureField("비밀번호", text: $loginViewModel.pwd)
+                .textFieldStyle(.plain)
+                .focused($isPwdFocused)
+            
             Divider()
-                .background(Color("gray00"))
+                .background(isPwdFocused ? Color("green01") : Color("gray00"))
         }
     }
 }
@@ -84,8 +101,8 @@ struct LoginButtonView: View {
             Text("로그인하기")
                 .font(.mainTextMedium16)
                 .frame(maxWidth: .infinity)
-                .frame(height: 46)
-                .foregroundColor(.white00)
+                .frame(height: 58)
+                .foregroundColor(.white01)
                 .background(Color.green01)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
         }
