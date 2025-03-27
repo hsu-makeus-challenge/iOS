@@ -30,6 +30,9 @@
 		D137A0CE8238989E873328EF /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D2E6CFDB2FE55DB301BB7E93 /* Pretendard-ExtraBold.otf */; };
 		D874306AA2C15D43854C66C6 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324579D05F48595A40EE68D3 /* LoginModel.swift */; };
 		F9B59708E65FFDC479FA292D /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C05EE3A01621AA71D5A3474 /* Pretendard-SemiBold.otf */; };
+		FF9684832D950014009914B3 /* SignupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9684822D950014009914B3 /* SignupModel.swift */; };
+		FF9684852D950022009914B3 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9684842D950022009914B3 /* SignupViewModel.swift */; };
+		FF9684872D95003A009914B3 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9684862D95003A009914B3 /* SignupView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +96,9 @@
 		F8D54BB8F383F5345CEFC4FB /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		F971E5B6815CB1BE429AAFDA /* CustomColor.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CustomColor.xcassets; sourceTree = "<group>"; };
 		FB5860E6E14B3D180E9A7ABF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FF9684822D950014009914B3 /* SignupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupModel.swift; sourceTree = "<group>"; };
+		FF9684842D950022009914B3 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
+		FF9684862D95003A009914B3 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -165,6 +171,7 @@
 			children = (
 				599DCB5D8E26AA58B3FF9923 /* LoginView.swift */,
 				C51DE23FE5EB9F77F03285A5 /* SplashView.swift */,
+				FF9684862D95003A009914B3 /* SignupView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -224,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				324579D05F48595A40EE68D3 /* LoginModel.swift */,
+				FF9684822D950014009914B3 /* SignupModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -256,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				08859D901BEF438D426B6CFE /* LoginViewModel.swift */,
+				FF9684842D950022009914B3 /* SignupViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -400,16 +409,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF9684872D95003A009914B3 /* SignupView.swift in Sources */,
 				18E501DA27DFC1087C24D100 /* TuistAssets+Starbuck.swift in Sources */,
 				97BDE484D89F420A71F0D7E3 /* TuistBundle+Starbuck.swift in Sources */,
 				14609285C515C9B7AC7511FF /* TuistFonts+Starbuck.swift in Sources */,
 				9F4761109412ED75AEFC6F93 /* ColorExtension.swift in Sources */,
 				7840DC737DE4A9321BFA6B04 /* FontManager.swift in Sources */,
 				D874306AA2C15D43854C66C6 /* LoginModel.swift in Sources */,
+				FF9684852D950022009914B3 /* SignupViewModel.swift in Sources */,
 				B2EECE92459A9FE846F262F6 /* StarbuckApp.swift in Sources */,
 				3DBFCBBD74933E350323F1E7 /* LoginViewModel.swift in Sources */,
 				7FD37C54878C4A9692A2BB26 /* LoginView.swift in Sources */,
 				50AED738C0776D3AB66AF3AC /* SplashView.swift in Sources */,
+				FF9684832D950014009914B3 /* SignupModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
