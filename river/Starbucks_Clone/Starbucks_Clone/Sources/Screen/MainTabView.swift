@@ -37,7 +37,7 @@ struct MainTabView: View {
                 ? "orderIcon_selected" : "orderIcon",
                 value: 2
             ) {
-                OtherView()
+                EmptyView()
             }
             
             Tab(
@@ -55,7 +55,7 @@ struct MainTabView: View {
                 ? "otherIcon_selected"
                 : "otherIcon", value: 4
             ) {
-                EmptyView()
+                OtherView()
             }
         }
         .tint(Color("green02"))

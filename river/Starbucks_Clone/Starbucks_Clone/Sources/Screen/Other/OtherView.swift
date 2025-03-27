@@ -16,6 +16,10 @@ struct OtherView: View {
             OtherWelcomeView()
             
             OtherPaySectionView()
+            
+            OtherCustomerSupportSectionView()
+            
+            Spacer()
         }
         .background(Color(.white01))
     }
@@ -30,9 +34,14 @@ struct OtherHeaderView: View {
             
             Spacer()
             
-            Image(.logoutIcon)
-                .resizable()
-                .frame(width: 35, height: 35)
+            Button {
+                print("Logout")
+            } label: {
+                Image(.logoutIcon)
+                    .resizable()
+                    .frame(width: 35, height: 35)
+            }
+
         }
         .padding(.horizontal, 23.5)
         .frame(height: 80)
@@ -103,6 +112,45 @@ struct OtherPaySectionView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Pay")
+                .font(.mainTextSemiBold18)
+                .foregroundStyle(.black)
+            
+            LazyVGrid(
+                columns: columns,
+                alignment: .leading,
+                spacing: 16
+            ) {
+                ForEach(items, id: \.title) { item in
+                    OtherSectionGridItem(
+                        icon: item.icon,
+                        title: item.title
+                    )
+                }
+            }
+            .padding(.vertical, 16)
+        }
+        .frame(width: 420, height: 164)
+    }
+}
+
+struct OtherCustomerSupportSectionView: View {
+    
+    private let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
+    private let items: [(icon: ImageResource, title: String)] = [
+        (.CustomerSupport.storeCare, "스토어 케어"),
+        (.CustomerSupport.customerSound, "고객의 소리"),
+        (.CustomerSupport.storeInfo, "매장 정보"),
+        (.CustomerSupport.returnInfo, "반납기 정보"),
+        (.CustomerSupport.myReview, "마이 스타벅스 리뷰")
+    ]
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("고객지원")
                 .font(.mainTextSemiBold18)
                 .foregroundStyle(.black)
             
