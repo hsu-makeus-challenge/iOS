@@ -7,7 +7,37 @@
 
 import SwiftUI
 
+struct OtherGridItem: Identifiable {
+    let id = UUID()
+    let icon: ImageResource
+    let title: String
+}
+
 struct OtherView: View {
+    
+    private let payGtidItems: [OtherGridItem] = [
+        .init(icon: .Pay.payCard, title: "스타벅스 카드 등록"),
+        .init(
+            icon: .Pay.payCouponExchange,
+            title: "카드 교환권 등록"
+        ),
+        .init(
+            icon: .Pay.payCouponAdd,
+            title: "쿠폰 등록"
+        ),
+        .init(
+            icon: .Pay.payCouponHistory,
+            title: "쿠폰 히스토리"
+        ),
+    ]
+    
+    private let customerSupportItems: [OtherGridItem] = [
+        .init(icon: .CustomerSupport.storeCare, title: "스토어 케어"),
+        .init(icon: .CustomerSupport.customerSound, title: "고객의 소리"),
+        .init(icon: .CustomerSupport.storeInfo, title: "매장 정보"),
+        .init(icon: .CustomerSupport.returnInfo, title: "반납기 정보"),
+        .init(icon: .CustomerSupport.myReview, title: "마이 스타벅스 리뷰")
+    ]
     
     var body: some View {
         VStack(spacing: 41) {
@@ -15,9 +45,9 @@ struct OtherView: View {
             
             OtherWelcomeView()
             
-            OtherPaySectionView()
+            OtherSectionView(items: payGtidItems)
             
-            OtherCustomerSupportSectionView()
+            OtherSectionView(items: customerSupportItems)
             
             Spacer()
         }
@@ -95,62 +125,22 @@ struct OtherWelcomeView: View {
     }
 }
 
-struct OtherPaySectionView: View {
+struct OtherSectionView: View {
     
     private let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
     
-    private let items: [(icon: ImageResource, title: String)] = [
-        (.Pay.payCard, "스타벅스 카드 등록"),
-        (.Pay.payCouponExchange, "카드 교환권 등록"),
-        (.Pay.payCouponAdd, "쿠폰 등록"),
-        (.Pay.payCouponHistory, "쿠폰 히스토리")
-    ]
+    private let items: [OtherGridItem]
+    
+    init(items: [OtherGridItem]) {
+        self.items = items
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
             Text("Pay")
-                .font(.mainTextSemiBold18)
-                .foregroundStyle(.black)
-            
-            LazyVGrid(
-                columns: columns,
-                alignment: .leading,
-                spacing: 16
-            ) {
-                ForEach(items, id: \.title) { item in
-                    OtherSectionGridItem(
-                        icon: item.icon,
-                        title: item.title
-                    )
-                }
-            }
-            .padding(.vertical, 16)
-        }
-        .frame(width: 420, height: 164)
-    }
-}
-
-struct OtherCustomerSupportSectionView: View {
-    
-    private let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
-    
-    private let items: [(icon: ImageResource, title: String)] = [
-        (.CustomerSupport.storeCare, "스토어 케어"),
-        (.CustomerSupport.customerSound, "고객의 소리"),
-        (.CustomerSupport.storeInfo, "매장 정보"),
-        (.CustomerSupport.returnInfo, "반납기 정보"),
-        (.CustomerSupport.myReview, "마이 스타벅스 리뷰")
-    ]
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text("고객지원")
                 .font(.mainTextSemiBold18)
                 .foregroundStyle(.black)
             
