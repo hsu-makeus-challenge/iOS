@@ -50,10 +50,16 @@ struct OtherView: View {
             OtherWelcomeView()
             
             // Pay 관련 메뉴 섹션
-            OtherSectionView(items: payGtidItems)
+            OtherSectionView(
+                items: payGtidItems,
+                title: "Pay"
+            )
             
             // 고객센터 관련 메뉴 섹션
-            OtherSectionView(items: customerSupportItems)
+            OtherSectionView(
+                items: customerSupportItems,
+                title: "고객지원"
+            )
             
             Spacer()
         }
@@ -141,14 +147,19 @@ struct OtherSectionView: View {
     ]
     
     private let items: [OtherGridItem]
+    private let title: String
     
-    init(items: [OtherGridItem]) {
+    init(
+        items: [OtherGridItem],
+        title: String
+    ) {
         self.items = items
+        self.title = title
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Pay")
+            Text(title)
                 .font(.mainTextSemiBold18)
                 .foregroundStyle(.black)
             
