@@ -1,107 +1,96 @@
 import SwiftUI
 
-struct LoginView: View {
-    var body: some View {
-        
-        @StateObject var loginViewModel: LoginViewModel = .init()
 
-        
-        
-        GeometryReader { geometry in
-            let screenHeight = geometry.size.height //geometry.size.height를 통해 현재 기기 화면 높이를 알 수 있게 해줌.
+struct LoginView: View {
+    @StateObject var loginViewModel: LoginViewModel = .init()
+    
+    var body: some View {
+        VStack {
             
-            VStack {
-                Spacer().frame(height: screenHeight * 0.09) // 기기높이의 9% 만큼 빈 공간을 준다 (104)
-                
-                WelcomeView(geometry: geometry)
-                
-                Spacer().frame(height: screenHeight * 0.09)  //104
-                
-//                IdPwdView(geometry: geometry)
-                IdPwdView(geometry: geometry, loginViewModel: loginViewModel)
-                
-                Spacer().frame(height: screenHeight * 0.04)   // 47
-                
-                LoginButtonView()
-                
-                Spacer().frame(height: screenHeight * 0.09)   // 104
-                
-                SignUpView(geometry: geometry)
-            }
-            .padding(.horizontal, 19)
+            WelcomeView()
+            
+            Spacer().frame(height: 104)
+
+            IdPwdView(loginViewModel: loginViewModel)
+            
+            Spacer().frame(height: 47)
+            
+            LoginButtonView(loginViewModel: loginViewModel)
+            
+            Spacer().frame(height: 104)
+            
+            SignUpView()
         }
+        .padding(.horizontal, 19)
     }
 }
-    
+
 struct WelcomeView: View {
-    var geometry: GeometryProxy
-    
     var body: some View {
         VStack(alignment: .leading) {
             Image(.starbucksLogo)
                 .resizable()
-                .frame(width: geometry.size.width * 0.27, height: geometry.size.width * 0.26) // 비율 조절
+                .frame(width: 97, height: 95)
             
-            Spacer().frame(height: geometry.size.height * 0.03)
-            
+            Spacer().frame(height: 28)
+
             Text("안녕하세요.\n스타벅스입니다.")
                 .foregroundColor(.black)
                 .font(.mainTextBold24)
-                .fixedSize(horizontal: false, vertical: true) // 자동 크기 조정
+                .fixedSize(horizontal: false, vertical: true)
             
-            Spacer().frame(height: geometry.size.height * 0.02)
-            
+            Spacer().frame(height: 19)
+
             Text("회원 서비스 이용을 위해 로그인 해주세요")
                 .foregroundColor(Color("gray01"))
                 .font(.mainTextMedium16)
         }
-        .frame(maxWidth: .infinity, alignment: .leading) // 왼쪽 정렬 위해
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
-
 struct IdPwdView: View {
-    var geometry: GeometryProxy
     @ObservedObject var loginViewModel: LoginViewModel
     
-    @FocusState private var isIdFocused: Bool
-    @FocusState private var isPwdFocused: Bool
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
-
             TextField("아이디", text: $loginViewModel.id)
+                .font(.mainTextRegular13)
                 .textFieldStyle(.plain)
-                .focused($isIdFocused)
-            
+                .focused($isFocused)
+                .foregroundStyle(Color(.black01))
             
             Divider()
-                .background(isIdFocused ? Color("green01") : Color("gray00"))
-                
-            Spacer().frame(height: geometry.size.height * 0.06)
-                
+                .background(isFocused ? Color("green01") : Color("gray00"))
+            
+            Spacer().frame(height: 47)
             
             SecureField("비밀번호", text: $loginViewModel.pwd)
+                .font(.mainTextRegular13)
                 .textFieldStyle(.plain)
-                .focused($isPwdFocused)
+                .focused($isFocused)
+                .foregroundStyle(Color(.black01))
             
             Divider()
-                .background(isPwdFocused ? Color("green01") : Color("gray00"))
+                .background(isFocused ? Color("green01") : Color("gray00"))
         }
     }
 }
 
-
 struct LoginButtonView: View {
+    @ObservedObject var loginViewModel: LoginViewModel
+    
     var body: some View {
-        
         Button(action: {
-            print("로그인하기")
-        }){
+            print("ID: \(loginViewModel.id)")
+            print("PWD: \(loginViewModel.pwd)")
+        }) {
             Text("로그인하기")
                 .font(.mainTextMedium16)
                 .frame(maxWidth: .infinity)
-                .frame(height: 58)
+                .frame(height: 46)
                 .foregroundColor(.white01)
                 .background(Color.green01)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -109,19 +98,31 @@ struct LoginButtonView: View {
     }
 }
 
-
 struct SignUpView: View {
-    var geometry: GeometryProxy
-    
     var body: some View {
-        Text("이메일로 회원가입하기")
-            .underline()
-            .font(.mainTextRegular13)
-            .foregroundColor(Color("gray03"))
-        
-        Spacer().frame(height: geometry.size.height * 0.02)
-        
-        
+        VStack {
+            emailLoginView
+
+            Spacer().frame(height: 19)
+
+            kakaoLoginBtnView
+
+            Spacer().frame(height: 19)
+
+            appleLoginBtnView
+        }
+    }
+
+    private var emailLoginView: some View {
+        VStack {
+            Text("이메일로 회원가입하기")
+                .underline()
+                .font(.mainTextRegular12)
+                .foregroundColor(Color("gray03"))
+        }
+    }
+
+    private var kakaoLoginBtnView: some View {
         Button {
             print("카카오 로그인")
         } label: {
@@ -139,11 +140,9 @@ struct SignUpView: View {
         .background(Color.kakaobg)
         .clipShape(RoundedRectangle(cornerRadius: 5))
         .padding(.horizontal, 48)
-        
-        
-        Spacer().frame(height: geometry.size.height * 0.02)
-    
+    }
 
+    private var appleLoginBtnView: some View {
         Button {
             print("애플 로그인")
         } label: {
@@ -164,8 +163,6 @@ struct SignUpView: View {
     }
 }
 
-
 #Preview {
     LoginView()
 }
-

@@ -4,15 +4,19 @@ struct SignupView: View {
     @StateObject var SignupViewModel: SignupViewModel = .init()
     
     var body: some View {
-        Spacer().frame(height: 21)
-        
-        SignupFormView(signupViewModel: SignupViewModel)
-        
-        Spacer().frame(height: 42)
-        
-        createBtnView(signupViewModel: SignupViewModel)
-        
-        Spacer().frame(height:72)
+        VStack {
+            
+            Spacer().frame(height:210)
+            
+            SignupFormView(signupViewModel: SignupViewModel)
+            
+            Spacer().frame(height: 428)
+            
+            createBtnView(signupViewModel: SignupViewModel)
+            
+            Spacer().frame(height:72)
+        }
+        .padding(.horizontal, 19)
     }
 }
 
@@ -20,30 +24,43 @@ struct SignupFormView: View {
     
     @ObservedObject var signupViewModel: SignupViewModel
     
+    @FocusState private var isFocused: Bool
+    
     var body: some View {
-        VStack(spacing:30) {
-            
-            Spacer().frame(height:210)
+        VStack() {
             
             TextField("닉네임", text: $signupViewModel.nickname)
+                .font(.mainTextRegular18)
                 .textFieldStyle(.plain)
+                .focused($isFocused)
+                .foregroundStyle(Color(.gray02))
+                                 
             Divider()
-                .background(Color("gray00"))
+                .background(isFocused ? Color(.green01) : Color(.gray00))
             
             
             Spacer().frame(height: 49)
             
             TextField("이메일", text: $signupViewModel.email)
+                .font(.mainTextRegular18)
                 .textFieldStyle(.plain)
+                .focused($isFocused)
+                .foregroundStyle(Color(.gray02))
+            
             Divider()
-                .background(Color("gray00"))
+                .background(isFocused ? Color(.green01) : Color(.gray00))
             
             Spacer().frame(height: 49)
             
             SecureField("비밀번호", text: $signupViewModel.password)
+                .font(.mainTextRegular18)
                 .textFieldStyle(.plain)
+                .focused($isFocused)
+                .foregroundStyle(Color(.gray02))
+                
+            
             Divider()
-                .background(Color("gray00"))
+                .background(isFocused ? Color(.green01) : Color(.gray00))
             
         }
     }
