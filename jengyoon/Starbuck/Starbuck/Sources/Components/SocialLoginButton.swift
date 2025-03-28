@@ -59,7 +59,7 @@ struct SocialLoginButton: View {
             }
             .frame(width: 306, height: 45) //  버튼 크기 설정
             .background(buttonColor)
-            .cornerRadius(10) // 모서리 둥글게
+            .clipShape(RoundedRectangle(cornerRadius: 15))
         }
         .frame(width: 306, height: 45)
     }
