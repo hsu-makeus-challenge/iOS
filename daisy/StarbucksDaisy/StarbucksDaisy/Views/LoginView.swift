@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct LoginView: View {
+    @State var viewModel = LoginViewModel()
+    @FocusState private var isIDFocused: Bool   // 아이디 텍스트 필드의 포커스 상태
+    @FocusState private var isPasswordFocused: Bool  // 비밀번호 텍스트 필드의 포커스 상태
+    
     var body: some View {
         VStack{
             Spacer().frame(height: 104)
@@ -22,43 +26,50 @@ struct LoginView: View {
         }
     }
     
+    /// 상단 로고 및 설명 그룹
     private var loginTitle: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 28) {
             Image("starbucksLogo")
                 .resizable()
                 .frame(width: 97, height: 95)
             
-            Spacer().frame(height: 28)
-            VStack(alignment: .leading) {
+            /// 타이틀 그룹
+            VStack(alignment: .leading, spacing: 19) {
                 Text("안녕하세요.\n스타벅스입니다.")
                     .font(.mainTextExtraBold24)
                     .kerning(2)
-                Spacer().frame(height: 19)
+                
                 Text("회원 서비스 이용을 위해 로그인 해주세요")
                     .font(.mainTextMedium16)
                     .foregroundStyle(Color.gray01)
             }
-            .frame(width: 402, height: 96, alignment: .topLeading)
+            .frame(width: 402, height: 96, alignment: .leading)
         }
     }
     
+    /// 아이디 및 비밀번호 입력 필드
     private var loginMiddle: some View {
         VStack(spacing: 47) {
             VStack(alignment: .leading) {
-                Text("아이디")
+                TextField("아이디", text: $viewModel.loginModel.id)
+                    .focused($isIDFocused)
                     .font(.mainTextRegular13)
                     .foregroundStyle(Color.black01)
+                    
+            
                 Divider()
-                    .foregroundStyle(Color.gray00)
+                    .foregroundStyle(isIDFocused ? Color.green01 :Color.gray00)
             }
             .frame(width: 401, height: 20)
             
             VStack(alignment: .leading) {
-                Text("비밀번호")
+                TextField("비밀번호", text: $viewModel.loginModel.password)
+                    .focused($isPasswordFocused)
                     .font(.mainTextRegular13)
                     .foregroundStyle(Color.black01)
+                
                 Divider()
-                    .foregroundStyle(Color.gray00)
+                    .foregroundStyle(isPasswordFocused ? Color.green01 : Color.gray00)
             }
             .frame(width: 401, height: 20)
 
@@ -73,6 +84,7 @@ struct LoginView: View {
         }
     }
     
+    /// 하단 로그인 프레임
     private var loginBottom: some View {
         VStack(spacing: 19) {
             Text("이메일로 회원가입하기")
