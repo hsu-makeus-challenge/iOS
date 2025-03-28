@@ -13,17 +13,20 @@ enum PREVIEW_DEVICE_TYPE : String, CaseIterable {
 }
 
 struct LoginView: View {
+    
+    @Bindable private var loginViewModel = LoginViewModel()
+    
     var body: some View {
         VStack {
             WelcomeMessageView()
             
             Spacer().frame(height: 104)
             
-            LoginFormView()
+            LoginFormView(loginViewModel: loginViewModel)
             
             Spacer().frame(height: 47)
             
-            LoginButtonView()
+            LoginButtonView(loginViewModel: loginViewModel)
             
             Spacer().frame(height: 104)
             
@@ -60,7 +63,20 @@ struct WelcomeMessageView: View {
     }
 }
 
+enum FocusField {
+    case id
+    case password
+}
+
 struct LoginFormView: View {
+    
+    @Bindable private var loginViewModel: LoginViewModel
+    @FocusState private var focusField: FocusField?
+    
+    init(loginViewModel: LoginViewModel) {
+        self.loginViewModel = loginViewModel
+    }
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -68,14 +84,15 @@ struct LoginFormView: View {
                     .font(.mainTextRegular13)
                     .foregroundStyle(Color(.black01))
                 
-                TextField("", text: .constant(""))
+                TextField("", text: $loginViewModel.id)
                     .textFieldStyle(PlainTextFieldStyle())
                     .font(.mainTextRegular13)
                     .foregroundStyle(Color(.black01))
+                    .focused($focusField, equals: .id)
             }
             
             Divider()
-                .foregroundStyle(Color(.gray00))
+                .background(focusField == .id ? Color(.green01) : Color(.gray02))
             
             Spacer().frame(height: 47)
             
@@ -84,22 +101,30 @@ struct LoginFormView: View {
                     .font(.mainTextRegular13)
                     .foregroundStyle(Color(.black01))
                 
-                SecureField("", text: .constant(""))
+                SecureField("", text: $loginViewModel.pwd)
                     .textFieldStyle(PlainTextFieldStyle())
                     .font(.mainTextRegular13)
                     .foregroundStyle(Color(.black01))
+                    .focused($focusField, equals: .password)
             }
             
             Divider()
-                .foregroundStyle(Color(.gray00))
+                .background(focusField == .password ? Color(.green01) : Color(.gray02))
         }
     }
 }
 
 struct LoginButtonView: View {
+    
+    @Bindable private var loginViewModel: LoginViewModel
+    
+    init(loginViewModel: LoginViewModel) {
+        self.loginViewModel = loginViewModel
+    }
+    
     var body: some View {
         Button {
-            print("로그인하기")
+            loginViewModel.login()
         } label: {
             Text("로그인하기")
                 .font(.mainTextMedium16)
@@ -107,7 +132,9 @@ struct LoginButtonView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 46)
         }
-        .background(Color(.green01))
+        .background(loginViewModel.isLoginEnabled
+                    ? Color(.green01)
+                    : Color(.green01).opacity(0.3))
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
