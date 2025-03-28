@@ -10,6 +10,16 @@ import SwiftUI
 
 struct LoginView: View {
     
+    private enum Field: Hashable {
+        case id
+        case password
+    }
+    
+    @State var id : String = ""
+    @State var password: String = ""
+    
+    @FocusState private var focusField: Field?
+    
     var body: some View {
         ZStack {
             Color.white.ignoresSafeArea()
@@ -21,7 +31,6 @@ struct LoginView: View {
                 socialLogin
             } // 전체 VStack
             .padding(.horizontal, 20)
-            .padding(.top, 100)
         } // 전체 ZStack
     }
     
@@ -53,19 +62,26 @@ struct LoginView: View {
     // 앱 로그인
     private var appLogin: some View {
         VStack (alignment: .leading) {
-            Text("아이디")
+            TextField("아이디를 입력하세요", text: $id)
                 .font(.PretendardLight14)
                 .foregroundStyle(.gray)
+                .focused($focusField, equals: .id)
+                .onSubmit {
+                    focusField = .password
+                }
             
             Divider()
+                .background(focusField == .id ? Color.primaryGreen : Color.gray)
             
             Spacer().frame(height: 49)
             
-            Text("비밀번호")
+            SecureField("비밀번호를 입력하세요", text: $password)
                 .font(.PretendardLight14)
                 .foregroundStyle(.gray)
+                .focused($focusField, equals: .password)
             
             Divider()
+                .background(focusField == .password ? Color.primaryGreen : Color.gray)
             
             Spacer().frame(height: 49)
             
@@ -77,7 +93,7 @@ struct LoginView: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, minHeight: 50)
                     .background(Color.primaryGreen)
-                    .cornerRadius(35)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
             }
         }
     }

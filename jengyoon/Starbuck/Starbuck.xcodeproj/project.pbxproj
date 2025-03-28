@@ -14,15 +14,14 @@
 		28D3940AFC40DB53F9D7FDDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DFC95C1445D3D7433B1F8C6 /* Assets.xcassets */; };
 		3DBFCBBD74933E350323F1E7 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08859D901BEF438D426B6CFE /* LoginViewModel.swift */; };
 		50AED738C0776D3AB66AF3AC /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51DE23FE5EB9F77F03285A5 /* SplashView.swift */; };
-		5C26DD13EC9639410F90B9FD /* FontManager.swift in Resources */ = {isa = PBXBuildFile; fileRef = 9FAB8185BA0F8C12ACC64C66 /* FontManager.swift */; };
 		69B2E098905EE6E6E4C13B74 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 94C7682955B6FDA369E299A0 /* Pretendard-ExtraLight.otf */; };
 		75187906E06DFE17EE142B20 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2A65F518207954F0256A491A /* Pretendard-Medium.otf */; };
 		76195CAF17E3B1E7905533B7 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8CF593BF27B67DFB39C1190E /* Pretendard-Light.otf */; };
-		7FD37C54878C4A9692A2BB26 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599DCB5D8E26AA58B3FF9923 /* LoginView.swift */; };
+		7840DC737DE4A9321BFA6B04 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478FDB3DAB52C1E96859AE60 /* FontManager.swift */; };
 		8129792752DB60E517AFAAF0 /* CustomColor.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F971E5B6815CB1BE429AAFDA /* CustomColor.xcassets */; };
 		89932322D932F4C99D222D98 /* StarbuckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDB7BA3B35C633E2B322DAC /* StarbuckTests.swift */; };
 		97BDE484D89F420A71F0D7E3 /* TuistBundle+Starbuck.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD20E562DAB3EB5D81BDEDC9 /* TuistBundle+Starbuck.swift */; };
-		98DAEFC7DD904895DADBD955 /* ColorExtension.swift in Resources */ = {isa = PBXBuildFile; fileRef = D320EAE8E163BE64A00BD243 /* ColorExtension.swift */; };
+		9F4761109412ED75AEFC6F93 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB20D40FB907E27B8DCFD96D /* ColorExtension.swift */; };
 		B2EECE92459A9FE846F262F6 /* StarbuckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9B6D9BD6286FD79B02F2D7 /* StarbuckApp.swift */; };
 		B700CA0615F998453261B889 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F8D54BB8F383F5345CEFC4FB /* Pretendard-Bold.otf */; };
 		BA6D90171C276E898E86BCEF /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5D2A6F2F96517856993F7662 /* Pretendard-Regular.otf */; };
@@ -30,8 +29,11 @@
 		D137A0CE8238989E873328EF /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D2E6CFDB2FE55DB301BB7E93 /* Pretendard-ExtraBold.otf */; };
 		D874306AA2C15D43854C66C6 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324579D05F48595A40EE68D3 /* LoginModel.swift */; };
 		F9B59708E65FFDC479FA292D /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C05EE3A01621AA71D5A3474 /* Pretendard-SemiBold.otf */; };
-		FF0ED39F2D8C48EC00AF860E /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D320EAE8E163BE64A00BD243 /* ColorExtension.swift */; };
-		FF0ED3A02D8C48F200AF860E /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB8185BA0F8C12ACC64C66 /* FontManager.swift */; };
+		FF869F082D95311D00C9D39B /* StarBuckTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF869F072D95311D00C9D39B /* StarBuckTab.swift */; };
+		FF869F102D953F3300C9D39B /* OtherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF869F0F2D953F3300C9D39B /* OtherViewModel.swift */; };
+		FF9684832D950014009914B3 /* SignupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9684822D950014009914B3 /* SignupModel.swift */; };
+		FF9684852D950022009914B3 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9684842D950022009914B3 /* SignupViewModel.swift */; };
+		FF9684892D952645009914B3 /* AdvertisementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9684882D952645009914B3 /* AdvertisementView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,29 +78,35 @@
 		324579D05F48595A40EE68D3 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		3C91214C5FB48AE76FBE0613 /* Starbuck-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Starbuck-Info.plist"; sourceTree = "<group>"; };
 		3FDB7BA3B35C633E2B322DAC /* StarbuckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarbuckTests.swift; sourceTree = "<group>"; };
+		478FDB3DAB52C1E96859AE60 /* FontManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
 		537FC663C8D838ED70AEE197 /* StarbuckTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "StarbuckTests-Info.plist"; sourceTree = "<group>"; };
-		599DCB5D8E26AA58B3FF9923 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5D2A6F2F96517856993F7662 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		6F9415C82BD901C6AA812805 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		7DFC95C1445D3D7433B1F8C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8CF593BF27B67DFB39C1190E /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		94C7682955B6FDA369E299A0 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
-		9FAB8185BA0F8C12ACC64C66 /* FontManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
 		AD20E562DAB3EB5D81BDEDC9 /* TuistBundle+Starbuck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+Starbuck.swift"; sourceTree = "<group>"; };
 		C0B2685E48012CA4D864AB66 /* Starbuck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Starbuck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C51DE23FE5EB9F77F03285A5 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		CB20D40FB907E27B8DCFD96D /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		CF9B6D9BD6286FD79B02F2D7 /* StarbuckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarbuckApp.swift; sourceTree = "<group>"; };
 		D2E6CFDB2FE55DB301BB7E93 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
-		D320EAE8E163BE64A00BD243 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		DE9AC125376DD045F8842948 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
 		F4FF6BB68109943EE6B0F6D1 /* StarbuckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StarbuckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8D54BB8F383F5345CEFC4FB /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		F971E5B6815CB1BE429AAFDA /* CustomColor.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CustomColor.xcassets; sourceTree = "<group>"; };
 		FB5860E6E14B3D180E9A7ABF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FF869F072D95311D00C9D39B /* StarBuckTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBuckTab.swift; sourceTree = "<group>"; };
+		FF869F0F2D953F3300C9D39B /* OtherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherViewModel.swift; sourceTree = "<group>"; };
+		FF9684822D950014009914B3 /* SignupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupModel.swift; sourceTree = "<group>"; };
+		FF9684842D950022009914B3 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
+		FF9684882D952645009914B3 /* AdvertisementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		FF0ED3A22D8C4A2E00AF860E /* Components */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Components; sourceTree = "<group>"; };
+		FF869F092D953EE400C9D39B /* Login */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Login; sourceTree = "<group>"; };
+		FF869F0A2D953F0000C9D39B /* Other */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Other; sourceTree = "<group>"; };
+		FF96846D2D932655009914B3 /* Components */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Components; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +159,9 @@
 		3A2543C67DA0A3DAC99340AA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				FF96846D2D932655009914B3 /* Components */,
+				BB0F89AD98F7C1411A6B3723 /* Extentions */,
+				56FC55C7F239994CE0B1A99A /* Managers */,
 				7E1E553C8E48254FEEF67B1A /* Model */,
 				D63F2DD2A4425E7FF0092A12 /* ViewModels */,
 				3CFD97B39B9B1F9402805C71 /* Views */,
@@ -162,8 +173,11 @@
 		3CFD97B39B9B1F9402805C71 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				599DCB5D8E26AA58B3FF9923 /* LoginView.swift */,
+				FF869F0A2D953F0000C9D39B /* Other */,
+				FF869F092D953EE400C9D39B /* Login */,
 				C51DE23FE5EB9F77F03285A5 /* SplashView.swift */,
+				FF9684882D952645009914B3 /* AdvertisementView.swift */,
+				FF869F072D95311D00C9D39B /* StarBuckTab.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -171,7 +185,6 @@
 		42D4CFD78CBBDB8ABC251F4F /* Font */ = {
 			isa = PBXGroup;
 			children = (
-				9FAB8185BA0F8C12ACC64C66 /* FontManager.swift */,
 				DE9AC125376DD045F8842948 /* Pretendard-Black.otf */,
 				F8D54BB8F383F5345CEFC4FB /* Pretendard-Bold.otf */,
 				D2E6CFDB2FE55DB301BB7E93 /* Pretendard-ExtraBold.otf */,
@@ -195,6 +208,14 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		56FC55C7F239994CE0B1A99A /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				478FDB3DAB52C1E96859AE60 /* FontManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		6F6A37482D483FD9031E860E /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				324579D05F48595A40EE68D3 /* LoginModel.swift */,
+				FF9684822D950014009914B3 /* SignupModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -223,7 +245,6 @@
 		AA024F5BDCA39C41B5FDB3A7 /* Color */ = {
 			isa = PBXGroup;
 			children = (
-				D320EAE8E163BE64A00BD243 /* ColorExtension.swift */,
 				F971E5B6815CB1BE429AAFDA /* CustomColor.xcassets */,
 			);
 			path = Color;
@@ -237,10 +258,20 @@
 			);
 			sourceTree = "<group>";
 		};
+		BB0F89AD98F7C1411A6B3723 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				CB20D40FB907E27B8DCFD96D /* ColorExtension.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
 		D63F2DD2A4425E7FF0092A12 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				08859D901BEF438D426B6CFE /* LoginViewModel.swift */,
+				FF9684842D950022009914B3 /* SignupViewModel.swift */,
+				FF869F0F2D953F3300C9D39B /* OtherViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -256,7 +287,6 @@
 		EED9B4C49AB4B33350F260EF /* Starbuck */ = {
 			isa = PBXGroup;
 			children = (
-				FF0ED3A22D8C4A2E00AF860E /* Components */,
 				0C79F4BD20206753CBC185D7 /* Resources */,
 				3A2543C67DA0A3DAC99340AA /* Sources */,
 				DC52CC1969D06C968D8C0968 /* Tests */,
@@ -290,7 +320,9 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				FF0ED3A22D8C4A2E00AF860E /* Components */,
+				FF869F092D953EE400C9D39B /* Login */,
+				FF869F0A2D953F0000C9D39B /* Other */,
+				FF96846D2D932655009914B3 /* Components */,
 			);
 			name = Starbuck;
 			packageProductDependencies = (
@@ -358,9 +390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28D3940AFC40DB53F9D7FDDC /* Assets.xcassets in Resources */,
-				98DAEFC7DD904895DADBD955 /* ColorExtension.swift in Resources */,
 				8129792752DB60E517AFAAF0 /* CustomColor.xcassets in Resources */,
-				5C26DD13EC9639410F90B9FD /* FontManager.swift in Resources */,
 				083F12EAB5AA78F8B013000E /* Pretendard-Black.otf in Resources */,
 				B700CA0615F998453261B889 /* Pretendard-Bold.otf in Resources */,
 				D137A0CE8238989E873328EF /* Pretendard-ExtraBold.otf in Resources */,
@@ -388,16 +418,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF0ED3A02D8C48F200AF860E /* FontManager.swift in Sources */,
-				FF0ED39F2D8C48EC00AF860E /* ColorExtension.swift in Sources */,
 				18E501DA27DFC1087C24D100 /* TuistAssets+Starbuck.swift in Sources */,
+				FF869F082D95311D00C9D39B /* StarBuckTab.swift in Sources */,
 				97BDE484D89F420A71F0D7E3 /* TuistBundle+Starbuck.swift in Sources */,
 				14609285C515C9B7AC7511FF /* TuistFonts+Starbuck.swift in Sources */,
+				9F4761109412ED75AEFC6F93 /* ColorExtension.swift in Sources */,
+				7840DC737DE4A9321BFA6B04 /* FontManager.swift in Sources */,
+				FF869F102D953F3300C9D39B /* OtherViewModel.swift in Sources */,
 				D874306AA2C15D43854C66C6 /* LoginModel.swift in Sources */,
+				FF9684852D950022009914B3 /* SignupViewModel.swift in Sources */,
 				B2EECE92459A9FE846F262F6 /* StarbuckApp.swift in Sources */,
 				3DBFCBBD74933E350323F1E7 /* LoginViewModel.swift in Sources */,
-				7FD37C54878C4A9692A2BB26 /* LoginView.swift in Sources */,
+				FF9684892D952645009914B3 /* AdvertisementView.swift in Sources */,
 				50AED738C0776D3AB66AF3AC /* SplashView.swift in Sources */,
+				FF9684832D950014009914B3 /* SignupModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +540,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = D3H79AF44W;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/Starbuck-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -590,6 +625,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = D3H79AF44W;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/Starbuck-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
