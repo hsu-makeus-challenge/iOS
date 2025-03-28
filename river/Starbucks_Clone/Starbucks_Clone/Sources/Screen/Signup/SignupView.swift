@@ -38,7 +38,7 @@ struct SignupView: View {
                 
                 SignupButtonView(
                     signupViewModel: signupViewModel,
-                    signupModel: $signupModel
+                    signupModel: signupModel
                 )
 
             }
@@ -90,14 +90,14 @@ struct SignupView: View {
 struct SignupButtonView: View {
     
     private let signupViewModel: SignupViewModel
-    @Binding private var signupModel: SignupModel
+    private var signupModel: SignupModel
     
     init(
         signupViewModel: SignupViewModel,
-        signupModel: Binding<SignupModel>
+        signupModel: SignupModel
     ) {
         self.signupViewModel = signupViewModel
-        self._signupModel = signupModel
+        self.signupModel = signupModel
     }
     
     var body: some View {

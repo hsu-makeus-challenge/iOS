@@ -63,9 +63,15 @@ struct WelcomeMessageView: View {
     }
 }
 
+enum FocusField {
+    case id
+    case password
+}
+
 struct LoginFormView: View {
     
     @Bindable private var loginViewModel: LoginViewModel
+    @FocusState private var focusField: FocusField?
     
     init(loginViewModel: LoginViewModel) {
         self.loginViewModel = loginViewModel
@@ -82,10 +88,11 @@ struct LoginFormView: View {
                     .textFieldStyle(PlainTextFieldStyle())
                     .font(.mainTextRegular13)
                     .foregroundStyle(Color(.black01))
+                    .focused($focusField, equals: .id)
             }
             
             Divider()
-                .foregroundStyle(Color(.gray00))
+                .background(focusField == .id ? Color(.green01) : Color(.gray02))
             
             Spacer().frame(height: 47)
             
@@ -98,10 +105,11 @@ struct LoginFormView: View {
                     .textFieldStyle(PlainTextFieldStyle())
                     .font(.mainTextRegular13)
                     .foregroundStyle(Color(.black01))
+                    .focused($focusField, equals: .password)
             }
             
             Divider()
-                .foregroundStyle(Color(.gray00))
+                .background(focusField == .password ? Color(.green01) : Color(.gray02))
         }
     }
 }
@@ -116,7 +124,7 @@ struct LoginButtonView: View {
     
     var body: some View {
         Button {
-            print("로그인하기")
+            loginViewModel.login()
         } label: {
             Text("로그인하기")
                 .font(.mainTextMedium16)
