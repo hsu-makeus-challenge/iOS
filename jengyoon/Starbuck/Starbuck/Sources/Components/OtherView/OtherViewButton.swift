@@ -12,6 +12,7 @@ struct OtherViewButton: View {
     
     // MARK: - Parameter 정의
     let text: String
+    let textColor: Color
     let font: Font
     let icon: String?
     let action: () -> Void
@@ -20,10 +21,12 @@ struct OtherViewButton: View {
     
     init(
         text: String,
+        textColor: Color,
         font: Font,
         icon: String? = nil,
         action: @escaping () -> Void) {
             self.text = text
+            self.textColor = textColor
             self.font = font
             self.icon = icon
             self.action = action
@@ -45,6 +48,7 @@ struct OtherViewButton: View {
                 
                 Text(text)
                     .font(font)
+                    .foregroundStyle(textColor)
             }
             .frame(width: 157)
         }

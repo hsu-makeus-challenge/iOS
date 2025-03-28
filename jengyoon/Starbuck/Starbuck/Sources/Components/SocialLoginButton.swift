@@ -52,7 +52,7 @@ struct SocialLoginButton: View {
                 
                 Text(text)
                     .font(font)
-                    .foregroundColor(textColor)
+                    .foregroundStyle(textColor)
                     .padding(.leading, 70)
                     
                 Spacer()
