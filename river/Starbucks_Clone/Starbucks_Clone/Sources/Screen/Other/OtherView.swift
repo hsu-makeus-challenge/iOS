@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// OtherView 화면에서 사용하는 각 아이템의 모델 정의함
+/// - UUID로 id 자동 생성되도록 설정함
 struct OtherGridItem: Identifiable {
     let id = UUID()
     let icon: ImageResource
@@ -41,12 +43,16 @@ struct OtherView: View {
     
     var body: some View {
         VStack(spacing: 41) {
+            // 헤더 영역
             OtherHeaderView()
             
+            // 닉네임 환영 메시지 + 바로가기 버튼들
             OtherWelcomeView()
             
+            // Pay 관련 메뉴 섹션
             OtherSectionView(items: payGtidItems)
             
+            // 고객센터 관련 메뉴 섹션
             OtherSectionView(items: customerSupportItems)
             
             Spacer()
@@ -55,6 +61,7 @@ struct OtherView: View {
     }
 }
 
+/// 상단 헤더 뷰. 타이틀 + 로그아웃 버튼 있음
 struct OtherHeaderView: View {
     var body: some View {
         HStack {
@@ -79,6 +86,7 @@ struct OtherHeaderView: View {
     }
 }
 
+// 각 섹션(예: Pay, 고객센터) 아이템들을 그리드 형태로 렌더링하는 뷰
 struct OtherWelcomeView: View {
     
     @AppStorage("nickname") private var nickname: String?

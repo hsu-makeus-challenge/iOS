@@ -11,13 +11,6 @@ struct SignupView: View {
     
     @StateObject private var signupViewModel: SignupViewModel = SignupViewModel()
     
-    // 실제 SignupModel에 저장하기 위한 임시 저장 프로퍼티
-    @State private var signupModel: SignupModel = .init(
-        nickname: "",
-        email: "",
-        pwd: ""
-    )
-    
     var body: some View {
         VStack {
             Spacer().frame(height: 172)
@@ -36,10 +29,7 @@ struct SignupView: View {
                 
                 Spacer()
                 
-                SignupButtonView(
-                    signupViewModel: signupViewModel,
-                    signupModel: signupModel
-                )
+                SignupButtonView(signupViewModel: signupViewModel)
 
             }
             .padding(.horizontal, 19)
@@ -51,7 +41,7 @@ struct SignupView: View {
     // REFACT: 함수화 하면 더 좋을듯
     private var nicknameTextField: some View {
         Group {
-            TextField("닉네임", text: $signupModel.nickname)
+            TextField("닉네임", text: $signupViewModel.nickname)
                 .textFieldStyle(PlainTextFieldStyle())
                 .font(.mainTextRegular13)
                 .foregroundStyle(Color(.black01))
@@ -63,7 +53,7 @@ struct SignupView: View {
     
     private var emailTextField: some View {
         Group {
-            TextField("이메일", text: $signupModel.email)
+            TextField("이메일", text: $signupViewModel.email)
                 .textFieldStyle(PlainTextFieldStyle())
                 .font(.mainTextRegular13)
                 .foregroundStyle(Color(.black01))
@@ -75,7 +65,7 @@ struct SignupView: View {
     
     private var passwordTextField: some View {
         Group {
-            SecureField("비밀번호", text: $signupModel.pwd)
+            SecureField("비밀번호", text: $signupViewModel.pwd)
                 .textFieldStyle(PlainTextFieldStyle())
                 .font(.mainTextRegular13)
                 .foregroundStyle(Color(.black01))
@@ -90,19 +80,14 @@ struct SignupView: View {
 struct SignupButtonView: View {
     
     private let signupViewModel: SignupViewModel
-    private var signupModel: SignupModel
     
-    init(
-        signupViewModel: SignupViewModel,
-        signupModel: SignupModel
-    ) {
+    init(signupViewModel: SignupViewModel) {
         self.signupViewModel = signupViewModel
-        self.signupModel = signupModel
     }
     
     var body: some View {
         Button {
-            signupViewModel.createUser(with: signupModel)
+            signupViewModel.createUser()
         } label: {
             Text("생성하기")
                 .font(.mainTextMedium16)
