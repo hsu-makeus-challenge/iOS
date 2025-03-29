@@ -4,10 +4,6 @@ struct MainTabView: View {
     //이미지 안됨
     var body: some View {
         TabView {
-            Tab("Other", systemImage: "ellipsis") {
-                OtherView()
-            }
-            
             Tab("Home", systemImage: "house") {
                 HomeView()
             }
@@ -23,6 +19,11 @@ struct MainTabView: View {
             Tab("Shop", systemImage: "bag") {
                 ShopView()
             }
+            
+            Tab("Other", systemImage: "ellipsis") {
+                OtherView()
+            }
+            
         }
         .tint(.green02)
     }

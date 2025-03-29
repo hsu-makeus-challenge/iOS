@@ -3,6 +3,8 @@ import SwiftUI
 struct OtherView: View {
     @StateObject private var otherViewModel = OtherViewModel()
     
+    @AppStorage("userNickname") var storedNickname: String = "(작성한 닉네임)"
+    
     var body: some View {
         
         // 상단바
@@ -30,7 +32,7 @@ struct OtherView: View {
             // 여기 글자 사이 스페이싱? 여백?? 이거 피그마에서 어떻게 확인하죠
             VStack {
                 HStack {
-                    Text(otherViewModel.nickname)
+                    Text("\(storedNickname)")
                         .foregroundColor(.green01)
                         .font(.mainTextSemiBold24)
                     
