@@ -41,7 +41,13 @@ struct OtherView: View {
             Text("Other")
                 .font(.PretendardExtraBold24)
             Spacer()
-            Image("logout")
+            
+            Button(action: {
+                print("로그아웃 클릭")}) {
+                Image("logout")
+                        .resizable()
+                        .frame(width: 35, height: 35)
+            }
         }
         .padding(.horizontal, 20)
     }
