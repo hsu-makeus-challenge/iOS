@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct OtherView: View {
-    @AppStorage("nickname") private var nickname : String = ""
+    /// 회원가입시 저장한 닉네임을 표시
+    /// UserDefaults의 "nickname" 키에 저장된 값을 불러온다.
+    @AppStorage("nickname") private var nickname : String?
     
     var body: some View {
         otherHeaderView
@@ -19,10 +21,11 @@ struct OtherView: View {
             Color.white01
             
             VStack(spacing: 41) {
+                // 닉네임 환영 메시지 포함 타이틀 뷰
                 otherTitleView
-                
+                // 결제 관련 버튼 뷰
                 otherPayView
-                
+                // 고객지원 관련 버튼 뷰
                 otherBottomView
             }//: VStack
         } //: ZStack
@@ -44,9 +47,22 @@ struct OtherView: View {
     }
     
     /// OtherView 타이틀 뷰
+    /// - 버튼 컴포넌트화하여 재사용성 높임
     private var otherTitleView: some View {
         VStack (spacing: 24) {
-            Text("작성한 닉네임님\n 환영합니다!")
+            Group {
+                if let nickname {
+                    Text("\(nickname)")
+                        .foregroundStyle(Color(.green01))
+                    + Text("님")
+                }
+                else {
+                    Text("작성한 닉네임님")
+                        .foregroundStyle(Color(.green01))
+                }
+                Text("환영합니다! 🙌")
+            }
+            .font(.PretendardSemiBold24)
             HStack (spacing: 10.5) {
                 OtherViewButton2(buttonColor: .white, text: "별 히스토리",textColor: .black ,font: .PretendardMedium16, icon: "other1.1", action: {})
                 OtherViewButton2(buttonColor: .white, text: "전자영수증", textColor: .black, font: .PretendardMedium16, icon: "other1.2", action: {})
@@ -55,7 +71,8 @@ struct OtherView: View {
         } //: VStack
     }
     
-    ///OtherView PayView
+    /// 결제 관련 버튼 뷰
+    /// - 버튼을 컴포넌트화 하여 재사용성 높임
       private var otherPayView: some View {
           VStack() {
               HStack {
@@ -93,6 +110,8 @@ struct OtherView: View {
           .padding(.horizontal, 10)
       }
     
+    /// 고객지원 뷰
+    /// - 버튼을 컴포넌트화 하여 재사용성 높임
     private var otherBottomView: some View {
         VStack() {
             HStack {

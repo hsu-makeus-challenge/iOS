@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct SignupView: View {
-    @AppStorage("nickname") private var nickname : String = ""
-    @AppStorage("email") private var email : String = ""
-    @AppStorage("password") private var password : String = ""
     @State private var viewModel = SignupViewModel()
     
     var body: some View {
@@ -19,19 +16,19 @@ struct SignupView: View {
             
             Spacer().frame(height: 210)
             
-            TextField("닉네임", text: $nickname)
+            TextField("닉네임", text: $viewModel.nickname)
             
             Divider()
             
             Spacer().frame(height: 49)
             
-            TextField("이메일", text: $email)
+            TextField("이메일", text: $viewModel.email)
             
             Divider()
             
             Spacer().frame(height: 49)
             
-            SecureField("비밀번호", text: $password)
+            SecureField("비밀번호", text: $viewModel.password)
             
             Divider()
             
@@ -47,7 +44,7 @@ struct SignupView: View {
     
     private var createButton: some View {
         Button (action: {
-            viewModel.saveClient(nicknameStorage: &nickname, emailStorage: &email, passwordStorage: &password)
+            // AppStorage에서 저장된 값 사용
         }) {
             Text("생성하기")
                 .font(.PretendardRegular18)

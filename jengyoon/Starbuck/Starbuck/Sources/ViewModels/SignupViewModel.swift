@@ -7,19 +7,13 @@
 import SwiftUI
 import Foundation
 
-@Observable
-class SignupViewModel {
-    var nickname: String = ""
-    var email: String = ""
-    var password: String = ""
+/// 회원가입 화면에서 사용하는 ViewModel
+/// 사용자 입력값을 AppStorage(UserDefaults)와 연동하여 저장
+class SignupViewModel: ObservableObject {
     
-    /// 생성하기 버튼을 누르면 @AppStorage에 저장할 수 있도록 하는 함수
-    /// - inout : 기존 함수 인자 값 복사 방식에서 "참조"를 넘겨 수정 가능하게끔 한다. 즉, 메모리 주소를 받아와 수정
-    func saveClient (nicknameStorage: inout String,
-                             emailStorage: inout String,
-                             passwordStorage: inout String) {
-        nicknameStorage = nickname
-        emailStorage = email
-        passwordStorage = password
-    }
+    /// 닉네임,이메일,패스워드 - UserDefaults의 "nickname, email, password" 키와 연동
+    /// 값이 저장되면 자동 저장되고 앱을 재실행 하더라도 유지된다.
+    @AppStorage("nickname") var nickname: String = ""
+    @AppStorage("email") var email = ""
+    @AppStorage("password") var password: String = ""
 }
