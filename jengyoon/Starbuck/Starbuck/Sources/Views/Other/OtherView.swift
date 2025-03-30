@@ -57,16 +57,17 @@ struct OtherView: View {
                     + Text("님")
                 }
                 else {
-                    Text("작성한 닉네임님")
+                    Text("작성한 닉네임")
                         .foregroundStyle(Color(.green01))
+                    + Text("님")
                 }
                 Text("환영합니다! 🙌")
             }
             .font(.PretendardSemiBold24)
             HStack (spacing: 10.5) {
-                OtherViewButton2(buttonColor: .white, text: "별 히스토리",textColor: .black ,font: .PretendardMedium16, icon: "other1.1", action: {})
-                OtherViewButton2(buttonColor: .white, text: "전자영수증", textColor: .black, font: .PretendardMedium16, icon: "other1.2", action: {})
-                OtherViewButton2(buttonColor: .white, text: "나만의 메뉴", textColor: .black, font: .PretendardMedium16, icon: "other1.3", action: {})
+                OtherViewButton2(buttonColor: .white, text: "별 히스토리",textColor: .black ,font: .PretendardMedium16, icon: "other1.1", action: {print("별 히스토리 클릭")})
+                OtherViewButton2(buttonColor: .white, text: "전자영수증", textColor: .black, font: .PretendardMedium16, icon: "other1.2", action: {print("전자영수증 클릭")})
+                OtherViewButton2(buttonColor: .white, text: "나만의 메뉴", textColor: .black, font: .PretendardMedium16, icon: "other1.3", action: {print("나만의 메뉴 클릭")})
             } //: HStack
         } //: VStack
     }
@@ -86,22 +87,22 @@ struct OtherView: View {
               Spacer().frame(height: 8)
           
               HStack {
-                  OtherViewButton(text: "스타벅스 카드 등록", textColor: .black, font: .PretendardSemiBold16, icon: "other2.1", action: {})
+                  OtherViewButton(text: "스타벅스 카드 등록", textColor: .black, font: .PretendardSemiBold16, icon: "other2.1", action: {print("스타벅스 카드 등록 클릭")})
                   
                   Spacer()
                   
-                  OtherViewButton(text: "카드 교환권 등록", textColor: .black, font: .PretendardSemiBold16, icon: "other2.2", action: {})
+                  OtherViewButton(text: "카드 교환권 등록", textColor: .black, font: .PretendardSemiBold16, icon: "other2.2", action: {print("카드 교환권 클릭")})
                   
                   Spacer().frame(width: 10)
               }
               .padding(.vertical, 16)
               
               HStack {
-                  OtherViewButton(text: "쿠폰 등록", textColor: .black, font: .PretendardSemiBold16, icon: "other2.3", action: {})
+                  OtherViewButton(text: "쿠폰 등록", textColor: .black, font: .PretendardSemiBold16, icon: "other2.3", action: {print("쿠폰 등록 클릭")})
                   
                   Spacer()
                   
-                  OtherViewButton(text: "쿠폰 히스토리", textColor: .black ,font: .PretendardSemiBold16, icon: "other2.4", action: {})
+                  OtherViewButton(text: "쿠폰 히스토리", textColor: .black ,font: .PretendardSemiBold16, icon: "other2.4", action: {print("쿠폰 히스토리 클릭")})
                   
                   Spacer().frame(width: 30)
               }
@@ -125,28 +126,28 @@ struct OtherView: View {
             Spacer().frame(height: 8)
             
             HStack {
-                OtherViewButton(text: "스토어 케어", textColor: .black, font: .PretendardSemiBold16, icon: "other3.1", action: {})
+                OtherViewButton(text: "스토어 케어", textColor: .black, font: .PretendardSemiBold16, icon: "other3.1", action: {print("스토어 케어 클릭")})
                 
                 Spacer()
                 
-                OtherViewButton(text: "고객의 소리", textColor: .black, font: .PretendardSemiBold16, icon: "other3.2", action: {})
+                OtherViewButton(text: "고객의 소리", textColor: .black, font: .PretendardSemiBold16, icon: "other3.2", action: {print("고객의 소리 클릭")})
                 
                 Spacer().frame(width: 30)
             }
             .padding(.vertical, 16)
             
             HStack {
-                OtherViewButton(text: "매장 정보", textColor: .black, font: .PretendardSemiBold16, icon: "other3.3", action: {})
+                OtherViewButton(text: "매장 정보", textColor: .black, font: .PretendardSemiBold16, icon: "other3.3", action: {print("매장 정보 클릭")})
                 
                 Spacer()
                 
-                OtherViewButton(text: "반납기 정보", textColor: .black ,font: .PretendardSemiBold16, icon: "other3.4", action: {})
+                OtherViewButton(text: "반납기 정보", textColor: .black ,font: .PretendardSemiBold16, icon: "other3.4", action: {print("반납기 정보 클릭")})
                 
                 Spacer().frame(width: 30)
             }
             
             HStack {
-                OtherViewButton(text: "마이 스타벅스 리뷰", textColor: .black, font: .PretendardSemiBold16, icon: "other3.5", action: {})
+                OtherViewButton(text: "마이 스타벅스 리뷰", textColor: .black, font: .PretendardSemiBold16, icon: "other3.5", action: {print("마이 스타벅스 리뷰 클릭")})
                 
                 Spacer()
             }
@@ -156,8 +157,7 @@ struct OtherView: View {
     }
 }
 
-
-
 #Preview {
     OtherView()
 }
+
