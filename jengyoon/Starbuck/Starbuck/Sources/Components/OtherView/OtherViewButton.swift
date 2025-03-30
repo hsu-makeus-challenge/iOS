@@ -41,16 +41,14 @@ struct OtherViewButton: View {
                     Image(icon)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 24, height: 16)
-                        .padding(.horizontal, 4)
-                        .padding(.vertical, 8)
+                        .frame(width: 25, height: 25)
+                        .padding(.all, 4)
                 }
                 
                 Text(text)
                     .font(font)
                     .foregroundStyle(textColor)
             }
-            .frame(width: 157)
         }
     }
 }

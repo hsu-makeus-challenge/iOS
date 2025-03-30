@@ -13,6 +13,7 @@ struct OtherViewButton2: View {
     // MARK: - Parameter
     let buttonColor: Color
     let text: String
+    let textColor: Color
     let font: Font
     let icon: String?
     let action: () -> Void
@@ -21,12 +22,14 @@ struct OtherViewButton2: View {
     init(
         buttonColor: Color,
         text: String,
+        textColor: Color,
         font: Font,
         icon: String? = nil,
         action: @escaping () -> Void
     ){
         self.buttonColor = buttonColor
         self.text = text
+        self.textColor = textColor
         self.font = font
         self.icon = icon
         self.action = action
@@ -47,6 +50,7 @@ struct OtherViewButton2: View {
                 
                 Text(text)
                     .font(font)
+                    .foregroundStyle(textColor)
                 
                 Spacer()
             } //: VStack
