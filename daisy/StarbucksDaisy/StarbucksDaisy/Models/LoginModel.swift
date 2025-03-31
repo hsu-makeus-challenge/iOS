@@ -9,5 +9,5 @@ import Foundation
 
 struct LoginModel {
     var id: String
-    var pw: String
+    var password: String
 }
