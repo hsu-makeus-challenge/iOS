@@ -1,7 +1,6 @@
-//
-//  LoginViewModel.swift
-//  VienStarbucks
-//
-//  Created by 이은정 on 3/21/25.
-//
+import SwiftUI
 
+class LoginViewModel: ObservableObject {
+    @Published var id: String = ""
+    @Published var pwd: String = ""
+}
