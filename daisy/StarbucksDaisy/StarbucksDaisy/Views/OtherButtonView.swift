@@ -20,10 +20,11 @@ struct OtherButtonView: View {
         Button(action: {
             print("\(buttonText)")
         }, label: {
-            VStack(spacing: 15) {
+            VStack() {
                 Image("\(buttonImage)")
                     .resizable()
-                    .frame(width: 30, height: 30)
+                    .frame(width: 38, height: 38)
+                    .padding(5)
                 
                 Text("\(buttonText)")
                     .font(.mainTextSemiBold16)
@@ -32,6 +33,7 @@ struct OtherButtonView: View {
             .frame(width: 102, height: 108)
             .background(.white)
             .clipShape(RoundedRectangle(cornerRadius: 15))
+            .shadow(color: .black.opacity(0.1),radius: 5)
         })
     
     }

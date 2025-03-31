@@ -23,6 +23,7 @@ struct LoginView: View {
                 loginBottom
             }
             .frame(height: 751)
+            .padding(.horizontal, 4)
         }
     }
     

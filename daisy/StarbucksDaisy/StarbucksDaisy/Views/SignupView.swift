@@ -26,17 +26,18 @@ struct SignupView: View {
     
     private var Frame3: some View {
         VStack(spacing: 49) {
+            /// 닉네임 텍스트필드
             VStack(spacing: 9) {
                 TextField("닉네임", text: $viewModel.user.nickname)
                     .focused($isNicknameFocused)
-                    .underline(isNicknameFocused, pattern: .solid, color: .green01)
                     .font(.mainTextRegular18)
 
                 Divider()
-                    .foregroundStyle(Color.gray00)
+                    .background(isNicknameFocused ? Color.green01 : Color.gray00)
             }
             .frame(width: 402, height: 30)
             
+            /// 이메일 텍스트필드
             VStack(spacing: 9) {
                 TextField("이메일", text: $viewModel.user.email)
                     .focused($isEmailFocused)
@@ -48,6 +49,7 @@ struct SignupView: View {
             }
             .frame(width: 402, height: 30)
             
+            /// 비밀번호 텍스트필드
             VStack(spacing: 9) {
                 TextField("비밀번호", text: $viewModel.user.password)
                     .focused($isPasswordFocused)

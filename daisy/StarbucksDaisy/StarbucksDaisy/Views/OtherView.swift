@@ -11,55 +11,107 @@ struct OtherView: View {
     @AppStorage("nickname") var storedNickname: String = "(작성한 닉네임)"
     
     var body: some View {
-        VStack {
-            TopContentView
-            Spacer()
-            PayContentView
-            Spacer()
-            ServiceContentView
+        ZStack{
+            Color.white01
+            VStack(spacing: 41) {
+                TopBackground
+                TopContentView
+                PayContentView
+                ServiceContentView
+                Spacer()
+            }
         }
-        .background(Color.white01)
-        .frame(height: 683)
+    }
+    
+    private var TopBackground: some View {
+        HStack {
+            Text("Other")
+                .font(.mainTextBold24)
+            Spacer()
+            Button(action: {
+                print("로그아웃")}) {
+                    Image("logout")
+                        .resizable()
+                        .frame(width: 35, height: 35)
+                }
+        }
+        .padding(.horizontal, 23.5)
+        //        .padding(.vertical, 16)
+        .frame(height: 80)
+        .background(.white)
     }
     
     private var TopContentView: some View {
-        VStack(spacing: 24) {
-            Text("\(storedNickname) 님\n환영합니다!🙌")
-                .font(.mainTextSemiBold24)
+        VStack() {
+            Group {
+                Text("\(storedNickname)")
+                    .foregroundStyle(.green01)
+                + Text("님")
+                    .foregroundStyle(.black)
+                Text("환영합니다! 🙌")
+                    .foregroundStyle(.black)
+            }
+            .font(.mainTextSemiBold24)
+            
+            Spacer().frame(height: 24)
+            
             HStack(spacing: 10.5) {
                 OtherButtonView(buttonImage: "starHistory", buttonText: "별 히스토리")
                 OtherButtonView(buttonImage: "receipt", buttonText: "전자영수증")
                 OtherButtonView(buttonImage: "myMenu", buttonText: "나만의 메뉴")
             }
-            .frame(width: 375, height: 108)
         }
-        .frame(width: 440, height: 209)
     }
     
+    /// Pay
     private var PayContentView: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading) {
             Text("Pay")
                 .font(.mainTextSemiBold18)
                 .foregroundStyle(.black)
             
             HStack {
-                OtherLabelView(image: "card", text: "스타벅스 카드 등록")
+                Button(action: {
+                    print("스토어케어")
+                }, label:  {
+                    OtherLabelView(image: "card", text: "스타벅스 카드 등록")
+                })
+                
                 Spacer()
-                OtherLabelView(image: "card_change", text: "카드 교환권 등록")
+                Button(action: {
+                    print("스토어케어")
+                }, label:  {
+                    OtherLabelView(image: "card_change", text: "카드 교환권 등록")
+                })
+                
             }
             .padding(.vertical, 16)
             
             HStack {
-                OtherLabelView(image: "coupon", text: "쿠폰 등록")
+                Button(action: {
+                    print("스토어케어")
+                }, label:  {
+                    OtherLabelView(image: "coupon", text: "쿠폰 등록")
+                })
+                
                 Spacer()
-                OtherLabelView(image: "coupon_history", text: "쿠폰 히스토리")
+                Button(action: {
+                    print("스토어케어")
+                }, label:  {
+                    OtherLabelView(image: "coupon_history", text: "쿠폰 히스토리")
+                })
             }
             .padding(.vertical, 16)
+            Divider()
+                .foregroundStyle(.black.opacity(0.12))
+                .frame(width: 418, height: 0)
+                .padding(.horizontal, 1)
         }
         .padding(.horizontal, 1)
         .frame(width: 420, height: 164)
     }
     
+    /// 고객지원
     private var ServiceContentView: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("고객지원")
@@ -67,21 +119,44 @@ struct OtherView: View {
                 .foregroundStyle(.black)
             
             HStack {
-                OtherLabelView(image: "card", text: "스토어 케어")
+                Button(action: {
+                    print("스토어케어")
+                }, label:  {
+                    OtherLabelView(image: "store_care", text: "스토어 케어")
+                })
                 Spacer()
-                OtherLabelView(image: "card_change", text: "고객의 소리")
+                Button(action: {
+                    print("고객의 소리")
+                }, label:  {
+                    OtherLabelView(image: "customer", text: "고객의 소리")
+                })
             }
             .padding(.vertical, 16)
             
             HStack {
-                OtherLabelView(image: "coupon", text: "매장 정보")
+                Button(action: {
+                    print("매장 정보")
+                }, label:  {
+                    OtherLabelView(image: "store_info", text: "매장 정보")
+                })
+                
                 Spacer()
-                OtherLabelView(image: "coupon_history", text: "반납기 정보")
+                Button(action: {
+                    print("반납기 정보")
+                }, label:  {
+                    OtherLabelView(image: "return_info", text: "반납기 정보")
+                })
+                
             }
             .padding(.vertical, 16)
             
             HStack {
-                OtherLabelView(image: "coupon", text: "마이 스타벅스 리뷰")
+                Button(action: {
+                    print("마이 스타벅스 리뷰")
+                }, label:  {
+                    OtherLabelView(image: "my_review", text: "마이 스타벅스 리뷰")
+                })
+                
                 Spacer()
             }
             .padding(.vertical, 16)
