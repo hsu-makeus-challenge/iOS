@@ -11,16 +11,16 @@ struct OtherView: View {
     @AppStorage("nickname") var storedNickname: String = "(작성한 닉네임)"
     
     var body: some View {
-        ZStack{
-            Color.white01
-            VStack(spacing: 41) {
-                TopBackground
-                TopContentView
-                PayContentView
-                ServiceContentView
-                Spacer()
-            }
+        VStack(spacing: 41) {
+            TopBackground
+            TopContentView
+            PayContentView
+            ServiceContentView
+            Spacer()
         }
+        .background(Color.white01)
+        .padding(.horizontal, 10)
+//        .background(Color.white01)
     }
     
     private var TopBackground: some View {
@@ -36,8 +36,7 @@ struct OtherView: View {
                 }
         }
         .padding(.horizontal, 23.5)
-        //        .padding(.vertical, 16)
-        .frame(height: 80)
+        .frame(width: 440, height: 80)
         .background(.white)
     }
     
@@ -104,16 +103,15 @@ struct OtherView: View {
             .padding(.vertical, 16)
             Divider()
                 .foregroundStyle(.black.opacity(0.12))
-                .frame(width: 418, height: 0)
                 .padding(.horizontal, 1)
         }
         .padding(.horizontal, 1)
-        .frame(width: 420, height: 164)
+        .frame(height: 164)
     }
     
     /// 고객지원
     private var ServiceContentView: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading/*, spacing: 8*/) {
             Text("고객지원")
                 .font(.mainTextSemiBold18)
                 .foregroundStyle(.black)
@@ -162,7 +160,7 @@ struct OtherView: View {
             .padding(.vertical, 16)
         }
         .padding(.horizontal, 1)
-        .frame(width: 420, height: 228)
+        .frame(height: 228)
         
     }
     
