@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State var viewModel = LoginViewModel()
+    @StateObject var viewModel = LoginViewModel()
     @FocusState private var isIDFocused: Bool   // 아이디 텍스트 필드의 포커스 상태
     @FocusState private var isPasswordFocused: Bool  // 비밀번호 텍스트 필드의 포커스 상태
     
@@ -50,6 +50,8 @@ struct LoginView: View {
     
     /// 아이디 및 비밀번호 입력 필드
     private var loginMiddle: some View {
+//        @Bindable var viewModel: LoginViewModel
+        
         VStack(spacing: 47) {
             VStack(alignment: .leading) {
                 TextField("아이디", text: $viewModel.loginModel.id)
@@ -59,7 +61,7 @@ struct LoginView: View {
                     
             
                 Divider()
-                    .foregroundStyle(isIDFocused ? Color.green01 :Color.gray00)
+                    .background(isIDFocused ? Color.green01 :Color.gray00)
             }
             .frame(width: 401, height: 20)
             
@@ -70,7 +72,7 @@ struct LoginView: View {
                     .foregroundStyle(Color.black01)
                 
                 Divider()
-                    .foregroundStyle(isPasswordFocused ? Color.green01 : Color.gray00)
+                    .background(isPasswordFocused ? Color.green01 : Color.gray00)
             }
             .frame(width: 401, height: 20)
 

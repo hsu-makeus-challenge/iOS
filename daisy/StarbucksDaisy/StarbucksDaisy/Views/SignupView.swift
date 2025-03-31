@@ -41,23 +41,21 @@ struct SignupView: View {
             VStack(spacing: 9) {
                 TextField("이메일", text: $viewModel.user.email)
                     .focused($isEmailFocused)
-                    .underline(isEmailFocused, pattern: .solid, color: .green01)
                     .font(.mainTextRegular18)
 
                 Divider()
-                    .foregroundStyle(Color.gray00)
+                    .background(isEmailFocused ? Color.green01 : Color.gray00)
             }
             .frame(width: 402, height: 30)
             
             /// 비밀번호 텍스트필드
             VStack(spacing: 9) {
-                TextField("비밀번호", text: $viewModel.user.password)
+                TextField("비밀번호", text: $viewModel.user.pwd)
                     .focused($isPasswordFocused)
-                    .underline(isPasswordFocused, pattern: .solid, color: .green01)
                     .font(.mainTextRegular18)
 
                 Divider()
-                    .foregroundStyle(Color.gray00)
+                    .background(isPasswordFocused ? Color.green01 :  Color.gray00)
             }
             .frame(width: 402, height: 30)
         }

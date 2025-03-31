@@ -7,8 +7,7 @@
 
 import Foundation
 
-@Observable
-class LoginModel {
-    var id: String = ""
-    var password: String = ""
+struct LoginModel {
+    var id: String
+    var password: String
 }

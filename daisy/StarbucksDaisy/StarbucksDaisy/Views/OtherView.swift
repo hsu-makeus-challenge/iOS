@@ -45,7 +45,7 @@ struct OtherView: View {
             Group {
                 Text("\(storedNickname)")
                     .foregroundStyle(.green01)
-                + Text("님")
+                + Text(" 님")
                     .foregroundStyle(.black)
                 Text("환영합니다! 🙌")
                     .foregroundStyle(.black)
