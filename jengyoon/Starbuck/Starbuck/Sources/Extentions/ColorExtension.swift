@@ -10,4 +10,6 @@ import SwiftUI
 
 extension Color {
     static let primaryGreen = Color("primaryGreen")
+    static let gray00 = Color("gray00")
+    static let white01 = Color("white01")
 }
