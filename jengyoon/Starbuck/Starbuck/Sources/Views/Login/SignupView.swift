@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct SignupView: View {
+    // MARK: - Properties
     @State private var viewModel = SignupViewModel()
+    /// dismiss 사용하여 하위뷰 pop
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         
@@ -36,15 +39,20 @@ struct SignupView: View {
             
             createButton
             
-            Spacer().frame(height: 72)
+            Spacer().frame(height: 100)
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 20)
+        .navigationTitle("스타벅스 회원가입")
+        .navigationBarBackButtonHidden(true)
+        
     }
     
+    // MARK: - Components
     private var createButton: some View {
         Button (action: {
             // AppStorage에서 저장된 값 사용
+            dismiss()
         }) {
             Text("생성하기")
                 .font(.PretendardRegular18)
@@ -53,6 +61,20 @@ struct SignupView: View {
                 .background(Color.primaryGreen)
                 .clipShape(RoundedRectangle(cornerRadius: 15))
         }
+    }
+    
+    /// 뒤로가기 버튼 커스텀
+    private var backButton: some View {
+        Button(action: {
+            dismiss()
+        }, label: {
+            HStack {
+                Image(systemName: "chevron.left")
+                    .aspectRatio(contentMode: .fit)
+                foregroundStyle(Color.primaryGreen)
+                Text("뒤로 가기")
+            }
+        })
     }
 }
 
