@@ -20,10 +20,7 @@ struct MainTabView: View {
                 ? "homeIcon_selected"
                 : "homeIcon", value: 0
             ) {
-                // FIXME: 테스트를 위한 LoginView 생성
-                LoginView(
-                    loginViewModel: LoginViewModel(router: env.router)
-                )
+                EmptyView()
             }
             
             Tab(
@@ -32,8 +29,7 @@ struct MainTabView: View {
                 ? "payIcon_selected"
                 : "payIcon", value: 1
             ) {
-                // FIXME: 테스트를 위한 SignupView 생성
-                SignupView()
+                EmptyView()
             }
             
             Tab(

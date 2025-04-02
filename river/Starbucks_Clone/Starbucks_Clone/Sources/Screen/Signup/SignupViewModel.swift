@@ -31,6 +31,12 @@ class SignupViewModel: ObservableObject {
         nickname: "", email: "", pwd: ""
     )
     
+    private var router: NavigationRouter
+    
+    init(router: NavigationRouter) {
+        self.router = router
+    }
+    
     /// 닉네임 입력값 (뷰에서 바인딩할 수 있도록 연산 프로퍼티로 제공)
     var nickname: String {
         get { self.signupModel.nickname }
@@ -62,5 +68,10 @@ class SignupViewModel: ObservableObject {
         emailStorage = model.email
         
         print(signupModel)
+    }
+    
+    /// 로그인 화면으로 이동(현재 스택에서 pop)
+    func navigateBackToLogin() {
+        router.pop()
     }
 }

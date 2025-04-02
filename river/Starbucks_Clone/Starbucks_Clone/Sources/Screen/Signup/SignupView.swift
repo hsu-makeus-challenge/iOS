@@ -9,7 +9,11 @@ import SwiftUI
 
 struct SignupView: View {
     
-    @StateObject private var signupViewModel: SignupViewModel = SignupViewModel()
+    @StateObject private var signupViewModel: SignupViewModel
+    
+    init(signupViewModel: SignupViewModel) {
+        self._signupViewModel = StateObject(wrappedValue: signupViewModel)
+    }
     
     var body: some View {
         VStack {
@@ -88,6 +92,7 @@ struct SignupButtonView: View {
     var body: some View {
         Button {
             signupViewModel.createUser()
+            signupViewModel.navigateBackToLogin()
         } label: {
             Text("생성하기")
                 .font(.mainTextMedium16)
@@ -101,5 +106,6 @@ struct SignupButtonView: View {
 }
 
 #Preview {
-    SignupView()
+    let previewEnv = AppEnvironment.previewEnv
+    SignupView(signupViewModel: previewEnv.makeSignupViewModel())
 }

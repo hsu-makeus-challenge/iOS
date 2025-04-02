@@ -152,7 +152,7 @@ struct EmailLoginBtnView: View {
     
     var body: some View {
         Button {
-            loginViewModel.moveToSignUp()
+            loginViewModel.navigateToSignUp()
         } label: {
             Text("이메일로 회원가입하기")
                 .font(.mainTextRegular12)

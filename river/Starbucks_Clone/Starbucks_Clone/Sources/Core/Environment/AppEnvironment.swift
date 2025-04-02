@@ -39,8 +39,13 @@ final class AppEnvironment: ObservableObject {
         self.authStore = authStore
     }
     
-    /// LoginViewModel 생성 팩토리 함수
+    /// LoginViewModel 생성
     func makeLoginViewModel() -> LoginViewModel {
         LoginViewModel(router: router)
+    }
+    
+    /// SignupViewModel 생성
+    func makeSignupViewModel() -> SignupViewModel {
+        SignupViewModel(router: router)
     }
 }

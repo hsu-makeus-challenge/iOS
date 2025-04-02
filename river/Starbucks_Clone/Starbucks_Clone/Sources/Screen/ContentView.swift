@@ -38,7 +38,7 @@ struct ContentView: View {
             .navigationDestination(for: Route.self) { route in
                 switch route {
                 case .signup:
-                    SignupView()
+                    SignupView(signupViewModel: env.makeSignupViewModel())
                 case .login:
                     LoginView(loginViewModel: env.makeLoginViewModel())
                 }
