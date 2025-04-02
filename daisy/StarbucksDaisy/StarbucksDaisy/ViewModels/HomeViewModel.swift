@@ -24,4 +24,12 @@ class HomeViewModel {
         News(title: "스타벅스 ooo점을 찾습니다", content: "스타벅스 커뮤니티 스토어 파트너를 운영할 기관을 공모합니다.", thumbnail: "news2"),
         News(title: "2월 8일, 리저브 스프링 신규 커...", content: "산뜻하고 달콤한 풍미가 가득한 리저브를 맛보세요.", thumbnail: "news3")
     ]
+    
+    var dessertsLists = [
+        Dessert(name: "너티 크루아상", image: "dessert1"),
+        Dessert(name: "매콤 소시지 불고기", image: "dessert2"),
+        Dessert(name: "미니 리프 파이", image: "dessert3"),
+        Dessert(name: "뺑 오 쇼콜라", image: "dessert4"),
+        Dessert(name: "소시지&올리브 파이", image: "dessert5")
+    ]
 }

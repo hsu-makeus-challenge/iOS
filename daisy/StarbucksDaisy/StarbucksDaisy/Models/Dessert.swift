@@ -1,5 +1,5 @@
 //
-//  News.swift
+//  Dessert.swift
 //  StarbucksDaisy
 //
 //  Created by 원주연 on 4/3/25.
@@ -8,9 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct News: Identifiable {
+struct Dessert: Identifiable {
     var id = UUID()
-    var title: String
-    var content: String
-    var thumbnail: String
+    var name: String
+    var image: String
 }

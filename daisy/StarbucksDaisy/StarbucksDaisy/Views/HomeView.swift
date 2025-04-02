@@ -21,6 +21,8 @@ struct HomeView: View {
                     Image("eventBanner")
                     Image("serviceSuscibe")
                     NewsView
+                    BannersView
+                    DessertView
                 }
                 .padding(.horizontal, 10)
             }
@@ -119,6 +121,68 @@ struct HomeView: View {
         }
         .padding(.horizontal, 10)
     }
+    
+    private var BannersView: some View {
+        VStack(spacing: 14) {
+            Image("mugcupBanner")
+            ZStack{
+                Image("starBanner")
+                VStack(alignment: .leading) {
+                    Text("TIP")
+                        .font(.mainTextSemiBold12)
+                        .foregroundStyle(.gray01)
+                    
+                    Spacer().frame(height: 4)
+                    
+                    Text("온라인 스토어\n별⭑ 적립 혜택")
+                        .font(.mainTextBold24)
+                        .foregroundStyle(.black03)
+                    
+                    Spacer().frame(height: 16)
+                    
+                    Text("온라인 스토어 구매 시\n별⭑을 적립해 드립니다.")
+                        .font(.mainTextBold16)
+                        .foregroundStyle(.gray01)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 20)
+            }
+            ZStack{
+                Image("deliveryBanner")
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("딜리버스\n예약 배달 서비스")
+                        .font(.mainTextBold22)
+                        .foregroundStyle(.green03)
+                    
+                    Text("특별한 순간을 위해\n미리 예약해 보세요.")
+                        .font(.mainTextBold16)
+                        .foregroundStyle(.black02)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 24)
+            }
+        }
+    }
+    
+    private var DessertView: some View {
+        VStack(alignment: .leading, spacing: 25) {
+            /// 텍스트
+            Text("하루가 달콤해지는 디저트")
+                .font(.mainTextSemiBold24)
+                .foregroundStyle(.black03)
+            
+            /// 디저트 스크롤
+            ScrollView(.horizontal) {
+                LazyHStack(spacing: 16, content: {
+                    ForEach(viewModel.dessertsLists, id: \.id, content: { menu in
+                        CircleImageCard(name: menu.name, image: menu.image)
+                    })
+                })
+            }
+        }
+        .padding(.horizontal, 10)
+    }
+
 }
 
 #Preview {

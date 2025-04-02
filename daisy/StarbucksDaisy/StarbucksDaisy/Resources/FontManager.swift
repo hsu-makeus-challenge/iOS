@@ -47,6 +47,14 @@ extension Font {
         return .pretend(type: .bold, size: 20)
     }
     
+    static var mainTextBold22: Font {
+        return .pretend(type: .bold, size: 22)
+    }
+    
+    static var mainTextBold16: Font {
+        return .pretend(type: .bold, size: 16)
+    }
+    
     static var mainTextSemiBold18: Font {
         return .pretend(type: .semibold, size: 18)
     }
@@ -97,6 +105,10 @@ extension Font {
     
     static var mainTextSemiBold13: Font {
         return .pretend(type: .semibold, size: 13)
+    }
+    
+    static var mainTextSemiBold12: Font {
+        return .pretend(type: .semibold, size: 12)
     }
     
     static var makeMedium18: Font {
