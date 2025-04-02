@@ -11,7 +11,7 @@ import SwiftUI
 struct _WeekApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RainbowView()
         }
     }
 }
