@@ -209,6 +209,7 @@ struct SwiftUIView_Preview: PreviewProvider {
             id: \.self
         ) { deviceType in
             LoginView()
+                .environmentObject(AppEnvironment.previewEnv)
                 .previewDevice(
                     PreviewDevice(rawValue: deviceType.rawValue))
                 .previewDisplayName(deviceType.rawValue)

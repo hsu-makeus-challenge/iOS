@@ -71,6 +71,7 @@ struct MainTabView_Preview: PreviewProvider {
             id: \.self
         ) { deviceType in
             MainTabView()
+                .environmentObject(AppEnvironment.previewEnv)
                 .previewDevice(
                     PreviewDevice(rawValue: deviceType.rawValue))
                 .previewDisplayName(deviceType.rawValue)
