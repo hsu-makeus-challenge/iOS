@@ -18,17 +18,27 @@ struct ContentView: View {
     @State private var showSplash: Bool = true
     
     var body: some View {
-        if showSplash {
-            SplashView()
-                .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                        showSplash = false
+        NavigationStack(path: $env.router.path) {
+            if showSplash {
+                SplashView()
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            showSplash = false
+                        }
                     }
-                }
-        } else {
-            if env.authStore.isLoggedIn {
-                MainTabView()
             } else {
+                if env.authStore.isLoggedIn {
+                    MainTabView()
+                } else {
+                    LoginView()
+                }
+            }
+        }
+        .navigationDestination(for: Route.self) { route in
+            switch route {
+            case .signup:
+                SignupView()
+            case .login:
                 LoginView()
             }
         }

@@ -12,11 +12,6 @@ import SwiftUI
 enum Route: Hashable {
     case login
     case signup
-    case home
-    case pay
-    case order
-    case shop
-    case other
 }
 
 /// 네비게이션 상태를 관리하는 라우터
@@ -25,7 +20,7 @@ enum Route: Hashable {
 class NavigationRouter {
     
     /// 현재 네비게이션 스택의 경로를 나타냄.
-    private var path = NavigationPath()
+    var path = NavigationPath()
     
     /// 지정한 route를 스택에 추가하여 화면을 푸시
     func push(_ route: Route) {

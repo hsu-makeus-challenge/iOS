@@ -20,7 +20,7 @@ final class AppEnvironment: ObservableObject {
     )
     
     /// 화면 전환을 담당하는 라우터
-    let router: NavigationRouter
+    var router: NavigationRouter
     
     /// 인증 요청 처리를 담당하는 서비스
     let authService: AuthServiceProtocol
