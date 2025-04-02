@@ -19,29 +19,32 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack(path: $env.router.path) {
-            if showSplash {
-                SplashView()
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                            showSplash = false
+            Group {
+                if showSplash {
+                    SplashView()
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                showSplash = false
+                            }
                         }
-                    }
-            } else {
-                if env.authStore.isLoggedIn {
-                    MainTabView()
                 } else {
-                    LoginView()
+                    if env.authStore.isLoggedIn {
+                        MainTabView()
+                    } else {
+                        LoginView(loginViewModel: .init(router: env.router))
+                    }
+                }
+            }
+            .navigationDestination(for: Route.self) { route in
+                switch route {
+                case .signup:
+                    SignupView()
+                case .login:
+                    LoginView(loginViewModel: .init(router: env.router))
                 }
             }
         }
-        .navigationDestination(for: Route.self) { route in
-            switch route {
-            case .signup:
-                SignupView()
-            case .login:
-                LoginView()
-            }
-        }
+        
     }
 }
 

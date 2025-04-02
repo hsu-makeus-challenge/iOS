@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainTabView: View {
     
+    @EnvironmentObject private var env: AppEnvironment
     @State private var selection: Int = 0
     
     var body: some View {
@@ -20,7 +21,9 @@ struct MainTabView: View {
                 : "homeIcon", value: 0
             ) {
                 // FIXME: 테스트를 위한 LoginView 생성
-                LoginView()
+                LoginView(
+                    loginViewModel: LoginViewModel(router: env.router)
+                )
             }
             
             Tab(

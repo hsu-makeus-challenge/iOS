@@ -10,6 +10,11 @@ import Foundation
 @Observable
 class LoginViewModel {
     private var loginModel: LoginModel = .init(id: "", pwd: "")
+    private let router: NavigationRouter
+    
+    init(router: NavigationRouter) {
+        self.router = router
+    }
     
     // loginModel을 ViewModel 내부에 숨기고,
     // 외부에는 id/pwd만 노출함으로써 View와 바인딩은 간결하게 유지하고,
@@ -36,6 +41,10 @@ class LoginViewModel {
         }
         
         print("로그인 요청 \(id), \(pwd)")
+    }
+    
+    func moveToSignUp() {
+        router.push(.signup)
     }
     
     
