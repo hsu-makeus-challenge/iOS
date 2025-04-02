@@ -28,4 +28,9 @@ class SignupViewModel: ObservableObject {
         print("사용자 회원가입 및 유저 정보 저장 완료")
         print("\(storedNickname ?? "초기닉네임"), \(storedEmail ?? "초기이메일"), \(storedPassword ?? "초기비밀번호")")
     }
+    
+    /// 닉네임, 이메일, 비밀번호가 비어있는지 확인 후, 회원가입 및 유저 정보 저장
+    var isSignupEnabled: Bool {
+        !user.nickname.isEmpty && !user.email.isEmpty && !user.pwd.isEmpty
+    }
 }

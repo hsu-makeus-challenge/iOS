@@ -18,7 +18,7 @@ struct TabbarView: View {
                 ? "home_selected"
                 : "home", value: 0
             ) {
-                SignupView()
+                HomeView()
             }
             
             Tab(

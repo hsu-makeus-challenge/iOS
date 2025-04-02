@@ -8,7 +8,72 @@
 import SwiftUI
 
 struct HomeView: View {
+    
     var body: some View {
-        Text("Hello, World!")
+        ScrollView {
+            VStack{
+                topBanner
+            }
+        }.ignoresSafeArea(.all)
     }
+    
+    private var topBanner: some View {
+        ZStack{
+            Image("top_img")
+            VStack(alignment: .leading, spacing: 11) {
+                
+                Text("골든 미모사 그린 티와 함께\n행복한 새해의 축배를 들어요!")
+                    .font(.mainTextBold24)
+                    .foregroundStyle(.black03)
+                
+                HStack(spacing: 38) {
+                    VStack(alignment: .leading) {
+                        Spacer().frame(height: 20)
+                        Text("11⭑ until next Reward")
+                            .font(.mainTextSemiBold16)
+                            .foregroundStyle(.brown02)
+                        
+                        ProgressBar
+                    }
+                    
+                    VStack(spacing: 5) {
+                        HStack {
+                            Text("내용 보기")
+                                .font(.mainTextRegular13)
+                                .foregroundStyle(.gray06)
+                            Image("go_line")
+                        }
+                        HStack {
+                            Text("1")
+                                .font(.mainTextSemiBold38)
+                                .foregroundStyle(.black03)
+                            Text("/")
+                                .font(.mainTextLight24)
+                                .foregroundStyle(.gray00)
+                            Text("12⭑")
+                                .font(.mainTextSemiBold24)
+                                .foregroundStyle(.brown02)
+                        }
+                    }
+                }
+            }
+            .padding(.top, 120)
+        }
+    }
+    
+    private var ProgressBar: some View {
+        ZStack(alignment: .leading) {
+            RoundedRectangle(cornerRadius: 5)
+                .frame(width: 256, height: 8)
+                .foregroundStyle(.gray)
+            RoundedRectangle(cornerRadius: 5)
+                .frame(width: 111.5, height: 8)
+                .foregroundStyle(.brown02)
+            
+        }
+    }
+}
+
+#Preview {
+    HomeView()
 }

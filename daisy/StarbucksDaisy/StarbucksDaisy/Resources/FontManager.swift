@@ -87,11 +87,19 @@ extension Font {
         return .pretend(type: .light, size: 14)
     }
     
+    static var mainTextLight24: Font {
+        return .pretend(type: .light, size: 24)
+    }
+    
     static var mainTextSemiBold14: Font {
         return .pretend(type: .semibold, size: 14)
     }
     
     static var makeMedium18: Font {
         return .pretend(type: .medium, size: 18)
+    }
+    
+    static var mainTextSemiBold38: Font {
+        return .pretend(type: .semibold, size: 38)
     }
 }
