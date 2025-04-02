@@ -37,6 +37,8 @@ class SignupViewModel: ObservableObject {
         self.router = router
     }
     
+    // MARK: - Property
+    
     /// 닉네임 입력값 (뷰에서 바인딩할 수 있도록 연산 프로퍼티로 제공)
     var nickname: String {
         get { self.signupModel.nickname }
@@ -54,6 +56,12 @@ class SignupViewModel: ObservableObject {
         get { signupModel.pwd }
         set { signupModel.pwd = newValue }
     }
+    
+    var signupButtonIsEnabled: Bool {
+        !nickname.isEmpty && !email.isEmpty && !pwd.isEmpty
+    }
+    
+    // MARK: - Functions
     
     /// 회원가입 처리 함수
     ///
