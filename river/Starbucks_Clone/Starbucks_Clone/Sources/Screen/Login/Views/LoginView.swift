@@ -219,12 +219,13 @@ struct SocialLoginButtonView: View {
 
 struct SwiftUIView_Preview: PreviewProvider {
     static var previews : some View {
+        let previewEnv = AppEnvironment.previewEnv
         ForEach(
             PREVIEW_DEVICE_TYPE.allCases,
             id: \.self
         ) { deviceType in
-            LoginView(loginViewModel: .init(router: AppEnvironment.previewEnv.router))
-                .environmentObject(AppEnvironment.previewEnv)
+            LoginView(loginViewModel: previewEnv.makeLoginViewModel())
+                .environmentObject(previewEnv)
                 .previewDevice(
                     PreviewDevice(rawValue: deviceType.rawValue))
                 .previewDisplayName(deviceType.rawValue)

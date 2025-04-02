@@ -38,4 +38,9 @@ final class AppEnvironment: ObservableObject {
         self.authService = authService
         self.authStore = authStore
     }
+    
+    /// LoginViewModel 생성 팩토리 함수
+    func makeLoginViewModel() -> LoginViewModel {
+        LoginViewModel(router: router)
+    }
 }

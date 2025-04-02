@@ -31,7 +31,7 @@ struct ContentView: View {
                     if env.authStore.isLoggedIn {
                         MainTabView()
                     } else {
-                        LoginView(loginViewModel: .init(router: env.router))
+                        LoginView(loginViewModel: env.makeLoginViewModel())
                     }
                 }
             }
@@ -40,7 +40,7 @@ struct ContentView: View {
                 case .signup:
                     SignupView()
                 case .login:
-                    LoginView(loginViewModel: .init(router: env.router))
+                    LoginView(loginViewModel: env.makeLoginViewModel())
                 }
             }
         }
