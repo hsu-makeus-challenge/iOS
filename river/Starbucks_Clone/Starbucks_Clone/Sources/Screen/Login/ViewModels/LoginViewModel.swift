@@ -44,8 +44,8 @@ class LoginViewModel {
     }
     
     /// 회원가입 뷰로 이동(push 함수)
-    func navigateToSignUp() {
-        router.push(.signup)
+    func navigateToSignUp(title: String = "가입하기") {
+        router.push(.signup(title: title))
     }
     
     

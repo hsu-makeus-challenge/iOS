@@ -11,7 +11,7 @@ import SwiftUI
 /// 각각의 케이스는 네비게이션 스택에서 하나의 화면에 해당
 enum Route: Hashable {
     case login
-    case signup
+    case signup(title: String)
 }
 
 /// 네비게이션 상태를 관리하는 라우터
