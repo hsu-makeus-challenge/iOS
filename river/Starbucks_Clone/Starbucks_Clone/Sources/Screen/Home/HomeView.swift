@@ -12,6 +12,10 @@ struct HomeView: View {
         ScrollView {
             LazyVStack {
                 TopBannerView()
+                
+                Spacer().frame(height: 23)
+                
+                SecondHomeBannerView()
             }
         }
         .ignoresSafeArea()
@@ -80,6 +84,50 @@ fileprivate struct TopBannerView: View {
     }
 }
 
-#Preview {
-    HomeView()
+fileprivate struct SecondHomeBannerView: View {
+    fileprivate var body: some View {
+        ZStack(alignment: .bottomLeading) {
+            Image(.homeBanner)
+                .resizable()
+            
+            VStack(alignment: .leading, spacing: 16) {
+                Group {
+                    Text("아이스 챌린지 카페 아메리카노\n")
+                        .foregroundStyle(Color(.brown01))
+                    + Text("주문하고,\n")
+                        .foregroundStyle(.white)
+                    + Text("사이즈 업 ")
+                        .foregroundStyle(Color(.brown01))
+                    + Text("받으세요!")
+                        .foregroundStyle(.white)
+                }
+                .font(.mainTextSemiBold24)
+                .kerning(-0.5)
+                
+                Text("22023. 1. 26 ~ 1. 30")
+                    .font(.mainTextMedium16)
+                    .foregroundStyle(.white)
+            }
+            .padding(.leading, 24)
+            .padding(.bottom, 29)
+        }
+        .frame(width: 420, height: 183)
+    }
+}
+
+struct HomeView_Preview: PreviewProvider {
+    static var previews : some View {
+        let previewEnv = AppEnvironment.previewEnv
+        ForEach(
+            PREVIEW_DEVICE_TYPE.allCases,
+            id: \.self
+        ) { deviceType in
+            HomeView()
+                .environmentObject(previewEnv)
+                .previewDevice(
+                    PreviewDevice(rawValue: deviceType.rawValue))
+                .previewDisplayName(deviceType.rawValue)
+            
+        }
+    }
 }
