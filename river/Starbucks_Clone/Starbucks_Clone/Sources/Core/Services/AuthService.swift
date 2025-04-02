@@ -8,21 +8,19 @@
 import Foundation
 
 protocol AuthServiceProtocol {
-    var isLoggedIn: Bool { get }
-    func login()
+    func login(completion: @escaping (Bool) -> Void)
     func logout()
 }
 
 final class AuthService: AuthServiceProtocol {
-    private(set) var isLoggedIn: Bool = false
-    
-    func login() {
-        isLoggedIn = true
-        print("Login Successfully")
+    func login(completion: @escaping (Bool) -> Void) {
+        // 예: 실제 API 요청
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            completion(true) // 성공 응답
+        }
     }
-    
+
     func logout() {
-        isLoggedIn = false
-        print("Logout Successfully")
+        print("Logged out")
     }
 }

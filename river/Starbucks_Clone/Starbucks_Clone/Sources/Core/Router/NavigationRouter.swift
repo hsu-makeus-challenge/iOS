@@ -10,6 +10,11 @@ import SwiftUI
 enum Route: Hashable {
     case login
     case signup
+    case home
+    case pay
+    case order
+    case shop
+    case other
 }
 
 @Observable
