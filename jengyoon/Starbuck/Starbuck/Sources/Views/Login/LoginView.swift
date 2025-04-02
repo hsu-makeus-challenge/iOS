@@ -102,7 +102,7 @@ struct LoginView: View {
                     .font(.PretendardMedium16)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, minHeight: 50)
-                    .background(Color.primaryGreen)
+                    .background(buttonValid ? Color.primaryGreen : Color.gray.opacity(0.4))
                     .clipShape(RoundedRectangle(cornerRadius: 15))
             }
         }
@@ -126,6 +126,11 @@ struct LoginView: View {
             
             SocialLoginButton(buttonColor: Color.black, textColor: Color.white, text: "Apple로 로그인", font: .PretendardMedium16, icon: "apple", action: {})
         }
+    }
+    
+    /// 텍스트 필드 상태 감지 (버튼 활성화에 쓰임)
+    private var buttonValid: Bool {
+        !id.isEmpty && !password.isEmpty
     }
 }
 #Preview {

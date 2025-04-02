@@ -71,7 +71,7 @@ struct SignupView: View {
                 .font(.PretendardRegular18)
                 .foregroundStyle(Color.white)
                 .frame(maxWidth: 400, minHeight: 50)
-                .background(buttonValid ? Color.primaryGreen : Color.gray)
+                .background(buttonValid ? Color.primaryGreen : Color.gray.opacity(0.4))
                 .clipShape(RoundedRectangle(cornerRadius: 15))
         }
         .disabled(
