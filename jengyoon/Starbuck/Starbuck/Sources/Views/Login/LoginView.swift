@@ -10,31 +10,41 @@ import SwiftUI
 
 struct LoginView: View {
     
+    // MARK: - Properties
+    
+    /// FocusField 변수 선언
     private enum Field: Hashable {
         case id
         case password
     }
     
+    /// 뷰의 상태가 바뀔때마다 랜더링해주는 프로퍼티 래퍼
+    @State private var navigationTrue: Bool = false
     @State var id : String = ""
     @State var password: String = ""
     
     @FocusState private var focusField: Field?
     
     var body: some View {
-        ZStack {
-            Color.white.ignoresSafeArea()
-            
-            VStack(spacing: 104) {
+        NavigationStack {
+            ZStack {
+                Color.white.ignoresSafeArea()
                 
-                loginTitleGroup
-                appLogin
-                socialLogin
-            } // 전체 VStack
-            .padding(.horizontal, 20)
-        } // 전체 ZStack
+                VStack(spacing: 104) {
+                    
+                    loginTitleGroup
+                    appLogin
+                    socialLogin
+                } // 전체 VStack
+                .padding(.horizontal, 20)
+            } // 전체 ZStack
+            .navigationDestination(isPresented: $navigationTrue, destination: {
+                SignupView()
+            })
+        } //: NavigationStack
     }
     
-    
+    // MARK: - Components
     // 로그인 타이틀
     private var loginTitleGroup: some View {
         VStack (alignment: .leading) {
@@ -106,6 +116,10 @@ struct LoginView: View {
                 .font(.PretendardLight14)
                 .foregroundStyle(.gray)
                 .underline()
+                // 클릭시 네비게이션 활성화 되도록 toggle()로 넘기기
+                .onTapGesture {
+                    self.navigationTrue.toggle()
+                }
             
             SocialLoginButton(buttonColor: Color.yellow, textColor: Color.black, text: "카카오 로그인", font: .PretendardMedium16, icon: "kakao", action: {})
             
