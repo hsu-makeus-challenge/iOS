@@ -23,6 +23,7 @@ struct HomeView: View {
                     NewsView
                     BannersView
                     DessertView
+                    LastBannerView
                 }
                 .padding(.horizontal, 10)
             }
@@ -181,6 +182,14 @@ struct HomeView: View {
             }
         }
         .padding(.horizontal, 10)
+    }
+    
+    private var LastBannerView: some View {
+        VStack(spacing: 10) {
+            Image("coldbrewBanner")
+            Image("baristaBanner")
+            Image("sizeupBanner")
+        }
     }
 
 }
