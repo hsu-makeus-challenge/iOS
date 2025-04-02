@@ -18,6 +18,9 @@ struct HomeView: View {
                 VStack(spacing: 20) {
                     Image("advertiseBanner")
                     RecommendedView
+                    Image("eventBanner")
+                    Image("serviceSuscibe")
+                    NewsView
                 }
                 .padding(.horizontal, 10)
             }
@@ -97,6 +100,21 @@ struct HomeView: View {
                         CircleImageCard(name: menu.name, image: menu.imagename)
                     })
                 })
+            }
+        }
+        .padding(.horizontal, 10)
+    }
+    
+    private var NewsView: some View {
+        VStack(alignment: .leading, spacing: 10){
+            Text("What's New")
+                .font(.mainTextBold24)
+            ScrollView(.horizontal) {
+                HStack(spacing: 16) {
+                    ForEach(viewModel.newsLists, id: \.id, content: { news in
+                        NewsCard(title: news.title, content: news.content, thumbnail: news.thumbnail)
+                    })
+                }
             }
         }
         .padding(.horizontal, 10)
