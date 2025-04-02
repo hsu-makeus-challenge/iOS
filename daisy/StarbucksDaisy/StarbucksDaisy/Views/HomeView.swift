@@ -8,12 +8,18 @@
 import SwiftUI
 
 struct HomeView: View {
+    @AppStorage("nickname") var storedNickname: String = "(작성한 닉네임)"
+    var viewModel: HomeViewModel = .init()
     
     var body: some View {
-        ScrollView {
-            VStack{
-                topBanner
-                Image("advertiseBanner")
+        VStack {
+            topBanner
+            ScrollView {
+                VStack(spacing: 20) {
+                    Image("advertiseBanner")
+                    RecommendedView
+                }
+                .padding(.horizontal, 10)
             }
         }.ignoresSafeArea(.all)
     }
@@ -72,6 +78,28 @@ struct HomeView: View {
                 .foregroundStyle(.brown02)
             
         }
+    }
+    
+    private var RecommendedView: some View {
+        VStack(alignment: .leading, spacing: 25) {
+            /// 텍스트
+            Text(storedNickname)
+                .font(.mainTextBold24)
+                .foregroundStyle(.brown01)
+            + Text("님을 위한 추천 메뉴")
+                .font(.mainTextBold24)
+                .foregroundStyle(.black03)
+            
+            /// 추천 메뉴 스크롤
+            ScrollView(.horizontal) {
+                LazyHStack(spacing: 16, content: {
+                    ForEach(viewModel.recommendedMenus, id: \.id, content: { menu in
+                        CircleImageCard(name: menu.name, image: menu.imagename)
+                    })
+                })
+            }
+        }
+        .padding(.horizontal, 10)
     }
 }
 
