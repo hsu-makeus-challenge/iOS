@@ -13,6 +13,7 @@ struct HomeView: View {
         ScrollView {
             VStack{
                 topBanner
+                Image("advertiseBanner")
             }
         }.ignoresSafeArea(.all)
     }
