@@ -13,7 +13,6 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     
     var body: some View {
-        VStack {
             ScrollView(.vertical, content: {
                 LazyVStack(spacing: 20) {
                     HomeBannerView()
@@ -21,15 +20,26 @@ struct HomeView: View {
                     HomeMenuView()
                     
                     Image(.eventBanner)
-                    
+                        
                     Image(.serviceSuscibe)
+                    
+                    NewsView()
+                    
+                    homeBannerSet
                     
                     Spacer()
                 } //: LazyVStack
             })
-        }
         .safeAreaPadding(.horizontal, 10)
         .ignoresSafeArea()
+    }
+    
+    private var homeBannerSet: some View {
+        VStack(spacing: 14) {
+            Image(.homeBannerSet1)
+            Image(.homeBannerSet2)
+            Image(.homeBannerSet3)
+        }
     }
 }
 

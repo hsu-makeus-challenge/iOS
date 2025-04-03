@@ -28,8 +28,6 @@
 		D137A0CE8238989E873328EF /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D2E6CFDB2FE55DB301BB7E93 /* Pretendard-ExtraBold.otf */; };
 		D874306AA2C15D43854C66C6 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324579D05F48595A40EE68D3 /* LoginModel.swift */; };
 		F9B59708E65FFDC479FA292D /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C05EE3A01621AA71D5A3474 /* Pretendard-SemiBold.otf */; };
-		FF6F74E12D9DAC90003079EE /* HomeMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F74E02D9DAC90003079EE /* HomeMenuModel.swift */; };
-		FF6F75032D9E5547003079EE /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F75022D9E5547003079EE /* NewsModel.swift */; };
 		FF869F082D95311D00C9D39B /* StarBuckTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF869F072D95311D00C9D39B /* StarBuckTab.swift */; };
 		FF869F102D953F3300C9D39B /* OtherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF869F0F2D953F3300C9D39B /* OtherViewModel.swift */; };
 		FF9684832D950014009914B3 /* SignupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9684822D950014009914B3 /* SignupModel.swift */; };
@@ -95,8 +93,6 @@
 		F8D54BB8F383F5345CEFC4FB /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		F971E5B6815CB1BE429AAFDA /* CustomColor.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CustomColor.xcassets; sourceTree = "<group>"; };
 		FB5860E6E14B3D180E9A7ABF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		FF6F74E02D9DAC90003079EE /* HomeMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenuModel.swift; sourceTree = "<group>"; };
-		FF6F75022D9E5547003079EE /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
 		FF869F072D95311D00C9D39B /* StarBuckTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBuckTab.swift; sourceTree = "<group>"; };
 		FF869F0F2D953F3300C9D39B /* OtherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherViewModel.swift; sourceTree = "<group>"; };
 		FF9684822D950014009914B3 /* SignupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupModel.swift; sourceTree = "<group>"; };
@@ -107,6 +103,8 @@
 		FF6F74DB2D9DAC70003079EE /* Home */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Home; sourceTree = "<group>"; };
 		FF6F75002D9E551F003079EE /* Home */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Home; sourceTree = "<group>"; };
 		FF6F75012D9E5529003079EE /* Login */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Login; sourceTree = "<group>"; };
+		FF6F75042D9E5657003079EE /* Home */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Home; sourceTree = "<group>"; };
+		FF6F75052D9E585D003079EE /* New Folder */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "New Folder"; sourceTree = "<group>"; };
 		FF869F092D953EE400C9D39B /* Login */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Login; sourceTree = "<group>"; };
 		FF869F0A2D953F0000C9D39B /* Other */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Other; sourceTree = "<group>"; };
 		FF96846D2D932655009914B3 /* Components */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Components; sourceTree = "<group>"; };
@@ -137,6 +135,7 @@
 				42D4CFD78CBBDB8ABC251F4F /* Font */,
 				6F6A37482D483FD9031E860E /* Preview Content */,
 				7DFC95C1445D3D7433B1F8C6 /* Assets.xcassets */,
+				FF6F75052D9E585D003079EE /* New Folder */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -240,10 +239,9 @@
 		7E1E553C8E48254FEEF67B1A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FF6F75042D9E5657003079EE /* Home */,
 				324579D05F48595A40EE68D3 /* LoginModel.swift */,
 				FF9684822D950014009914B3 /* SignupModel.swift */,
-				FF6F74E02D9DAC90003079EE /* HomeMenuModel.swift */,
-				FF6F75022D9E5547003079EE /* NewsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -329,6 +327,8 @@
 				FF6F74DB2D9DAC70003079EE /* Home */,
 				FF6F75002D9E551F003079EE /* Home */,
 				FF6F75012D9E5529003079EE /* Login */,
+				FF6F75042D9E5657003079EE /* Home */,
+				FF6F75052D9E585D003079EE /* New Folder */,
 				FF869F092D953EE400C9D39B /* Login */,
 				FF869F0A2D953F0000C9D39B /* Other */,
 				FF96846D2D932655009914B3 /* Components */,
@@ -437,10 +437,8 @@
 				D874306AA2C15D43854C66C6 /* LoginModel.swift in Sources */,
 				B2EECE92459A9FE846F262F6 /* StarbuckApp.swift in Sources */,
 				FF9684892D952645009914B3 /* AdvertisementView.swift in Sources */,
-				FF6F75032D9E5547003079EE /* NewsModel.swift in Sources */,
 				50AED738C0776D3AB66AF3AC /* SplashView.swift in Sources */,
 				FF9684832D950014009914B3 /* SignupModel.swift in Sources */,
-				FF6F74E12D9DAC90003079EE /* HomeMenuModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
