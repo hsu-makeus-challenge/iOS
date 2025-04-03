@@ -9,7 +9,7 @@ import Foundation
 
 @Observable
 class HomeViewModel {
-    var homeModel: HomeModel = .mockData
+    private var homeModel: HomeModel = .mockData
     
     var recommendedDrinks: [RecommendedDrink] {
         homeModel.remommendedDrinks
@@ -17,5 +17,9 @@ class HomeViewModel {
     
     var newsCards: [NewsCard] {
         homeModel.newsCards
+    }
+    
+    var desserts: [Dessert] {
+        homeModel.dessert
     }
 }

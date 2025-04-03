@@ -38,6 +38,10 @@ struct HomeView: View {
                 Spacer().frame(height: 20)
                 
                 MugCupAndOnlineStoreAndDeliveryBannerView()
+                
+                DessertView(homeViewModel: homeViewModel)
+                
+                Spacer().frame(height: 20)
             }
         }
         .ignoresSafeArea()
@@ -179,7 +183,6 @@ fileprivate struct RecommendedDrinksView: View {
                     makeDrinkCard(drinkModel)
                 }
             }
-            .padding(.horizontal, 20)
         }
     }
     
@@ -286,6 +289,54 @@ fileprivate struct MugCupAndOnlineStoreAndDeliveryBannerView: View {
                 .resizable()
                 .frame(width: 420, height: 217.78)
                 .scaledToFit()
+        }
+    }
+}
+
+fileprivate struct DessertView: View {
+    @Bindable private var homeViewModel: HomeViewModel
+    
+    init(homeViewModel: HomeViewModel) {
+        self.homeViewModel = homeViewModel
+    }
+    
+    fileprivate var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("하루가 달콤해지는 디저트")
+                .font(.mainTextBold24)
+                .foregroundStyle(Color(.black03))
+            
+            dessertGroup
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 10)
+    }
+    
+    private var dessertGroup: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHGrid(
+                rows: [GridItem(.fixed(130))],
+                spacing: 16 // LazyHGrid이기 때문에 좌우 간격임
+            ) {
+                ForEach(
+                    homeViewModel.desserts,
+                    id: \.id
+                ) { dessertModel in
+                    makeDessertCard(dessertModel)
+                }
+            }
+        }
+    }
+    
+    private func makeDessertCard(_ model: Dessert) -> some View {
+        VStack(spacing: 10) {
+            Image(model.image)
+                .resizable()
+                .frame(width: 130, height: 130)
+            
+            Text(model.name)
+                .font(.mainTextLight14)
+                .foregroundStyle(.black)
         }
     }
 }
