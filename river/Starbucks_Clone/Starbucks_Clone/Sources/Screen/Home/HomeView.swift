@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Bindable private var homeViewModel: HomeViewModel = .init()
+    
     var body: some View {
         ScrollView {
             LazyVStack {
@@ -16,6 +18,10 @@ struct HomeView: View {
                 Spacer().frame(height: 23)
                 
                 SecondHomeBannerView()
+                
+                Spacer().frame(height: 20)
+                
+                RecommendedDrinksView(homeViewModel: homeViewModel)
             }
         }
         .ignoresSafeArea()
@@ -112,6 +118,67 @@ fileprivate struct SecondHomeBannerView: View {
             .padding(.bottom, 29)
         }
         .frame(width: 420, height: 183)
+    }
+}
+
+fileprivate struct RecommendedDrinksView: View {
+    @AppStorage("nickname") private var nickname: String?
+    @Bindable private var homeViewModel: HomeViewModel
+    
+    init(homeViewModel: HomeViewModel) {
+        self.homeViewModel = homeViewModel
+    }
+    
+    fileprivate var body: some View {
+        VStack(alignment: .leading, spacing: 25) {
+            Group {
+                if let nickname {
+                    Text("\(nickname)")
+                        .foregroundStyle(Color(.brown01))
+                    + Text("님을 위한 메뉴 추천")
+                        .foregroundStyle(.black)
+                } else {
+                    Text("(작성한 닉네임)")
+                        .foregroundStyle(Color(.brown01))
+                    + Text("님을 위한 메뉴 추천")
+                        .foregroundStyle(.black)
+                }
+                
+                recommendedDrinkGroup
+            }
+            .font(.mainTextBold24)
+            .padding(.leading, 20)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    private var recommendedDrinkGroup: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHGrid(
+                rows: [GridItem(.fixed(130))],
+                spacing: 16 // LazyHGrid이기 때문에 좌우 간격임
+            ) {
+                ForEach(
+                    homeViewModel.recommendedDrinks,
+                    id: \.id
+                ) { drinkModel in
+                    makeDrinkCard(drinkModel)
+                }
+            }
+            .padding(.horizontal, 20)
+        }
+    }
+    
+    private func makeDrinkCard(_ model: RecommendedDrink) -> some View {
+        VStack(spacing: 10) {
+            Image(model.image)
+                .resizable()
+                .frame(width: 130, height: 130)
+            
+            Text(model.name)
+                .font(.mainTextLight14)
+                .foregroundStyle(.black)
+        }
     }
 }
 

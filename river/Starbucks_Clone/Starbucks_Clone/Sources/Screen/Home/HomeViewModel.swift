@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+@Observable
+class HomeViewModel {
+    var homeModel: HomeModel = .mockData
+    
+    var recommendedDrinks: [RecommendedDrink] {
+        homeModel.remommendedDrinks
+    }
+}
