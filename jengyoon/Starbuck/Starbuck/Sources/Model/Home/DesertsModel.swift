@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// 홈탭 디저트 모델
 struct DesertsModel: Identifiable {
     let id: String = UUID().uuidString
     let title: String
