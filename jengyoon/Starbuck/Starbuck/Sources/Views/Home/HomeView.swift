@@ -27,6 +27,10 @@ struct HomeView: View {
                     
                     homeBannerSet
                     
+                    DesertView()
+                    
+                    homeBottomBannerset
+                    
                     Spacer()
                 } //: LazyVStack
             })
@@ -39,6 +43,14 @@ struct HomeView: View {
             Image(.homeBannerSet1)
             Image(.homeBannerSet2)
             Image(.homeBannerSet3)
+        }
+    }
+    
+    private var homeBottomBannerset: some View {
+        VStack(spacing: 14) {
+            Image(.homeBottomBannerSet)
+            Image(.homeBottomBannerSet2)
+            Image(.homeBottomBannerSet3)
         }
     }
 }
