@@ -22,12 +22,18 @@ struct HomeView: View {
                 Spacer().frame(height: 20)
                 
                 RecommendedDrinksView(homeViewModel: homeViewModel)
+                
+                Spacer().frame(height: 20)
+                
+                BloomingChouxPricingBanner()
+                
+                Spacer().frame(height: 20)
+                
+                ServiceSubscribeBannerView()
             }
         }
         .ignoresSafeArea()
     }
-    
-    
 }
 
 fileprivate struct TopBannerView: View {
@@ -179,6 +185,24 @@ fileprivate struct RecommendedDrinksView: View {
                 .font(.mainTextLight14)
                 .foregroundStyle(.black)
         }
+    }
+}
+
+fileprivate struct BloomingChouxPricingBanner: View {
+    fileprivate var body: some View {
+        Image(.homeEventBanner)
+            .resizable()
+            .frame(width: 420, height: 451)
+            .scaledToFit()
+    }
+}
+
+fileprivate struct ServiceSubscribeBannerView: View {
+    fileprivate var body: some View {
+        Image(.serviceSuscibe)
+            .resizable()
+            .frame(width: 420, height: 199)
+            .scaledToFit()
     }
 }
 
