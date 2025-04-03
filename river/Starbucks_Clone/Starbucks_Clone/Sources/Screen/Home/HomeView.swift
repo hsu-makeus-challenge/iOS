@@ -34,6 +34,10 @@ struct HomeView: View {
                 Spacer().frame(height: 20)
                 
                 WhatsNewsView(homeViewModel: homeViewModel)
+                
+                Spacer().frame(height: 20)
+                
+                MugCupAndOnlineStoreAndDeliveryBannerView()
             }
         }
         .ignoresSafeArea()
@@ -262,6 +266,27 @@ fileprivate struct WhatsNewsView: View {
                 .foregroundStyle(Color(.gray03))
         }
         .frame(width: 240, height: 249)
+    }
+}
+
+fileprivate struct MugCupAndOnlineStoreAndDeliveryBannerView: View {
+    fileprivate var body: some View {
+        VStack(spacing: 14) {
+            Image(.mugcupBanner)
+                .resizable()
+                .frame(width: 420, height: 217.78)
+                .scaledToFit()
+            
+            Image(.onlineStoreBanner)
+                .resizable()
+                .frame(width: 420, height: 272.82)
+                .scaledToFit()
+            
+            Image(.deliveryBanner)
+                .resizable()
+                .frame(width: 420, height: 217.78)
+                .scaledToFit()
+        }
     }
 }
 
