@@ -39,9 +39,13 @@ struct HomeView: View {
                 
                 MugCupAndOnlineStoreAndDeliveryBannerView()
                 
+                Spacer().frame(height: 20)
+                
                 DessertView(homeViewModel: homeViewModel)
                 
                 Spacer().frame(height: 20)
+                
+                PromotionalCardGroupView()
             }
         }
         .ignoresSafeArea()
@@ -337,6 +341,27 @@ fileprivate struct DessertView: View {
             Text(model.name)
                 .font(.mainTextLight14)
                 .foregroundStyle(.black)
+        }
+    }
+}
+
+fileprivate struct PromotionalCardGroupView: View {
+    fileprivate var body: some View {
+        VStack(spacing: 20) {
+            Image(.coldBrewBanner)
+                .resizable()
+                .frame(width: 420, height: 182)
+                .scaledToFit()
+            
+            Image(.representativeBeverage)
+                .resizable()
+                .frame(width: 420, height: 360)
+                .scaledToFit()
+            
+            Image(.manufactureBanner)
+                .resizable()
+                .frame(width: 420, height: 182)
+                .scaledToFit()
         }
     }
 }
