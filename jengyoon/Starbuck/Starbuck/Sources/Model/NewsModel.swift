@@ -1,5 +1,5 @@
 //
-//  HomeViewModel.swift
+//  NewsModel.swift
 //  Starbuck
 //
 //  Created by 송승윤 on 4/3/25.
