@@ -30,6 +30,10 @@ struct HomeView: View {
                 Spacer().frame(height: 20)
                 
                 ServiceSubscribeBannerView()
+                
+                Spacer().frame(height: 20)
+                
+                WhatsNewsView(homeViewModel: homeViewModel)
             }
         }
         .ignoresSafeArea()
@@ -203,6 +207,61 @@ fileprivate struct ServiceSubscribeBannerView: View {
             .resizable()
             .frame(width: 420, height: 199)
             .scaledToFit()
+    }
+}
+
+fileprivate struct WhatsNewsView: View {
+    @Bindable private var homeViewModel: HomeViewModel
+    
+    init(homeViewModel: HomeViewModel) {
+        self.homeViewModel = homeViewModel
+    }
+    
+    fileprivate var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("What's News")
+                .font(.mainTextBold24)
+                .foregroundStyle(Color(.black03))
+            
+            newsCardGroup
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 10)
+    }
+    
+    private var newsCardGroup: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHGrid(
+                rows: [GridItem(.fixed(240))],
+                spacing: 16
+            ) {
+                ForEach(homeViewModel.newsCards, id: \.id) { newsCard in
+                    makeNewsCard(newsCard)
+                }
+            }
+        }
+    }
+    
+    private func makeNewsCard(_ model: NewsCard) -> some View {
+        VStack {
+            Image(model.image)
+                .resizable()
+                .frame(width: 242, height: 160)
+                .scaledToFit()
+            
+            Spacer().frame(height: 16)
+            
+            Text(model.title)
+                .font(.mainTextRegular18)
+                .foregroundStyle(Color(.black02))
+            
+            Spacer().frame(height: 9)
+            
+            Text(model.subTitle)
+                .font(.mainTextRegular13)
+                .foregroundStyle(Color(.gray03))
+        }
+        .frame(width: 240, height: 249)
     }
 }
 

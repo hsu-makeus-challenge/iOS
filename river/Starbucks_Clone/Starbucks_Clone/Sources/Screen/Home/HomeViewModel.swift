@@ -14,4 +14,8 @@ class HomeViewModel {
     var recommendedDrinks: [RecommendedDrink] {
         homeModel.remommendedDrinks
     }
+    
+    var newsCards: [NewsCard] {
+        homeModel.newsCards
+    }
 }
