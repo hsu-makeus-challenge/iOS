@@ -72,6 +72,22 @@ struct ContentView: View {
                         .navigationTitle(title)
                 case .login:
                     LoginView(loginViewModel: env.makeLoginViewModel())
+                case .menuDeatile(let menuID):
+                    /// 상위 뷰에서 StateObject로 선언하지 않아도 하위 뷰에서 ObservedObject로 받으면 바인딩 연결됨
+                    /// `MenuDetailView`는 추천 음료를 누르면 해당 뷰로 이동하는 것이기 때문에, 매번 새로운 ViewModel 인스턴스가 생성되어야 하는 구조임.
+                    /// 이 구조에서는 EnvironmentObject로 주입하는 것보다 아래의 방식으로 하는 것이 이상적임.
+                    /// [참고] EnvironmentObject를 쓰면 좋은 구조
+                    ///     - 전체 메뉴 리스트
+                    ///     - 장바구니 상태
+                    ///     - 로그인/유저 상태
+                    ///     - 테마 설정,위치 정보 등
+                    let menuDetailViewModel = env.makeMenuDetailViewModel(menu: .mockData[0])
+                    MenuDetailView(
+                        menuDetailViewModel: menuDetailViewModel,
+                        menuID: menuID
+                    )
+                case .mainTap:
+                    MainTabView()
                 }
             }
         }

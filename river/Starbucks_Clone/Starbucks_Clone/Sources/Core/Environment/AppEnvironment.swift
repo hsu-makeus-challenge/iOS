@@ -50,6 +50,9 @@ final class AppEnvironment: ObservableObject {
     }
     
     func makeMenuDetailViewModel(menu: MenuDetailModel) -> MenuDetailViewModel {
-        return MenuDetailViewModel(menu: menu)
+        return MenuDetailViewModel(
+            menu: menu,
+            router: router
+        )
     }
 }

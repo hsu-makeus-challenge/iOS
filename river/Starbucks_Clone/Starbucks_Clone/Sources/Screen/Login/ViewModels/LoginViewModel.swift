@@ -41,6 +41,7 @@ class LoginViewModel {
         }
         
         print("로그인 요청 \(id), \(pwd)")
+        router.push(.mainTap)
     }
     
     /// 회원가입 뷰로 이동(push 함수)

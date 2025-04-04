@@ -15,9 +15,14 @@ class MenuDetailViewModel: ObservableObject {
     ///     - 마지막으로, 단위 테스트가 쉬워지기 때문에 디버깅이 쉬워진다.
     @Published var selectedTemperatureIndex: Int = 0
     let menu: MenuDetailModel
+    private let router: NavigationRouter
     
-    init(menu: MenuDetailModel) {
+    init(
+        menu: MenuDetailModel = .mockData[0],
+        router: NavigationRouter
+    ) {
         self.menu = menu
+        self.router = router
     }
     
     var selectedMenuItem: MenuTemperatureItem {
