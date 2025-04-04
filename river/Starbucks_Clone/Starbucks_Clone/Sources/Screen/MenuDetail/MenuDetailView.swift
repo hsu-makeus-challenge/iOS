@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MenuDetailView: View {
     @Bindable private var menuDetailViewModel: MenuDetailViewModel
-
+    
     init(menuDetailViewModel: MenuDetailViewModel) {
         self.menuDetailViewModel = menuDetailViewModel
     }
@@ -18,7 +18,9 @@ struct MenuDetailView: View {
         let menu = menuDetailViewModel.menu
         VStack(alignment: .leading) {
             // MARK: - 메뉴 이미지
-            Image(menu.menuTemperatureItem[0].imageName)
+            Image(menu.menuTemperatureItem[
+                menuDetailViewModel.selectedTemperatureIndex
+            ].imageName)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 440, height: 355)
@@ -29,7 +31,9 @@ struct MenuDetailView: View {
             VStack(alignment: .leading, spacing: 8) {
                 // MARK: - 메뉴명
                 HStack {
-                    Text(menu.menuTemperatureItem[0].imageName)
+                    Text(menu.menuTemperatureItem[
+                        menuDetailViewModel.selectedTemperatureIndex
+                    ].imageName)
                         .font(.mainTextSemiBold24)
                         .foregroundStyle(.black)
                     
@@ -38,39 +42,30 @@ struct MenuDetailView: View {
                         .frame(width: 20, height: 10)
                 }
                 
-                Text(menu.menuTemperatureItem[0].menuNameEn)
+                Text(menu.menuTemperatureItem[
+                    menuDetailViewModel.selectedTemperatureIndex
+                ].menuNameEn)
                     .font(.mainTextSemiBold14)
                     .foregroundStyle(Color(.gray01))
                 
                 Spacer().frame(height: 32)
                 
-                Text(menu.menuTemperatureItem[0].description)
+                Text(menu.menuTemperatureItem[
+                    menuDetailViewModel.selectedTemperatureIndex
+                ].description)
                     .font(.mainTextSemiBold14)
                     .foregroundStyle(Color(.gray06))
 
                 Spacer().frame(height: 20)
 
                 // MARK: - 가격
-                Text("\(menu.menuTemperatureItem[0].price)원")
+                Text("\(menu.menuTemperatureItem[menuDetailViewModel.selectedTemperatureIndex].price)원")
                     .font(.mainTextBold24)
                     .foregroundStyle(Color(.black03))
                 
                 Spacer().frame(height: 32)
                 
-                Picker(
-                    "",
-                    selection: $menuDetailViewModel.selectedTemperatureIndex
-                ) {
-                    ForEach(
-                        menu.availableTemperatureTypes.indices,
-                        id: \.self
-                    ) { index in
-                        let temperature = menuDetailViewModel.menu.availableTemperatureTypes[index]
-                        Text(temperature.rawValue)
-                            .tag(index)
-                    }
-                }
-                .pickerStyle(.segmented)
+                MenuTemperatureView(menuDetailViewModel: menuDetailViewModel)
 
                 Spacer()
                 
@@ -79,6 +74,32 @@ struct MenuDetailView: View {
             .padding(.horizontal, 16)
         }
         .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+fileprivate struct MenuTemperatureView: View {
+    @Bindable private var menuDetailViewModel: MenuDetailViewModel
+    
+    init(menuDetailViewModel: MenuDetailViewModel) {
+        self.menuDetailViewModel = menuDetailViewModel
+    }
+    
+    fileprivate var body: some View {
+        let menu = menuDetailViewModel.menu
+        Picker(
+            "",
+            selection: $menuDetailViewModel.selectedTemperatureIndex
+        ) {
+            ForEach(
+                menu.availableTemperatureTypes.indices,
+                id: \.self
+            ) { index in
+                let temperature = menuDetailViewModel.menu.availableTemperatureTypes[index]
+                Text(temperature.rawValue)
+                    .tag(index)
+            }
+        }
+        .pickerStyle(.segmented)
     }
 }
 
