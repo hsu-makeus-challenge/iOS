@@ -13,7 +13,10 @@ enum Route: Hashable {
     case login
     case signup(title: String)
     case mainTap
-    case menuDeatile(menuID: MenuID)
+    case menuDeatile(
+        menuID: MenuID,
+        temperatureType: TemperatureType
+    )
 }
 
 /// 네비게이션 상태를 관리하는 라우터

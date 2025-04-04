@@ -196,7 +196,10 @@ fileprivate struct RecommendedDrinksView: View {
     
     private func makeDrinkCard(_ model: RecommendedDrink) -> some View {
         Button {
-            homeViewModel.moveToMenuDetails(model.menuID)
+            homeViewModel.moveToMenuDetails(
+                menuID: model.menuID,
+                temperatureType: model.temperatureType
+            )
         } label: {
             VStack(spacing: 10) {
                 Image(model.image)

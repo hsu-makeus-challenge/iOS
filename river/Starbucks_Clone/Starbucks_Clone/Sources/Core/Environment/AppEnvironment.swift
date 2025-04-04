@@ -53,10 +53,14 @@ final class AppEnvironment: ObservableObject {
         HomeViewModel(router: router)
     }
     
-    func makeMenuDetailViewModel(with model: MenuDetailModel) -> MenuDetailViewModel {
+    func makeMenuDetailViewModel(
+        with model: MenuDetailModel,
+        selectedTemperatureType: TemperatureType
+    ) -> MenuDetailViewModel {
         return MenuDetailViewModel(
             menu: model,
-            router: router
+            router: router,
+            selectedTemperatureType: selectedTemperatureType
         )
     }
 }

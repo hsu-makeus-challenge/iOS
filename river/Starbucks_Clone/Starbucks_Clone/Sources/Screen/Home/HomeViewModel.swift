@@ -28,7 +28,7 @@ class HomeViewModel {
         homeModel.dessert
     }
     
-    func moveToMenuDetails(_ menuID: MenuID) {
-        router.push(.menuDeatile(menuID: menuID))
+    func moveToMenuDetails(menuID: MenuID, temperatureType: TemperatureType) {
+        router.push(.menuDeatile(menuID: menuID, temperatureType: temperatureType))
     }
 }

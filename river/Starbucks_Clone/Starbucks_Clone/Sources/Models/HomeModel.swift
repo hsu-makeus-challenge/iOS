@@ -29,10 +29,7 @@ struct RecommendedDrink: Identifiable {
     let menuID: MenuID
     let name: String
     let image: String
-    
-    var imageView: Image {
-        Image(image)
-    }
+    let temperatureType: TemperatureType
 }
 
 struct NewsCard: Identifiable {
@@ -51,12 +48,12 @@ struct Dessert: Identifiable {
 extension HomeModel {
     static let mockData: HomeModel = .init(
         remommendedDrinks: [
-            .init(menuID: .espressoConPanna, name: "에소프레소 콘파나", image: "confana_circle"),
-            .init(menuID: .espressoMacchiato, name: "에스프레소 마키아또", image: "macchiato_circle"),
-            .init(menuID: .caffeAmericano, name: "아이스 아메리카노", image: "iceAmericano_circle"),
-            .init(menuID: .caffeAmericano, name: "아메리카노", image: "americano_circle"),
-            .init(menuID: .caramelMacchiato, name: "아이스 카라멜 마키아또", image: "iceCaramel_circle"),
-            .init(menuID: .caramelMacchiato, name: "카라멜 마키아또", image: "caramel_circle"),
+            .init(menuID: .espressoConPanna, name: "에소프레소 콘파나", image: "confana_circle", temperatureType: .hot),
+            .init(menuID: .espressoMacchiato, name: "에스프레소 마키아또", image: "macchiato_circle", temperatureType: .hot),
+            .init(menuID: .caffeAmericano, name: "아이스 아메리카노", image: "iceAmericano_circle", temperatureType: .iced),
+            .init(menuID: .caffeAmericano, name: "아메리카노", image: "americano_circle", temperatureType: .hot),
+            .init(menuID: .caramelMacchiato, name: "아이스 카라멜 마키아또", image: "iceCaramel_circle", temperatureType: .iced),
+            .init(menuID: .caramelMacchiato, name: "카라멜 마키아또", image: "caramel_circle", temperatureType: .hot),
         ],
         dessert: [
             .init(name: "너티 크루아상", image: "croissant"),

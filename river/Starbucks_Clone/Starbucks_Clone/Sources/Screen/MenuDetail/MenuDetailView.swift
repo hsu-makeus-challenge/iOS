@@ -9,14 +9,9 @@ import SwiftUI
 
 struct MenuDetailView: View {
     @ObservedObject private var menuDetailViewModel: MenuDetailViewModel
-    private var menuID: MenuID
     
-    init(
-        menuDetailViewModel: MenuDetailViewModel,
-        menuID: MenuID
-    ) {
+    init(menuDetailViewModel: MenuDetailViewModel) {
         self.menuDetailViewModel = menuDetailViewModel
-        self.menuID = menuID
     }
     
     var body: some View {
@@ -136,8 +131,10 @@ struct MenuDetailView_Preview: PreviewProvider {
             id: \.self
         ) { deviceType in
             MenuDetailView(
-                menuDetailViewModel: previewEnv.makeMenuDetailViewModel(with: .mockData[2]),
-                menuID: .caffeAmericano
+                menuDetailViewModel: previewEnv.makeMenuDetailViewModel(
+                    with: .mockData[2],
+                    selectedTemperatureType: .hot
+                )
             )
                 .environmentObject(previewEnv)
                 .previewDevice(
