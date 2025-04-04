@@ -20,7 +20,7 @@ struct MainTabView: View {
                 ? "homeIcon_selected"
                 : "homeIcon", value: 0
             ) {
-                EmptyView()
+                HomeView()
             }
             
             Tab(

@@ -15,17 +15,21 @@ struct MenuDetailView: View {
     }
     
     var body: some View {
+        let menu = menuDetailViewModel.menu
         VStack(alignment: .leading) {
-            Image(menuDetailViewModel.menu.variants[0].imageName)
+            // MARK: - 메뉴 이미지
+            Image(menu.menuTemperatureItem[0].imageName)
                 .resizable()
                 .scaledToFit()
-                .frame(height: 355)
-            
+                .frame(width: 440, height: 355)
+                .frame(maxWidth: .infinity)
+
             Spacer().frame(height: 20)
-            
-            VStack(alignment: .leading) {
+
+            VStack(alignment: .leading, spacing: 8) {
+                // MARK: - 메뉴명
                 HStack {
-                    Text(menuDetailViewModel.menu.variants[0].menuName)
+                    Text(menu.menuTemperatureItem[0].imageName)
                         .font(.mainTextSemiBold24)
                         .foregroundStyle(.black)
                     
@@ -34,19 +38,20 @@ struct MenuDetailView: View {
                         .frame(width: 20, height: 10)
                 }
                 
-                Text(menuDetailViewModel.menu.variants[0].menuNameEn)
+                Text(menu.menuTemperatureItem[0].menuNameEn)
                     .font(.mainTextSemiBold14)
                     .foregroundStyle(Color(.gray01))
                 
                 Spacer().frame(height: 32)
                 
-                Text(menuDetailViewModel.menu.variants[0].description)
+                Text(menu.menuTemperatureItem[0].description)
                     .font(.mainTextSemiBold14)
                     .foregroundStyle(Color(.gray06))
-                
+
                 Spacer().frame(height: 20)
-                
-                Text("9000")
+
+                // MARK: - 가격
+                Text("\(menu.menuTemperatureItem[0].price)원")
                     .font(.mainTextBold24)
                     .foregroundStyle(Color(.black03))
                 
@@ -54,27 +59,30 @@ struct MenuDetailView: View {
                 
                 Picker(
                     "",
-                    selection: $menuDetailViewModel.selectedType
+                    selection: $menuDetailViewModel.selectedTemperatureIndex
                 ) {
                     ForEach(
-                        menuDetailViewModel.availableTypes,
+                        menu.availableTemperatureTypes.indices,
                         id: \.self
-                    ) { type in
-                        Text(type.rawValue)
+                    ) { index in
+                        let temperature = menuDetailViewModel.menu.availableTemperatureTypes[index]
+                        Text(temperature.rawValue)
+                            .tag(index)
                     }
                 }
                 .pickerStyle(.segmented)
-                .padding(.trailing, 10)
-                
+
                 Spacer()
                 
                 OrderButtonView()
             }
-            .padding(.leading, 10)
+            .padding(.horizontal, 16)
         }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
+// MARK: - 주문하기 버튼
 fileprivate struct OrderButtonView: View {
     fileprivate var body: some View {
         Group {
@@ -89,8 +97,8 @@ fileprivate struct OrderButtonView: View {
             .background(Color(.green01))
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }
-        .padding(.horizontal, 28)
         .padding(.vertical, 15)
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 }
 
@@ -103,7 +111,7 @@ struct MenuDetailView_Preview: PreviewProvider {
         ) { deviceType in
             MenuDetailView(
                 menuDetailViewModel: previewEnv.makeMenuDetailViewModel(
-                    menu: MenuDetailModel.mockData[3]
+                    menu: MenuDetailModel.mockData[0]
                 ))
                 .environmentObject(previewEnv)
                 .previewDevice(
