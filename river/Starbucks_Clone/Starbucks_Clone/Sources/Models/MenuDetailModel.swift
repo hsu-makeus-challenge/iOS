@@ -51,7 +51,7 @@ extension MenuDetailModel {
                     imageName: "caramerlCold",
                     menuName: "아이스 카라멜 마끼아또",
                     menuNameEn: "Iced Caramel Macchiato",
-                    description: "...",
+                    description: "향긋한 바닐라 시럽과 시원한 우유에 어름을 넣고 점을 찍듯이 에스프레소를 부은 후 벌집 모양으로 카라멜 드리즐을 올린 달콤한 커피 음료",
                     price: "6100"
                 ),
                 .init(
@@ -60,7 +60,7 @@ extension MenuDetailModel {
                     imageName: "caramelHot",
                     menuName: "카라멜 마끼아또",
                     menuNameEn: "Caramel Macchiato",
-                    description: "...",
+                    description: "향긋한 바닐라 시럽과 시원한 우유에 어름을 넣고 점을 찍듯이 에스프레소를 부은 후 벌집 모양으로 카라멜 드리즐을 올린 달콤한 커피 음료",
                     price: "6100"
                 )
             ]
@@ -74,7 +74,7 @@ extension MenuDetailModel {
                     imageName: "americanpCold",
                     menuName: "아이스 카페 아메리카노",
                     menuNameEn: "Iced Caffe Americano",
-                    description: "...",
+                    description: "향긋한 바닐라 시럽과 시원한 우유에 어름을 넣고 점을 찍듯이 에스프레소를 부은 후 벌집 모양으로 카라멜 드리즐을 올린 달콤한 커피 음료",
                     price: "4700"
                 ),
                 .init(
@@ -83,7 +83,7 @@ extension MenuDetailModel {
                     imageName: "americanoHot",
                     menuName: "카페 아메리카노",
                     menuNameEn: "Caffe Americano",
-                    description: "...",
+                    description: "향긋한 바닐라 시럽과 시원한 우유에 어름을 넣고 점을 찍듯이 에스프레소를 부은 후 벌집 모양으로 카라멜 드리즐을 올린 달콤한 커피 음료",
                     price: "4700"
                 )
             ]
@@ -97,7 +97,7 @@ extension MenuDetailModel {
                     imageName: "confana",
                     menuName: "에스프레소 콘 파나",
                     menuNameEn: "Espresso Con Panna",
-                    description: "...",
+                    description: "향긋한 바닐라 시럽과 시원한 우유에 어름을 넣고 점을 찍듯이 에스프레소를 부은 후 벌집 모양으로 카라멜 드리즐을 올린 달콤한 커피 음료",
                     price: "4100"
                 )
             ]
@@ -111,7 +111,7 @@ extension MenuDetailModel {
                     imageName: "macchiato",
                     menuName: "에스프레소 마끼아또",
                     menuNameEn: "Espresso Macchiato",
-                    description: "...",
+                    description: "향긋한 바닐라 시럽과 시원한 우유에 어름을 넣고 점을 찍듯이 에스프레소를 부은 후 벌집 모양으로 카라멜 드리즐을 올린 달콤한 커피 음료",
                     price: "3900"
                 )
             ]

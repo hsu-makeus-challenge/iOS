@@ -18,7 +18,7 @@ class MenuDetailViewModel: ObservableObject {
     private let router: NavigationRouter
     
     init(
-        menu: MenuDetailModel = .mockData[0],
+        menu: MenuDetailModel = .mockData[0], // 프리뷰마다 초기화 해주는거 귀찮아서 디폴트값 선언
         router: NavigationRouter
     ) {
         self.menu = menu

@@ -38,7 +38,7 @@ struct MenuDetailView: View {
                 HStack {
                     Text(menu.menuTemperatureItem[
                         menuDetailViewModel.selectedTemperatureIndex
-                    ].imageName)
+                    ].menuName)
                         .font(.mainTextSemiBold24)
                         .foregroundStyle(.black)
                     
@@ -136,7 +136,7 @@ struct MenuDetailView_Preview: PreviewProvider {
             id: \.self
         ) { deviceType in
             MenuDetailView(
-                menuDetailViewModel: previewEnv.makeMenuDetailViewModel(menu: .mockData[0]),
+                menuDetailViewModel: previewEnv.makeMenuDetailViewModel(with: .mockData[2]),
                 menuID: .caffeAmericano
             )
                 .environmentObject(previewEnv)

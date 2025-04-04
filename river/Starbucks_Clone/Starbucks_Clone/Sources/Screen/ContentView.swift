@@ -81,11 +81,11 @@ struct ContentView: View {
                     ///     - 장바구니 상태
                     ///     - 로그인/유저 상태
                     ///     - 테마 설정,위치 정보 등
-                    let menuDetailViewModel = env.makeMenuDetailViewModel(menu: .mockData[0])
-                    MenuDetailView(
-                        menuDetailViewModel: menuDetailViewModel,
-                        menuID: menuID
-                    )
+                    if let menuDetailModel = MenuDetailModel.mockData.first(where: { $0.menuID == menuID }) {
+                        let _ = print(menuDetailModel)
+                        let viewModel = env.makeMenuDetailViewModel(with: menuDetailModel)
+                        MenuDetailView(menuDetailViewModel: viewModel, menuID: menuID)
+                    }
                 case .mainTap:
                     MainTabView()
                 }
