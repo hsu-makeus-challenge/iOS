@@ -23,7 +23,7 @@ class HomeViewModel: ObservableObject {
         HomeMenuModel(coffee: "에스프레소 마키아또", imageName: "coffee2"),
         HomeMenuModel(coffee: "아이스 카페 아메리카노", imageName: "coffee3"),
         HomeMenuModel(coffee: "카페 아메리카노", imageName: "coffee4"),
-        HomeMenuModel(coffee: "아이스 카라멜 마키아또", imageName: "coffee5"),
-        HomeMenuModel(coffee: "카라멜 마키아또", imageName: "coffee6")
+        HomeMenuModel(coffee: "아이스 카라멜 마끼아또", imageName: "coffee5"),
+        HomeMenuModel(coffee: "카라멜 마끼아또", imageName: "coffee6")
     ]
 }

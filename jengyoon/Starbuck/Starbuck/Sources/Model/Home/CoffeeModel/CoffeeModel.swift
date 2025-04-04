@@ -14,4 +14,5 @@ struct CoffeeModel: Identifiable {
     let englishName: String
     let imageName: String
     let discription: String
+    let price: Int
 }

@@ -28,16 +28,20 @@ struct HomeMenuView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHGrid(rows: rows, spacing: 16) {
                     ForEach(viewModel.menus) { menu in
-                        VStack (spacing: 10) {
-                            Image(menu.imageName)
-                                .resizable()
-                                .frame(width: 130, height: 130)
-                            
-                            Text(menu.coffee)
-                                .font(.PretendardLight14)
-                        }
-                    }
-                }
+                        /// 화면 전환하며 커피 이름 전달하기
+                        NavigationLink(destination: CoffeeDetailView(coffeeName: menu.coffee)) {
+                            VStack (spacing: 10) {
+                                Image(menu.imageName)
+                                    .resizable()
+                                    .frame(width: 130, height: 130)
+                                
+                                Text(menu.coffee)
+                                    .font(.PretendardLight14)
+                                    .foregroundStyle(Color.black)
+                            } //: VStack
+                        } //: Navigation
+                    } //: ForEach
+                } //: HGrid
             }//: CoffeeScrollView
             .frame(height: 160)
 
