@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainTabView: View {
     
+    @EnvironmentObject private var env: AppEnvironment
     @State private var selection: Int = 0
     
     var body: some View {
@@ -19,8 +20,7 @@ struct MainTabView: View {
                 ? "homeIcon_selected"
                 : "homeIcon", value: 0
             ) {
-                // FIXME: 테스트를 위한 LoginView 생성
-                LoginView()
+                HomeView(homeViewModel: env.makeHomeVieModel())
             }
             
             Tab(
@@ -29,8 +29,7 @@ struct MainTabView: View {
                 ? "payIcon_selected"
                 : "payIcon", value: 1
             ) {
-                // FIXME: 테스트를 위한 SignupView 생성
-                SignupView()
+                EmptyView()
             }
             
             Tab(
@@ -71,6 +70,7 @@ struct MainTabView_Preview: PreviewProvider {
             id: \.self
         ) { deviceType in
             MainTabView()
+                .environmentObject(AppEnvironment.previewEnv)
                 .previewDevice(
                     PreviewDevice(rawValue: deviceType.rawValue))
                 .previewDisplayName(deviceType.rawValue)

@@ -50,6 +50,10 @@ extension Font {
         return .pretend(type: .bold, size: 24)
     }
     
+    static var mainTextSemiBold34: Font {
+        return .pretend(type: .semibold, size: 34)
+    }
+    
     static var mainTextSemiBold24: Font {
         return .pretend(type: .semibold, size: 24)
     }

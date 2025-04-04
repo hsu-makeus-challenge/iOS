@@ -31,6 +31,14 @@ class SignupViewModel: ObservableObject {
         nickname: "", email: "", pwd: ""
     )
     
+    private var router: NavigationRouter
+    
+    init(router: NavigationRouter) {
+        self.router = router
+    }
+    
+    // MARK: - Property
+    
     /// 닉네임 입력값 (뷰에서 바인딩할 수 있도록 연산 프로퍼티로 제공)
     var nickname: String {
         get { self.signupModel.nickname }
@@ -49,6 +57,12 @@ class SignupViewModel: ObservableObject {
         set { signupModel.pwd = newValue }
     }
     
+    var signupButtonIsEnabled: Bool {
+        !nickname.isEmpty && !email.isEmpty && !pwd.isEmpty
+    }
+    
+    // MARK: - Functions
+    
     /// 회원가입 처리 함수
     ///
     /// - 현재 상태에 저장된 사용자 정보를 기반으로 가입 처리 수행
@@ -62,5 +76,10 @@ class SignupViewModel: ObservableObject {
         emailStorage = model.email
         
         print(signupModel)
+    }
+    
+    /// 로그인 화면으로 이동(현재 스택에서 pop)
+    func navigateBackToLogin() {
+        router.pop()
     }
 }

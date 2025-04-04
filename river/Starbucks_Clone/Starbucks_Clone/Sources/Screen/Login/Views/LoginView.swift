@@ -7,14 +7,13 @@
 
 import SwiftUI
 
-enum PREVIEW_DEVICE_TYPE : String, CaseIterable {
-    case iPhone_11 = "iPhone 11"
-    case iPhone_15_Pro = "iPhone 16 Pro"
-}
-
 struct LoginView: View {
     
-    @Bindable private var loginViewModel = LoginViewModel()
+    @Bindable private var loginViewModel: LoginViewModel
+    
+    init(loginViewModel: LoginViewModel) {
+        self.loginViewModel = loginViewModel
+    }
     
     var body: some View {
         VStack {
@@ -30,7 +29,7 @@ struct LoginView: View {
             
             Spacer().frame(height: 104)
             
-            emailLoginTextView()
+            EmailLoginBtnView(loginViewModel: loginViewModel)
             
             Spacer().frame(height: 19)
             
@@ -139,12 +138,23 @@ struct LoginButtonView: View {
     }
 }
 
-struct emailLoginTextView: View {
+struct EmailLoginBtnView: View {
+    @Bindable private var loginViewModel: LoginViewModel
+    
+    init(loginViewModel: LoginViewModel) {
+        self.loginViewModel = loginViewModel
+    }
+    
     var body: some View {
-        Text("이메일로 회원가입하기")
-            .font(.mainTextRegular12)
-            .underline()
-            .foregroundStyle(Color(.gray04))
+        Button {
+            loginViewModel.navigateToSignUp()
+        } label: {
+            Text("이메일로 회원가입하기")
+                .font(.mainTextRegular12)
+                .underline()
+                .foregroundStyle(Color(.gray04))
+        }
+
     }
 }
 
@@ -204,11 +214,13 @@ struct SocialLoginButtonView: View {
 
 struct SwiftUIView_Preview: PreviewProvider {
     static var previews : some View {
+        let previewEnv = AppEnvironment.previewEnv
         ForEach(
             PREVIEW_DEVICE_TYPE.allCases,
             id: \.self
         ) { deviceType in
-            LoginView()
+            LoginView(loginViewModel: previewEnv.makeLoginViewModel())
+                .environmentObject(previewEnv)
                 .previewDevice(
                     PreviewDevice(rawValue: deviceType.rawValue))
                 .previewDisplayName(deviceType.rawValue)

@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "온라인 스터어 배너(이미지 아님).pdf",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

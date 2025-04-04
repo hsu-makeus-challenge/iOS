@@ -1,23 +1,22 @@
 import SwiftUI
 
+enum PREVIEW_DEVICE_TYPE : String, CaseIterable {
+    case iPhone_15_Pro = "iPhone 16 Pro"
+    case iPhone_11 = "iPhone 11"
+}
+
 @main
 struct StarbucksCloneApp: App {
-    @State private var showMainView: Bool = false
+    @StateObject private var appEnvironment = AppEnvironment(
+        router: NavigationRouter(),
+        authService: AuthService(),
+        authStore: AuthStore()
+    )
     
     var body: some Scene {
         WindowGroup {
-            if showMainView {
-                MainTabView()
-            } else {
-                SplashView()
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                            withAnimation {
-                                showMainView = true
-                            }
-                        }
-                    }
-            }
+            ContentView()
+                .environmentObject(appEnvironment)
         }
     }
 }

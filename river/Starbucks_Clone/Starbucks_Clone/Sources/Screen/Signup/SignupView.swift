@@ -9,7 +9,11 @@ import SwiftUI
 
 struct SignupView: View {
     
-    @StateObject private var signupViewModel: SignupViewModel = SignupViewModel()
+    @StateObject private var signupViewModel: SignupViewModel
+    
+    init(signupViewModel: SignupViewModel) {
+        self._signupViewModel = StateObject(wrappedValue: signupViewModel)
+    }
     
     var body: some View {
         VStack {
@@ -78,8 +82,7 @@ struct SignupView: View {
 
 // REFACT: - 로그인 버튼 뷰와 함께 컴토넌트와 필요
 struct SignupButtonView: View {
-    
-    private let signupViewModel: SignupViewModel
+    @ObservedObject private var signupViewModel: SignupViewModel
     
     init(signupViewModel: SignupViewModel) {
         self.signupViewModel = signupViewModel
@@ -87,7 +90,10 @@ struct SignupButtonView: View {
     
     var body: some View {
         Button {
-            signupViewModel.createUser()
+            if signupViewModel.signupButtonIsEnabled {
+                signupViewModel.createUser()
+                signupViewModel.navigateBackToLogin()
+            }
         } label: {
             Text("생성하기")
                 .font(.mainTextMedium16)
@@ -95,11 +101,16 @@ struct SignupButtonView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 46)
         }
-        .background(Color(.green01))
+        .background(
+            signupViewModel.signupButtonIsEnabled
+            ? Color(.green01)
+            : Color(.green01).opacity(0.3)
+        )
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
 
 #Preview {
-    SignupView()
+    let previewEnv = AppEnvironment.previewEnv
+    SignupView(signupViewModel: previewEnv.makeSignupViewModel())
 }
