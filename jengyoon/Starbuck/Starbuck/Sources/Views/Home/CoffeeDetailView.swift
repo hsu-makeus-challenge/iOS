@@ -42,6 +42,7 @@ struct CoffeeDetailView: View {
                     .font(.PretendardBold24)
                 
                 Spacer()
+                
             }//:VStack
             .ignoresSafeArea()
             
