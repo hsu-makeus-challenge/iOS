@@ -8,6 +8,16 @@
 import Foundation
 import SwiftUI
 
+enum MenuID: String, CaseIterable, Identifiable {
+    case caramelMacchiato
+    case caffeAmericano
+    case caffeLatte
+    case espressoConPanna
+    case espressoMacchiato
+
+    var id: String { rawValue }
+}
+
 struct HomeModel: Identifiable {
     let id: UUID = UUID()
     let remommendedDrinks: [RecommendedDrink]
@@ -16,13 +26,15 @@ struct HomeModel: Identifiable {
 }
 
 struct RecommendedDrink: Identifiable {
-    let id: UUID = UUID()
+    let menuID: MenuID
     let name: String
     let image: String
     
     var imageView: Image {
         Image(image)
     }
+    
+    var id: MenuID { menuID }
 }
 
 struct NewsCard: Identifiable {
@@ -45,12 +57,12 @@ struct Dessert: Identifiable {
 extension HomeModel {
     static let mockData: HomeModel = .init(
         remommendedDrinks: [
-            .init(name: "에소프레소 콘파나", image: "confana"),
-            .init(name: "에스프레소 마키아또", image: "macchiato"),
-            .init(name: "아이스 아메리카노", image: "iceAmericano"),
-            .init(name: "아메리카노", image: "americano"),
-            .init(name: "아이스 카페라떼", image: "iceLatte"),
-            .init(name: "카페라떼", image: "latte"),
+            .init(menuID: .espressoConPanna, name: "에소프레소 콘파나", image: "confana"),
+            .init(menuID: .espressoMacchiato, name: "에스프레소 마키아또", image: "macchiato"),
+            .init(menuID: .caffeAmericano, name: "아이스 아메리카노", image: "iceAmericano"),
+            .init(menuID: .caffeAmericano, name: "아메리카노", image: "americano"),
+            .init(menuID: .caffeLatte, name: "아이스 카페라떼", image: "iceLatte"),
+            .init(menuID: .caffeLatte, name: "카페라떼", image: "latte"),
         ],
         dessert: [
             .init(name: "너티 크루아상", image: "croissant"),
