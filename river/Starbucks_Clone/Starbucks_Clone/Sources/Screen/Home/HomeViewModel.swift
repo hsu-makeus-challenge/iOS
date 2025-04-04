@@ -10,6 +10,11 @@ import Foundation
 @Observable
 class HomeViewModel {
     private var homeModel: HomeModel = .mockData
+    private var router: NavigationRouter
+    
+    init(router: NavigationRouter) {
+        self.router = router
+    }
     
     var recommendedDrinks: [RecommendedDrink] {
         homeModel.remommendedDrinks
@@ -21,5 +26,9 @@ class HomeViewModel {
     
     var desserts: [Dessert] {
         homeModel.dessert
+    }
+    
+    func moveToMenuDetails(_ menuID: MenuID) {
+        router.push(.menuDeatile(menuID: menuID))
     }
 }

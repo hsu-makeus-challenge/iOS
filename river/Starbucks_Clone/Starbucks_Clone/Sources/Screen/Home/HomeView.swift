@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct HomeView: View {
-    @Bindable private var homeViewModel: HomeViewModel = .init()
+    @Bindable private var homeViewModel: HomeViewModel
+    
+    init(homeViewModel: HomeViewModel) {
+        self.homeViewModel = homeViewModel
+    }
     
     var body: some View {
         ScrollView {
@@ -191,15 +195,20 @@ fileprivate struct RecommendedDrinksView: View {
     }
     
     private func makeDrinkCard(_ model: RecommendedDrink) -> some View {
-        VStack(spacing: 10) {
-            Image(model.image)
-                .resizable()
-                .frame(width: 130, height: 130)
-            
-            Text(model.name)
-                .font(.mainTextLight14)
-                .foregroundStyle(.black)
+        Button {
+            homeViewModel.moveToMenuDetails(model.menuID)
+        } label: {
+            VStack(spacing: 10) {
+                Image(model.image)
+                    .resizable()
+                    .frame(width: 130, height: 130)
+                
+                Text(model.name)
+                    .font(.mainTextLight14)
+                    .foregroundStyle(.black)
+            }
         }
+
     }
 }
 
@@ -373,7 +382,7 @@ struct HomeView_Preview: PreviewProvider {
             PREVIEW_DEVICE_TYPE.allCases,
             id: \.self
         ) { deviceType in
-            HomeView()
+            HomeView(homeViewModel: previewEnv.makeHomeVieModel())
                 .environmentObject(previewEnv)
                 .previewDevice(
                     PreviewDevice(rawValue: deviceType.rawValue))

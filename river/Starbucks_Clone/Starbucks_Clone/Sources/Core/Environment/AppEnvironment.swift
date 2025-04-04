@@ -49,6 +49,10 @@ final class AppEnvironment: ObservableObject {
         SignupViewModel(router: router)
     }
     
+    func makeHomeVieModel() -> HomeViewModel {
+        HomeViewModel(router: router)
+    }
+    
     func makeMenuDetailViewModel(menu: MenuDetailModel) -> MenuDetailViewModel {
         return MenuDetailViewModel(
             menu: menu,

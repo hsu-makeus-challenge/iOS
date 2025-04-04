@@ -20,7 +20,7 @@ struct MainTabView: View {
                 ? "homeIcon_selected"
                 : "homeIcon", value: 0
             ) {
-                HomeView()
+                HomeView(homeViewModel: env.makeHomeVieModel())
             }
             
             Tab(
