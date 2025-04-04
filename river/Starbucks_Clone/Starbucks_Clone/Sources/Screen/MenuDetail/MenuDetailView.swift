@@ -77,6 +77,8 @@ struct MenuDetailView: View {
     }
 }
 
+// MARK: - (ICED, HOT) 선택하는 세그먼트 컨트롤 뷰
+
 fileprivate struct MenuTemperatureView: View {
     @ObservedObject private var menuDetailViewModel: MenuDetailViewModel
     

@@ -73,14 +73,27 @@ struct ContentView: View {
                 case .login:
                     LoginView(loginViewModel: env.makeLoginViewModel())
                 case .menuDeatile(let menuID, let temperatureType):
-                    /// 상위 뷰에서 StateObject로 선언하지 않아도 하위 뷰에서 ObservedObject로 받으면 바인딩 연결됨
-                    /// `MenuDetailView`는 추천 음료를 누르면 해당 뷰로 이동하는 것이기 때문에, 매번 새로운 ViewModel 인스턴스가 생성되어야 하는 구조임.
-                    /// 이 구조에서는 EnvironmentObject로 주입하는 것보다 아래의 방식으로 하는 것이 이상적임.
-                    /// [참고] EnvironmentObject를 쓰면 좋은 구조
-                    ///     - 전체 메뉴 리스트
-                    ///     - 장바구니 상태
-                    ///     - 로그인/유저 상태
-                    ///     - 테마 설정,위치 정보 등
+                    /// [뷰 전환 시 ViewModel 주입 방식 설명] (제 코드 보게 된다면 읽어보길 바랍니다)
+                    /// `MenuDetailView`는 추천 음료 클릭 시 이동되므로, 매번 새로운 ViewModel 인스턴스가 필요함
+                    /// 그래서 StateObject가 아닌, 상위에서 생성 후 ObservedObject로 주입하는 방식을 채택
+                    ///
+                    /// [Navigation 흐름 요약]
+                    /// HomeViewModel → NavigationRouter → (menuID, temperatureType) → MenuDetailViewModel → MenuDetailView
+                    ///
+                    /// 1. 사용자가 HomeView에서 추천 음료를 탭함
+                    /// 2. NavigationRouter를 통해 menuID와 temperatureType이 전달됨
+                    /// 3. 여기서 해당 정보를 기반으로 MenuDetailModel을 조회하여 ViewModel 생성
+                    /// 4. MenuDetailView에 ViewModel을 직접 주입하여 상태 관리
+                    ///
+                    /// [왜 EnvironmentObject를 사용하지 않았는가?]
+                    /// - MenuDetailViewModel은 개별 메뉴에 종속된 상태 → 전역 공유 대상이 아님
+                    /// - 전역 공유가 필요한 값(예: 로그인, 장바구니 등)에는 EnvironmentObject가 적합
+                    ///
+                    /// [EnvironmentObject가 적합한 예시]
+                    /// - 전체 메뉴 리스트
+                    /// - 장바구니 상태
+                    /// - 로그인/유저 인증 상태
+                    /// - 앱 테마, 위치 정보, 사용자 설정 등
                     if let menuDetailModel = MenuDetailModel.mockData.first(where: { $0.menuID == menuID }) {
                         let menuDetailViewModel = env.makeMenuDetailViewModel(
                             with: menuDetailModel,
@@ -97,7 +110,15 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
-        .environmentObject(AppEnvironment.previewEnv)
+struct ContentView_Preview: PreviewProvider {
+    static var previews : some View {
+        let previewEnv = AppEnvironment.previewEnv
+        ForEach(
+            PREVIEW_DEVICE_TYPE.allCases,
+            id: \.self
+        ) { deviceType in
+            ContentView()
+                .environmentObject(previewEnv)
+        }
+    }
 }
