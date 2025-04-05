@@ -10,26 +10,35 @@ import SwiftUI
 struct HomeView: View {
     @AppStorage("nickname") var storedNickname: String = "(작성한 닉네임)"
     var viewModel: HomeViewModel = .init()
+    var coffeeViewModel: CoffeeDetailViewModel = .init()
+    @Bindable var router: NavigationRouter // 라우터 인스턴스 생성
+    @State private var navigationTrue: Bool = false
+    var coffeeList = CoffeeDetailViewModel().coffees
     
     var body: some View {
-        VStack {
-            topBanner
-            ScrollView {
-                VStack(spacing: 20) {
-                    Image("advertiseBanner")
-                    RecommendedView
-                    Image("eventBanner")
-                    Image("serviceSuscibe")
-                    NewsView
-                    BannersView
-                    DessertView
-                    LastBannerView
+//        NavigationStack(path: $router.path) { //탭바에서 이미 스택 해줬으니까 또 네비게이션 스택 쓸 필요 없음
+            VStack {
+//                topBanner
+                ScrollView {
+                    VStack(spacing: 20) {
+                        topBanner
+                        Image("advertiseBanner")
+                        RecommendedView
+                        Image("eventBanner")
+                        Image("serviceSuscibe")
+                        NewsView
+                        BannersView
+                        DessertView
+                        LastBannerView
+                    }
+                    .padding(.horizontal, 10)
                 }
-                .padding(.horizontal, 10)
             }
-        }.ignoresSafeArea(.all)
+            .ignoresSafeArea(.all)
+//        }
     }
     
+    /// 상단 토끼 배너
     private var topBanner: some View {
         ZStack{
             Image("top_img")
@@ -74,6 +83,7 @@ struct HomeView: View {
         }
     }
     
+    /// 별 개수 progressbar
     private var ProgressBar: some View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 5)
@@ -86,6 +96,7 @@ struct HomeView: View {
         }
     }
     
+    /// 추천메뉴
     private var RecommendedView: some View {
         VStack(alignment: .leading, spacing: 25) {
             /// 텍스트
@@ -100,14 +111,30 @@ struct HomeView: View {
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 16, content: {
                     ForEach(viewModel.recommendedMenus, id: \.id, content: { menu in
-                        CircleImageCard(name: menu.name, image: menu.imagename)
+                        Button(action: {
+                            print(menu.name)
+                            navigationTrue.toggle()
+//                            router.push(.coffeDetail)
+                        }, label: {
+                            CircleImageCard(name: menu.name, image: menu.imagename)
+                        })
                     })
                 })
             }
         }
         .padding(.horizontal, 10)
+        .navigationDestination(for: Route.self) { route in
+            switch route {
+            case .emailLogin:
+                SignupView(router: router)
+            case .coffeDetail:
+                CoffeeDetailView()
+            }
+        }
+//        .navigationDestination(isPresented: $navigationTrue, destination: {CoffeeDetailView(name: coffeeList.first., englishName: <#String#>, image: <#String#>, content: <#String#>, price: <#Double#>, isTwoType: <#Bool#>, isIce: <#Bool#>, isHot: <#Bool#>)})
     }
     
+    /// What's New
     private var NewsView: some View {
         VStack(alignment: .leading, spacing: 10){
             Text("What's New")
@@ -123,6 +150,7 @@ struct HomeView: View {
         .padding(.horizontal, 10)
     }
     
+    /// 중간 배너
     private var BannersView: some View {
         VStack(spacing: 14) {
             Image("mugcupBanner")
@@ -165,6 +193,7 @@ struct HomeView: View {
         }
     }
     
+    /// 디저트 메뉴 추천
     private var DessertView: some View {
         VStack(alignment: .leading, spacing: 25) {
             /// 텍스트
@@ -176,7 +205,11 @@ struct HomeView: View {
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 16, content: {
                     ForEach(viewModel.dessertsLists, id: \.id, content: { menu in
-                        CircleImageCard(name: menu.name, image: menu.image)
+                        Button(action: {
+                            
+                        }, label: {
+                            CircleImageCard(name: menu.name, image: menu.image)
+                        })
                     })
                 })
             }
@@ -184,6 +217,7 @@ struct HomeView: View {
         .padding(.horizontal, 10)
     }
     
+    /// 하단 배너
     private var LastBannerView: some View {
         VStack(spacing: 10) {
             Image("coldbrewBanner")
@@ -195,5 +229,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    HomeView(router: NavigationRouter())
 }

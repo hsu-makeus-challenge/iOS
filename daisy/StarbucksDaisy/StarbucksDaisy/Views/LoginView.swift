@@ -11,7 +11,8 @@ struct LoginView: View {
     @StateObject var viewModel = LoginViewModel()
     @FocusState private var isIDFocused: Bool   // 아이디 텍스트 필드의 포커스 상태
     @FocusState private var isPasswordFocused: Bool  // 비밀번호 텍스트 필드의 포커스 상태
-    @State var router = NavigationRouter() // 라우터 인스턴스 생성
+    @Bindable var router = NavigationRouter() // 라우터 인스턴스 생성
+//    @Environment(NavigationRouter.self) var router
     
     var body: some View {
         NavigationStack(path: $router.path) {
@@ -110,6 +111,8 @@ struct LoginView: View {
             switch route {
             case .emailLogin:
                 SignupView(router: router)
+            case .coffeDetail:
+                EmptyView()
             }
         }
     }

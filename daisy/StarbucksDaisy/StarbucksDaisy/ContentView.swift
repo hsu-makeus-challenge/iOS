@@ -14,6 +14,9 @@ struct ContentView: View {
         ZStack {
             if showLoginView {
                 LoginView()
+//                TabbarView()
+                // 로그인이 되었으면 탭바
+                // 안됐으면 로그인
             } else {
                 SplashView()
                     .onAppear() {
