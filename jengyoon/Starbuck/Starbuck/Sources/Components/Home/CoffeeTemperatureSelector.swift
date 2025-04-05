@@ -21,11 +21,13 @@ struct CoffeeTemperatureSelector: View {
             ForEach(type.options) { option in
                 Button(action: {
                     withAnimation {
+                        // 버튼 선택시 애니메이션과 함께 색상을 바꿈
                         selectedOption = option
                     }
                 }) {
                     Text(option.rawValue)
                         .font(.PretendardRegular18)
+                        .foregroundStyle(getTextColor(for: option))
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(
@@ -40,7 +42,14 @@ struct CoffeeTemperatureSelector: View {
     /// 선택된 옵션에 따라 텍스트 색상을 바꿔주는 함수 ( ICED : blue , Hot: red)
     private func getTextColor(for option: CoffeeOption) -> Color {
         guard selectedOption == option else {
-            return 
+            return .black01 // 선택되지 않았으면 검은색
+        }
+        
+        switch option {
+        case .iced:
+            return .blue
+        case .hot:
+            return .red
         }
     }
 }
