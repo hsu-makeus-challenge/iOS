@@ -17,7 +17,7 @@ struct CoffeeTemperatureSelector: View {
     
     var body: some View {
         HStack {
-            // type.option는 현재 커피의 온도 타입에 따라 나타날 버튼을 결정한다. ([.iced, .hot])
+            // type.option는 현재 커피의 온도 타입에 따라 나타날 버튼을 결정한다. iced, hot, icedOnly, hotOnly
             ForEach(type.options) { option in
                 Button(action: {
                     withAnimation {

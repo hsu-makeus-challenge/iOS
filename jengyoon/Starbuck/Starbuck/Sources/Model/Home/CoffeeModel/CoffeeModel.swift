@@ -19,22 +19,28 @@ struct CoffeeModel: Identifiable {
 }
 
 enum CoffeeTemperatureType {
-    case both // 아이스, 핫 모두 선택 가능
+    case hot // 아이스, 핫 모두 선택 가능 (기본값 hot)
+    case iced // 아이스, 핫 모두 선택 가능 (기본값 ice)
     case icedOnly // 아이스만 가능
     case hotOnly // 핫만 가능
     
     /// 커피 기본 값 설정
     var options: [CoffeeOption] {
         switch self {
-        case .both: return [.iced, .hot]
+        case .hot, .iced : return [.iced, .hot]
         case .icedOnly: return [.iced]
         case .hotOnly: return [.hot]
         }
     }
     
-    /// first 메서드를 활용하기 위해 CoffeeOption타입 옵셔널 처리
-    var defalutOption: CoffeeOption? {
-        options.first
+    ///CoffeeOption 기본값 반환 설정
+    var defalutOption: CoffeeOption {
+        switch self {
+        case .hot, .hotOnly:
+            return .hot
+        case .iced, .icedOnly:
+            return .iced
+        }
     }
 }
 
