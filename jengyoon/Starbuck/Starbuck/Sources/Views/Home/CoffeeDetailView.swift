@@ -50,6 +50,10 @@ struct CoffeeDetailView: View {
                     CoffeeTemperatureSelector(type: temperatureType, selectedOption: $selectedOption)
                 }
                 
+                BasicButton(buttonColor: .green00, textColor: .white01, text: "주문하기", font: .PretendardMedium16, action: {
+                    print("주문하기 버튼 클릭")
+                })
+                
                 Spacer()
                 
             }//:VStack

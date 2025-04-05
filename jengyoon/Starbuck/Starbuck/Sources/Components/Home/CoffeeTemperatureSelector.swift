@@ -29,7 +29,7 @@ struct CoffeeTemperatureSelector: View {
                         .font(.PretendardRegular18)
                         .foregroundStyle(getTextColor(for: option))
                         .padding()
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: 420, maxHeight: 36)
                         .background(
                             selectedOption == option ? Color.white01 : Color.gray.opacity(0.4)
                         )
