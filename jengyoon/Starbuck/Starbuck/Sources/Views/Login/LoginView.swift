@@ -20,10 +20,8 @@ struct LoginView: View {
     
     /// 뷰의 상태가 바뀔때마다 랜더링해주는 프로퍼티 래퍼
     @State private var navigationTrue: Bool = false
-    @State var id : String = ""
-    @State var password: String = ""
-    
     @FocusState private var focusField: Field?
+    @StateObject private var viewModel = LoginViewModel()
     
     var body: some View {
         NavigationStack {
@@ -41,6 +39,9 @@ struct LoginView: View {
             .navigationDestination(isPresented: $navigationTrue, destination: {
                 SignupView()
             })
+            .fullScreenCover(isPresented: $viewModel.isLogin) {
+                StarBuckTab()
+            }
         } //: NavigationStack
     }
     
@@ -72,7 +73,7 @@ struct LoginView: View {
     // 앱 로그인
     private var appLogin: some View {
         VStack (alignment: .leading) {
-            TextField("아이디를 입력하세요", text: $id)
+            TextField("아이디를 입력하세요", text: $viewModel.inputEmail)
                 .font(.PretendardLight14)
                 .foregroundStyle(.gray)
                 .focused($focusField, equals: .id)
@@ -85,7 +86,7 @@ struct LoginView: View {
             
             Spacer().frame(height: 49)
             
-            SecureField("비밀번호를 입력하세요", text: $password)
+            SecureField("비밀번호를 입력하세요", text: $viewModel.inputPassword)
                 .font(.PretendardLight14)
                 .foregroundStyle(.gray)
                 .focused($focusField, equals: .password)
@@ -96,16 +97,24 @@ struct LoginView: View {
             Spacer().frame(height: 49)
             
             Button(action: {
-                print("버튼이 눌렸습니다.")
+                viewModel.login()
             }) {
                 Text("로그인하기")
                     .font(.PretendardMedium16)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, minHeight: 50)
-                    .background(buttonValid ? Color.primaryGreen : Color.gray.opacity(0.4))
+                    .background(viewModel.buttonValid ? Color.primaryGreen : Color.gray.opacity(0.4))
                     .clipShape(RoundedRectangle(cornerRadius: 15))
             }
+            .disabled(!viewModel.buttonValid)
+            
+            // 에러 메시지
+            if let error = viewModel.loginError {
+                Text(error)
+                    .font(.caption)
+            }
         }
+        .padding()
     }
     
     // 소셜 로그인(로그인하기 버튼)
@@ -127,12 +136,8 @@ struct LoginView: View {
             SocialLoginButton(buttonColor: Color.black, textColor: Color.white, text: "Apple로 로그인", font: .PretendardMedium16, icon: "apple", action: {})
         }
     }
-    
-    /// 텍스트 필드 상태 감지 (버튼 활성화에 쓰임)
-    private var buttonValid: Bool {
-        !id.isEmpty && !password.isEmpty
-    }
 }
+
 #Preview {
     LoginView()
 }
