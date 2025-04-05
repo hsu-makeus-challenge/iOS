@@ -10,10 +10,14 @@ import SwiftUI
 struct CoffeeDetailView: View {
     let coffeeName: String
     @StateObject private var viewModel = CoffeeViewModel()
+    @State private var selectedOption: CoffeeOption? = nil
+    
     
     /// HomeMenuView에서 커피 이름을 받아와 랜더링
     var body: some View {
         if let coffee = viewModel.coffee(for: coffeeName) {
+            let temperatureType = coffee.temperatureType
+            
             /// 전체 이미지와 버튼 VStack
             VStack(spacing: 20) {
                 Image(coffee.imageName)
@@ -41,11 +45,19 @@ struct CoffeeDetailView: View {
                 Text("\(coffee.price)원")
                     .font(.PretendardBold24)
                 
+                // 온도 선택 셀렉터 표시 (icedOnly, hotOnly, both인 경우에만)
+                if !temperatureType.options.isEmpty {
+                    CoffeeTemperatureSelector(type: temperatureType, selectedOption: $selectedOption)
+                }
+                
                 Spacer()
                 
             }//:VStack
             .ignoresSafeArea()
-            
+            .onAppear {
+                // 첫 진입 시 기본 선택값 설정
+                selectedOption = temperatureType.defalutOption
+            }
         }
         else {
             Text("해당 커피 정보를 찾을 수 없습니다.")

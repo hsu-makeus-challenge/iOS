@@ -31,9 +31,9 @@ struct CoffeeTemperatureSelector: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(
-                            selectedOption == option ? Color.white01 : Color.gray.opacity(0.2)
+                            selectedOption == option ? Color.white01 : Color.gray.opacity(0.4)
                         )
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
                 }
             }
         } //: ForEach
