@@ -43,9 +43,73 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		82B60F442DA0185F00F48140 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				82B60F452DA0186600F48140 /* Models */,
+				82B60F472DA0188600F48140 /* Views */,
+				82B60F462DA0188000F48140 /* ViewModels */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		82B60F452DA0186600F48140 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		82B60F462DA0188000F48140 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		82B60F472DA0188600F48140 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		82B60F492DA018A400F48140 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				82B60F4C2DA018BB00F48140 /* Models */,
+				82B60F4A2DA018B100F48140 /* Views */,
+				82B60F4B2DA018B500F48140 /* ViewModels */,
+			);
+			path = Signup;
+			sourceTree = "<group>";
+		};
+		82B60F4A2DA018B100F48140 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		82B60F4B2DA018B500F48140 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		82B60F4C2DA018BB00F48140 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		82BAA84B2D8C4D7900F8FB43 = {
 			isa = PBXGroup;
 			children = (
+				82B60F492DA018A400F48140 /* Signup */,
+				82B60F442DA0185F00F48140 /* Login */,
 				82BAA8562D8C4D7900F8FB43 /* VienStarbucks */,
 				82BAA8552D8C4D7900F8FB43 /* Products */,
 			);

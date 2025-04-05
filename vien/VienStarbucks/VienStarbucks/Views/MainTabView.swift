@@ -29,11 +29,6 @@ struct MainTabView: View {
     }
 }
 
-struct HomeView: View {
-    var body: some View {
-        Text("Home")
-    }
-}
 
 struct PayView: View {
     var body: some View {

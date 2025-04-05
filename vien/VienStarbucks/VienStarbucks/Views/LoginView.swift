@@ -5,23 +5,26 @@ struct LoginView: View {
     @StateObject var loginViewModel: LoginViewModel = .init()
     
     var body: some View {
-        VStack {
-            
-            WelcomeView()
-            
-            Spacer().frame(height: 104)
+        NavigationStack{
+        
+            VStack {
+                
+                WelcomeView()
+                
+                Spacer().frame(height: 104)
 
-            IdPwdView(loginViewModel: loginViewModel)
-            
-            Spacer().frame(height: 47)
-            
-            LoginButtonView(loginViewModel: loginViewModel)
-            
-            Spacer().frame(height: 104)
-            
-            SignUpView()
+                IdPwdView(loginViewModel: loginViewModel)
+                
+                Spacer().frame(height: 47)
+                
+                LoginButtonView(loginViewModel: loginViewModel)
+                
+                Spacer().frame(height: 104)
+                
+                SignUpView()
+            }
+            .padding(.horizontal, 19)
         }
-        .padding(.horizontal, 19)
     }
 }
 
@@ -113,15 +116,24 @@ struct SignUpView: View {
         }
     }
 
+//    private var emailLoginView: some View {
+//        VStack {
+//            Text("이메일로 회원가입하기")
+//                .underline()
+//                .font(.mainTextRegular12)
+//                .foregroundColor(Color("gray03"))
+//        }
+//    }
     private var emailLoginView: some View {
-        VStack {
+        NavigationLink(destination: SignupView()) {
             Text("이메일로 회원가입하기")
                 .underline()
                 .font(.mainTextRegular12)
                 .foregroundColor(Color("gray03"))
         }
     }
-
+    
+    
     private var kakaoLoginBtnView: some View {
         Button {
             print("카카오 로그인")

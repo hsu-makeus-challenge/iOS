@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "square_caramelCold.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
