@@ -16,71 +16,75 @@ struct HomeView: View {
     var coffeeList = CoffeeDetailViewModel().coffees
     
     var body: some View {
-//        NavigationStack(path: $router.path) { //탭바에서 이미 스택 해줬으니까 또 네비게이션 스택 쓸 필요 없음
-            VStack {
-//                topBanner
-                ScrollView {
-                    VStack(spacing: 20) {
-                        topBanner
-                        Image("advertiseBanner")
-                        RecommendedView
-                        Image("eventBanner")
-                        Image("serviceSuscibe")
-                        NewsView
-                        BannersView
-                        DessertView
-                        LastBannerView
-                    }
-                    .padding(.horizontal, 10)
+        //        NavigationStack(path: $router.path) { //탭바에서 이미 스택 해줬으니까 또 네비게이션 스택 쓸 필요 없음
+        VStack {
+            //                topBanner
+            ScrollView {
+                VStack(spacing: 20) {
+                    topBanner
+                    Image("advertiseBanner")
+                    RecommendedView
+                    Image("eventBanner")
+                    Image("serviceSuscibe")
+                    NewsView
+                    BannersView
+                    DessertView
+                    LastBannerView
                 }
+                .padding(.horizontal, 10)
             }
-            .ignoresSafeArea(.all)
-//        }
+        }
+        .ignoresSafeArea(.all)
+        //        }
     }
     
     /// 상단 토끼 배너
     private var topBanner: some View {
-        ZStack{
-            Image("top_img")
-            VStack(alignment: .leading, spacing: 11) {
-                
-                Text("골든 미모사 그린 티와 함께\n행복한 새해의 축배를 들어요!")
-                    .font(.mainTextBold24)
-                    .foregroundStyle(.black03)
-                
-                HStack(spacing: 38) {
-                    VStack(alignment: .leading) {
-                        Spacer().frame(height: 20)
-                        Text("11⭑ until next Reward")
-                            .font(.mainTextSemiBold16)
-                            .foregroundStyle(.brown02)
-                        
-                        ProgressBar
-                    }
+        VStack (spacing: -5) {
+            ZStack{
+                Image("top_img")
+                VStack(alignment: .leading, spacing: 9) {
                     
-                    VStack(spacing: 5) {
-                        HStack {
-                            Text("내용 보기")
-                                .font(.mainTextRegular13)
-                                .foregroundStyle(.gray06)
-                            Image("go_line")
-                        }
-                        HStack {
-                            Text("1")
-                                .font(.mainTextSemiBold38)
-                                .foregroundStyle(.black03)
-                            Text("/")
-                                .font(.mainTextLight24)
-                                .foregroundStyle(.gray00)
-                            Text("12⭑")
-                                .font(.mainTextSemiBold24)
-                                .foregroundStyle(.brown02)
-                        }
+                    Text("골든 미모사 그린 티와 함께\n행복한 새해의 축배를 들어요!")
+                        .font(.mainTextBold24)
+                        .foregroundStyle(.black03)
+                    
+                    HStack {
+                        Spacer()
+                        Text("내용 보기")
+                            .font(.mainTextRegular13)
+                            .foregroundStyle(.gray06)
+                        Image("go_line")
                     }
                 }
+                .padding(.leading, 28)
+                .padding(.trailing, 23)
+                .padding(.top, 120)
             }
-            .padding(.top, 120)
+            
+            HStack(spacing: 38) {
+                VStack(alignment: .leading) {
+                    Text("11⭑ until next Reward")
+                        .font(.mainTextSemiBold16)
+                        .foregroundStyle(.brown02)
+                    
+                    ProgressBar
+                }
+                HStack {
+                    
+                    Text("1")
+                        .font(.mainTextSemiBold38)
+                        .foregroundStyle(.black03)
+                    Text("/")
+                        .font(.mainTextLight24)
+                        .foregroundStyle(.gray00)
+                    Text("12⭑")
+                        .font(.mainTextSemiBold24)
+                        .foregroundStyle(.brown02)
+                }
+            }
         }
+        
     }
     
     /// 별 개수 progressbar
@@ -114,7 +118,7 @@ struct HomeView: View {
                         Button(action: {
                             print(menu.name)
                             navigationTrue.toggle()
-//                            router.push(.coffeDetail)
+                            //                            router.push(.coffeDetail)
                         }, label: {
                             CircleImageCard(name: menu.name, image: menu.imagename)
                         })
@@ -131,7 +135,7 @@ struct HomeView: View {
                 CoffeeDetailView()
             }
         }
-//        .navigationDestination(isPresented: $navigationTrue, destination: {CoffeeDetailView(name: coffeeList.first., englishName: <#String#>, image: <#String#>, content: <#String#>, price: <#Double#>, isTwoType: <#Bool#>, isIce: <#Bool#>, isHot: <#Bool#>)})
+        //        .navigationDestination(isPresented: $navigationTrue, destination: {CoffeeDetailView(name: coffeeList.first., englishName: <#String#>, image: <#String#>, content: <#String#>, price: <#Double#>, isTwoType: <#Bool#>, isIce: <#Bool#>, isHot: <#Bool#>)})
     }
     
     /// What's New
@@ -225,7 +229,7 @@ struct HomeView: View {
             Image("sizeupBanner")
         }
     }
-
+    
 }
 
 #Preview {
