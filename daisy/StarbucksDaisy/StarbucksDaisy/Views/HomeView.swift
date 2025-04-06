@@ -16,26 +16,21 @@ struct HomeView: View {
     var coffeeList = CoffeeDetailViewModel().coffees
     
     var body: some View {
-        //        NavigationStack(path: $router.path) { //탭바에서 이미 스택 해줬으니까 또 네비게이션 스택 쓸 필요 없음
-        VStack {
-            //                topBanner
-            ScrollView {
-                VStack(spacing: 20) {
-                    topBanner
-                    Image("advertiseBanner")
-                    RecommendedView
-                    Image("eventBanner")
-                    Image("serviceSuscibe")
-                    NewsView
-                    BannersView
-                    DessertView
-                    LastBannerView
-                }
-                .padding(.horizontal, 10)
+        ScrollView {
+            VStack(spacing: 20) {
+                topBanner
+                Image("advertiseBanner")
+                RecommendedView
+                Image("eventBanner")
+                Image("serviceSuscibe")
+                NewsView
+                BannersView
+                DessertView
+                LastBannerView
             }
+            .padding(.horizontal, 10)
         }
         .ignoresSafeArea(.all)
-        //        }
     }
     
     /// 상단 토끼 배너
@@ -114,17 +109,15 @@ struct HomeView: View {
             /// 추천 메뉴 스크롤
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 16, content: {
-                    ForEach(viewModel.recommendedMenus, id: \.id, content: { menu in
-                        Button(action: {
-                            print(menu.name)
-                            navigationTrue.toggle()
-                            //                            router.push(.coffeDetail)
-                        }, label: {
+                    ForEach(viewModel.recommendedMenus, id: \.id, content:  { menu in
+                        NavigationLink(destination: CoffeeDetailView(coffee: coffeeViewModel.findCoffee(for: menu.name) ?? coffeeViewModel.coffees.first!), label: {
                             CircleImageCard(name: menu.name, image: menu.imagename)
                         })
                     })
                 })
             }
+            .scrollIndicators(.hidden)
+            
         }
         .padding(.horizontal, 10)
         .navigationDestination(for: Route.self) { route in
@@ -132,10 +125,10 @@ struct HomeView: View {
             case .emailLogin:
                 SignupView(router: router)
             case .coffeDetail:
-                CoffeeDetailView()
+//                CoffeeDetailView()
+                EmptyView()
             }
         }
-        //        .navigationDestination(isPresented: $navigationTrue, destination: {CoffeeDetailView(name: coffeeList.first., englishName: <#String#>, image: <#String#>, content: <#String#>, price: <#Double#>, isTwoType: <#Bool#>, isIce: <#Bool#>, isHot: <#Bool#>)})
     }
     
     /// What's New
@@ -149,7 +142,7 @@ struct HomeView: View {
                         NewsCard(title: news.title, content: news.content, thumbnail: news.thumbnail)
                     })
                 }
-            }
+            }.scrollIndicators(.hidden)
         }
         .padding(.horizontal, 10)
     }
@@ -216,7 +209,7 @@ struct HomeView: View {
                         })
                     })
                 })
-            }
+            }.scrollIndicators(.hidden)
         }
         .padding(.horizontal, 10)
     }
@@ -233,5 +226,6 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(router: NavigationRouter())
+//    HomeView(router: NavigationRouter())
+    TabbarView()
 }

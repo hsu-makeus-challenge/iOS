@@ -13,8 +13,13 @@ struct Coffee {
     let englishName: String
     let image: String
     let content: String
-    let price: Double
-    let isTwoType: Bool
-    let isIce: Bool
-    let isHot: Bool
+    let price: Int
+    let tempType: CoffeeTempType
+}
+
+enum CoffeeTempType: String {
+    case hot
+    case iced
+    case hotOnly
+    case icedOnly
 }
