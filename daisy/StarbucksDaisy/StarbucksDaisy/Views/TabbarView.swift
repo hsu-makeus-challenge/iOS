@@ -19,7 +19,7 @@ struct TabbarView: View {
                     ? "home_selected"
                     : "home", value: 0
                 ) {
-                    HomeView(router: NavigationRouter())
+                    HomeView()
                 }
                 
                 Tab(

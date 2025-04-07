@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct SignupView: View {
-    @State var viewModel = SignupViewModel()
+    @StateObject var viewModel = SignupViewModel()
+    @EnvironmentObject var router: NavigationRouter
+
     @FocusState private var isNicknameFocused: Bool
     @FocusState private var isEmailFocused: Bool
     @FocusState private var isPasswordFocused: Bool
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @Bindable var router: NavigationRouter // 라우터 인스턴스 바인딩
     
     var body: some View {
         VStack {
@@ -75,9 +75,9 @@ struct SignupView: View {
     private var ButtonView: some View {
         Button(action: {
             if viewModel.isSignupEnabled {
-                viewModel.saveUser()
+                viewModel.saveUser(router: router)
             }
-            router.pop()
+//            router.pop()
         }, label: {
             RoundedRectangle(cornerRadius: 20)
                 .frame(height: 58)
@@ -93,7 +93,7 @@ struct SignupView: View {
     
     private var BackButton: some View {
         Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
+            router.pop()
         }, label: {
             Image(systemName: "chevron.left")
                 .aspectRatio(contentMode: .fit)

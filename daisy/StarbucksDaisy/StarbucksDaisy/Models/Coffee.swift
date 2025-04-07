@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Coffee {
+struct Coffee: Hashable {
     let id = UUID()
     let name: String
     let englishName: String

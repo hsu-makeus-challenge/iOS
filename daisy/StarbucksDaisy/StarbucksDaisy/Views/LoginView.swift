@@ -9,13 +9,12 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject var viewModel = LoginViewModel()
+    @EnvironmentObject var router: NavigationRouter
+    
     @FocusState private var isIDFocused: Bool   // 아이디 텍스트 필드의 포커스 상태
     @FocusState private var isPasswordFocused: Bool  // 비밀번호 텍스트 필드의 포커스 상태
-    @Bindable var router = NavigationRouter() // 라우터 인스턴스 생성
-//    @Environment(NavigationRouter.self) var router
     
     var body: some View {
-        NavigationStack(path: $router.path) {
             VStack{
                 Spacer().frame(height: 104)
                 VStack() {
@@ -29,7 +28,6 @@ struct LoginView: View {
                 .padding(.horizontal, 4)
             }
         }
-    }
     
     /// 상단 로고 및 설명 그룹
     private var loginTitle: some View {
@@ -80,14 +78,18 @@ struct LoginView: View {
             }
             .frame(width: 401, height: 20)
 
-            RoundedRectangle(cornerRadius: 20)
-                .frame(width: 402, height: 46)
-                .foregroundStyle(Color.green01)
-                .overlay {
-                    Text("로그인하기")
-                        .font(.mainTextMedium16)
-                        .foregroundStyle(Color.white)
-                }
+            Button(action: {
+                viewModel.login(router: router)
+            }, label: {
+                RoundedRectangle(cornerRadius: 20)
+                    .frame(width: 402, height: 46)
+                    .foregroundStyle(Color.green01)
+                    .overlay {
+                        Text("로그인하기")
+                            .font(.mainTextMedium16)
+                            .foregroundStyle(Color.white)
+                    }
+            })
         }
     }
     
@@ -107,17 +109,12 @@ struct LoginView: View {
             Image("appleLogin")
         }
         .frame(height: 144)
-        .navigationDestination(for: Route.self) { route in
-            switch route {
-            case .emailLogin:
-                SignupView(router: router)
-            case .coffeDetail:
-                EmptyView()
-            }
-        }
     }
 }
 
-#Preview {
-    LoginView()
+struct LoginView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView()
+            .environmentObject(NavigationRouter()) // ✅ 해결
+    }
 }

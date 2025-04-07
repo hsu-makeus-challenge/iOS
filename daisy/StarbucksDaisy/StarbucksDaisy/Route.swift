@@ -10,5 +10,6 @@ import SwiftUI
 
 enum Route: Hashable {
     case emailLogin
-    case coffeDetail
+    case coffeDetail(coffee: Coffee)
+    case mainTabBar
 }

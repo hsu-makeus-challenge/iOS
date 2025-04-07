@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var navigationTrue: Bool = false
+    @EnvironmentObject var router: NavigationRouter
     @AppStorage("nickname") var storedNickname: String = "(작성한 닉네임)"
+    
     var viewModel: HomeViewModel = .init()
     var coffeeViewModel: CoffeeDetailViewModel = .init()
-    @Bindable var router: NavigationRouter // 라우터 인스턴스 생성
-    @State private var navigationTrue: Bool = false
     var coffeeList = CoffeeDetailViewModel().coffees
     
     var body: some View {
@@ -118,15 +119,29 @@ struct HomeView: View {
             }
             .scrollIndicators(.hidden)
             
+            ScrollView(.horizontal) {
+                LazyHStack(spacing: 16, content: {
+                    ForEach(viewModel.recommendedMenus, id: \.id) { menu in
+                        Button {
+                            router.push(.coffeDetail(coffee: coffeeViewModel.findCoffee(for: menu.name) ?? coffeeViewModel.coffees.first!))
+                        } label: {
+                            CircleImageCard(name: menu.name, image: menu.imagename)
+                        }
+                    }
+                })
+            }
+            
         }
         .padding(.horizontal, 10)
         .navigationDestination(for: Route.self) { route in
             switch route {
             case .emailLogin:
-                SignupView(router: router)
+                SignupView(/*router: router*/)
             case .coffeDetail:
 //                CoffeeDetailView()
                 EmptyView()
+            case .mainTabBar:
+                TabbarView(/*router: router*/)
             }
         }
     }
@@ -226,6 +241,5 @@ struct HomeView: View {
 }
 
 #Preview {
-//    HomeView(router: NavigationRouter())
     TabbarView()
 }
