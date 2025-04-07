@@ -1,12 +1,22 @@
 import SwiftUI
 
 struct SignupView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject var SignupViewModel: SignupViewModel = .init()
     
     var body: some View {
         VStack {
             
-            Spacer().frame(height:210)
+
+            //뭐야 여기
+            Spacer().frame(height:57)
+            
+            TopNavBarView(title: "가입하기") {
+                dismiss()
+            }
+            
+            
+            Spacer().frame(height:130)
             
             SignupFormView(signupViewModel: SignupViewModel)
             
@@ -17,6 +27,8 @@ struct SignupView: View {
             Spacer().frame(height:72)
         }
         .padding(.horizontal, 19)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -84,6 +96,8 @@ struct createBtnView: View {
                 .background(Color.green01)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
         }
+        .disabled(!signupViewModel.isSignupEnabled)
+        .opacity(signupViewModel.isSignupEnabled ? 1: 0.3)
         
         
 

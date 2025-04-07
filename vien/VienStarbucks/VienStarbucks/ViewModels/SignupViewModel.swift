@@ -10,9 +10,17 @@ class SignupViewModel: ObservableObject {
     @AppStorage("userEmail") var storedEmail: String = ""
     @AppStorage("userPassword") var storedPassword: String = ""
     
+
+    var isSignupEnabled: Bool {
+        !nickname.isEmpty && !email.isEmpty && !password.isEmpty
+    }
+    
     func saveUser() {
-        storedNickname = nickname
-        storedEmail = email
-        storedPassword = password
+        if nickname.count >= 1, email.count >= 1, password.count >= 1 {
+            storedNickname = nickname
+            storedEmail = email
+            storedPassword = password
+            print("저장 완료")
+        } 
     }
 }
