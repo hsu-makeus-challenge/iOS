@@ -11,6 +11,7 @@ struct OtherView: View {
     /// 회원가입시 저장한 닉네임을 표시
     /// UserDefaults의 "nickname" 키에 저장된 값을 불러온다.
     @AppStorage("nickname") private var nickname : String?
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         otherHeaderView
@@ -43,7 +44,9 @@ struct OtherView: View {
             Spacer()
             
             Button(action: {
-                print("로그아웃 클릭")}) {
+                print("로그아웃 클릭")
+                dismiss()
+            }) {
                 Image("logout")
                         .resizable()
                         .frame(width: 35, height: 35)

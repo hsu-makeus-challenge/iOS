@@ -4,7 +4,7 @@ import SwiftUI
 struct StarbuckApp: App {
     var body: some Scene {
         WindowGroup {
-            StarBuckTab()
+            LoginView()
         }
     }
 }

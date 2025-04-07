@@ -42,6 +42,7 @@ struct SocialLoginButton: View {
     var body: some View {
         Button(action: action) {
             HStack() {
+                
                 if let icon = icon {
                     Image(icon) // Asset에서 아이콘 로드
                         .resizable()

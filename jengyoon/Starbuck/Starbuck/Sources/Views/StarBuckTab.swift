@@ -11,9 +11,8 @@ import SwiftUI
 struct StarBuckTab: View {
     var body: some View {
         TabView {
-            
             Tab {
-                EmptyView()
+                HomeView()
             } label: {
                 Label {
                     Text("Home")
@@ -69,33 +68,6 @@ struct StarBuckTab: View {
             
         } //: TabView
         .tint(Color.primaryGreen)
-    }
-}
-
-struct HomeView: View {
-    var body: some View {
-        Text("Home")
-    }
-}
-
-
-struct PayView: View {
-    var body: some View {
-        Text("Pay")
-    }
-}
-
-
-struct OrderView: View {
-    var body: some View {
-        Text("Order")
-    }
-}
-
-
-struct ShopView: View {
-    var body: some View {
-        Text("Shop")
     }
 }
 
