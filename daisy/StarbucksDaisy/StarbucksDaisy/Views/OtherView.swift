@@ -20,7 +20,6 @@ struct OtherView: View {
         }
         .background(Color.white01)
         .padding(.horizontal, 10)
-//        .background(Color.white01)
     }
     
     private var TopBackground: some View {
@@ -111,7 +110,7 @@ struct OtherView: View {
     
     /// 고객지원
     private var ServiceContentView: some View {
-        VStack(alignment: .leading/*, spacing: 8*/) {
+        VStack(alignment: .leading) {
             Text("고객지원")
                 .font(.mainTextSemiBold18)
                 .foregroundStyle(.black)

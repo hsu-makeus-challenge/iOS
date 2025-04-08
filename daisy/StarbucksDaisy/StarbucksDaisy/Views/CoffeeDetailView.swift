@@ -8,15 +8,11 @@
 import SwiftUI
 
 struct CoffeeDetailView: View {
-//    let name: String
-//    let englishName: String
-//    let image: String
-//    let content: String
-//    let price: Double
-    let coffee: Coffee
     @State private var selectedTempType = 0
     @Environment(\.dismiss) var dismiss
-
+    
+    let coffee: Coffee
+    
     var body: some View {
         VStack {
             Image(coffee.image)
@@ -112,6 +108,5 @@ struct CoffeeDetailView: View {
 }
 
 #Preview {
-//    CoffeeDetailView()
     TabbarView()
 }

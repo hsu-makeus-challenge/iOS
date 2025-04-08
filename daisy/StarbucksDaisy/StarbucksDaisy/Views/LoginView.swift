@@ -52,7 +52,6 @@ struct LoginView: View {
     
     /// 아이디 및 비밀번호 입력 필드
     private var loginMiddle: some View {
-//        @Bindable var viewModel: LoginViewModel
         
         VStack(spacing: 47) {
             VStack(alignment: .leading) {
@@ -115,6 +114,6 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
-            .environmentObject(NavigationRouter()) // ✅ 해결
+            .environmentObject(NavigationRouter()) 
     }
 }

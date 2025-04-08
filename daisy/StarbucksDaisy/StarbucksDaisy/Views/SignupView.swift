@@ -77,7 +77,6 @@ struct SignupView: View {
             if viewModel.isSignupEnabled {
                 viewModel.saveUser(router: router)
             }
-//            router.pop()
         }, label: {
             RoundedRectangle(cornerRadius: 20)
                 .frame(height: 58)

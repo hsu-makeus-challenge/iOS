@@ -18,12 +18,18 @@ struct HomeView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
+            LazyVStack(spacing: 20) {
                 topBanner
                 Image("advertiseBanner")
+                    .resizable()
+                    .frame(maxWidth: .infinity)
                 RecommendedView
                 Image("eventBanner")
+                    .resizable()
+                    .frame(maxWidth: .infinity)
                 Image("serviceSuscibe")
+                    .resizable()
+                    .frame(maxWidth: .infinity)
                 NewsView
                 BannersView
                 DessertView
@@ -31,6 +37,8 @@ struct HomeView: View {
             }
             .padding(.horizontal, 10)
         }
+        .scrollIndicators(.hidden)
+        .safeAreaPadding(.bottom, 90)
         .ignoresSafeArea(.all)
     }
     
@@ -92,7 +100,6 @@ struct HomeView: View {
             RoundedRectangle(cornerRadius: 5)
                 .frame(width: 111.5, height: 8)
                 .foregroundStyle(.brown02)
-            
         }
     }
     
@@ -100,25 +107,18 @@ struct HomeView: View {
     private var RecommendedView: some View {
         VStack(alignment: .leading, spacing: 25) {
             /// 텍스트
-            Text(storedNickname)
-                .font(.mainTextBold24)
-                .foregroundStyle(.brown01)
-            + Text("님을 위한 추천 메뉴")
-                .font(.mainTextBold24)
-                .foregroundStyle(.black03)
+            (
+                Text(storedNickname)
+                    .font(.mainTextBold24)
+                    .foregroundStyle(.brown01)
+                + Text("님을 위한 추천 메뉴")
+                    .font(.mainTextBold24)
+                    .foregroundStyle(.black03)
+            )
+            .padding(.leading, 10)
+
             
-            /// 추천 메뉴 스크롤
-            ScrollView(.horizontal) {
-                LazyHStack(spacing: 16, content: {
-                    ForEach(viewModel.recommendedMenus, id: \.id, content:  { menu in
-                        NavigationLink(destination: CoffeeDetailView(coffee: coffeeViewModel.findCoffee(for: menu.name) ?? coffeeViewModel.coffees.first!), label: {
-                            CircleImageCard(name: menu.name, image: menu.imagename)
-                        })
-                    })
-                })
-            }
-            .scrollIndicators(.hidden)
-            
+           /// 추천 메뉴 스크롤
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 16, content: {
                     ForEach(viewModel.recommendedMenus, id: \.id) { menu in
@@ -130,19 +130,8 @@ struct HomeView: View {
                     }
                 })
             }
-            
-        }
-        .padding(.horizontal, 10)
-        .navigationDestination(for: Route.self) { route in
-            switch route {
-            case .emailLogin:
-                SignupView(/*router: router*/)
-            case .coffeDetail:
-//                CoffeeDetailView()
-                EmptyView()
-            case .mainTabBar:
-                TabbarView(/*router: router*/)
-            }
+            .safeAreaPadding(.horizontal, 10)
+            .scrollIndicators(.hidden)
         }
     }
     
@@ -151,23 +140,29 @@ struct HomeView: View {
         VStack(alignment: .leading, spacing: 10){
             Text("What's New")
                 .font(.mainTextBold24)
+                .padding(.horizontal, 10)
             ScrollView(.horizontal) {
                 HStack(spacing: 16) {
                     ForEach(viewModel.newsLists, id: \.id, content: { news in
                         NewsCard(title: news.title, content: news.content, thumbnail: news.thumbnail)
                     })
                 }
-            }.scrollIndicators(.hidden)
+            }
+            .safeAreaPadding(.horizontal, 10)
+            .scrollIndicators(.hidden)
         }
-        .padding(.horizontal, 10)
     }
     
     /// 중간 배너
     private var BannersView: some View {
         VStack(spacing: 14) {
             Image("mugcupBanner")
+                .resizable()
+                .frame(maxWidth: .infinity)
             ZStack{
                 Image("starBanner")
+                    .resizable()
+                    .frame(maxWidth: .infinity)
                 VStack(alignment: .leading) {
                     Text("TIP")
                         .font(.mainTextSemiBold12)
@@ -190,6 +185,8 @@ struct HomeView: View {
             }
             ZStack{
                 Image("deliveryBanner")
+                    .resizable()
+                    .frame(maxWidth: .infinity)
                 VStack(alignment: .leading, spacing: 16) {
                     Text("딜리버스\n예약 배달 서비스")
                         .font(.mainTextBold22)
@@ -212,6 +209,7 @@ struct HomeView: View {
             Text("하루가 달콤해지는 디저트")
                 .font(.mainTextSemiBold24)
                 .foregroundStyle(.black03)
+                .padding(.horizontal, 10)
             
             /// 디저트 스크롤
             ScrollView(.horizontal) {
@@ -224,17 +222,24 @@ struct HomeView: View {
                         })
                     })
                 })
-            }.scrollIndicators(.hidden)
+            }
+            .safeAreaPadding(.horizontal, 10)
+            .scrollIndicators(.hidden)
         }
-        .padding(.horizontal, 10)
     }
     
     /// 하단 배너
     private var LastBannerView: some View {
         VStack(spacing: 10) {
-            Image("coldbrewBanner")
-            Image("baristaBanner")
-            Image("sizeupBanner")
+                Image("coldbrewBanner")
+                .resizable()
+                .frame(maxWidth: .infinity)
+                Image("baristaBanner")
+                .resizable()
+                .frame(maxWidth: .infinity)
+                Image("sizeupBanner")
+                .resizable()
+                .frame(maxWidth: .infinity)
         }
     }
     

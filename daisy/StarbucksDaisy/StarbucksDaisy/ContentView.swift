@@ -12,10 +12,20 @@ struct ContentView: View {
     @State private var showLoginView = false
     
     var body: some View {
-        NavigationStack(path: $router.path) {
-            ZStack {
+        ZStack {
+            NavigationStack(path: $router.path) {
                 if showLoginView {
                     LoginView()
+                        .navigationDestination(for: Route.self) { route in
+                            switch route {
+                            case .emailLogin:
+                                SignupView()
+                            case .coffeDetail(let coffee):
+                                CoffeeDetailView(coffee: coffee)
+                            case .mainTabBar:
+                                TabbarView()
+                            }
+                        }
                 } else {
                     SplashView()
                         .onAppear() {
@@ -25,19 +35,10 @@ struct ContentView: View {
                         }
                 }
             }
-            .navigationDestination(for: Route.self) { route in
-                switch route {
-                case .emailLogin:
-                    SignupView()
-                case .coffeDetail(let coffee):
-                    CoffeeDetailView(coffee: coffee)
-                case .mainTabBar:
-                    TabbarView()
-                }
-            }
         }
     }
 }
+
 
 //#Preview {
 //    ContentView()

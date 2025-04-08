@@ -19,7 +19,7 @@ class LoginViewModel:ObservableObject {
     
     func login(router: NavigationRouter) {
         if loginModel.id == storedEmail && loginModel.password == storedPassword {
-            router.push(.mainTabBar)
+            router.setPath([.mainTabBar])
             print("로그인 성공")
             print("ID: \(loginModel.id), Password: \(loginModel.password)")
         }

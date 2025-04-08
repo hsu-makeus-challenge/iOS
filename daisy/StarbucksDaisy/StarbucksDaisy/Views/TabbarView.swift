@@ -11,7 +11,6 @@ struct TabbarView: View {
     @State private var selection: Int = 0
     
     var body: some View {
-        NavigationStack {
             TabView(selection: $selection) {
                 Tab(
                     "Home",
@@ -59,7 +58,7 @@ struct TabbarView: View {
                 }
             }
             .tint(Color.green02)
-        }
+            .navigationBarBackButtonHidden(true)
     }
 }
 
