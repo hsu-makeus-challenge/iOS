@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct SignupView: View {
-    @State var viewModel = SignupViewModel()
+    @StateObject var viewModel = SignupViewModel()
+    @EnvironmentObject var router: NavigationRouter
+
     @FocusState private var isNicknameFocused: Bool
     @FocusState private var isEmailFocused: Bool
     @FocusState private var isPasswordFocused: Bool
@@ -22,6 +24,13 @@ struct SignupView: View {
         .padding(.horizontal, 19)
         .padding(.top, 210)
         .padding(.bottom, 72)
+        .navigationTitle("가입하기")
+        .navigationBarTitleDisplayMode(.inline)     // 상단중앙에 타이틀 위치하도록 함
+        .navigationBarBackButtonHidden(true)        // 기본 백버튼 숨김
+        .toolbar {                                  // ToolbarItem으로 백버튼 커스텀(?)
+            ToolbarItem(placement: .topBarLeading,
+                        content: { BackButton })
+        }
     }
     
     private var Frame3: some View {
@@ -62,22 +71,36 @@ struct SignupView: View {
         .frame(height: 188)
     }
     
+    /// 생성하기 버튼
     private var ButtonView: some View {
         Button(action: {
-            viewModel.saveUser()
+            if viewModel.isSignupEnabled {
+                viewModel.saveUser(router: router)
+            }
         }, label: {
             RoundedRectangle(cornerRadius: 20)
                 .frame(height: 58)
-                .foregroundStyle(.green01)
+                .foregroundStyle(viewModel.isSignupEnabled ? .green01 : .gray00)
                 .overlay(content: {
                     Text("생성하기")
                         .font(.makeMedium18)
                         .foregroundStyle(.white01)
                 })
         })
+        .disabled(!viewModel.isSignupEnabled)
+    }
+    
+    private var BackButton: some View {
+        Button(action: {
+            router.pop()
+        }, label: {
+            Image(systemName: "chevron.left")
+                .aspectRatio(contentMode: .fit)
+                .foregroundStyle(.black)
+        })
     }
 }
 
-#Preview {
-    SignupView()
-}
+//#Preview {
+//    SignupView( router: <#NavigationRouter#>)
+//}

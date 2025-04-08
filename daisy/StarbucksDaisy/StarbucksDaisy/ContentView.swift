@@ -8,24 +8,38 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var router: NavigationRouter
     @State private var showLoginView = false
     
     var body: some View {
         ZStack {
-            if showLoginView {
-                LoginView()
-            } else {
-                SplashView()
-                    .onAppear() {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { withAnimation {
-                            self.showLoginView.toggle()}
+            NavigationStack(path: $router.path) {
+                if showLoginView {
+                    LoginView()
+                        .navigationDestination(for: Route.self) { route in
+                            switch route {
+                            case .emailLogin:
+                                SignupView()
+                            case .coffeDetail(let coffee):
+                                CoffeeDetailView(coffee: coffee)
+                            case .mainTabBar:
+                                TabbarView()
+                            }
                         }
-                    }
+                } else {
+                    SplashView()
+                        .onAppear() {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { withAnimation {
+                                self.showLoginView.toggle()}
+                            }
+                        }
+                }
             }
         }
     }
 }
 
-#Preview {
-    ContentView()
-}
+
+//#Preview {
+//    ContentView()
+//}

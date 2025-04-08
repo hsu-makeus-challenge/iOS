@@ -9,23 +9,25 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject var viewModel = LoginViewModel()
+    @EnvironmentObject var router: NavigationRouter
+    
     @FocusState private var isIDFocused: Bool   // 아이디 텍스트 필드의 포커스 상태
     @FocusState private var isPasswordFocused: Bool  // 비밀번호 텍스트 필드의 포커스 상태
     
     var body: some View {
-        VStack{
-            Spacer().frame(height: 104)
-            VStack() {
-                loginTitle
-                Spacer()
-                loginMiddle
-                Spacer()
-                loginBottom
+            VStack{
+                Spacer().frame(height: 104)
+                VStack() {
+                    loginTitle
+                    Spacer()
+                    loginMiddle
+                    Spacer()
+                    loginBottom
+                }
+                .frame(height: 751)
+                .padding(.horizontal, 4)
             }
-            .frame(height: 751)
-            .padding(.horizontal, 4)
         }
-    }
     
     /// 상단 로고 및 설명 그룹
     private var loginTitle: some View {
@@ -50,7 +52,6 @@ struct LoginView: View {
     
     /// 아이디 및 비밀번호 입력 필드
     private var loginMiddle: some View {
-//        @Bindable var viewModel: LoginViewModel
         
         VStack(spacing: 47) {
             VStack(alignment: .leading) {
@@ -76,24 +77,33 @@ struct LoginView: View {
             }
             .frame(width: 401, height: 20)
 
-            RoundedRectangle(cornerRadius: 20)
-                .frame(width: 402, height: 46)
-                .foregroundStyle(Color.green01)
-                .overlay {
-                    Text("로그인하기")
-                        .font(.mainTextMedium16)
-                        .foregroundStyle(Color.white)
-                }
+            Button(action: {
+                viewModel.login(router: router)
+            }, label: {
+                RoundedRectangle(cornerRadius: 20)
+                    .frame(width: 402, height: 46)
+                    .foregroundStyle(Color.green01)
+                    .overlay {
+                        Text("로그인하기")
+                            .font(.mainTextMedium16)
+                            .foregroundStyle(Color.white)
+                    }
+            })
         }
     }
     
     /// 하단 로그인 프레임
     private var loginBottom: some View {
         VStack(spacing: 19) {
-            Text("이메일로 회원가입하기")
-                .font(.mainTextRegular12)
-                .foregroundStyle(Color.gray04)
-                .underline()
+            Button(action: {
+                print("이메일로 회원가입")
+                router.push(.emailLogin)
+            }, label: {
+                Text("이메일로 회원가입하기")
+                    .font(.mainTextRegular12)
+                    .foregroundStyle(Color.gray04)
+                    .underline()
+            })
             Image("kakaoLogin")
             Image("appleLogin")
         }
@@ -101,6 +111,9 @@ struct LoginView: View {
     }
 }
 
-#Preview {
-    LoginView()
+struct LoginView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoginView()
+            .environmentObject(NavigationRouter()) 
+    }
 }
