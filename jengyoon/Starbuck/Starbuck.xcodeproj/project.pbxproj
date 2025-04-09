@@ -100,6 +100,9 @@
 		FF6F75042D9E5657003079EE /* Home */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Home; sourceTree = "<group>"; };
 		FF6F750C2D9E77A8003079EE /* Login */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Login; sourceTree = "<group>"; };
 		FF6F75102D9E781E003079EE /* Other */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Other; sourceTree = "<group>"; };
+		FF6F76802DA705C1003079EE /* Shop */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shop; sourceTree = "<group>"; };
+		FF6F76832DA710B5003079EE /* Shop */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shop; sourceTree = "<group>"; };
+		FF6F76862DA71102003079EE /* Shop */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shop; sourceTree = "<group>"; };
 		FF869F092D953EE400C9D39B /* Login */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Login; sourceTree = "<group>"; };
 		FF869F0A2D953F0000C9D39B /* Other */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Other; sourceTree = "<group>"; };
 		FF96846D2D932655009914B3 /* Components */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Components; sourceTree = "<group>"; };
@@ -169,6 +172,7 @@
 		3CFD97B39B9B1F9402805C71 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FF6F76802DA705C1003079EE /* Shop */,
 				FF6F74DB2D9DAC70003079EE /* Home */,
 				FF869F0A2D953F0000C9D39B /* Other */,
 				FF869F092D953EE400C9D39B /* Login */,
@@ -233,6 +237,7 @@
 		7E1E553C8E48254FEEF67B1A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FF6F76862DA71102003079EE /* Shop */,
 				FF6F750C2D9E77A8003079EE /* Login */,
 				FF6F75042D9E5657003079EE /* Home */,
 			);
@@ -266,6 +271,7 @@
 		D63F2DD2A4425E7FF0092A12 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				FF6F76832DA710B5003079EE /* Shop */,
 				FF6F75102D9E781E003079EE /* Other */,
 				FF6F75012D9E5529003079EE /* Login */,
 				FF6F75002D9E551F003079EE /* Home */,
@@ -323,6 +329,9 @@
 				FF6F75042D9E5657003079EE /* Home */,
 				FF6F750C2D9E77A8003079EE /* Login */,
 				FF6F75102D9E781E003079EE /* Other */,
+				FF6F76802DA705C1003079EE /* Shop */,
+				FF6F76832DA710B5003079EE /* Shop */,
+				FF6F76862DA71102003079EE /* Shop */,
 				FF869F092D953EE400C9D39B /* Login */,
 				FF869F0A2D953F0000C9D39B /* Other */,
 				FF96846D2D932655009914B3 /* Components */,
