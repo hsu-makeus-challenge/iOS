@@ -63,11 +63,4 @@ final class AppEnvironment: ObservableObject {
             selectedTemperatureType: selectedTemperatureType
         )
     }
-    
-    func makeMainTabView() -> some View {
-        return MainTabView()
-            .onAppear { [weak self] in
-                self?.router.present(.fullScreenAd)
-            }
-    }
 }

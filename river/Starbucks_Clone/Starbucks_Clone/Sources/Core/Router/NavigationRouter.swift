@@ -64,8 +64,4 @@ class NavigationRouter {
     func present(_ modal: ModalDestination) {
         actionModal = modal
     }
-    
-    func dismissModal() {
-        actionModal = nil
-    }
 }

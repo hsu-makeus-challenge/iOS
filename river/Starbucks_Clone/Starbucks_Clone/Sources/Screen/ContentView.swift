@@ -10,13 +10,13 @@ import SwiftUI
 /// 앱 실행 직후 표시되는 루트 뷰
 /// SplashView를 잠깐 보여준 후 로그인 여부에 따라 MainTabView 또는 LoginView로 분기
 struct ContentView: View {
+    @AppStorage("showAdvertisement") private var showAdvertisement: Bool = true
     
     /// 앱 전역 상태 및 서비스에 접근하기 위한 환경 객체
     @EnvironmentObject private var env: AppEnvironment
     
     /// SplashView 노출 여부를 관리하는 상태 값
     @State private var showSplash: Bool = true
-    @State private var isShowPopup: Bool = true
     
     init() {
         /// 커스텀 뒤로가기 버튼 이미지를 설정
@@ -105,7 +105,12 @@ struct ContentView: View {
                         MenuDetailView(menuDetailViewModel: menuDetailViewModel)
                     }
                 case .mainTap:
-                    env.makeMainTabView()
+                    MainTabView()
+                        .onAppear {
+                            if showAdvertisement {
+                                env.router.present(.fullScreenAd)
+                            }
+                        }
                 }
             }
         }
@@ -118,7 +123,12 @@ struct ContentView: View {
             case .fullScreenAd:
                 AdvertisementView()
             case .mainTab:
-                env.makeMainTabView()
+                MainTabView()
+                    .onAppear {
+                        if showAdvertisement {
+                            env.router.present(.fullScreenAd)
+                        }
+                    }
             }
         }
     }

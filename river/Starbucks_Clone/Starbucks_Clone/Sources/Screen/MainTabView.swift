@@ -60,6 +60,7 @@ struct MainTabView: View {
             }
         }
         .tint(Color("green02"))
+        .navigationBarBackButtonHidden()
     }
 }
 
