@@ -16,6 +16,7 @@ struct ContentView: View {
     
     /// SplashView 노출 여부를 관리하는 상태 값
     @State private var showSplash: Bool = true
+    @State private var isShowPopup: Bool = true
     
     init() {
         /// 커스텀 뒤로가기 버튼 이미지를 설정
@@ -103,6 +104,12 @@ struct ContentView: View {
                     }
                 case .mainTap:
                     MainTabView()
+                        .fullScreenCover(isPresented: $isShowPopup) {
+                            AdvertisementView()
+                                .onDisappear {
+                                    isShowPopup = false
+                                }
+                        }
                 }
             }
         }
