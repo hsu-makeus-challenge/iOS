@@ -17,10 +17,11 @@ struct SignupView: View {
     
     var body: some View {
         VStack {
-            Frame3
+            TextFields
             Spacer()
             ButtonView
         }
+        .ignoresSafeArea(edges: .bottom)
         .padding(.horizontal, 19)
         .padding(.top, 210)
         .padding(.bottom, 72)
@@ -33,7 +34,7 @@ struct SignupView: View {
         }
     }
     
-    private var Frame3: some View {
+    private var TextFields: some View {
         VStack(spacing: 49) {
             /// 닉네임 텍스트필드
             VStack(spacing: 9) {
@@ -44,7 +45,7 @@ struct SignupView: View {
                 Divider()
                     .background(isNicknameFocused ? Color.green01 : Color.gray00)
             }
-            .frame(width: 402, height: 30)
+            .frame(height: 30)
             
             /// 이메일 텍스트필드
             VStack(spacing: 9) {
@@ -55,7 +56,7 @@ struct SignupView: View {
                 Divider()
                     .background(isEmailFocused ? Color.green01 : Color.gray00)
             }
-            .frame(width: 402, height: 30)
+            .frame(height: 30)
             
             /// 비밀번호 텍스트필드
             VStack(spacing: 9) {
@@ -66,9 +67,10 @@ struct SignupView: View {
                 Divider()
                     .background(isPasswordFocused ? Color.green01 :  Color.gray00)
             }
-            .frame(width: 402, height: 30)
+            .frame(height: 30)
         }
         .frame(height: 188)
+        .frame(maxWidth: .infinity)
     }
     
     /// 생성하기 버튼
@@ -101,6 +103,3 @@ struct SignupView: View {
     }
 }
 
-//#Preview {
-//    SignupView( router: <#NavigationRouter#>)
-//}

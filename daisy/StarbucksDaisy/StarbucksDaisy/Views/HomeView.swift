@@ -21,14 +21,14 @@ struct HomeView: View {
             LazyVStack(spacing: 20) {
                 topBanner
                 Image("advertiseBanner")
-                    .resizable()
+                    .resizable().scaledToFit()
                     .frame(maxWidth: .infinity)
                 RecommendedView
                 Image("eventBanner")
-                    .resizable()
+                    .resizable().scaledToFit()
                     .frame(maxWidth: .infinity)
                 Image("serviceSuscibe")
-                    .resizable()
+                    .resizable().scaledToFit()
                     .frame(maxWidth: .infinity)
                 NewsView
                 BannersView
@@ -47,6 +47,9 @@ struct HomeView: View {
         VStack (spacing: -5) {
             ZStack{
                 Image("top_img")
+                    .resizable().scaledToFit()
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, -10)
                 VStack(alignment: .leading, spacing: 9) {
                     
                     Text("골든 미모사 그린 티와 함께\n행복한 새해의 축배를 들어요!")
@@ -61,12 +64,12 @@ struct HomeView: View {
                         Image("go_line")
                     }
                 }
-                .padding(.leading, 28)
-                .padding(.trailing, 23)
+                .padding(.leading, 18)
+                .padding(.trailing, 13)
                 .padding(.top, 120)
             }
             
-            HStack(spacing: 38) {
+            HStack(spacing: 36) {
                 VStack(alignment: .leading) {
                     Text("11⭑ until next Reward")
                         .font(.mainTextSemiBold16)
@@ -87,16 +90,18 @@ struct HomeView: View {
                         .foregroundStyle(.brown02)
                 }
             }
+            .padding(.leading, 18)
+            .padding(.trailing, 13)
         }
-        
+
     }
     
     /// 별 개수 progressbar
     private var ProgressBar: some View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: 5)
-                .frame(width: 256, height: 8)
-                .foregroundStyle(.gray)
+                .frame(height: 8)
+                .foregroundStyle(.gray00)
             RoundedRectangle(cornerRadius: 5)
                 .frame(width: 111.5, height: 8)
                 .foregroundStyle(.brown02)
@@ -157,11 +162,11 @@ struct HomeView: View {
     private var BannersView: some View {
         VStack(spacing: 14) {
             Image("mugcupBanner")
-                .resizable()
+                .resizable().scaledToFit()
                 .frame(maxWidth: .infinity)
             ZStack{
                 Image("starBanner")
-                    .resizable()
+                    .resizable().scaledToFit()
                     .frame(maxWidth: .infinity)
                 VStack(alignment: .leading) {
                     Text("TIP")
@@ -185,7 +190,7 @@ struct HomeView: View {
             }
             ZStack{
                 Image("deliveryBanner")
-                    .resizable()
+                    .resizable().scaledToFit()
                     .frame(maxWidth: .infinity)
                 VStack(alignment: .leading, spacing: 16) {
                     Text("딜리버스\n예약 배달 서비스")
@@ -232,13 +237,13 @@ struct HomeView: View {
     private var LastBannerView: some View {
         VStack(spacing: 10) {
                 Image("coldbrewBanner")
-                .resizable()
+                .resizable().scaledToFit()
                 .frame(maxWidth: .infinity)
                 Image("baristaBanner")
-                .resizable()
+                .resizable().scaledToFit()
                 .frame(maxWidth: .infinity)
                 Image("sizeupBanner")
-                .resizable()
+                .resizable().scaledToFit()
                 .frame(maxWidth: .infinity)
         }
     }
