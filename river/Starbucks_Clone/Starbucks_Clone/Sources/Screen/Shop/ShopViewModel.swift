@@ -10,4 +10,8 @@ import Foundation
 @Observable
 class ShopViewModel {
     var shopModel: ShopModel = .moackData
+    
+    var bestProductPages: [PaginationShopItem] {
+        shopModel.bestProducts
+    }
 }

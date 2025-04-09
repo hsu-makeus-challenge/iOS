@@ -10,7 +10,7 @@ import Foundation
 struct ShopModel {
     let onlineStoreBanner: [OnlineStoreBanner]
     let allProducts: [ShopItem]
-    let bestProducts: [ShopItem]
+    let bestProducts: [PaginationShopItem]
     let newProducts: [ShopItem]
 }
 
@@ -23,6 +23,13 @@ struct ShopItem: Identifiable {
     let id = UUID()
     let name: String
     let imageName: String
+}
+
+struct PaginationShopItem: Identifiable {
+    let id = UUID()
+    let page: Int
+    let isLast: Bool
+    let items: [ShopItem]
 }
 
 extension ShopModel {
@@ -42,37 +49,49 @@ extension ShopModel {
         ],
         bestProducts: [
             .init(
-                name: "그린 사이렌 슬리브 머그 355ml",
-                imageName: "Shop/BestProducts/img1"
+                page: 1,
+                isLast: false,
+                items: [
+                    .init(
+                        name: "그린 사이렌 슬리브 머그 355ml",
+                        imageName: "Shop/BestProducts/img1"
+                    ),
+                    .init(
+                        name: "그린 사이렌 클래식 머그 355ml",
+                        imageName: "Shop/BestProducts/img2"
+                    ),
+                    .init(
+                        name: "사이렌 머그 앤 우드 소서",
+                        imageName: "Shop/BestProducts/img3"
+                    ),
+                    .init(
+                        name: "리저브 골드 테일 머그 355ml",
+                        imageName: "Shop/BestProducts/img4"
+                    )
+                ]
             ),
             .init(
-                name: "그린 사이렌 클래식 머그 355ml",
-                imageName: "Shop/BestProducts/img2"
-            ),
-            .init(
-                name: "사이렌 머그 앤 우드 소서",
-                imageName: "Shop/BestProducts/img3"
-            ),
-            .init(
-                name: "리저브 골드 테일 머그 355ml",
-                imageName: "Shop/BestProducts/img4"
-            ),
-            .init(
-                name: "블랙 앤 골드 머그 473ml",
-                imageName: "Shop/BestProducts/img5"
-            ),
-            .init(
-                name: "블랙 링 머그 355ml",
-                imageName: "Shop/BestProducts/img6"
-            ),
-            .init(
-                name: "북청사자놀음 데미머그 89ml",
-                imageName: "Shop/BestProducts/img7"
-            ),
-            .init(
-                name: "서울 제주 데미머그 세트",
-                imageName: "Shop/BestProducts/img8"
-            ),
+                page: 2,
+                isLast: true,
+                items: [
+                    .init(
+                        name: "블랙 앤 골드 머그 473ml",
+                        imageName: "Shop/BestProducts/img5"
+                    ),
+                    .init(
+                        name: "블랙 링 머그 355ml",
+                        imageName: "Shop/BestProducts/img6"
+                    ),
+                    .init(
+                        name: "북청사자놀음 데미머그 89ml",
+                        imageName: "Shop/BestProducts/img7"
+                    ),
+                    .init(
+                        name: "서울 제주 데미머그 세트",
+                        imageName: "Shop/BestProducts/img8"
+                    ),
+                ]
+            )
         ],
         newProducts: [
             .init(

@@ -76,17 +76,33 @@ fileprivate struct AllProductsView: View {
                         shopViewModel.shopModel.allProducts,
                         id: \.id
                     ) { product in
-                        ProductCardView(product: product)
+                        makeProductCard(with: product)
                     }
                 }
             }
             .scrollIndicators(.never)
         }
     }
+    
+    private func makeProductCard(
+        with model: ShopItem
+    ) -> some View {
+        return VStack(spacing: 10) {
+            Image(model.imageName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 80, height: 80)
+            
+            Text(model.name)
+                .font(.mainTextSemiBold14)
+                .foregroundStyle(Color(.black02))
+        }
+    }
 }
 
 fileprivate struct BestProductsView: View {
     @Bindable private var shopViewModel: ShopViewModel
+    @State private var currentPage: Int = 0
     
     init(shopViewModel: ShopViewModel) {
         self.shopViewModel = shopViewModel
@@ -103,20 +119,75 @@ fileprivate struct BestProductsView: View {
                 .font(.mainTextBold24)
                 .foregroundStyle(.black)
             
-            ScrollView(.horizontal) {
-                LazyVGrid(columns: columns, spacing: 54) {
-                    ForEach(
-                        shopViewModel.shopModel.bestProducts,
-                        id:\.id
-                    ) { product in
-                        // TODO: 페이징 기능 추가
-                        // MARK: 그리드 아이템 크기 동적으로 생성 필요(피그마처럼)
-                        ProductCardView(product: product)
-                    }
+            TabView(selection: $currentPage) {
+                ForEach(
+                    shopViewModel.bestProductPages.indices,
+                    id:\.self
+                ) { index in
+                    let pageItems = shopViewModel.bestProductPages[index]
+                    makeGridLayout(with: pageItems)
+                        .padding(.horizontal, 14.5)
+                        .tag(index)
                 }
-                .padding(.horizontal, 14.5)
             }
-            .scrollTargetBehavior(.paging)
+            .frame(height: 470)
+            .tabViewStyle(.page)
+            .indexViewStyle(
+                .page(backgroundDisplayMode: .never)
+            ) // 페이지 인디케이터
+            
+            customIndicator
+            // 이 방법으로는 레이아웃이 명확하게 안 나눠지네..
+//            ScrollView(.horizontal) {
+//                LazyHStack {
+//                    ForEach(
+//                        shopViewModel.bestProductPages.indices,
+//                        id:\.self
+//                    ) { index in
+//                        let pageItems = shopViewModel.bestProductPages[index]
+//                        makeGridLayout(with: pageItems)
+//                    }
+//                }
+//                .padding(.horizontal, 14.5)
+//            }
+//            .scrollTargetBehavior(.paging) // iOS 17부터 사용 가능
+//            .frame(height: 470)
+        }
+    }
+    
+    private var customIndicator: some View {
+        HStack(spacing: 6) {
+            ForEach(
+                0..<shopViewModel.bestProductPages.count,
+                id: \.self
+            ) { index in
+                Circle()
+                    .fill(
+                        currentPage == index
+                        ? Color.black
+                        : Color.gray.opacity(0.3)
+                    )
+                    .frame(width: 8, height: 8)
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.top, 8)
+    }
+    
+    private func makeGridLayout(
+        with model: PaginationShopItem
+    ) -> some View {
+        return LazyVGrid(columns: columns) {
+            ForEach(
+                model.items,
+                id: \.id
+            ) { product in
+                ProductCardView(
+                    product: product,
+                    width: 157,
+                    height: 208
+                )
+            }
         }
     }
 }
@@ -135,7 +206,7 @@ fileprivate struct NewProductsView: View {
     
     fileprivate var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Best Products")
+            Text("New Products")
                 .font(.mainTextBold24)
                 .foregroundStyle(.black)
             
@@ -144,7 +215,11 @@ fileprivate struct NewProductsView: View {
                     shopViewModel.shopModel.newProducts,
                     id:\.id
                 ) { product in
-                    ProductCardView(product: product)
+                    ProductCardView(
+                        product: product,
+                        width: 157,
+                        height: 208
+                    )
                 }
             }
             .padding(.horizontal, 14.5)
@@ -154,9 +229,17 @@ fileprivate struct NewProductsView: View {
 
 fileprivate struct ProductCardView: View {
     private var product: ShopItem
+    private var width: CGFloat
+    private var height: CGFloat
     
-    init(product: ShopItem) {
+    init(
+        product: ShopItem,
+        width: CGFloat,
+        height: CGFloat
+    ) {
         self.product = product
+        self.width = width
+        self.height = height
     }
     
     fileprivate var body: some View {
@@ -164,12 +247,12 @@ fileprivate struct ProductCardView: View {
             Image(product.imageName)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 80, height: 80)
             
             Text(product.name)
                 .font(.mainTextSemiBold14)
                 .foregroundStyle(Color(.black02))
         }
+        .frame(width: width, height: height)
     }
 }
 
