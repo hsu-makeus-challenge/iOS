@@ -8,21 +8,21 @@
 import Foundation
 
 struct ShopModel {
-    struct OnlineStoreBanner: Identifiable {
-        let id = UUID()
-        let imageName: String
-    }
-
-    struct Item: Identifiable {
-        let id = UUID()
-        let name: String
-        let imageName: String
-    }
-    
     let onlineStoreBanner: [OnlineStoreBanner]
-    let allProducts: [Item]
-    let bestProducts: [Item]
-    let newProducts: [Item]
+    let allProducts: [ShopItem]
+    let bestProducts: [ShopItem]
+    let newProducts: [ShopItem]
+}
+
+struct OnlineStoreBanner: Identifiable {
+    let id = UUID()
+    let imageName: String
+}
+
+struct ShopItem: Identifiable {
+    let id = UUID()
+    let name: String
+    let imageName: String
 }
 
 extension ShopModel {
