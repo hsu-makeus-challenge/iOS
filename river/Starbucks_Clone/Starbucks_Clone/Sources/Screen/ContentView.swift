@@ -95,7 +95,9 @@ struct ContentView: View {
                     /// - 장바구니 상태
                     /// - 로그인/유저 인증 상태
                     /// - 앱 테마, 위치 정보, 사용자 설정 등
-                    if let menuDetailModel = MenuDetailModel.mockData.first(where: { $0.menuID == menuID }) {
+                    if let menuDetailModel = MenuDetailModel.mockData.first(
+                        where: { $0.menuID == menuID }
+                    ) {
                         let menuDetailViewModel = env.makeMenuDetailViewModel(
                             with: menuDetailModel,
                             selectedTemperatureType: temperatureType
@@ -103,17 +105,22 @@ struct ContentView: View {
                         MenuDetailView(menuDetailViewModel: menuDetailViewModel)
                     }
                 case .mainTap:
-                    MainTabView()
-                        .fullScreenCover(isPresented: $isShowPopup) {
-                            AdvertisementView()
-                                .onDisappear {
-                                    isShowPopup = false
-                                }
-                        }
+                    env.makeMainTabView()
                 }
             }
         }
-        
+        // fullScreenCover(item:)은 Optional<T: Identifier> 타입으로,
+        // 내부적으로 nil이면 닫고, 특정 id가 오면 여는 구조임
+        .fullScreenCover(
+            item: $env.router.actionModal
+        ) { modal in
+            switch modal {
+            case .fullScreenAd:
+                AdvertisementView()
+            case .mainTab:
+                env.makeMainTabView()
+            }
+        }
     }
 }
 

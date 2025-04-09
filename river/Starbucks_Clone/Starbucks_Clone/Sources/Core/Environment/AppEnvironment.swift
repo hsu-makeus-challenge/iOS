@@ -5,7 +5,7 @@
 //  Created by jaewon Lee on 4/3/25.
 //
 
-import Foundation
+import SwiftUI
 
 /// 앱 전역에서 공유되는 의존성들을 담고 있는 컨테이너 객체.
 /// Router, AuthService, AuthStore 등 전역적으로 필요한 객체들을 보관하며
@@ -62,5 +62,12 @@ final class AppEnvironment: ObservableObject {
             router: router,
             selectedTemperatureType: selectedTemperatureType
         )
+    }
+    
+    func makeMainTabView() -> some View {
+        return MainTabView()
+            .onAppear { [weak self] in
+                self?.router.present(.fullScreenAd)
+            }
     }
 }

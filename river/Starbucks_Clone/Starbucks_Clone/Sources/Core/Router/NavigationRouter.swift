@@ -19,6 +19,18 @@ enum Route: Hashable {
     )
 }
 
+enum ModalDestination: Identifiable {
+    case fullScreenAd
+    case mainTab
+    
+    var id: String {
+        switch self {
+        case .fullScreenAd: return "fullScreenAd"
+        case .mainTab: return "mainTab"
+        }
+    }
+}
+
 /// 네비게이션 상태를 관리하는 라우터
 /// NavigationStack과 함께 사용되며, 뷰 전환을 제어
 @Observable
@@ -26,6 +38,9 @@ class NavigationRouter {
     
     /// 현재 네비게이션 스택의 경로를 나타냄.
     var path = NavigationPath()
+    var actionModal: ModalDestination? = nil
+    
+    // MARK: - NavigationStack
     
     /// 지정한 route를 스택에 추가하여 화면을 푸시
     func push(_ route: Route) {
@@ -42,5 +57,15 @@ class NavigationRouter {
     /// 네비게이션 스택을 초기화하여 최상위로 이동
     func reset() {
         path = NavigationPath()
+    }
+    
+    // MARK: - Modal
+    
+    func present(_ modal: ModalDestination) {
+        actionModal = modal
+    }
+    
+    func dismissModal() {
+        actionModal = nil
     }
 }
