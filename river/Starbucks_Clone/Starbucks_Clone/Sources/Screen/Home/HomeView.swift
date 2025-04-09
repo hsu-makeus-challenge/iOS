@@ -381,19 +381,11 @@ fileprivate struct PromotionalCardGroupView: View {
     }
 }
 
-struct HomeView_Preview: PreviewProvider {
-    static var previews : some View {
-        let previewEnv = AppEnvironment.previewEnv
-        ForEach(
-            PREVIEW_DEVICE_TYPE.allCases,
-            id: \.self
-        ) { deviceType in
-            HomeView(homeViewModel: previewEnv.makeHomeVieModel())
-                .environmentObject(previewEnv)
-                .previewDevice(
-                    PreviewDevice(rawValue: deviceType.rawValue))
-                .previewDisplayName(deviceType.rawValue)
-            
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        devicePreviews {
+            HomeView(homeViewModel: AppEnvironment.previewEnv.makeHomeVieModel())
+                .environmentObject(AppEnvironment.previewEnv)
         }
     }
 }

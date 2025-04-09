@@ -173,6 +173,10 @@ fileprivate struct ProductCardView: View {
     }
 }
 
-#Preview {
-    ShopView()
+struct ShopView_Previews: PreviewProvider {
+    static var previews: some View {
+        devicePreviews {
+            ShopView()
+        }
+    }
 }
