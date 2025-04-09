@@ -511,13 +511,14 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = D3H79AF44W;
 				INFOPLIST_FILE = "Derived/InfoPlists/StarbuckTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.tuist.StarbuckTests;
+				PRODUCT_BUNDLE_IDENTIFIER = umc.com.jeungyoonStarbuck;
 				PRODUCT_NAME = StarbuckTests;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
@@ -545,7 +546,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.tuist.Starbuck;
+				PRODUCT_BUNDLE_IDENTIFIER = umc.com.jeungyoonStarbuck;
 				PRODUCT_NAME = Starbuck;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
@@ -630,7 +631,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.tuist.Starbuck;
+				PRODUCT_BUNDLE_IDENTIFIER = umc.com.jeungyoonStarbuck;
 				PRODUCT_NAME = Starbuck;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
@@ -648,13 +649,14 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = D3H79AF44W;
 				INFOPLIST_FILE = "Derived/InfoPlists/StarbuckTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = io.tuist.StarbuckTests;
+				PRODUCT_BUNDLE_IDENTIFIER = umc.com.jeungyoonStarbuck;
 				PRODUCT_NAME = StarbuckTests;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
