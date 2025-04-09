@@ -47,21 +47,7 @@ struct CustomNavigationView<Content: View>: UIViewControllerRepresentable {
         // 생성한 appearance를 네비게이션 바에 적용
         appearance.backgroundColor = .white // 네비게이션 바 배경색
         appearance.titleTextAttributes = [.foregroundColor: UIColor.black] // 타이틀 텍스트 색상
-        nav.navigationBar.standardAppearance = appearance
-        nav.navigationBar.scrollEdgeAppearance = appearance
         nav.navigationBar.tintColor = .black
-        nav.navigationBar.prefersLargeTitles = false
-        
-        // 여기서 우측 상단 버튼을 추가
-        let plusButton = UIBarButtonItem(
-            image: UIImage(resource: .Receipt.plus),
-            style: .plain,
-            target: context.coordinator,
-            action: #selector(Coordinator.didTapPlus)
-        )
-        print("CustomNavigationView")
-        
-        hosting.navigationItem.rightBarButtonItem = plusButton
         
         return nav
     }
@@ -71,11 +57,26 @@ struct CustomNavigationView<Content: View>: UIViewControllerRepresentable {
         _ uiViewController: UINavigationController,
         context: Context
     ) {
-        // 루트 뷰 컨트롤러를 다시 설정하여 최신 content를 반영
-        uiViewController.setViewControllers(
-            [UIHostingController(rootView: content)],
-            animated: false
+        let hosting = UIHostingController(rootView: content)
+        
+        let plusImg = UIImage(resource: .Receipt.plus)
+        
+        let resizedImage = plusImg.preparingThumbnail(
+            of: CGSize(width: 20, height: 20)
+        )?.withRenderingMode(.alwaysOriginal)
+        
+        // FIXME: 이미지 위치 조절해야 됨
+        // plus 버튼 설정
+        hosting.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: resizedImage,
+            style: .plain,
+            target: context.coordinator,
+            action: #selector(Coordinator.didTapPlus)
         )
+        hosting.view.tintColor = .black
+
+        // 루트에 추가
+        uiViewController.setViewControllers([hosting], animated: false)
     }
     
     /// UIKit의 액션(Target-Action)을 처리하기 위한 Coordinator
