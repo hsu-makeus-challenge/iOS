@@ -63,4 +63,8 @@ final class AppEnvironment: ObservableObject {
             selectedTemperatureType: selectedTemperatureType
         )
     }
+    
+    func makeOtherViewModel() -> OtherViewModel {
+        return OtherViewModel(router: router)
+    }
 }

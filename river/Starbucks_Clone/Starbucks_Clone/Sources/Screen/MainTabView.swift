@@ -56,7 +56,7 @@ struct MainTabView: View {
                 ? "otherIcon_selected"
                 : "otherIcon", value: 4
             ) {
-                OtherView()
+                OtherView(otherViewModel: env.makeOtherViewModel())
             }
         }
         .tint(Color("green02"))

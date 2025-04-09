@@ -9,5 +9,13 @@ import Foundation
 
 @Observable
 class OtherViewModel {
+    private var router: NavigationRouter
     
+    init(router: NavigationRouter) {
+        self.router = router
+    }
+    
+    func navigateToReciept() {
+        router.push(.receipt)
+    }
 }

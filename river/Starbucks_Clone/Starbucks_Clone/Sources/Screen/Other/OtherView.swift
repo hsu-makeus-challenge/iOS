@@ -17,6 +17,12 @@ struct OtherGridItem: Identifiable {
 
 struct OtherView: View {
     
+    @Bindable private var otherViewModel: OtherViewModel
+    
+    init(otherViewModel: OtherViewModel) {
+        self.otherViewModel = otherViewModel
+    }
+    
     private let payGtidItems: [OtherGridItem] = [
         .init(icon: .Pay.payCard, title: "스타벅스 카드 등록"),
         .init(
@@ -47,7 +53,7 @@ struct OtherView: View {
             OtherHeaderView()
             
             // 닉네임 환영 메시지 + 바로가기 버튼들
-            OtherWelcomeView()
+            OtherWelcomeView(otherViewModel: otherViewModel)
             
             // Pay 관련 메뉴 섹션
             OtherSectionView(
@@ -96,6 +102,11 @@ struct OtherHeaderView: View {
 struct OtherWelcomeView: View {
     
     @AppStorage("nickname") private var nickname: String?
+    @Bindable private var otherViewModel: OtherViewModel
+    
+    init(otherViewModel: OtherViewModel) {
+        self.otherViewModel = otherViewModel
+    }
     
     var body: some View {
         VStack {
@@ -121,16 +132,19 @@ struct OtherWelcomeView: View {
             
             HStack(spacing: 10.5) {
                 ShortcutButtonView(
+                    otherViewModel: otherViewModel,
                     image: .starHistoryIcon,
                     imageLabel: "별 히스토리"
                 )
                 
                 ShortcutButtonView(
+                    otherViewModel: otherViewModel,
                     image: .receiptIcon,
                     imageLabel: "전자영수증"
                 )
                 
                 ShortcutButtonView(
+                    otherViewModel: otherViewModel,
                     image: .myMenuIcon,
                     imageLabel: "나만의 메뉴"
                 )
@@ -219,7 +233,9 @@ struct OtherSectionView_Preview: PreviewProvider {
             PREVIEW_DEVICE_TYPE.allCases,
             id: \.self
         ) { deviceType in
-            OtherView()
+            OtherView(
+                otherViewModel: AppEnvironment.previewEnv.makeOtherViewModel()
+            )
                 .previewDevice(
                     PreviewDevice(rawValue: deviceType.rawValue))
                 .previewDisplayName(deviceType.rawValue)

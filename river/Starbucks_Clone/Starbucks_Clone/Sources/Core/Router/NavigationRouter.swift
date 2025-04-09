@@ -17,6 +17,7 @@ enum Route: Hashable {
         menuID: MenuID,
         temperatureType: TemperatureType
     )
+    case receipt
 }
 
 enum ModalDestination: Identifiable {
