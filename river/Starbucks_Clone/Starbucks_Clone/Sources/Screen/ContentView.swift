@@ -86,7 +86,9 @@ struct ContentView: View {
                             }
                         }
                 case .receipt:
-                    ReceiptView()
+                    CustomNavigationView {
+                        ReceiptView()
+                    }
                 }
             }
         }

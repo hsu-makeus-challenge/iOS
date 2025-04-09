@@ -24,9 +24,14 @@ import SwiftUI
 struct CustomNavigationView<Content: View>: UIViewControllerRepresentable {
     /// SwiftUI로 구성된 내부 콘텐츠
     let content: Content
-    
+    let onTapPlus: () -> Void
+
     /// 클로저로 View를 받아서 content로 초기화
-    init(@ViewBuilder content: () -> Content) {
+    init(
+        onTapPlus: @escaping () -> Void = {},
+        @ViewBuilder content: () -> Content
+    ) {
+        self.onTapPlus = onTapPlus
         self.content = content()
     }
 
@@ -39,12 +44,24 @@ struct CustomNavigationView<Content: View>: UIViewControllerRepresentable {
         
         // UINavigationBarAppearance를 사용해 네비게이션 바 스타일을 커스터마이징
         let appearance = UINavigationBarAppearance()
+        // 생성한 appearance를 네비게이션 바에 적용
         appearance.backgroundColor = .white // 네비게이션 바 배경색
         appearance.titleTextAttributes = [.foregroundColor: UIColor.black] // 타이틀 텍스트 색상
-        
-        // 생성한 appearance를 네비게이션 바에 적용
         nav.navigationBar.standardAppearance = appearance
         nav.navigationBar.scrollEdgeAppearance = appearance
+        nav.navigationBar.tintColor = .black
+        nav.navigationBar.prefersLargeTitles = false
+        
+        // 여기서 우측 상단 버튼을 추가
+        let plusButton = UIBarButtonItem(
+            image: UIImage(resource: .Receipt.plus),
+            style: .plain,
+            target: context.coordinator,
+            action: #selector(Coordinator.didTapPlus)
+        )
+        print("CustomNavigationView")
+        
+        hosting.navigationItem.rightBarButtonItem = plusButton
         
         return nav
     }
@@ -59,5 +76,17 @@ struct CustomNavigationView<Content: View>: UIViewControllerRepresentable {
             [UIHostingController(rootView: content)],
             animated: false
         )
+    }
+    
+    /// UIKit의 액션(Target-Action)을 처리하기 위한 Coordinator
+    class Coordinator {
+        @objc func didTapPlus() {
+            print("➕ Plus button tapped")
+            // 여기에 필요한 로직 추가 (예: 모달 열기, 상태 변경 등)
+        }
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
     }
 }

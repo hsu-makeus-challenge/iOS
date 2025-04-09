@@ -9,11 +9,10 @@ import SwiftUI
 
 struct ReceiptView: View {
     var body: some View {
-        CustomNavigationView {
-            VStack {
-                Text("Hello")
-            }
+        VStack {
+            Text("Hello")
         }
+        
     }
 }
 
