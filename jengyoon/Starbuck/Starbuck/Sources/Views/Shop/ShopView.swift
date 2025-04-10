@@ -116,6 +116,9 @@ struct ShopView: View {
                                     .font(.PretendardLight14)
                                     .foregroundColor(.gray)
                             }
+                            else {
+                                Spacer().frame(height: 18)
+                            }
                         }
                     }
                 }
