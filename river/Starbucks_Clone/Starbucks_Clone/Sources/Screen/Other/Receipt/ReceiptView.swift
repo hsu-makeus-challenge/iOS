@@ -18,7 +18,7 @@ struct ReceiptView: View {
     
     var body: some View {
         VStack {
-            ReceiptHeaderView()
+            ReceiptHeaderView(receiptViewModel: receiptViewModel)
             
             Spacer().frame(height: 24)
             
@@ -80,19 +80,21 @@ struct ReceiptView: View {
 }
 
 fileprivate struct ReceiptHeaderView: View {
+    @Bindable var receiptViewModel: ReceiptViewModel
+
     fileprivate var body: some View {
         HStack {
             Text("총 ")
                 .font(.mainTextSemiBold14)
-            + Text("1건")
+            + Text("\(receiptViewModel.receiptModel.count)건")
                 .font(.mainTextSemiBold18)
                 .foregroundStyle(Color(.brown02))
-            
+
             Spacer()
-            
+
             Text("사용합계 ")
                 .font(.mainTextSemiBold14)
-            + Text("6500")
+            + Text("\(receiptViewModel.totalReceiptPrice)")
                 .font(.mainTextSemiBold18)
                 .foregroundStyle(Color(.brown02))
         }

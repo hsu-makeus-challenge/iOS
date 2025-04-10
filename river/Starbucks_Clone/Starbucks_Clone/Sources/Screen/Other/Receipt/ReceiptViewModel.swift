@@ -19,6 +19,10 @@ class ReceiptViewModel {
         images.count - 1
     }
     
+    var totalReceiptPrice: Int {
+        receiptModel.map { $0.totalAmount }.reduce(0, +)
+    }
+    
     func addImage(_ image: UIImage) {
         images.append(image)
     }
