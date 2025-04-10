@@ -25,9 +25,8 @@ struct SignupView: View {
             Color.white.ignoresSafeArea()
             
             VStack(spacing: 0) {
-                CustomNavigationBar(title: "가입하기") {
-                    dismiss()
-                }
+                CustomNavigationBar(title: "가입하기", onBack: {
+                    dismiss()}, onPlus: {})
                 
                 Spacer()
                 
