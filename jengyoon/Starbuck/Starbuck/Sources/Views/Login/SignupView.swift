@@ -11,13 +11,13 @@ struct SignupView: View {
     // MARK: - Properties
     @EnvironmentObject private var router: NavigationRouter
     @StateObject private var viewModel = SignupViewModel()
+    @Environment(\.dismiss) private var dismiss
     @FocusState private var focusField: Field?
     
     private enum Field: Hashable {
         case nickname
         case email
         case password
-        case confirmPassword
     }
     
     var body: some View {
@@ -25,17 +25,22 @@ struct SignupView: View {
             Color.white.ignoresSafeArea()
             
             VStack(spacing: 0) {
+                CustomNavigationBar(title: "가입하기") {
+                    dismiss()
+                }
+                
+                Spacer()
+                
                 signupForm
+                    .padding(.top, 20)
+                
                 Spacer()
                 signupButton
                     .padding(.bottom, 20)
             }
             .padding(.horizontal, 20)
-            .padding(.top, 120)
         }
-        .onChange(of: viewModel.isSignupComplete) {
-            router.navigate(to: .login)
-        }
+        .navigationBarBackButtonHidden()
     }
     
     // MARK: - Components
@@ -70,9 +75,6 @@ struct SignupView: View {
                 .font(.PretendardLight14)
                 .foregroundStyle(.gray)
                 .focused($focusField, equals: .password)
-                .onSubmit {
-                    focusField = .confirmPassword
-                }
                 .padding(.top, 32)
             
             Divider()
@@ -84,6 +86,7 @@ struct SignupView: View {
     private var signupButton: some View {
         Button(action: {
             viewModel.signup()
+            dismiss()
         }) {
             Text("생성하기")
                 .font(.PretendardMedium16)

@@ -143,6 +143,10 @@ struct ShopView: View {
                                     .font(.PretendardLight14)
                                     .foregroundColor(.gray)
                             }
+                            else {
+                                // 빈 공간을 주어 높이 맞춤
+                                Spacer().frame(height: 14)
+                            }
                         }
                     }
                 }

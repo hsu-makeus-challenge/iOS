@@ -4,8 +4,10 @@ import SwiftUI
 /// 앱 전체에서 사용할 라우터를 환경 객체로 주입합니다.
 struct MainView: View {
     
-    /// 화면 전환을 관리할 라우터 객체 (NavigationRouter는 커스텀 라우터로 추정)
+    /// 화면 전환을 관리할 라우터 객체 (NavigationRouter는 커스텀 라우터)
     @StateObject private var router = NavigationRouter()
+    /// 앱 화면 스플래쉬뷰 환경변수
+    @State private var isLaunching = true
     
     var body: some View {
         // iOS 16 이상에서 사용되는 네비게이션 스택
