@@ -17,6 +17,7 @@ class ReceiptModel {
     var menuItems: [String]
     var totalAmount: Int
     var orderNumber: String
+    var orderDate: String
     var createdAt: Date
     
     init(
@@ -25,6 +26,7 @@ class ReceiptModel {
         menuItems: [String],
         totalAmount: Int,
         orderNumber: String,
+        orderDate: String,
         createdAt: Date = Date()
     ) {
         self.id = UUID()
@@ -33,6 +35,7 @@ class ReceiptModel {
         self.menuItems = menuItems
         self.totalAmount = totalAmount
         self.orderNumber = orderNumber
+        self.orderDate = orderDate
         self.createdAt = createdAt
     }
 }

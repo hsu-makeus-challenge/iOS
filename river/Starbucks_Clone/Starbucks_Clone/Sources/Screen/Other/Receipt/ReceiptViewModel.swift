@@ -72,6 +72,7 @@ extension ReceiptViewModel {
         var menuItems: [String] = []
         var totalAmount = 0
         var orderNumber = "주문번호 없음"
+        var orderDate = "날짜 없음"
         
         var isMenuSection = false
         var i = 0
@@ -93,6 +94,14 @@ extension ReceiptViewModel {
             // 장소
             if store == "장소 없음", trimmed.contains("점") {
                 store = "스타벅스 " + trimmed
+            }
+            
+            // 주문 시각
+            if let dateMatch = trimmed.range(
+                of: #"\d{4}-\d{2}-\d{2}"#,
+                options: .regularExpression
+            ) {
+                orderDate = String(trimmed[dateMatch])
             }
             
             // 결제 금액
@@ -143,7 +152,8 @@ extension ReceiptViewModel {
             store: store,
             menuItems: menuItems,
             totalAmount: totalAmount,
-            orderNumber: orderNumber
+            orderNumber: orderNumber,
+            orderDate: orderDate
         )
     }
 }

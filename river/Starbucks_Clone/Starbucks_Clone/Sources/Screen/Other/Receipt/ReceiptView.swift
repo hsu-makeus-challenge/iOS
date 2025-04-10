@@ -22,7 +22,7 @@ struct ReceiptView: View {
             
             Spacer().frame(height: 24)
             
-            ReceiptCardView()
+            ReceiptCardView(receiptViewModel: receiptViewModel)
 //            ForEach(receiptViewModel.getImages(), id: \.self) { image in
 //                Image(uiImage: image)
 //                    .resizable()
@@ -122,21 +122,19 @@ fileprivate struct ReceiptHeaderView: View {
 }
 
 fileprivate struct ReceiptCardView: View {
+    @Bindable private var receiptViewModel: ReceiptViewModel
+    
+    init(receiptViewModel: ReceiptViewModel) {
+        self.receiptViewModel = receiptViewModel
+    }
+    
     fileprivate var body: some View {
         List {
             HStack {
-                VStack(alignment: .leading, spacing: 9) {
-                    Text("사당역")
-                        .font(.mainTextSemiBold18)
-                        .foregroundStyle(.black)
-                    
-                    Text("2025.01.05 11:30")
-                        .font(.mainTextMedium16)
-                        .foregroundStyle(Color(.gray03))
-                    
-                    Text("6300")
-                        .font(.mainTextSemiBold18)
-                        .foregroundStyle(Color(.brown02))
+                if let receipt = receiptViewModel.receiptModel {
+                    makeCardInfo(with: receipt)
+                } else {
+                    ProgressView()
                 }
                 
                 Spacer()
@@ -152,6 +150,22 @@ fileprivate struct ReceiptCardView: View {
             }
         }
         .listStyle(.plain)
+    }
+    
+    private func makeCardInfo(with receipt: ReceiptModel) -> some View {
+        VStack(alignment: .leading, spacing: 9) {
+            Text("\(String(describing: receipt.store))")
+                .font(.mainTextSemiBold18)
+                .foregroundStyle(.black)
+            
+            Text("\(String(describing: receipt.orderDate))")
+                .font(.mainTextMedium16)
+                .foregroundStyle(Color(.gray03))
+            
+            Text("\(String(describing: receipt.totalAmount))원")
+                .font(.mainTextSemiBold18)
+                .foregroundStyle(Color(.brown02))
+        }
     }
 }
 
