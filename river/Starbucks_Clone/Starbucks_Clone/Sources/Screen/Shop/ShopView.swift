@@ -119,39 +119,86 @@ fileprivate struct BestProductsView: View {
                 .font(.mainTextBold24)
                 .foregroundStyle(.black)
             
-            TabView(selection: $currentPage) {
-                ForEach(
-                    shopViewModel.bestProductPages.indices,
-                    id:\.self
-                ) { index in
-                    let pageItems = shopViewModel.bestProductPages[index]
-                    makeGridLayout(with: pageItems)
-                        .padding(.horizontal, 14.5)
-                        .tag(index)
+            // 전체 화면의 width를 측정하기 위해 바깥쪽 GeometryReader 사용
+            GeometryReader { geometry in
+                ScrollView(.horizontal) {
+                    LazyHStack(spacing: 0) {
+                        ForEach(
+                            shopViewModel.bestProductPages.indices,
+                            id: \.self
+                        ) { index in
+                            let pageItems = shopViewModel.bestProductPages[index]
+                            
+                            pagedGridView(
+                                for: pageItems,
+                                index: index,
+                                in: geometry
+                            )
+                        }
+                    }
                 }
+                .scrollTargetBehavior(.paging)
+                .scrollIndicators(.never)
             }
             .frame(height: 470)
-            .tabViewStyle(.page)
-            .indexViewStyle(
-                .page(backgroundDisplayMode: .never)
-            ) // 페이지 인디케이터
             
             customIndicator
-            // 이 방법으로는 레이아웃이 명확하게 안 나눠지네..
-//            ScrollView(.horizontal) {
-//                LazyHStack {
-//                    ForEach(
-//                        shopViewModel.bestProductPages.indices,
-//                        id:\.self
-//                    ) { index in
-//                        let pageItems = shopViewModel.bestProductPages[index]
-//                        makeGridLayout(with: pageItems)
-//                    }
-//                }
-//                .padding(.horizontal, 14.5)
-//            }
-//            .scrollTargetBehavior(.paging) // iOS 17부터 사용 가능
-//            .frame(height: 470)
+        }
+    }
+    
+    /// ScrollView + GeometryReader 조합한 페이징 탭뷰
+    ///
+    ///     TabView(.page) 대신  조합을 사용한 이유:
+    ///     - TabView는 페이징이 간편하지만, 기본 제공되는 PageIndicator만 사용 가능하고,
+    ///     커스텀 인디케이터(모양, 위치, 애니메이션 등)를 적용하기 어렵다.
+    ///     - 반면 ScrollView를 직접 구성하면 사용자가 보고 있는 페이지를 직접 계산하여
+    ///     다양한 형태의 커스텀 인디케이터를 구현할 수 있다.
+    ///     - 이 함수에서는 각 페이지의 위치(minX)를 기반으로 현재 페이지를 계산하고,
+    ///     currentPage를 업데이트하여 인디케이터와 연동한다.
+    private func pagedGridView(
+        for pageItems: PaginationShopItem,
+        index: Int,
+        in containerGeo: GeometryProxy
+    ) -> some View {
+        // 각 페이지의 위치를 추적하기 위한 GeometryReader
+        return GeometryReader { geo in
+            makeGridLayout(with: pageItems)
+                // 한 페이지에 들어갈 너비를 지정 (좌우 패딩 고려)
+                .frame(width: containerGeo.size.width - 30)
+                .padding(.horizontal, 14.5)
+                // 뷰의 위치(minX)가 변경될 때마다 호출됨 (스크롤 시 감지)
+                .onChange(of: geo.frame(in: .global).minX) { _, minX in
+                    // 한 페이지의 기준 너비
+                    let pageWidth = containerGeo.size.width - 30
+                    // 왼쪽으로 스크롤되면 minX가 작아지므로 -를 붙여 양수로 만듦
+                    let offset = -minX
+                    // 현재 보고 있는 페이지 계산(반올림)
+                    let calculatedPage = Int(round(offset / pageWidth))
+                    
+                    // 계산된 페이지가 기존 currentPage와 다를 경우 업데이트
+                    if currentPage != calculatedPage {
+                        currentPage = calculatedPage
+                    }
+                }
+        }
+        // 스크롤 단위로 정확히 인식시키기 위해 각 페이지 뷰의 너비를 고정
+        .frame(width: containerGeo.size.width)
+    }
+    
+    private func makeGridLayout(
+        with model: PaginationShopItem
+    ) -> some View {
+        return LazyVGrid(columns: columns) {
+            ForEach(
+                model.items,
+                id: \.id
+            ) { product in
+                ProductCardView(
+                    product: product,
+                    width: 157,
+                    height: 208
+                )
+            }
         }
     }
     
@@ -172,23 +219,6 @@ fileprivate struct BestProductsView: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.top, 8)
-    }
-    
-    private func makeGridLayout(
-        with model: PaginationShopItem
-    ) -> some View {
-        return LazyVGrid(columns: columns) {
-            ForEach(
-                model.items,
-                id: \.id
-            ) { product in
-                ProductCardView(
-                    product: product,
-                    width: 157,
-                    height: 208
-                )
-            }
-        }
     }
 }
 
