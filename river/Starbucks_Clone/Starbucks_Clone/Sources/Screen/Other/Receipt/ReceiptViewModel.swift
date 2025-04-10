@@ -13,11 +13,14 @@ class ReceiptViewModel {
     var images: [UIImage] = []
     var recognizedText: String = ""
     
-    var receiptModel: ReceiptModel?
+    var receiptModel: [ReceiptModel] = []
+    
+    var lastImageIndex: Int {
+        images.count - 1
+    }
     
     func addImage(_ image: UIImage) {
         images.append(image)
-        performOCR()
     }
     
     func removeImage(at index: Int) {
@@ -31,33 +34,43 @@ class ReceiptViewModel {
 }
 
 extension ReceiptViewModel {
-    func performOCR() {
-        guard let uiImage = UIImage(named: "Receipt/receiptInfo"),
-              let cgImage = uiImage.cgImage else {
-            self.receiptModel = nil
+    func performOCR(on uiImage: UIImage, at index: Int) {
+        guard let cgImage = uiImage.cgImage else {
+            if receiptModel.indices.contains(index) {
+                receiptModel[index] = ReceiptModel.empty
+            }
             return
         }
-        
+
         let request = VNRecognizeTextRequest { [weak self] request, error in
             guard let self = self,
                   let observations = request.results as? [VNRecognizedTextObservation],
                   error == nil else {
-                self?.receiptModel = nil
+                DispatchQueue.main.async {
+                    if self?.receiptModel.indices.contains(index) == true {
+                        self?.receiptModel[index] = ReceiptModel.empty
+                    }
+                }
                 return
             }
-            
+
             let recognizedStrings = observations.compactMap { $0.topCandidates(1).first?.string }
             let fullText = recognizedStrings.joined(separator: "\n")
             let parsed = self.parseWithoutRegex(from: fullText)
-            
+
             DispatchQueue.main.async {
-                self.receiptModel = parsed
+                // 이미 존재하면 업데이트, 없으면 append
+                if self.receiptModel.indices.contains(index) {
+                    self.receiptModel[index] = parsed
+                } else {
+                    self.receiptModel.append(parsed)
+                }
             }
         }
-        
+
         request.recognitionLevel = .accurate
         request.recognitionLanguages = ["ko-KR"]
-        
+
         DispatchQueue.global(qos: .userInitiated).async {
             let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
             try? handler.perform([request])

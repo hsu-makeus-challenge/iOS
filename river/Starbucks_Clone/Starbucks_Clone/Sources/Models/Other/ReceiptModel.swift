@@ -39,3 +39,14 @@ class ReceiptModel {
         self.createdAt = createdAt
     }
 }
+
+extension ReceiptModel {
+    static let empty = ReceiptModel(
+        orderer: "주문자 없음",
+        store: "장소 없음",
+        menuItems: [],
+        totalAmount: 0,
+        orderNumber: "주문번호 없음",
+        orderDate: "날짜 없음"
+    )
+}

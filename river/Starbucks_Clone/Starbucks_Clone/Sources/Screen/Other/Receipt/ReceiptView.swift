@@ -22,29 +22,7 @@ struct ReceiptView: View {
             
             Spacer().frame(height: 24)
             
-            ReceiptCardView(receiptViewModel: receiptViewModel)
-//            ForEach(receiptViewModel.getImages(), id: \.self) { image in
-//                Image(uiImage: image)
-//                    .resizable()
-//                    .scaledToFill()
-//                    .frame(width: 100, height: 100)
-//                    .clipped()
-//            }
-//            
-//            if let receipt = receiptViewModel.receiptModel {
-//                VStack {
-//                    VStack(alignment: .leading, spacing: 5) {
-//                        Text("주문자: \(receipt.orderer)")
-//                        Text("장소: \(receipt.store)")
-//                        Text("마신 음료: \(receipt.menuItems.joined(separator: ", "))")
-//                        Text("결제 금액: \(receipt.totalAmount)원")
-//                        Text("주문번호: \(receipt.orderNumber)")
-//                    }
-//                    .frame(maxWidth: .infinity, alignment: .leading)
-//                }
-//            } else {
-//                ProgressView("OCR 처리 중")
-//            }
+            ReceiptListView(receiptViewModel: receiptViewModel)
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -90,12 +68,13 @@ struct ReceiptView: View {
                     if let data = try? await item.loadTransferable(type: Data.self),
                        let image = UIImage(data: data) {
                         receiptViewModel.addImage(image)
+                        receiptViewModel.performOCR(
+                            on: image,
+                            at: receiptViewModel.lastImageIndex
+                        )
                     }
                 }
             }
-        }
-        .task {
-            receiptViewModel.performOCR()
         }
     }
 }
@@ -121,48 +100,64 @@ fileprivate struct ReceiptHeaderView: View {
     }
 }
 
-fileprivate struct ReceiptCardView: View {
+fileprivate struct ReceiptListView: View {
     @Bindable private var receiptViewModel: ReceiptViewModel
-    
+
     init(receiptViewModel: ReceiptViewModel) {
         self.receiptViewModel = receiptViewModel
     }
-    
+
     fileprivate var body: some View {
         List {
-            HStack {
-                if let receipt = receiptViewModel.receiptModel {
-                    makeCardInfo(with: receipt)
-                } else {
-                    ProgressView()
-                }
-                
-                Spacer()
-                
-                Button {
-                    print("receiptImg")
-                } label: {
-                    Image(.Receipt.receiptImg)
-                        .resizable()
-                        .frame(width: 16, height: 20)
-                }
-
+            ForEach(receiptViewModel.images.indices, id: \.self) { index in
+                ReceiptCardView(receiptViewModel: receiptViewModel, index: index)
             }
         }
         .listStyle(.plain)
     }
-    
+}
+
+fileprivate struct ReceiptCardView: View {
+    @Bindable private var receiptViewModel: ReceiptViewModel
+    private let index: Int
+
+    init(receiptViewModel: ReceiptViewModel, index: Int) {
+        self.receiptViewModel = receiptViewModel
+        self.index = index
+    }
+
+    fileprivate var body: some View {
+        HStack {
+            if receiptViewModel.receiptModel.indices.contains(index) {
+                let receipt = receiptViewModel.receiptModel[index]
+                makeCardInfo(with: receipt)
+            } else {
+                ProgressView()
+            }
+
+            Spacer()
+
+            Button {
+                print("receiptImg \(index)")
+            } label: {
+                Image(.Receipt.receiptImg)
+                    .resizable()
+                    .frame(width: 16, height: 20)
+            }
+        }
+    }
+
     private func makeCardInfo(with receipt: ReceiptModel) -> some View {
         VStack(alignment: .leading, spacing: 9) {
-            Text("\(String(describing: receipt.store))")
+            Text(receipt.store)
                 .font(.mainTextSemiBold18)
                 .foregroundStyle(.black)
-            
-            Text("\(String(describing: receipt.orderDate))")
+
+            Text(receipt.orderDate)
                 .font(.mainTextMedium16)
                 .foregroundStyle(Color(.gray03))
-            
-            Text("\(String(describing: receipt.totalAmount))원")
+
+            Text("\(receipt.totalAmount)원")
                 .font(.mainTextSemiBold18)
                 .foregroundStyle(Color(.brown02))
         }
