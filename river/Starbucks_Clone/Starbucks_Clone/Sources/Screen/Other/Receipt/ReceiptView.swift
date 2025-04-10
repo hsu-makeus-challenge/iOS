@@ -14,9 +14,17 @@ struct ReceiptView: View {
     @State private var showActionSheet = false
     @State private var showPhotosPicker = false
     
+    @State private var receiptViewModel: ReceiptViewModel = .init()
+    
     var body: some View {
         VStack {
-            Text("Hello")
+            ForEach(receiptViewModel.getImages(), id: \.self) { image in
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 100, height: 100)
+                    .clipped()
+            }
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -45,6 +53,11 @@ struct ReceiptView: View {
             
             Button("취소", role: .cancel) {}
         }
+        .sheet(isPresented: $showCamera) {
+            CameraPicker { image in
+                receiptViewModel.addImage(image)
+            }
+        }
         .photosPicker(
             isPresented: $showPhotosPicker,
             selection: $selectedItems,
@@ -56,8 +69,7 @@ struct ReceiptView: View {
                 Task {
                     if let data = try? await item.loadTransferable(type: Data.self),
                        let image = UIImage(data: data) {
-//                        viewModel.addImage(image)
-                        print("addImage")
+                        receiptViewModel.addImage(image)
                     }
                 }
             }
