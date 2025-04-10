@@ -18,31 +18,33 @@ struct ReceiptView: View {
     
     var body: some View {
         VStack {
-            ForEach(receiptViewModel.getImages(), id: \.self) { image in
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 100, height: 100)
-                    .clipped()
-            }
+            ReceiptHeaderView()
             
-            if let receipt = receiptViewModel.receiptModel {
-                VStack {
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text("주문자: \(receipt.orderer)")
-                        Text("장소: \(receipt.store)")
-                        Text("마신 음료: \(receipt.menuItems.joined(separator: ", "))")
-                        Text("결제 금액: \(receipt.totalAmount)원")
-                        Text("주문번호: \(receipt.orderNumber)")
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }
-            } else {
-                ProgressView("OCR 처리 중")
-            }
-        }
-        .task {
-            receiptViewModel.performOCR()
+            Spacer().frame(height: 24)
+            
+            ReceiptCardView()
+//            ForEach(receiptViewModel.getImages(), id: \.self) { image in
+//                Image(uiImage: image)
+//                    .resizable()
+//                    .scaledToFill()
+//                    .frame(width: 100, height: 100)
+//                    .clipped()
+//            }
+//            
+//            if let receipt = receiptViewModel.receiptModel {
+//                VStack {
+//                    VStack(alignment: .leading, spacing: 5) {
+//                        Text("주문자: \(receipt.orderer)")
+//                        Text("장소: \(receipt.store)")
+//                        Text("마신 음료: \(receipt.menuItems.joined(separator: ", "))")
+//                        Text("결제 금액: \(receipt.totalAmount)원")
+//                        Text("주문번호: \(receipt.orderNumber)")
+//                    }
+//                    .frame(maxWidth: .infinity, alignment: .leading)
+//                }
+//            } else {
+//                ProgressView("OCR 처리 중")
+//            }
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -92,6 +94,64 @@ struct ReceiptView: View {
                 }
             }
         }
+        .task {
+            receiptViewModel.performOCR()
+        }
+    }
+}
+
+fileprivate struct ReceiptHeaderView: View {
+    fileprivate var body: some View {
+        HStack {
+            Text("총 ")
+                .font(.mainTextSemiBold14)
+            + Text("1건")
+                .font(.mainTextSemiBold18)
+                .foregroundStyle(Color(.brown02))
+            
+            Spacer()
+            
+            Text("사용합계 ")
+                .font(.mainTextSemiBold14)
+            + Text("6500")
+                .font(.mainTextSemiBold18)
+                .foregroundStyle(Color(.brown02))
+        }
+        .padding(.horizontal, 17)
+    }
+}
+
+fileprivate struct ReceiptCardView: View {
+    fileprivate var body: some View {
+        List {
+            HStack {
+                VStack(alignment: .leading, spacing: 9) {
+                    Text("사당역")
+                        .font(.mainTextSemiBold18)
+                        .foregroundStyle(.black)
+                    
+                    Text("2025.01.05 11:30")
+                        .font(.mainTextMedium16)
+                        .foregroundStyle(Color(.gray03))
+                    
+                    Text("6300")
+                        .font(.mainTextSemiBold18)
+                        .foregroundStyle(Color(.brown02))
+                }
+                
+                Spacer()
+                
+                Button {
+                    print("receiptImg")
+                } label: {
+                    Image(.Receipt.receiptImg)
+                        .resizable()
+                        .frame(width: 16, height: 20)
+                }
+
+            }
+        }
+        .listStyle(.plain)
     }
 }
 
