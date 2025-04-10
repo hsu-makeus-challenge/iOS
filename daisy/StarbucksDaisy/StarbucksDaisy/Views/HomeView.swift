@@ -20,19 +20,27 @@ struct HomeView: View {
         ScrollView {
             LazyVStack(spacing: 20) {
                 topBanner
+                
                 Image("advertiseBanner")
                     .resizable().scaledToFit()
                     .frame(maxWidth: .infinity)
+                
                 RecommendedView
+                
                 Image("eventBanner")
                     .resizable().scaledToFit()
                     .frame(maxWidth: .infinity)
+                
                 Image("serviceSuscibe")
                     .resizable().scaledToFit()
                     .frame(maxWidth: .infinity)
+                
                 NewsView
+                
                 BannersView
+                
                 DessertView
+                
                 LastBannerView
             }
             .padding(.horizontal, 10)

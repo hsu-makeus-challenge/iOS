@@ -24,7 +24,7 @@ struct ContentView: View {
                                 CoffeeDetailView(coffee: coffee)
                             case .mainTabBar:
                                 TabbarView()
-                            case .receipt:
+                            case .mobileReceipt:
                                 ReceiptView()
                             }
                         }

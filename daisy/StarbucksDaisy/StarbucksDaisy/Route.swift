@@ -12,5 +12,5 @@ enum Route: Hashable {
     case emailLogin
     case coffeDetail(coffee: Coffee)
     case mainTabBar
-    case receipt
+    case mobileReceipt
 }
