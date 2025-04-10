@@ -37,6 +37,8 @@ struct MainView: View {
                     CoffeeDetailView(coffeeName: coffeeName)
                 case .other:
                     OtherView()
+                case .reciept:
+                    ReceiptView()
                 }
             }
         }

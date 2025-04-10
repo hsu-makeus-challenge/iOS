@@ -12,6 +12,7 @@ struct OtherView: View {
     /// UserDefaults의 "nickname" 키에 저장된 값을 불러온다.
     @AppStorage("nickname") private var nickname : String?
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var router: NavigationRouter
     
     var body: some View {
         otherHeaderView
@@ -75,7 +76,9 @@ struct OtherView: View {
             .font(.PretendardSemiBold24)
             HStack (spacing: 10.5) {
                 OtherViewButton2(buttonColor: .white, text: "별 히스토리",textColor: .black ,font: .PretendardMedium16, icon: "other1.1", action: {print("별 히스토리 클릭")})
-                OtherViewButton2(buttonColor: .white, text: "전자영수증", textColor: .black, font: .PretendardMedium16, icon: "other1.2", action: {print("전자영수증 클릭")})
+                OtherViewButton2(buttonColor: .white, text: "전자영수증", textColor: .black, font: .PretendardMedium16, icon: "other1.2", action: {
+                    router.navigate(to: .reciept)
+                })
                 OtherViewButton2(buttonColor: .white, text: "나만의 메뉴", textColor: .black, font: .PretendardMedium16, icon: "other1.3", action: {print("나만의 메뉴 클릭")})
             } //: HStack
         } //: VStack

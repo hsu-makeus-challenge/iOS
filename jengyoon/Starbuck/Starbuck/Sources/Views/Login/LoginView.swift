@@ -116,7 +116,6 @@ struct LoginView: View {
                 .font(.PretendardLight14)
                 .foregroundStyle(.gray)
                 .underline()
-                // 클릭시 네비게이션 활성화 되도록 toggle()로 넘기기
                 .onTapGesture {
                     router.navigate(to: .signup)
                 }

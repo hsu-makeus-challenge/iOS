@@ -10,7 +10,7 @@ import SwiftUI
 
 class HomeViewModel: ObservableObject {
     /// 회원가입시 저장된 닉네임 불러오기
-    @AppStorage("nickname") private var nickname: String = ""
+    @AppStorage("userNickname") private var nickname: String = ""
     
     /// 뷰에서 접근하는 닉네임
     var displayName: String {

@@ -12,6 +12,8 @@ struct HomeView: View {
     /// AppStorage에 저장된 닉네임과 더미데이터 랜더링
     @StateObject private var viewModel = HomeViewModel()
     
+    @State private var showAdvertisement = false
+    
     var body: some View {
         NavigationStack {
             ScrollView(.vertical, content: {
@@ -37,8 +39,15 @@ struct HomeView: View {
             }) //:ScrollView
             .safeAreaPadding(.horizontal, 10)
             .ignoresSafeArea()
-        } //:Navigation
+        } //: Navigation
+        .onAppear {
+            showAdvertisement = true
+        }
+        .sheet(isPresented: $showAdvertisement) {
+            AdvertisementView()
+        }
     }
+    
     private var homeBannerSet: some View {
         VStack(spacing: 14) {
             Image(.homeBannerSet1)
@@ -55,7 +64,6 @@ struct HomeView: View {
         }
     }
 }
-
 
 #Preview {
     HomeView()
