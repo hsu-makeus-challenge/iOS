@@ -1,22 +1,26 @@
 import SwiftUI
 
-/// 앱의 메인 뷰로, 네비게이션과 로그인 상태를 관리합니다.
+/// 앱의 루트 뷰. 로그인 여부에 따라 초기 화면을 다르게 보여주며,
+/// 앱 전체에서 사용할 라우터를 환경 객체로 주입합니다.
 struct MainView: View {
-    /// 네비게이션 라우터를 관리하는 상태 객체
+    
+    /// 화면 전환을 관리할 라우터 객체 (NavigationRouter는 커스텀 라우터로 추정)
     @StateObject private var router = NavigationRouter()
     
     var body: some View {
-        // 네비게이션 스택을 사용하여 화면 전환을 관리
+        // iOS 16 이상에서 사용되는 네비게이션 스택
+        // router.path는 현재 네비게이션 경로를 바인딩
         NavigationStack(path: $router.path) {
+            
             Group {
-                // 로그인 상태에 따라 다른 뷰를 표시
+                // 로그인 여부에 따라 다른 뷰를 보여줌
                 if router.isLoggedIn {
-                    StarBuckTab() // 로그인 시 메인 탭 뷰 표시
+                    StarBuckTab() // 로그인된 경우: 탭 기반 메인 화면
                 } else {
-                    LoginView() // 비로그인 시 로그인 뷰 표시
+                    LoginView()   // 로그인되지 않은 경우: 로그인 화면
                 }
             }
-            // 각 라우트에 따른 목적지 뷰를 정의
+            // 특정 경로(AppRoute)에 따라 해당 화면으로 이동하도록 설정
             .navigationDestination(for: AppRoute.self) { route in
                 switch route {
                 case .login:
@@ -29,10 +33,12 @@ struct MainView: View {
                     ShopView()
                 case .coffeeDetail(let coffeeName):
                     CoffeeDetailView(coffeeName: coffeeName)
+                case .other:
+                    OtherView()
                 }
             }
         }
-        // 라우터를 환경 객체로 주입하여 모든 하위 뷰에서 접근 가능하도록 함
+        // 전체 하위 뷰에서 router 객체를 공유할 수 있도록 환경 객체로 주입
         .environmentObject(router)
     }
-} 
+}

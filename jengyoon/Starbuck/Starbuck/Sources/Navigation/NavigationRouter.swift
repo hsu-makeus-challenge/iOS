@@ -7,6 +7,7 @@ enum AppRoute: Hashable {
     case home
     case shop
     case coffeeDetail(String)  // 커피 이름을 파라미터로 받음
+    case other
 }
 
 /// 네비게이션 상태를 관리하는 뷰모델

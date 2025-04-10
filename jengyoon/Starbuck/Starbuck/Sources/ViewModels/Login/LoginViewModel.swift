@@ -17,8 +17,8 @@ class LoginViewModel: ObservableObject {
     @Published var inputPassword: String = ""
     
     // MARK: - AppStorage에 저장된 회원 정보 불러오기
-    @AppStorage("email") private var savedEmail: String = ""
-    @AppStorage("password") private var savedPassword: String = ""
+    @AppStorage("userEmail") private var savedEmail: String = ""
+    @AppStorage("userPassword") private var savedPassword: String = ""
     
     // MARK: - 로그인 상태
     @Published var isLogin: Bool = false
