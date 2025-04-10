@@ -25,6 +25,24 @@ struct ReceiptView: View {
                     .frame(width: 100, height: 100)
                     .clipped()
             }
+            
+            if let receipt = receiptViewModel.receiptModel {
+                VStack {
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text("주문자: \(receipt.orderer)")
+                        Text("장소: \(receipt.store)")
+                        Text("마신 음료: \(receipt.menuItems.joined(separator: ", "))")
+                        Text("결제 금액: \(receipt.totalAmount)원")
+                        Text("주문번호: \(receipt.orderNumber)")
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            } else {
+                ProgressView("OCR 처리 중")
+            }
+        }
+        .task {
+            receiptViewModel.performOCR()
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -61,7 +79,7 @@ struct ReceiptView: View {
         .photosPicker(
             isPresented: $showPhotosPicker,
             selection: $selectedItems,
-            maxSelectionCount: 5,
+            maxSelectionCount: 1,
             matching: .images
         )
         .onChange(of: selectedItems) { oldItems, newItems in

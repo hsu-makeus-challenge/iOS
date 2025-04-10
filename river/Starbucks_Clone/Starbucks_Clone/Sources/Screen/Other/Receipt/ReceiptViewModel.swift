@@ -17,7 +17,7 @@ class ReceiptViewModel {
     
     func addImage(_ image: UIImage) {
         images.append(image)
-        performOCR(on: image)
+        performOCR()
     }
     
     func removeImage(at index: Int) {
@@ -138,7 +138,7 @@ extension ReceiptViewModel {
         print("💰 결제 금액: \(totalAmount)")
         print("🧾 주문번호: \(orderNumber)")
         
-        return ReceiptsModel(
+        return ReceiptModel(
             orderer: orderer,
             store: store,
             menuItems: menuItems,
