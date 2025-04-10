@@ -87,18 +87,6 @@ struct ContentView: View {
                         }
                 case .receipt:
                     ReceiptView()
-                        .toolbar {
-                            ToolbarItem(placement: .topBarTrailing) {
-                                Button {
-                                    print("Plus")
-                                } label: {
-                                    Image(.Receipt.plus)
-                                        .resizable()
-                                        .frame(width: 15, height: 15)
-                                }
-                                
-                            }
-                        }
                 }
             }
         }
