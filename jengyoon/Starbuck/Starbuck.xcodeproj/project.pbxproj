@@ -28,6 +28,7 @@
 		D137A0CE8238989E873328EF /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D2E6CFDB2FE55DB301BB7E93 /* Pretendard-ExtraBold.otf */; };
 		F9B59708E65FFDC479FA292D /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C05EE3A01621AA71D5A3474 /* Pretendard-SemiBold.otf */; };
 		FF869F082D95311D00C9D39B /* StarBuckTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF869F072D95311D00C9D39B /* StarBuckTab.swift */; };
+		FF89C1872DA78628002BEBA9 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF89C1862DA78628002BEBA9 /* MainView.swift */; };
 		FF9684892D952645009914B3 /* AdvertisementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9684882D952645009914B3 /* AdvertisementView.swift */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +91,7 @@
 		F971E5B6815CB1BE429AAFDA /* CustomColor.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CustomColor.xcassets; sourceTree = "<group>"; };
 		FB5860E6E14B3D180E9A7ABF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FF869F072D95311D00C9D39B /* StarBuckTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarBuckTab.swift; sourceTree = "<group>"; };
+		FF89C1862DA78628002BEBA9 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		FF9684882D952645009914B3 /* AdvertisementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,6 +107,7 @@
 		FF6F76862DA71102003079EE /* Shop */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Shop; sourceTree = "<group>"; };
 		FF869F092D953EE400C9D39B /* Login */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Login; sourceTree = "<group>"; };
 		FF869F0A2D953F0000C9D39B /* Other */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Other; sourceTree = "<group>"; };
+		FF89C1842DA78559002BEBA9 /* Navigation */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Navigation; sourceTree = "<group>"; };
 		FF96846D2D932655009914B3 /* Components */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Components; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -158,6 +161,7 @@
 		3A2543C67DA0A3DAC99340AA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				FF89C1842DA78559002BEBA9 /* Navigation */,
 				FF96846D2D932655009914B3 /* Components */,
 				BB0F89AD98F7C1411A6B3723 /* Extentions */,
 				56FC55C7F239994CE0B1A99A /* Managers */,
@@ -172,6 +176,7 @@
 		3CFD97B39B9B1F9402805C71 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FF89C1862DA78628002BEBA9 /* MainView.swift */,
 				FF6F76802DA705C1003079EE /* Shop */,
 				FF6F74DB2D9DAC70003079EE /* Home */,
 				FF869F0A2D953F0000C9D39B /* Other */,
@@ -334,6 +339,7 @@
 				FF6F76862DA71102003079EE /* Shop */,
 				FF869F092D953EE400C9D39B /* Login */,
 				FF869F0A2D953F0000C9D39B /* Other */,
+				FF89C1842DA78559002BEBA9 /* Navigation */,
 				FF96846D2D932655009914B3 /* Components */,
 			);
 			name = Starbuck;
@@ -430,6 +436,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF89C1872DA78628002BEBA9 /* MainView.swift in Sources */,
 				18E501DA27DFC1087C24D100 /* TuistAssets+Starbuck.swift in Sources */,
 				FF869F082D95311D00C9D39B /* StarBuckTab.swift in Sources */,
 				97BDE484D89F420A71F0D7E3 /* TuistBundle+Starbuck.swift in Sources */,

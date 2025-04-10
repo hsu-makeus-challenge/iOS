@@ -9,82 +9,126 @@ import SwiftUI
 
 struct SignupView: View {
     // MARK: - Properties
-    /// 해당 뷰에서 객체를 생성하여 관리하므로 @StateObject로 선언
+    @EnvironmentObject private var router: NavigationRouter
     @StateObject private var viewModel = SignupViewModel()
-    /// dismiss 사용하여 하위뷰 pop
-    @Environment(\.dismiss) private var dismiss
-    /// 입력필드 실시간으로 바인딩하기 위해 State로 선언하고 버튼 활성화
-    @State private var inputNickname = ""
-    @State private var inputEmail = ""
-    @State private var inputPassword = ""
+    @FocusState private var focusField: Field?
+    
+    private enum Field: Hashable {
+        case email
+        case password
+        case confirmPassword
+    }
+    
     var body: some View {
         ZStack {
             Color.white.ignoresSafeArea()
-            VStack (alignment: .leading) {
-                CustomNavigationBar(title: "가입하기") {
-                    dismiss()
-                }
-                
-                Spacer()
-                
-                TextField("닉네임", text: $inputNickname)
-                
-                Divider()
-                
-                Spacer().frame(height: 49)
-                
-                TextField("이메일", text: $inputEmail)
-                
-                Divider()
-                
-                Spacer().frame(height: 49)
-                
-                SecureField("비밀번호", text: $inputPassword)
-                
-                Divider()
-                
-                Spacer()
-                
-                createButton
-                
-                
+            
+            VStack(spacing: 104) {
+                signupTitleGroup
+                signupForm
+                signupButton
             }
-            .safeAreaPadding(.horizontal,20)
-            .safeAreaPadding(.vertical, 20)
-            .navigationBarBackButtonHidden(true)
+            .padding(.horizontal, 20)
+        }
+        .onChange(of: viewModel.isSignupComplete) { newValue in
+            if newValue {
+                router.navigate(to: .login)
+            }
         }
     }
     
     // MARK: - Components
-    private var createButton: some View {
-        Button (action: {
-            // 유효성 통과시에 AppStorage에 저장되도록
-            // 모든 항목이 유효할 때만 실행되도록
-            if buttonValid {
-                viewModel.nickname = inputNickname
-                viewModel.email = inputEmail
-                viewModel.password = inputPassword
-                dismiss()
-            }
-        }) {
-            Text("생성하기")
-                .font(.PretendardRegular18)
-                .foregroundStyle(Color.white)
-                .frame(maxWidth: 400, minHeight: 50)
-                .background(buttonValid ? Color.primaryGreen : Color.gray.opacity(0.4))
-                .clipShape(RoundedRectangle(cornerRadius: 15))
+    private var signupTitleGroup: some View {
+        VStack(alignment: .leading) {
+            Image(.starbuck)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 97, height: 95)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.bottom, 20)
+            
+            Text("회원가입")
+                .font(.system(size: 24, weight: .black, design: .default))
+                .fixedSize(horizontal: false, vertical: true)
+                .multilineTextAlignment(.leading)
+                .padding(.bottom, 19)
+            
+            Text("스타벅스 회원이 되어 다양한 서비스를 이용해보세요")
+                .font(.PretendardMedium16)
+                .foregroundStyle(.gray)
         }
-        .disabled(
-            !buttonValid
-        )
+        .frame(maxWidth: .infinity)
     }
     
-    /// 버튼 활성화 비활성화 상태 체크
-    /// - 세 항목이 모두 1글자 이상 채워져있어야 버튼이 활성화 되도록 유효성 검사
-    private var buttonValid: Bool {
-        !inputNickname.isEmpty &&
-        !inputEmail.isEmpty &&
-        !inputPassword.isEmpty
+    private var signupForm: some View {
+        VStack(alignment: .leading) {
+            TextField("이메일을 입력하세요", text: $viewModel.email)
+                .font(.PretendardLight14)
+                .foregroundStyle(.gray)
+                .focused($focusField, equals: .email)
+                .onSubmit {
+                    focusField = .password
+                }
+            
+            Divider()
+                .background(focusField == .email ? Color.primaryGreen : Color.gray)
+            
+            if let emailError = viewModel.emailError {
+                Text(emailError)
+                    .font(.caption)
+                    .foregroundColor(.red)
+            }
+            
+            Spacer().frame(height: 49)
+            
+            SecureField("비밀번호를 입력하세요", text: $viewModel.password)
+                .font(.PretendardLight14)
+                .foregroundStyle(.gray)
+                .focused($focusField, equals: .password)
+                .onSubmit {
+                    focusField = .confirmPassword
+                }
+            
+            Divider()
+                .background(focusField == .password ? Color.primaryGreen : Color.gray)
+            
+            if let passwordError = viewModel.passwordError {
+                Text(passwordError)
+                    .font(.caption)
+                    .foregroundColor(.red)
+            }
+            
+            Spacer().frame(height: 49)
+            
+            SecureField("비밀번호를 다시 입력하세요", text: $viewModel.confirmPassword)
+                .font(.PretendardLight14)
+                .foregroundStyle(.gray)
+                .focused($focusField, equals: .confirmPassword)
+            
+            Divider()
+                .background(focusField == .confirmPassword ? Color.primaryGreen : Color.gray)
+            
+            if let confirmPasswordError = viewModel.confirmPasswordError {
+                Text(confirmPasswordError)
+                    .font(.caption)
+                    .foregroundColor(.red)
+            }
+        }
+        .padding()
+    }
+    
+    private var signupButton: some View {
+        Button(action: {
+            viewModel.signup()
+        }) {
+            Text("회원가입하기")
+                .font(.PretendardMedium16)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity, minHeight: 50)
+                .background(viewModel.isFormValid ? Color.primaryGreen : Color.gray.opacity(0.4))
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+        }
+        .disabled(!viewModel.isFormValid)
     }
 }
 
