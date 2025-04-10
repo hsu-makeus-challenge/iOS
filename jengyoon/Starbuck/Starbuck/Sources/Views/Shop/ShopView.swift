@@ -25,6 +25,7 @@ struct ShopView: View {
                 bestItemsSection   // 베스트 상품 섹션
                 newProductsSection // 신규 상품 섹션
             }
+            .background(Color.white01)
         }
     }
     
@@ -60,8 +61,7 @@ struct ShopView: View {
     private var allProductsSection: some View {
         VStack(alignment: .leading) {
             Text("All Products")
-                .font(.title2)
-                .fontWeight(.bold)
+                .font(.PretendardBold24)
                 .padding(.horizontal)
             
             ScrollView(.horizontal, showsIndicators: false) {
@@ -92,8 +92,7 @@ struct ShopView: View {
     private var bestItemsSection: some View {
         VStack(alignment: .leading) {
             Text("Best Items")
-                .font(.title2)
-                .fontWeight(.bold)
+                .font(.PretendardBold24)
                 .padding(.horizontal)
             
             TabView(selection: $currentBestItemPage) {
@@ -103,7 +102,7 @@ struct ShopView: View {
                     GridItem(.flexible())
                 ], spacing: 20) {
                     ForEach(viewModel.bestItems.prefix(4)) { item in
-                        VStack {
+                        VStack(alignment: .leading) {
                             Image(item.imageName)
                                 .resizable()
                                 .scaledToFit()
@@ -111,15 +110,17 @@ struct ShopView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                             
                             Text(item.name)
-                                .font(.caption)
-                            if let volume = item.volume {
+                                .font(.PretendardLight14)
+                            if item.shouldShowVolume, let volume = item.volume {
                                 Text(volume)
-                                    .font(.caption2)
+                                    .font(.PretendardLight14)
                                     .foregroundColor(.gray)
                             }
                         }
                     }
                 }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 50)
                 .tag(0)
                 
                 // 두 번째 페이지 - 하위 4개 상품
@@ -128,7 +129,7 @@ struct ShopView: View {
                     GridItem(.flexible())
                 ], spacing: 20) {
                     ForEach(viewModel.bestItems.suffix(4)) { item in
-                        VStack {
+                        VStack(alignment: .leading) {
                             Image(item.imageName)
                                 .resizable()
                                 .scaledToFit()
@@ -136,19 +137,23 @@ struct ShopView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                             
                             Text(item.name)
-                                .font(.caption)
-                            if let volume = item.volume {
+                                .font(.PretendardLight14)
+                            if item.shouldShowVolume, let volume = item.volume {
                                 Text(volume)
-                                    .font(.caption2)
+                                    .font(.PretendardLight14)
                                     .foregroundColor(.gray)
                             }
                         }
                     }
                 }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 50)
                 .tag(1)
             }
-            .frame(height: 500)
-            .tabViewStyle(PageTabViewStyle()) // 페이지 인디케이터 표시
+            .frame(height: 520)
+            .tabViewStyle(.page)
+            .indexViewStyle(.page(backgroundDisplayMode: .never))
+            .tint(.black)
         }
     }
     
@@ -159,8 +164,7 @@ struct ShopView: View {
     private var newProductsSection: some View {
         VStack(alignment: .leading) {
             Text("New Products")
-                .font(.title2)
-                .fontWeight(.bold)
+                .font(.PretendardBold24)
                 .padding(.horizontal)
             
             LazyVGrid(columns: [
@@ -168,7 +172,7 @@ struct ShopView: View {
                 GridItem(.flexible())
             ], spacing: 20) {
                 ForEach(viewModel.newProducts) { product in
-                    VStack {
+                    VStack(alignment: .leading) {
                         Image(product.imageName)
                             .resizable()
                             .scaledToFit()
@@ -176,16 +180,17 @@ struct ShopView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                         
                         Text(product.name)
-                            .font(.caption)
-                        if let volume = product.volume {
+                            .font(.PretendardLight14)
+                        if product.shouldShowVolume, let volume = product.volume {
                             Text(volume)
-                                .font(.caption2)
+                                .font(.PretendardLight14)
                                 .foregroundColor(.gray)
                         }
                     }
                 }
             }
             .padding(.horizontal)
+            .padding(.bottom,20)
         }
     }
 }
