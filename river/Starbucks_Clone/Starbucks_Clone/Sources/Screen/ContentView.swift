@@ -30,6 +30,7 @@ struct ContentView: View {
                         .onAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                                 showSplash = false
+                                showAdvertisement = true
                             }
                         }
                 } else {

@@ -14,15 +14,42 @@ struct ReceiptView: View {
     @State private var showActionSheet = false
     @State private var showPhotosPicker = false
     
+    @State private var selectedImage: UIImage? = nil
+    @State private var showOverlay = false
+    
     @State private var receiptViewModel: ReceiptViewModel = .init()
     
     var body: some View {
-        VStack {
-            ReceiptHeaderView(receiptViewModel: receiptViewModel)
+        ZStack {
+            VStack {
+                ReceiptHeaderView(receiptViewModel: receiptViewModel)
+                Spacer().frame(height: 24)
+                ReceiptListView(
+                    receiptViewModel: receiptViewModel,
+                    onImageTap: { image in
+                        selectedImage = image
+                        showOverlay = true
+                    }
+                )
+            }
             
-            Spacer().frame(height: 24)
-            
-            ReceiptListView(receiptViewModel: receiptViewModel)
+            if showOverlay, let image = selectedImage {
+                Color.black.opacity(0.6)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        showOverlay = false
+                    }
+                
+                withAnimation {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .padding(30)
+                        .onTapGesture {
+                            showOverlay = false
+                        }
+                }
+            }
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -104,28 +131,45 @@ fileprivate struct ReceiptHeaderView: View {
 
 fileprivate struct ReceiptListView: View {
     @Bindable private var receiptViewModel: ReceiptViewModel
+    let onImageTap: (UIImage) -> Void
 
-    init(receiptViewModel: ReceiptViewModel) {
+    init(
+        receiptViewModel: ReceiptViewModel,
+        onImageTap: @escaping (UIImage) -> Void
+    ) {
         self.receiptViewModel = receiptViewModel
+        self.onImageTap = onImageTap
     }
 
     fileprivate var body: some View {
-        List {
-            ForEach(receiptViewModel.images.indices, id: \.self) { index in
-                ReceiptCardView(receiptViewModel: receiptViewModel, index: index)
+        ScrollView {
+            VStack(spacing: 8) {
+                ForEach(receiptViewModel.images.indices, id: \.self) { index in
+                    ReceiptCardView(
+                        receiptViewModel: receiptViewModel,
+                        index: index,
+                        onImageTap: onImageTap
+                    )
+                }
             }
+            .padding(.horizontal, 16)
         }
-        .listStyle(.plain)
     }
 }
 
 fileprivate struct ReceiptCardView: View {
     @Bindable private var receiptViewModel: ReceiptViewModel
     private let index: Int
+    private let onImageTap: (UIImage) -> Void
 
-    init(receiptViewModel: ReceiptViewModel, index: Int) {
+    init(
+        receiptViewModel: ReceiptViewModel,
+        index: Int,
+        onImageTap: @escaping (UIImage) -> Void
+    ) {
         self.receiptViewModel = receiptViewModel
         self.index = index
+        self.onImageTap = onImageTap
     }
 
     fileprivate var body: some View {
@@ -138,9 +182,10 @@ fileprivate struct ReceiptCardView: View {
             }
 
             Spacer()
-
+            
             Button {
-                print("receiptImg \(index)")
+                let image = receiptViewModel.images[index]
+                onImageTap(image)
             } label: {
                 Image(.Receipt.receiptImg)
                     .resizable()

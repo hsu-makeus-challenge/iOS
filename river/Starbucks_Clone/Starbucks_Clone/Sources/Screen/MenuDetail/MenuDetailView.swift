@@ -71,7 +71,7 @@ struct MenuDetailView: View {
                 
                 OrderButtonView()
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 26)
         }
         .navigationBarTitleDisplayMode(.inline)
     }

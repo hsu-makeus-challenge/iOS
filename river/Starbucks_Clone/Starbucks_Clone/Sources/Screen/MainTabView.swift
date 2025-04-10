@@ -47,7 +47,7 @@ struct MainTabView: View {
                 ? "shopIcon_selected" : "shopIcon",
                 value: 3
             ) {
-                EmptyView()
+                ShopView()
             }
             
             Tab(

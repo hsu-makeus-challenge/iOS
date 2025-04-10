@@ -191,7 +191,9 @@ struct OtherSectionView: View {
             }
             .padding(.vertical, 16)
         }
-        .frame(width: 420, height: 164)
+        .frame(maxWidth: .infinity)
+        .frame(height: 164)
+        .padding(.horizontal, 11)
     }
 }
 
