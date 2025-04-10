@@ -40,6 +40,10 @@ struct HomeView: View {
         .scrollIndicators(.hidden)
         .safeAreaPadding(.bottom, 90)
         .ignoresSafeArea(.all)
+        .onAppear() {
+            navigationTrue = true
+        }
+        .sheet(isPresented: $navigationTrue, content: { PopupView() })
     }
     
     /// 상단 토끼 배너

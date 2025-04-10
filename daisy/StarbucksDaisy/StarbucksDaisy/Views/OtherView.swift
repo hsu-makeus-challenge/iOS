@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct OtherView: View {
+    @EnvironmentObject var router: NavigationRouter
+    
     @AppStorage("nickname") var storedNickname: String = "(작성한 닉네임)"
     
     var body: some View {
@@ -54,9 +56,23 @@ struct OtherView: View {
             Spacer().frame(height: 24)
             
             HStack(spacing: 10.5) {
-                OtherButtonView(buttonImage: "starHistory", buttonText: "별 히스토리")
-                OtherButtonView(buttonImage: "receipt", buttonText: "전자영수증")
-                OtherButtonView(buttonImage: "myMenu", buttonText: "나만의 메뉴")
+                Button(action: {
+                    
+                }, label:  {
+                    OtherButtonView(buttonImage: "starHistory", buttonText: "별 히스토리")
+                })
+                
+                Button(action: {
+                    router.push(.receipt)
+                }, label:  {
+                    OtherButtonView(buttonImage: "receipt", buttonText: "전자영수증")
+                })
+                
+                Button(action: {
+                    
+                }, label:  {
+                    OtherButtonView(buttonImage: "myMenu", buttonText: "나만의 메뉴")
+                })
             }
         }
     }
