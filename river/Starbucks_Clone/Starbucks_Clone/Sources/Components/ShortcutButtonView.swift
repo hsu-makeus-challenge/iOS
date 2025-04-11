@@ -27,6 +27,7 @@ struct ShortcutButtonView: View {
     
     var body: some View {
         Button {
+            // FIXME: 추후 각 버튼에 알맞은 화면으로 전환하도록 수정해야 함
             otherViewModel.navigateToReciept()
         } label: {
             VStack {
