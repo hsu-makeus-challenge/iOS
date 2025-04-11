@@ -1,47 +1,48 @@
 import SwiftUI
 
 struct AdPopupView: View {
-    
-    @Environment(\.dismiss) private var dismiss
-    
+    @Binding var isShowing: Bool
+
     var body: some View {
-        VStack {
-            Image("adImage")
-                .resizable()
-                .frame(height: 720)
-                .ignoresSafeArea()
+            VStack{
+                Image("adImage")
+                    .resizable()
+                    .ignoresSafeArea()
+                    .frame(height:600)
+
+                Spacer().frame(height: 106)
+
+                SeeAdMoreBtnView()
+                    .padding(.horizontal, 18)
+
+                Spacer().frame(height: 20)
+
+                dismissButton
+
+                Spacer().frame(height: 36)
+            }
+            .background(Color.white)
             
-            Spacer().frame(height: 106)
-            
-            SeeAdMoreBtnView()
-                .padding(.horizontal, 18)
-            
-            Spacer().frame(height: 19)
-            
-            dismissButton
-        }
         
-        Spacer().frame(height: 36)
     }
-    
-    //이 뷰 내에서만 사용되기에!! private으로 캡슐화!!
+
     private var dismissButton: some View {
         HStack {
             Spacer()
-            
             Button {
-                dismiss()
-                print("dismiss")
+                isShowing = false
             } label: {
                 Text("X 닫기")
                     .font(.mainTextLight14)
                     .foregroundStyle(Color(.gray05))
             }
-            
             Spacer().frame(width: 36)
         }
     }
 }
+
+
+
 
 struct SeeAdMoreBtnView: View {
     
@@ -61,5 +62,6 @@ struct SeeAdMoreBtnView: View {
 }
 
 #Preview {
-    AdPopupView()
+    AdPopupView(isShowing: .constant(true))
 }
+

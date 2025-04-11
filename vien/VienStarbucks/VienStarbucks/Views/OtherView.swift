@@ -133,34 +133,44 @@ struct OtherView: View {
 }
 
 struct OtherButtonView: View {
-    
     let buttonImage: String
     let buttonText: String
-    
-    //Swift가 자동으로 생성자 생성해주기에 self.이름다르게 쓸거 아니면 굳이 쓸 필요 X
-    
+
     var body: some View {
+        Group {
+            if buttonText == "전자영수증" {
+                Button {
+                    print("Navigation 이동 필요")
+                } label: {
+                    buttonContent
+                }
 
-        Button(action: {
-            print("\(buttonText)")
-        }) {
-            VStack(spacing: 4) {
-                Image("\(buttonImage)")
-                    .resizable()
-                    .frame(width: 48, height: 48)
+            } else {
+                Button(action: {
+                    print("\(buttonText)")
+                }) {
+                    buttonContent
+                }
+            }
+        }
+        .frame(width: 102, height: 108)
+        .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 15))
+        .padding(.vertical, 17)
+    }
 
-                Text("\(buttonText)")
-                    .font(.mainTextSemiBold16)
-                    .foregroundColor(.black)
-            }
-            .frame(width: 102, height: 108)
-            .background(Color.white)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
-            .padding(.vertical, 17)
-            }
+    private var buttonContent: some View {
+        VStack(spacing: 4) {
+            Image(buttonImage)
+                .resizable()
+                .frame(width: 48, height: 48)
+
+            Text(buttonText)
+                .font(.mainTextSemiBold16)
+                .foregroundColor(.black)
+        }
     }
 }
-
 
 struct PayandCustomerSupportView: View {
     let buttonImage: String
