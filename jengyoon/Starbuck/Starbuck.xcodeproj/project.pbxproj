@@ -103,6 +103,7 @@
 		FF89C18A2DA7A769002BEBA9 /* AppRootView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AppRootView; sourceTree = "<group>"; };
 		FF89C18E2DA7B0B0002BEBA9 /* Additional */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Additional; sourceTree = "<group>"; };
 		FF96846D2D932655009914B3 /* Components */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Components; sourceTree = "<group>"; };
+		FF9723172DA90F550009B889 /* Receipt */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Receipt; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +235,7 @@
 		7E1E553C8E48254FEEF67B1A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FF9723172DA90F550009B889 /* Receipt */,
 				FF6F76862DA71102003079EE /* Shop */,
 				FF6F750C2D9E77A8003079EE /* Login */,
 				FF6F75042D9E5657003079EE /* Home */,
@@ -335,6 +337,7 @@
 				FF89C18A2DA7A769002BEBA9 /* AppRootView */,
 				FF89C18E2DA7B0B0002BEBA9 /* Additional */,
 				FF96846D2D932655009914B3 /* Components */,
+				FF9723172DA90F550009B889 /* Receipt */,
 			);
 			name = Starbuck;
 			packageProductDependencies = (
