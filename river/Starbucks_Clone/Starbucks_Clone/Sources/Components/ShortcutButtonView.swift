@@ -10,20 +10,25 @@ import SwiftUI
 /// 바로가기 버튼 뷰
 struct ShortcutButtonView: View {
     
+    @Bindable private var otherViewModel: OtherViewModel
+    
     private var image: ImageResource
     private var imageLabel: String
     
     init(
+        otherViewModel: OtherViewModel,
         image: ImageResource,
         imageLabel: String
     ) {
+        self.otherViewModel = otherViewModel
         self.image = image
         self.imageLabel = imageLabel
     }
     
     var body: some View {
         Button {
-            print("\(imageLabel)")
+            // FIXME: 추후 각 버튼에 알맞은 화면으로 전환하도록 수정해야 함
+            otherViewModel.navigateToReciept()
         } label: {
             VStack {
                 Image(image)
@@ -44,6 +49,7 @@ struct ShortcutButtonView: View {
 
 #Preview {
     ShortcutButtonView(
+        otherViewModel: AppEnvironment.previewEnv.makeOtherViewModel(),
         image: .starHistoryIcon,
         imageLabel: "별 히스토리"
     )

@@ -16,7 +16,7 @@ struct MenuDetailView: View {
     
     var body: some View {
         let menu = menuDetailViewModel.menu
-        VStack(alignment: .leading) {
+        VStack {
             // MARK: - 메뉴 이미지
             Image(menu.menuTemperatureItem[
                 menuDetailViewModel.selectedTemperatureIndex
@@ -64,14 +64,14 @@ struct MenuDetailView: View {
                     .foregroundStyle(Color(.black03))
                 
                 Spacer().frame(height: 32)
-                
-                MenuTemperatureView(menuDetailViewModel: menuDetailViewModel)
-
-                Spacer()
-                
-                OrderButtonView()
             }
             .padding(.horizontal, 16)
+            
+            MenuTemperatureView(menuDetailViewModel: menuDetailViewModel)
+
+            Spacer()
+            
+            OrderButtonView()
         }
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -102,6 +102,8 @@ fileprivate struct MenuTemperatureView: View {
             }
         }
         .pickerStyle(.segmented)
+        .frame(height: 36)
+        .padding(.horizontal, 10)
     }
 }
 

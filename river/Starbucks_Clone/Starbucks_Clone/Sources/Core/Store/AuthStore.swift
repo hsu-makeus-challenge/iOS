@@ -22,7 +22,8 @@ protocol AuthStoreProtocol {
 final class AuthStore: AuthStoreProtocol {
     
     /// 로그인 여부를 나타내는 상태 값
-    var isLoggedIn: Bool = false
+    /// (테스트를 위해 true 설정)
+    var isLoggedIn: Bool = true
 
     /// 로그인 성공 시 호출
     func login() {

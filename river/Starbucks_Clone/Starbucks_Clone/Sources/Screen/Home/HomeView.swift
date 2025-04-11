@@ -179,7 +179,7 @@ fileprivate struct RecommendedDrinksView: View {
     }
     
     private var recommendedDrinkGroup: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
+        ScrollView(.horizontal) {
             LazyHGrid(
                 rows: [GridItem(.fixed(130))],
                 spacing: 16 // LazyHGrid이기 때문에 좌우 간격임
@@ -192,6 +192,7 @@ fileprivate struct RecommendedDrinksView: View {
                 }
             }
         }
+        .scrollIndicators(.never)
     }
     
     private func makeDrinkCard(_ model: RecommendedDrink) -> some View {
@@ -253,7 +254,7 @@ fileprivate struct WhatsNewsView: View {
     }
     
     private var newsCardGroup: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
+        ScrollView(.horizontal) {
             LazyHGrid(
                 rows: [GridItem(.fixed(240))],
                 spacing: 16
@@ -263,6 +264,7 @@ fileprivate struct WhatsNewsView: View {
                 }
             }
         }
+        .scrollIndicators(.never)
     }
     
     private func makeNewsCard(_ model: NewsCard) -> some View {
@@ -329,7 +331,7 @@ fileprivate struct DessertView: View {
     }
     
     private var dessertGroup: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
+        ScrollView(.horizontal) {
             LazyHGrid(
                 rows: [GridItem(.fixed(130))],
                 spacing: 16 // LazyHGrid이기 때문에 좌우 간격임
@@ -342,6 +344,7 @@ fileprivate struct DessertView: View {
                 }
             }
         }
+        .scrollIndicators(.never)
     }
     
     private func makeDessertCard(_ model: Dessert) -> some View {
@@ -378,19 +381,11 @@ fileprivate struct PromotionalCardGroupView: View {
     }
 }
 
-struct HomeView_Preview: PreviewProvider {
-    static var previews : some View {
-        let previewEnv = AppEnvironment.previewEnv
-        ForEach(
-            PREVIEW_DEVICE_TYPE.allCases,
-            id: \.self
-        ) { deviceType in
-            HomeView(homeViewModel: previewEnv.makeHomeVieModel())
-                .environmentObject(previewEnv)
-                .previewDevice(
-                    PreviewDevice(rawValue: deviceType.rawValue))
-                .previewDisplayName(deviceType.rawValue)
-            
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        devicePreviews {
+            HomeView(homeViewModel: AppEnvironment.previewEnv.makeHomeVieModel())
+                .environmentObject(AppEnvironment.previewEnv)
         }
     }
 }

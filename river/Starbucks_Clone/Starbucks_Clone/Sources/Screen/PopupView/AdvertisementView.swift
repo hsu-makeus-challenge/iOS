@@ -10,6 +10,7 @@ import SwiftUI
 struct AdvertisementView: View {
     
     @Environment(\.dismiss) private var dismiss
+    @AppStorage("showAdvertisement") private var showAdvertisement: Bool = true
     
     var body: some View {
         VStack {
@@ -18,7 +19,7 @@ struct AdvertisementView: View {
                 .frame(height: 720)
                 .ignoresSafeArea()
             
-            Spacer().frame(height: 106)
+            Spacer()
             
             AdvertisementBtnView()
                 .padding(.horizontal, 18)
@@ -27,7 +28,6 @@ struct AdvertisementView: View {
             
             dismissButton
         }
-        .frame(height: 920)
         
         Spacer().frame(height: 36)
     }
@@ -38,7 +38,7 @@ struct AdvertisementView: View {
             
             Button {
                 dismiss()
-                print("dismiss")
+                showAdvertisement = false
             } label: {
                 Text("X 닫기")
                     .font(.mainTextLight14)
