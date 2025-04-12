@@ -19,6 +19,17 @@ class ShopViewModel {
         Product(name: "라이프스타일", imageName: "lifestyle")
     ]
     
+    var BestItems = [
+        NewProduct(name: "그린 사이렌 슬리브 머그", imageName: "bestItem1", volume: "355ml"),
+        NewProduct(name: "그린 사이렌 클래식 머그", imageName: "bestItem2", volume: "355ml"),
+        NewProduct(name: "사이렌 머그 앤 우드 소서", imageName: "bestItem3", volume: ""),
+        NewProduct(name: "리저브 골드 테일 머그", imageName: "bestItem4", volume: "355ml"),
+        NewProduct(name: "블랙 앤 골드 머그", imageName: "bestItem5", volume: "473ml"),
+        NewProduct(name: "블랙 링 머그", imageName: "bestItem6", volume: "355ml"),
+        NewProduct(name: "북청사자놀음 데미머그", imageName: "bestItem7", volume: "89ml"),
+        NewProduct(name: "서울 제주 데미머그 세트", imageName: "bestItem8", volume: "")
+    ]
+    
     var NewProducts = [
         NewProduct(name: "그린 사이렌 도트 머그", imageName: "greenMug-237", volume: "237ml"),
         NewProduct(name: "그린 사이렌 도트 머그", imageName: "greenMug-355", volume: "355ml"),
