@@ -30,38 +30,45 @@ struct ReceiptView: View {
         VStack {
             topNavigationItemBar
             
-            Spacer()
+            Spacer().frame(height: 16)
             
-            receiptList
-            
-            Spacer()
-            
-            ScrollView(.horizontal) {
-                HStack {
-                    ForEach(viewModel.getImages(), id: \.self) { image in
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 100, height: 100)
-                            .clipped()
+            VStack {
+                receiptTotalInfo
+                
+                Spacer()
+                
+                receiptList
+                
+                Spacer()
+                
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(viewModel.getImages(), id: \.self) { image in
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 100, height: 100)
+                                .clipped()
+                        }
                     }
                 }
-            }
-            
-            if !viewModel.recognizedText.isEmpty {
-                Divider()
-                Text("📝 OCR 결과")
-                    .font(.headline)
-                ScrollView {
-                    Text(viewModel.recognizedText)
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(Color(.secondarySystemBackground))
+                
+                if !viewModel.recognizedText.isEmpty {
+                    Divider()
+                    Text("📝 OCR 결과")
+                        .font(.headline)
+                    ScrollView {
+                        Text(viewModel.recognizedText)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Color(.secondarySystemBackground))
+                    }
+                    .frame(height: 200)
+                } else {
+                    Text("추출 결과 값 없음")
                 }
-                .frame(height: 200)
-            } else {
-                Text("추출 결과 값 없음")
             }
+            .padding(.horizontal, 19)
         }
         .navigationBarBackButtonHidden(true)
         .background(.white01)
@@ -125,14 +132,59 @@ struct ReceiptView: View {
         .background(.white)
     }
     
+    private var receiptTotalInfo: some View {
+        HStack {
+            Text("총 ")
+                .font(.mainTextRegular18)
+                .foregroundStyle(.black)
+            + Text("n건")
+                .font(.mainTextSemiBold18)
+                .foregroundStyle(.brown01)
+            
+            Spacer()
+            
+            Text("사용합계 ")
+                .font(.mainTextRegular18)
+                .foregroundStyle(.black)
+            + Text("6,500")
+                .font(.mainTextSemiBold18)
+                .foregroundStyle(.brown01)
+        }
+    }
+    
     private var receiptList: some View {
         VStack {
-            //            Text("장소: \(receipt.store)")
-            Text("장소")
-            //            Text("결제 금액: \(receipt.totalAmount)원")
-            Text("5700원")
-            //            Text("주문시점: \(receipt.orderDate)")
-            Text("2025-04-08")
+            HStack {
+                VStack(alignment: .leading, spacing: 9) {
+                    //            Text("장소: \(receipt.store)")
+                    Text("경복궁역")
+                        .font(.mainTextSemiBold18)
+                        .foregroundStyle(.black)
+                    //            Text("주문시점: \(receipt.orderDate)")
+                    Text("2025.04.08 11:30")
+                        .font(.mainTextMedium16)
+                        .foregroundStyle(.gray03)
+                    //            Text("결제 금액: \(receipt.totalAmount)원")
+                    Text("5700원")
+                        .font(.mainTextSemiBold18)
+                        .foregroundStyle(.brown02)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Spacer()
+                
+                Button(action: {
+                    print("영수증 사진 보여주기")
+                }, label: {
+                    Image("receiptIcon")
+                })
+            }
+            
+            Spacer().frame(height: 14)
+            
+            Divider()
+                .foregroundStyle(.gray01)
+                .frame(maxWidth: .infinity)
         }
     }
     
