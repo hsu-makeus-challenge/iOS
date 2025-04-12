@@ -12,63 +12,55 @@ struct ReceiptView: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var selectedItems: [PhotosPickerItem] = []
-    @State private var images: [UIImage] = []
-    
+    @State private var selectedImage: UIImage? = nil
     @State private var showCamera = false
     @State private var showActionSheet = false
     @State private var showPhotosPicker = false
+    @State private var showOverlay = false
     
-    private var viewModel: OCRViewModel = .init()
-    
-    
-    //    @Bindable var viewModel: ImageViewModel = .init()
-    
-    //    let receipt: Receipt
-    
+    private var viewModel: ReceiptViewModel = .init()
     
     var body: some View {
         VStack {
             topNavigationItemBar
             
-            Spacer().frame(height: 16)
-            
-            VStack {
-                receiptTotalInfo
-                
-                Spacer()
-                
-                receiptList
-                
-                Spacer()
-                
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(viewModel.getImages(), id: \.self) { image in
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 100, height: 100)
-                                .clipped()
-                        }
-                    }
+            ZStack {
+                VStack {
+                    Spacer().frame(height: 16)
+                    
+                    receiptTotalInfo
+                    
+                    Spacer().frame(height: 24)
+                    
+                    receiptListView(
+                        receiptViewModel: viewModel,
+                        onImageTap: { image in
+                            selectedImage = image
+                            showOverlay = true
+                        })
+                    
+                    
                 }
+                .padding(.horizontal, 19)
                 
-                if !viewModel.recognizedText.isEmpty {
-                    Divider()
-                    Text("📝 OCR 결과")
-                        .font(.headline)
-                    ScrollView {
-                        Text(viewModel.recognizedText)
-                            .padding()
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(Color(.secondarySystemBackground))
+                if showOverlay, let image = selectedImage {
+                    Color.black.opacity(0.6)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            showOverlay = false
+                        }
+                    
+                    withAnimation {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFit()
+                            .padding(30)
+                            .onTapGesture {
+                                showOverlay = false
+                            }
                     }
-                    .frame(height: 200)
-                } else {
-                    Text("추출 결과 값 없음")
                 }
             }
-            .padding(.horizontal, 19)
         }
         .navigationBarBackButtonHidden(true)
         .background(.white01)
@@ -112,16 +104,25 @@ struct ReceiptView: View {
             }
             .sheet(isPresented: $showCamera) {
                 CameraPicker { image in
-                    images.append(image)
+                    viewModel.addImage(image)
                 }
             }
-            .photosPicker(isPresented: $showPhotosPicker, selection: $selectedItems, maxSelectionCount: 1, matching: .images)
+            .photosPicker(
+                isPresented: $showPhotosPicker,
+                selection: $selectedItems,
+                maxSelectionCount: 1,
+                matching: .images
+            )
             .onChange(of: selectedItems) { oldItems,newItems in
                 for item in newItems {
                     Task {
                         if let data = try? await item.loadTransferable(type: Data.self),
                            let image = UIImage(data: data) {
-                            images.append(image)
+                            viewModel.addImage(image)
+                            viewModel.performOCR(
+                                on: image,
+                                at: viewModel.lastImageIndex
+                            )
                         }
                     }
                 }
@@ -137,7 +138,7 @@ struct ReceiptView: View {
             Text("총 ")
                 .font(.mainTextRegular18)
                 .foregroundStyle(.black)
-            + Text("n건")
+            + Text("\(viewModel.receiptModel.count)건")
                 .font(.mainTextSemiBold18)
                 .foregroundStyle(.brown01)
             
@@ -146,50 +147,96 @@ struct ReceiptView: View {
             Text("사용합계 ")
                 .font(.mainTextRegular18)
                 .foregroundStyle(.black)
-            + Text("6,500")
+            + Text("\(viewModel.totalReceiptPrice)")
                 .font(.mainTextSemiBold18)
                 .foregroundStyle(.brown01)
         }
     }
     
-    private var receiptList: some View {
-        VStack {
-            HStack {
-                VStack(alignment: .leading, spacing: 9) {
-                    //            Text("장소: \(receipt.store)")
-                    Text("경복궁역")
-                        .font(.mainTextSemiBold18)
-                        .foregroundStyle(.black)
-                    //            Text("주문시점: \(receipt.orderDate)")
-                    Text("2025.04.08 11:30")
-                        .font(.mainTextMedium16)
-                        .foregroundStyle(.gray03)
-                    //            Text("결제 금액: \(receipt.totalAmount)원")
-                    Text("5700원")
-                        .font(.mainTextSemiBold18)
-                        .foregroundStyle(.brown02)
+    fileprivate struct receiptListView: View {
+        @Bindable private var receiptViewModel: ReceiptViewModel
+        let onImageTap: (UIImage) -> Void
+        
+        init(
+            receiptViewModel: ReceiptViewModel,
+            onImageTap: @escaping (UIImage) -> Void
+        ) {
+            self.receiptViewModel = receiptViewModel
+            self.onImageTap = onImageTap
+        }
+        
+        fileprivate var body: some View {
+            ScrollView {
+                VStack(spacing: 8) {
+                    ForEach(receiptViewModel.images.indices, id: \.self) { index in
+                        receiptCardView (
+                            receiptViewModel: receiptViewModel,
+                            index: index,
+                            onImageTap: onImageTap
+                        )
+                    }
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                
-                Spacer()
-                
-                Button(action: {
-                    print("영수증 사진 보여주기")
-                }, label: {
-                    Image("receiptIcon")
-                })
             }
-            
-            Spacer().frame(height: 14)
-            
-            Divider()
-                .foregroundStyle(.gray01)
-                .frame(maxWidth: .infinity)
         }
     }
     
+    fileprivate struct receiptCardView: View {
+        @Bindable var receiptViewModel: ReceiptViewModel
+        let index: Int
+        let onImageTap: (UIImage) -> Void
+        
+        init(
+            receiptViewModel: ReceiptViewModel,
+            index: Int,
+            onImageTap: @escaping (UIImage) -> Void
+        ) {
+            self.receiptViewModel = receiptViewModel
+            self.index = index
+            self.onImageTap = onImageTap
+        }
+        
+        fileprivate var body: some View {
+            VStack {
+                HStack {
+                    if receiptViewModel.receiptModel.indices.contains(index) {
+                        let receipt = receiptViewModel.receiptModel[index]
+                        VStack(alignment: .leading, spacing: 9) {
+                            
+                            Text("\(receipt.store)")
+                                .font(.mainTextSemiBold18)
+                                .foregroundStyle(.black)
+                            
+                            Text("\(receipt.orderDate)")
+                                .font(.mainTextMedium16)
+                                .foregroundStyle(.gray03)
+                            
+                            Text("\(receipt.totalAmount)원")
+                                .font(.mainTextSemiBold18)
+                                .foregroundStyle(.brown02)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        let image = receiptViewModel.images[index]
+                        onImageTap(image)
+                    }, label: {
+                        Image("receiptIcon")
+                    })
+                }
+                
+                Spacer().frame(height: 14)
+                
+                Divider()
+                    .foregroundStyle(.gray01)
+                    .frame(maxWidth: .infinity)
+            }
+        }
+    }
 }
 
-#Preview {
-    ReceiptView()
-}
+//#Preview {
+//    ReceiptView()
+//}

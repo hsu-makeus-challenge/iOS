@@ -30,3 +30,11 @@ class Receipt {
             self.createdAt = createdAt
         }
 }
+
+extension Receipt {
+    static let empty = Receipt(
+        store: "장소 없음",
+        totalAmount: 0,
+        orderDate: "날짜 없음"
+    )
+}
