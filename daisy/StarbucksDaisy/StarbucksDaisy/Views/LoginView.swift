@@ -15,18 +15,18 @@ struct LoginView: View {
     @FocusState private var isPasswordFocused: Bool  // 비밀번호 텍스트 필드의 포커스 상태
     
     var body: some View {
-            VStack{
-                Spacer().frame(height: 104)
-                VStack() {
+            VStack {
                     loginTitle
                     Spacer()
                     loginMiddle
                     Spacer()
                     loginBottom
-                }
-                .frame(height: 751)
-                .padding(.horizontal, 4)
+                Spacer().frame(height: 63)
             }
+            .ignoresSafeArea(edges: .bottom)
+            .background(ignoresSafeAreaEdges: .bottom)
+            .padding(.top, 104)
+            .padding(.horizontal, 19)
         }
     
     /// 상단 로고 및 설명 그룹
@@ -46,7 +46,8 @@ struct LoginView: View {
                     .font(.mainTextMedium16)
                     .foregroundStyle(Color.gray01)
             }
-            .frame(width: 402, height: 96, alignment: .leading)
+            .frame(height: 96)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
     
@@ -64,7 +65,7 @@ struct LoginView: View {
                 Divider()
                     .background(isIDFocused ? Color.green01 :Color.gray00)
             }
-            .frame(width: 401, height: 20)
+            .frame(height: 20)
             
             VStack(alignment: .leading) {
                 TextField("비밀번호", text: $viewModel.loginModel.password)
@@ -75,13 +76,13 @@ struct LoginView: View {
                 Divider()
                     .background(isPasswordFocused ? Color.green01 : Color.gray00)
             }
-            .frame(width: 401, height: 20)
+            .frame(height: 20)
 
             Button(action: {
                 viewModel.login(router: router)
             }, label: {
                 RoundedRectangle(cornerRadius: 20)
-                    .frame(width: 402, height: 46)
+                    .frame(height: 46)
                     .foregroundStyle(Color.green01)
                     .overlay {
                         Text("로그인하기")

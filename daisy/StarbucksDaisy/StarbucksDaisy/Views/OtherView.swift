@@ -8,13 +8,20 @@
 import SwiftUI
 
 struct OtherView: View {
+    
+    @EnvironmentObject var router: NavigationRouter
+    
     @AppStorage("nickname") var storedNickname: String = "(작성한 닉네임)"
     
     var body: some View {
         VStack(spacing: 41) {
+            
             TopBackground
+            
             TopContentView
+            
             PayContentView
+            
             ServiceContentView
             Spacer()
         }
@@ -54,9 +61,24 @@ struct OtherView: View {
             Spacer().frame(height: 24)
             
             HStack(spacing: 10.5) {
-                OtherButtonView(buttonImage: "starHistory", buttonText: "별 히스토리")
-                OtherButtonView(buttonImage: "receipt", buttonText: "전자영수증")
-                OtherButtonView(buttonImage: "myMenu", buttonText: "나만의 메뉴")
+                Button(action: {
+                    
+                }, label:  {
+                    OtherButtonView(buttonImage: "starHistory", buttonText: "별 히스토리")
+                })
+                
+                Button(action: {
+                    router.push(.mobileReceipt)
+                    print("receiptView2")
+                }, label:  {
+                    OtherButtonView(buttonImage: "receipt", buttonText: "전자영수증")
+                })
+                
+                Button(action: {
+                    
+                }, label:  {
+                    OtherButtonView(buttonImage: "myMenu", buttonText: "나만의 메뉴")
+                })
             }
         }
     }
@@ -165,6 +187,9 @@ struct OtherView: View {
     
 }
 
-#Preview {
-    OtherView()
+struct OtherView_Previews: PreviewProvider {
+    static var previews: some View {
+        OtherView()
+            .environmentObject(NavigationRouter())
+    }
 }

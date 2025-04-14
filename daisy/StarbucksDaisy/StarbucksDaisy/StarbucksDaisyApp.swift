@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct StarbucksDaisyApp: App {
@@ -16,5 +17,6 @@ struct StarbucksDaisyApp: App {
             ContentView()
                 .environmentObject(router) // 전체 뷰에서 사용 가능하도록 주입
         }
+        .modelContainer(for: Receipt.self) // Receipt 모델을 저장하고 불러올 저장소
     }
 }

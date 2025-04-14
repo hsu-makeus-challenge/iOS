@@ -17,28 +17,27 @@ struct OtherButtonView: View {
     }
     
     var body: some View {
-        Button(action: {
-            print("\(buttonText)")
-        }, label: {
-            VStack() {
-                Image("\(buttonImage)")
-                    .resizable()
-                    .frame(width: 38, height: 38)
-                    .padding(5)
-                
-                Text("\(buttonText)")
-                    .font(.mainTextSemiBold16)
-                    .foregroundStyle(.black03)
-            }
-            .frame(width: 102, height: 108)
-            .background(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
-            .shadow(color: .black.opacity(0.1),radius: 5)
-        })
-    
+        VStack() {
+            Image("\(buttonImage)")
+                .resizable()
+                .frame(width: 38, height: 38)
+                .padding(5)
+            
+            Text("\(buttonText)")
+                .font(.mainTextSemiBold16)
+                .foregroundStyle(.black03)
+        }
+        .frame(width: 102, height: 108)
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 15))
+        .shadow(color: .black.opacity(0.1),radius: 5)
     }
 }
 
-#Preview {
-    OtherView()
-}
+//struct OtherButtonView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        OtherButtonView(buttonImage: "receipt", buttonText: "전자영수증")
+//            .environmentObject(NavigationRouter())
+//    }
+//}
+

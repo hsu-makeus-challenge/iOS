@@ -18,7 +18,7 @@ struct CoffeeDetailView: View {
             Image(coffee.image)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 440, height: 355)
+                .frame(height: 355)
                 .clipped()
             
             Spacer().frame(height: 20)
@@ -71,7 +71,7 @@ struct CoffeeDetailView: View {
                 print("주문하기")
             }, label: {
                 RoundedRectangle(cornerRadius: 20)
-                    .frame(height: 58)
+                    .frame(height: 43)
                     .foregroundStyle(.green01)
                     .overlay(content: {
                         Text("주문하기")
