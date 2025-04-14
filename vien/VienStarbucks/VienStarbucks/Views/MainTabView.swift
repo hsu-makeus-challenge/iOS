@@ -42,11 +42,7 @@ struct OrderView: View {
     }
 }
 
-struct ShopView: View {
-    var body: some View {
-        Text("Shop")
-    }
-}
+
 
 
 

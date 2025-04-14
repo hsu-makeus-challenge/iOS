@@ -1,50 +1,47 @@
 import SwiftUI
 
 struct HomeView: View {
-    ///
     @State private var selectedCoffeeName: String? = nil
+    @State private var showAdPopup: Bool = true
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack {
-                    HomeBannerView()
-                    
-                    BarView()
-                    
-                    Spacer().frame(height:26)
-                    
-                    BearBannerView()
-                    
-                    Spacer().frame(height:20)
-                    
-                    //                CoffeeRecommendView()
-                    CoffeeRecommendView(onCoffeeSelected: { name in
-                        selectedCoffeeName = name
-                    })
-                    
-                    Spacer().frame(height:20)
-                    
-                    twoBannerView()
-                    
-                    Spacer().frame(height:20)
-                    
-                    WhatsNewView()
-                    
-                    Spacer().frame(height:20)
-                    
-                    threeBannerView()
-                    
-                    Spacer().frame(height:20)
-                    
-                    DesertBreadView()
-                    
-                    Spacer().frame(height:20)
-                    
-                    bottomBannerView()
-                } //:VStack
-            } //: ScrollView
-            .ignoresSafeArea() // 최상위 뷰에다가 넣어야 함
+            ZStack {
+                ScrollView {
+                    VStack {
+                        HomeBannerView()
+                        BarView()
+                        Spacer().frame(height:26)
+                        BearBannerView()
+                        Spacer().frame(height:20)
+                        CoffeeRecommendView(onCoffeeSelected: { name in
+                            selectedCoffeeName = name
+                        })
+                        Spacer().frame(height:20)
+                        twoBannerView()
+                        Spacer().frame(height:20)
+                        WhatsNewView()
+                        Spacer().frame(height:20)
+                        threeBannerView()
+                        Spacer().frame(height:20)
+                        DesertBreadView()
+                        Spacer().frame(height:20)
+                        bottomBannerView()
+                    }
+                }
+                .ignoresSafeArea()
+
+                // AdPopupView를 오버레이로 띄움
+                if showAdPopup {
+                    Color.black.opacity(0.3)
+                        .ignoresSafeArea()
+                        .transition(.opacity)
+
+                    AdPopupView(isShowing: $showAdPopup)
+                        .transition(.scale)
+                        .zIndex(1)
+                }
+            }
             .navigationDestination(isPresented: Binding<Bool>(
                 get: { selectedCoffeeName != nil },
                 set: { if !$0 { selectedCoffeeName = nil } }
@@ -53,12 +50,10 @@ struct HomeView: View {
                     CoffeeDetailView(coffeeName: name)
                 }
             }
-            
         }
     }
-    
-    
 }
+
 
 struct HomeBannerView: View {
     var body: some View {
