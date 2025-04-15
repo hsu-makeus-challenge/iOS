@@ -12,9 +12,11 @@ import SwiftUI
 /// - Parameters
 /// - title: navigationTitle 부분, String받아와 title지정 해줌
 /// - onback: 뒤로가기 콜백함수 SignUpView에서는 dismiss를 받아온다.
+/// - onPlus: plus 콜백함수
 struct CustomNavigationBar: View {
     let title: String
     let onBack: () -> Void
+    let onPlus: () -> Void
     
     var body: some View {
         HStack {
@@ -30,7 +32,10 @@ struct CustomNavigationBar: View {
             
             Spacer()
             
-            Spacer().frame(width: 20) // 공간줘서 비율 맞추기
+            Button(action: onPlus){
+                Image(systemName: "plus")
+                    .foregroundStyle(Color.black)
+            }
         }
     }
 }

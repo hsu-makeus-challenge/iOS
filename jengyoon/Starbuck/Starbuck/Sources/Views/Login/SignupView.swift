@@ -9,82 +9,92 @@ import SwiftUI
 
 struct SignupView: View {
     // MARK: - Properties
-    /// 해당 뷰에서 객체를 생성하여 관리하므로 @StateObject로 선언
+    @EnvironmentObject private var router: NavigationRouter
     @StateObject private var viewModel = SignupViewModel()
-    /// dismiss 사용하여 하위뷰 pop
     @Environment(\.dismiss) private var dismiss
-    /// 입력필드 실시간으로 바인딩하기 위해 State로 선언하고 버튼 활성화
-    @State private var inputNickname = ""
-    @State private var inputEmail = ""
-    @State private var inputPassword = ""
+    @FocusState private var focusField: Field?
+    
+    private enum Field: Hashable {
+        case nickname
+        case email
+        case password
+    }
+    
     var body: some View {
         ZStack {
             Color.white.ignoresSafeArea()
-            VStack (alignment: .leading) {
-                CustomNavigationBar(title: "가입하기") {
-                    dismiss()
-                }
+            
+            VStack(spacing: 0) {
+                CustomNavigationBar(title: "가입하기", onBack: {
+                    dismiss()}, onPlus: {})
                 
                 Spacer()
                 
-                TextField("닉네임", text: $inputNickname)
-                
-                Divider()
-                
-                Spacer().frame(height: 49)
-                
-                TextField("이메일", text: $inputEmail)
-                
-                Divider()
-                
-                Spacer().frame(height: 49)
-                
-                SecureField("비밀번호", text: $inputPassword)
-                
-                Divider()
+                signupForm
+                    .padding(.top, 20)
                 
                 Spacer()
-                
-                createButton
-                
-                
+                signupButton
+                    .padding(.bottom, 20)
             }
-            .safeAreaPadding(.horizontal,20)
-            .safeAreaPadding(.vertical, 20)
-            .navigationBarBackButtonHidden(true)
+            .padding(.horizontal, 20)
         }
+        .navigationBarBackButtonHidden()
     }
     
     // MARK: - Components
-    private var createButton: some View {
-        Button (action: {
-            // 유효성 통과시에 AppStorage에 저장되도록
-            // 모든 항목이 유효할 때만 실행되도록
-            if buttonValid {
-                viewModel.nickname = inputNickname
-                viewModel.email = inputEmail
-                viewModel.password = inputPassword
-                dismiss()
-            }
-        }) {
-            Text("생성하기")
-                .font(.PretendardRegular18)
-                .foregroundStyle(Color.white)
-                .frame(maxWidth: 400, minHeight: 50)
-                .background(buttonValid ? Color.primaryGreen : Color.gray.opacity(0.4))
-                .clipShape(RoundedRectangle(cornerRadius: 15))
+    private var signupForm: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            TextField("닉네임", text: $viewModel.nickname)
+                .font(.PretendardLight14)
+                .foregroundStyle(.gray)
+                .focused($focusField, equals: .nickname)
+                .onSubmit {
+                    focusField = .email
+                }
+            
+            Divider()
+                .background(focusField == .nickname ? Color.primaryGreen : Color.gray)
+                .padding(.top, 8)
+            
+            TextField("이메일", text: $viewModel.email)
+                .font(.PretendardLight14)
+                .foregroundStyle(.gray)
+                .focused($focusField, equals: .email)
+                .onSubmit {
+                    focusField = .password
+                }
+                .padding(.top, 32)
+            
+            Divider()
+                .background(focusField == .email ? Color.primaryGreen : Color.gray)
+                .padding(.top, 8)
+            
+            SecureField("비밀번호", text: $viewModel.password)
+                .font(.PretendardLight14)
+                .foregroundStyle(.gray)
+                .focused($focusField, equals: .password)
+                .padding(.top, 32)
+            
+            Divider()
+                .background(focusField == .password ? Color.primaryGreen : Color.gray)
+                .padding(.top, 8)
         }
-        .disabled(
-            !buttonValid
-        )
     }
     
-    /// 버튼 활성화 비활성화 상태 체크
-    /// - 세 항목이 모두 1글자 이상 채워져있어야 버튼이 활성화 되도록 유효성 검사
-    private var buttonValid: Bool {
-        !inputNickname.isEmpty &&
-        !inputEmail.isEmpty &&
-        !inputPassword.isEmpty
+    private var signupButton: some View {
+        Button(action: {
+            viewModel.signup()
+            dismiss()
+        }) {
+            Text("생성하기")
+                .font(.PretendardMedium16)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity, minHeight: 50)
+                .background(viewModel.isFormValid ? Color.primaryGreen : Color.gray.opacity(0.4))
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+        }
+        .disabled(!viewModel.isFormValid)
     }
 }
 

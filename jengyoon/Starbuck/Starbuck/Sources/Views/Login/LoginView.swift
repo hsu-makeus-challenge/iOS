@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-
 struct LoginView: View {
-    
     // MARK: - Properties
     
     /// FocusField 변수 선언
@@ -18,31 +16,24 @@ struct LoginView: View {
         case password
     }
     
-    /// 뷰의 상태가 바뀔때마다 랜더링해주는 프로퍼티 래퍼
-    @State private var navigationTrue: Bool = false
+    @EnvironmentObject private var router: NavigationRouter
     @FocusState private var focusField: Field?
     @StateObject private var viewModel = LoginViewModel()
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.white.ignoresSafeArea()
-                
-                VStack(spacing: 104) {
-                    
-                    loginTitleGroup
-                    appLogin
-                    socialLogin
-                } // 전체 VStack
-                .padding(.horizontal, 20)
-            } // 전체 ZStack
-            .navigationDestination(isPresented: $navigationTrue, destination: {
-                SignupView()
-            })
-            .fullScreenCover(isPresented: $viewModel.isLogin) {
-                StarBuckTab()
+        ZStack {
+            Color.white.ignoresSafeArea()
+            
+            VStack(spacing: 104) {
+                loginTitleGroup
+                appLogin
+                socialLogin
             }
-        } //: NavigationStack
+            .padding(.horizontal, 20)
+        }
+        .onChange(of: viewModel.isLogin) {
+            router.isLoggedIn = true
+        }
     }
     
     // MARK: - Components
@@ -108,10 +99,10 @@ struct LoginView: View {
             }
             .disabled(!viewModel.buttonValid)
             
-            // 에러 메시지
             if let error = viewModel.loginError {
                 Text(error)
                     .font(.caption)
+                    .foregroundColor(.red)
             }
         }
         .padding()
@@ -125,9 +116,8 @@ struct LoginView: View {
                 .font(.PretendardLight14)
                 .foregroundStyle(.gray)
                 .underline()
-                // 클릭시 네비게이션 활성화 되도록 toggle()로 넘기기
                 .onTapGesture {
-                    self.navigationTrue.toggle()
+                    router.navigate(to: .signup)
                 }
             
             SocialLoginButton(buttonColor: Color.yellow, textColor: Color.black, text: "카카오 로그인", font: .PretendardMedium16, icon: "kakao", action: {})
