@@ -10,6 +10,7 @@ import SwiftUI
 struct OrderView: View {
     
     @Bindable var viewModel: OrderViewModel = .init()
+    @Namespace private var underlineSegmentNamespace
     
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -24,6 +25,7 @@ struct OrderView: View {
                     topSegment(segment: segment)
                 }
             }
+            .animation(.easeInOut, value: viewModel.selectedSegment)
         
             HStack {
                 ForEach(MenuSegment.allCases, id: \.id) { segment in
@@ -50,10 +52,13 @@ struct OrderView: View {
                 .onTapGesture {
                     viewModel.selectedSegment = segment
                 }
-            Rectangle()
-                .fill(viewModel.selectedSegment == segment ? Color.green01 : .gray.opacity(0.2))
-                .frame(height: 3)
-                .shadow(color: .black.opacity(0.15), radius: 1.5, x: 0, y: 3)
+            if viewModel.selectedSegment == segment {
+                Rectangle()
+                    .fill(viewModel.selectedSegment == segment ? Color.green01 : .gray.opacity(0.2))
+                    .frame(height: 3)
+                    .shadow(color: .black.opacity(0.15), radius: 1.5, x: 0, y: 3)
+                    .matchedGeometryEffect(id: "underlineSegment", in: underlineSegmentNamespace)
+            }
         }
         .frame(maxWidth: .infinity)
     }
