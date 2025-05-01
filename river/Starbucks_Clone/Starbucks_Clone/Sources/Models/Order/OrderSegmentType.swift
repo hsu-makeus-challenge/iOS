@@ -12,4 +12,13 @@ enum OrderSegmentType: Int, CaseIterable, Identifiable {
     case myMenu = 1
     
     var id: Int { rawValue }
+    
+    var title: String {
+        switch self {
+        case .allMenu:
+            return "전체 메뉴"
+        case .myMenu:
+            return "나만의 메뉴"
+        }
+    }
 }
