@@ -23,6 +23,13 @@ struct OrderHeaderView: View {
                 
                 cakeReservationBtn
             }
+            .overlay(
+                Rectangle()
+                    .frame(height: 1)
+                    .foregroundColor(Color(.gray02).opacity(0.4)),
+                alignment: .bottom
+            )
+            .shadow(color: Color(.black01).opacity(0.15), radius: 0, y: 1)
         }
         .frame(maxWidth: .infinity)
     }

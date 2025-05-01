@@ -103,10 +103,14 @@ fileprivate struct OrderMenuListView: View {
                 HStack {
                     Image(category.imageName)
                     
-                    VStack {
+                    VStack(alignment: .leading) {
                         Text(category.title)
+                            .font(.mainTextSemiBold16)
+                            .foregroundStyle(Color(.gray06))
                         
                         Text(category.titleEn)
+                            .font(.mainTextSemiBold14)
+                            .foregroundStyle(Color(.gray03))
                     }
                 }
             }
