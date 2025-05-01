@@ -10,10 +10,15 @@ import SwiftUI
 struct OrderView: View {
     
     @State private var selectedSegmentType: OrderSegmentType = .allMenu
+    @State private var selectedCategoryType: MenuCategoryType = .beverage
     
     var body: some View {
         VStack(alignment: .leading) {
             OrderHeaderView(selectedSegmentType: $selectedSegmentType)
+            
+            MenuCategorySegementView(
+                selectedCategoryType: $selectedCategoryType
+            )
         }
     }
 }
@@ -83,6 +88,61 @@ fileprivate struct OrderHeaderView: View {
                 .frame(maxWidth: .infinity)
             }
 
+        }
+    }
+}
+
+enum MenuCategoryType: String, CaseIterable, Identifiable {
+    case beverage = "음료"
+    case food = "푸드"
+    case merchandise = "상품"
+
+    var id: Self { self }
+
+    var isNew: Bool {
+        switch self {
+        case .beverage, .food, .merchandise:
+            return true // 현재는 모두 new, 이후 동적으로 관리 가능
+        }
+    }
+}
+
+fileprivate struct MenuCategorySegementView: View {
+    
+    @Binding private var selectedCategoryType: MenuCategoryType
+    
+    init(selectedCategoryType: Binding<MenuCategoryType>) {
+        self._selectedCategoryType = selectedCategoryType
+    }
+    
+    fileprivate var body: some View {
+        HStack {
+            Spacer().frame(width: 23)
+            
+            ForEach(MenuCategoryType.allCases) { category in
+                Button {
+                    selectedCategoryType = category
+                } label: {
+                    Text(category.rawValue)
+                        .font(.mainTextSemiBold16)
+                        .foregroundStyle(
+                            selectedCategoryType == category
+                            ? Color(.black01)
+                            : Color(.gray04)
+                        )
+                    
+                    if category.isNew {
+                        Text("New")
+                            .foregroundColor(.green)
+                            .font(.caption)
+                            .italic()
+                    }
+                }
+                .padding(.horizontal, 6)
+                .padding(.vertical, 18)
+            }
+            
+            Spacer()
         }
     }
 }
