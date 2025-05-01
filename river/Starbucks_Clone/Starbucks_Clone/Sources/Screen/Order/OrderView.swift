@@ -10,15 +10,13 @@ import SwiftUI
 struct OrderView: View {
     
     @State private var selectedSegmentType: OrderSegmentType = .allMenu
-    @State private var selectedCategoryType: MenuCategoryType = .beverage
+    @State private var selectedCategoryType: OrderCategoryType = .beverage
     
     var body: some View {
         VStack(alignment: .leading) {
             OrderHeaderView(selectedSegmentType: $selectedSegmentType)
             
-            MenuCategorySegementView(
-                selectedCategoryType: $selectedCategoryType
-            )
+            OrderContentView(selectedCategoryType: $selectedCategoryType)
         }
     }
 }
@@ -38,6 +36,8 @@ fileprivate struct OrderHeaderView: View {
             
             HStack {
                 menuSegementedBar
+                
+                cakeReservationBtn
             }
         }
         .frame(maxWidth: .infinity)
@@ -56,7 +56,7 @@ fileprivate struct OrderHeaderView: View {
     private var menuSegementedBar: some View {
         ForEach(OrderSegmentType.allCases) { segemnt in
             Button {
-                withAnimation(.easeOut(duration: 0.3)) {
+                withAnimation(.easeInOut(duration: 0.3)) {
                     selectedSegmentType = segemnt
                 }
             } label: {
@@ -68,7 +68,6 @@ fileprivate struct OrderHeaderView: View {
                             ? Color(.black01)
                             : Color(.gray04)
                         )
-                        .padding(.horizontal, 23)
                         .padding(.vertical, 13)
                     
                     if selectedSegmentType == segemnt {
@@ -87,31 +86,47 @@ fileprivate struct OrderHeaderView: View {
                 }
                 .frame(maxWidth: .infinity)
             }
+        }
+    }
+    
+    private var cakeReservationBtn: some View {
+        Button {
+            print("홀케이크 예약")
+        } label: {
+            HStack(spacing: 4) {
+                Image(.Order.cakeIcon)
+                
+                Text("홀케이크 예약")
+                    .foregroundStyle(Color(.green01))
+                    .font(.pretend(type: .bold, size: 16))
+            }
+        }
+        .frame(width: 201)
+    }
+}
 
+fileprivate struct OrderContentView: View {
+    
+    @Binding private var selectedCategoryType: OrderCategoryType
+    
+    init(selectedCategoryType: Binding<OrderCategoryType>) {
+        self._selectedCategoryType = selectedCategoryType
+    }
+    
+    fileprivate var body: some View {
+        VStack {
+            OrderCategorySegementView(
+                selectedCategoryType: $selectedCategoryType
+            )
         }
     }
 }
 
-enum MenuCategoryType: String, CaseIterable, Identifiable {
-    case beverage = "음료"
-    case food = "푸드"
-    case merchandise = "상품"
-
-    var id: Self { self }
-
-    var isNew: Bool {
-        switch self {
-        case .beverage, .food, .merchandise:
-            return true // 현재는 모두 new, 이후 동적으로 관리 가능
-        }
-    }
-}
-
-fileprivate struct MenuCategorySegementView: View {
+fileprivate struct OrderCategorySegementView: View {
     
-    @Binding private var selectedCategoryType: MenuCategoryType
+    @Binding private var selectedCategoryType: OrderCategoryType
     
-    init(selectedCategoryType: Binding<MenuCategoryType>) {
+    init(selectedCategoryType: Binding<OrderCategoryType>) {
         self._selectedCategoryType = selectedCategoryType
     }
     
@@ -119,7 +134,7 @@ fileprivate struct MenuCategorySegementView: View {
         HStack {
             Spacer().frame(width: 23)
             
-            ForEach(MenuCategoryType.allCases) { category in
+            ForEach(OrderCategoryType.allCases) { category in
                 Button {
                     selectedCategoryType = category
                 } label: {
@@ -144,9 +159,22 @@ fileprivate struct MenuCategorySegementView: View {
             
             Spacer()
         }
+        .frame(height: 52)
+        .overlay(
+            Rectangle()
+                .frame(height: 1)
+                .foregroundColor(Color(.gray02).opacity(0.25)),
+            alignment: .bottom
+        )
+        .shadow(color: Color(.black01).opacity(0.15), radius: 0, y: 1)
     }
 }
 
-#Preview {
-    OrderView()
+struct Order_Preview: PreviewProvider {
+    static var previews: some View {
+        devicePreviews {
+            OrderView()
+                .environmentObject(AppEnvironment.previewEnv)
+        }
+    }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum PREVIEW_DEVICE_TYPE : String, CaseIterable {
-    case iPhone_15_Pro = "iPhone 16 Pro"
+    case iPhone_15_Pro = "iPhone 16 Pro Max"
     case iPhone_11 = "iPhone 11"
     
     var previewDevice: PreviewDevice {
