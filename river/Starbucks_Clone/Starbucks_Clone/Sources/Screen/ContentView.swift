@@ -83,7 +83,7 @@ struct ContentView: View {
                     MainTabView()
                         .onAppear {
                             if showAdvertisement {
-                                env.router.present(.fullScreenAd)
+                                env.router.fullScreenPresent(.fullScreenAd)
                             }
                         }
                 case .receipt:
@@ -94,7 +94,7 @@ struct ContentView: View {
         // fullScreenCover(item:)은 Optional<T: Identifier> 타입으로,
         // 내부적으로 nil이면 닫고, 특정 id가 오면 여는 구조임
         .fullScreenCover(
-            item: $env.router.actionModal
+            item: $env.router.actionFullScreenModal
         ) { modal in
             switch modal {
             case .fullScreenAd:
@@ -103,9 +103,17 @@ struct ContentView: View {
                 MainTabView()
                     .onAppear {
                         if showAdvertisement {
-                            env.router.present(.fullScreenAd)
+                            env.router.fullScreenPresent(.fullScreenAd)
                         }
                     }
+            }
+        }
+        .sheet(
+            item: $env.router.actionSheetModal
+        ) { modal in
+            switch modal {
+            case .storeSelectBanner:
+                EmptyView()
             }
         }
     }

@@ -64,36 +64,12 @@ struct MainTabView: View {
             .navigationBarBackButtonHidden()
             
             // Order 탭에서만 띄움
-            if selection == 2 {
+            if selection == 2 && !env.router.isShowingModal {
                 StoreSelectBannerView()
                     .padding(.bottom, ViewMetrics.tabBarHeight())
                     .transition(.move(edge: .bottom))
             }
         }
-    }
-}
-
-struct StoreSelectBannerView: View {
-    var body: some View {
-        VStack {
-            Group {
-                HStack {
-                    Text("주문할 매장을 선택해 주세요")
-                        .foregroundColor(.white)
-                        .font(.headline)
-                    Spacer()
-                    Image(systemName: "chevron.down")
-                        .foregroundColor(.white)
-                }
-                Divider()
-                    .frame(height: 1)
-                    .background(Color(.gray06))
-            }
-            .padding(.horizontal, 20)
-        }
-        .frame(maxWidth: .infinity)
-        .frame(height: 60)
-        .background(Color(.black03))
     }
 }
 
