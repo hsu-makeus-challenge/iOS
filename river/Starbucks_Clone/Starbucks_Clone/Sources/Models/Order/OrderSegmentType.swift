@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum OrderSegmentType: String, CaseIterable, Identifiable {
-    var id: Self { self } // Picker에서 사용하기 위한 Identifiable 채택
+enum OrderSegmentType: Int, CaseIterable, Identifiable {
+    case allMenu = 0
+    case myMenu = 1
     
-    case allMenu = "전체 메뉴"
-    case myMenu = "나만의 메뉴"
+    var id: Int { rawValue }
 }

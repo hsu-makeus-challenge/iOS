@@ -7,16 +7,21 @@
 
 import SwiftUI
 
+@Observable
+final class OrderTabState {
+    var selectedSegment: OrderSegmentType = .allMenu
+    var selectedCategory: OrderCategoryType = .beverage
+}
+
 struct OrderView: View {
     
-    @State private var selectedSegmentType: OrderSegmentType = .allMenu
-    @State private var selectedCategoryType: OrderCategoryType = .beverage
+    @State private var tabState = OrderTabState()
     
     var body: some View {
         VStack(alignment: .leading) {
-            OrderHeaderView(selectedSegmentType: $selectedSegmentType)
+            OrderHeaderView(tabState: tabState)
             
-            OrderContentView(selectedCategoryType: $selectedCategoryType)
+            OrderContentView(tabState: tabState)
         }
     }
 }
@@ -24,10 +29,10 @@ struct OrderView: View {
 fileprivate struct OrderHeaderView: View {
     
     @Namespace private var underlineSegmentedBar
-    @Binding private var selectedSegmentType: OrderSegmentType
+    @Bindable private var tabState: OrderTabState
     
-    init(selectedSegmentType: Binding<OrderSegmentType>) {
-        self._selectedSegmentType = selectedSegmentType
+    init(tabState: OrderTabState) {
+        self.tabState = tabState
     }
     
     fileprivate var body: some View {
@@ -56,21 +61,21 @@ fileprivate struct OrderHeaderView: View {
     private var menuSegementedBar: some View {
         ForEach(OrderSegmentType.allCases) { segemnt in
             Button {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    selectedSegmentType = segemnt
+                withAnimation {
+                    tabState.selectedSegment = segemnt
                 }
             } label: {
                 VStack(spacing: 4) {
-                    Text(segemnt.rawValue)
+                    Text("나만의 메뉴")
                         .font(.pretend(type: .bold, size: 16))
                         .foregroundColor(
-                            selectedSegmentType == segemnt
+                            tabState.selectedSegment == segemnt
                             ? Color(.black01)
                             : Color(.gray04)
                         )
                         .padding(.vertical, 13)
                     
-                    if selectedSegmentType == segemnt {
+                    if tabState.selectedSegment == segemnt {
                         Color.green
                             .frame(height: 3)
                             /// 두 개의 뷰 간 애니메이션 자연스럽게 연결하는 수정자
@@ -107,27 +112,42 @@ fileprivate struct OrderHeaderView: View {
 
 fileprivate struct OrderContentView: View {
     
-    @Binding private var selectedCategoryType: OrderCategoryType
+    @State private var orderViewModel: OrderViewModel = .init()
+    @Bindable private var tabState: OrderTabState
     
-    init(selectedCategoryType: Binding<OrderCategoryType>) {
-        self._selectedCategoryType = selectedCategoryType
+    init(tabState: OrderTabState) {
+        self.tabState = tabState
     }
     
     fileprivate var body: some View {
-        VStack {
-            OrderCategorySegementView(
-                selectedCategoryType: $selectedCategoryType
-            )
+        TabView(selection: $tabState.selectedSegment) {
+            VStack {
+                OrderCategorySegementView(tabState: tabState)
+                OrderMenuListView(orderViewModel: orderViewModel)
+            }
+            .tag(OrderSegmentType.allMenu)
+
+            VStack {
+                Text("나만의 메뉴 화면")
+                Spacer()
+            }
+            .tag(OrderSegmentType.myMenu)
         }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .animation(
+            .easeInOut,
+            value: tabState.selectedSegment
+        )
+        
     }
 }
 
 fileprivate struct OrderCategorySegementView: View {
     
-    @Binding private var selectedCategoryType: OrderCategoryType
+    @Bindable private var tabState: OrderTabState
     
-    init(selectedCategoryType: Binding<OrderCategoryType>) {
-        self._selectedCategoryType = selectedCategoryType
+    init(tabState: OrderTabState) {
+        self.tabState = tabState
     }
     
     fileprivate var body: some View {
@@ -136,12 +156,12 @@ fileprivate struct OrderCategorySegementView: View {
             
             ForEach(OrderCategoryType.allCases) { category in
                 Button {
-                    selectedCategoryType = category
+                    tabState.selectedCategory = category
                 } label: {
                     Text(category.rawValue)
                         .font(.mainTextSemiBold16)
                         .foregroundStyle(
-                            selectedCategoryType == category
+                            tabState.selectedCategory == category
                             ? Color(.black01)
                             : Color(.gray04)
                         )
@@ -167,6 +187,34 @@ fileprivate struct OrderCategorySegementView: View {
             alignment: .bottom
         )
         .shadow(color: Color(.black01).opacity(0.15), radius: 0, y: 1)
+    }
+}
+
+fileprivate struct OrderMenuListView: View {
+    @Bindable private var orderViewModel: OrderViewModel
+    
+    init(orderViewModel: OrderViewModel) {
+        self.orderViewModel = orderViewModel
+    }
+    
+    fileprivate var body: some View {
+        List {
+            ForEach(
+                orderViewModel.orderModel.catetories,
+                id:\.id
+            ) { category in
+                HStack {
+                    Image(category.imageName)
+                    
+                    VStack {
+                        Text(category.title)
+                        
+                        Text(category.titleEn)
+                    }
+                }
+            }
+        }
+        .listStyle(.plain)
     }
 }
 
