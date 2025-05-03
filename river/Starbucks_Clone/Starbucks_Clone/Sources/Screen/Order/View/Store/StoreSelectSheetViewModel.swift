@@ -10,4 +10,6 @@ import Foundation
 @Observable
 class StoreSelectSheetViewModel {
     var sotreSheetModel: StoreSheetModel = .mockData
+    
+    
 }
