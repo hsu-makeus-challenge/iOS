@@ -14,7 +14,7 @@ struct StoreSelectSheetView: View {
     
     init(storeSelectSheetViewModel: StoreSelectSheetViewModel) {
         self.storeSelectSheetViewModel = storeSelectSheetViewModel
-        self.storeSelectSheetViewModel.starBucksStoreList()
+        self.storeSelectSheetViewModel.loadStarbucksStores()
     }
     
     var body: some View {
