@@ -11,6 +11,7 @@ import SwiftUI
 class OrderViewModel {
     var selectedSegment: OrderSegment = .first
     var selectedMenuSegment: MenuSegment = .first
+    var selectedPlaceSegment: PlaceSegment = .first
     
     var OrderBeverageMenus = [
         BeverageMenu(title: "추천", englishTitle: "Recommend", imageName: "BeverageMenu/img-0", showDot: true),

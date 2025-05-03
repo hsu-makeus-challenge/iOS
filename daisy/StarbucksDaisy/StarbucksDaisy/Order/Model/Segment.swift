@@ -44,3 +44,19 @@ enum MenuSegment: Int, CaseIterable, Identifiable {
         }
     }
 }
+
+enum PlaceSegment: Int, CaseIterable, Identifiable {
+    case first
+    case second
+    
+    var id: Int { rawValue }
+    
+    var title: String {
+        switch self {
+        case .first:
+            return "가까운 매장"
+        case .second:
+            return "자주 가는 매장"
+        }
+    }
+}
