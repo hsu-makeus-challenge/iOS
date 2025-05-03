@@ -113,7 +113,7 @@ struct ContentView: View {
         ) { modal in
             switch modal {
             case .storeSelectBanner:
-                EmptyView()
+                StoreSelectSheetView()
             }
         }
     }
