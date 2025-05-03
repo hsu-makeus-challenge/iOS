@@ -14,10 +14,13 @@ struct StoreSelectSheetView: View {
     
     init(storeSelectSheetViewModel: StoreSelectSheetViewModel) {
         self.storeSelectSheetViewModel = storeSelectSheetViewModel
+        self.storeSelectSheetViewModel.starBucksStoreList()
     }
     
     var body: some View {
         VStack {
+            Spacer().frame(height: 24)
+            
             StoreSelectHeaderView(
                 searchText: $searchText,
                 storeSelectSheetViewModel: storeSelectSheetViewModel
@@ -182,7 +185,8 @@ fileprivate struct StoreSelectRowView: View {
                     
                     Spacer()
                     
-                    Text("\(store.distance)Km")
+                    // 소수점 2번째 자리까지 표현
+                    Text("\(String(format: "%.2f", store.distance))Km")
                         .font(.mainTextRegular12)
                         .foregroundStyle(Color(.black01))
                 }

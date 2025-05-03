@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum StoreType: CaseIterable {
+enum StoreType: CaseIterable, Decodable {
     case reserve
     case driveThru
     
