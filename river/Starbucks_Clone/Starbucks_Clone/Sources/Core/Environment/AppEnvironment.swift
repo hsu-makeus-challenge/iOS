@@ -67,4 +67,8 @@ final class AppEnvironment: ObservableObject {
     func makeOtherViewModel() -> OtherViewModel {
         return OtherViewModel(router: router)
     }
+    
+    func makeStoreSelectSheetViewModel() -> StoreSelectSheetViewModel {
+        return StoreSelectSheetViewModel(router: router)
+    }
 }

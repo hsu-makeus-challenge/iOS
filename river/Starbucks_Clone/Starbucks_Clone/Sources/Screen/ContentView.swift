@@ -113,7 +113,8 @@ struct ContentView: View {
         ) { modal in
             switch modal {
             case .storeSelectBanner:
-                StoreSelectSheetView()
+                StoreSelectSheetView(
+                    storeSelectSheetViewModel: env.makeStoreSelectSheetViewModel())
             }
         }
     }

@@ -7,28 +7,23 @@
 
 import SwiftUI
 
-enum StoreSortType: String, CaseIterable {
-    case distance
-    case frequently
-}
-
 struct StoreSelectSheetView: View {
     
     @State private var searchText: String = ""
-    @State private var storeSelectSheetViewModel: StoreSelectSheetViewModel = .init()
-    @State private var storeSortType: StoreSortType = .distance
+    @Bindable private var storeSelectSheetViewModel: StoreSelectSheetViewModel
+    
+    init(storeSelectSheetViewModel: StoreSelectSheetViewModel) {
+        self.storeSelectSheetViewModel = storeSelectSheetViewModel
+    }
     
     var body: some View {
         VStack {
             StoreSelectHeaderView(
                 searchText: $searchText,
-                storeSortType: $storeSortType
+                storeSelectSheetViewModel: storeSelectSheetViewModel
             )
             
-            StoreListView(
-                storeSelectSheetViewModel: storeSelectSheetViewModel,
-                storeSortType: $storeSortType
-            )
+            StoreListView(storeSelectSheetViewModel: storeSelectSheetViewModel)
         }
         .padding(.horizontal, 32.5)
     }
@@ -36,14 +31,14 @@ struct StoreSelectSheetView: View {
 
 fileprivate struct StoreSelectHeaderView: View {
     @Binding private var searchText: String
-    @Binding private var storeSortType: StoreSortType
+    @Bindable private var storeSelectSheetViewModel: StoreSelectSheetViewModel
     
     init(
         searchText: Binding<String>,
-        storeSortType: Binding<StoreSortType>
+        storeSelectSheetViewModel: StoreSelectSheetViewModel
     ) {
         self._searchText = searchText
-        self._storeSortType = storeSortType
+        self.storeSelectSheetViewModel = storeSelectSheetViewModel
     }
     
     fileprivate var body: some View {
@@ -90,11 +85,11 @@ fileprivate struct StoreSelectHeaderView: View {
     private var sortedStore: some View {
         HStack {
             Button {
-                storeSortType = .distance
+                storeSelectSheetViewModel.storeSortType = .distance
             } label: {
                 Text("가까운 매장")
                     .foregroundStyle(
-                        storeSortType == .distance
+                        storeSelectSheetViewModel.storeSortType == .distance
                         ? Color(.black03)
                         : Color(.gray02)
                     )
@@ -106,11 +101,11 @@ fileprivate struct StoreSelectHeaderView: View {
                 .foregroundStyle(Color(.gray02))
             
             Button {
-                storeSortType = .frequently
+                storeSelectSheetViewModel.storeSortType = .frequently
             } label: {
                 Text("자주 가는 매장")
                     .foregroundStyle(
-                        storeSortType == .frequently
+                        storeSelectSheetViewModel.storeSortType == .frequently
                         ? Color(.black03)
                         : Color(.gray02)
                     )
@@ -127,28 +122,18 @@ fileprivate struct StoreSelectHeaderView: View {
 fileprivate struct StoreListView: View {
     
     private var storeSelectSheetViewModel: StoreSelectSheetViewModel
-    @Binding private var storeSortType: StoreSortType
     
     init(
-        storeSelectSheetViewModel: StoreSelectSheetViewModel,
-        storeSortType: Binding<StoreSortType>
+        storeSelectSheetViewModel: StoreSelectSheetViewModel
     ) {
         self.storeSelectSheetViewModel = storeSelectSheetViewModel
-        self._storeSortType = storeSortType
     }
     
     fileprivate var body: some View {
-        let stores = storeSelectSheetViewModel.sotreSheetModel.storeList
-        let sortedStoreList: [StoreList] = {
-            switch storeSortType {
-            case .distance:
-                return stores.sorted(by: { $0.distance < $1.distance })
-            case .frequently:
-                // TODO: 추후 자주가는 매장 기준 정렬 필요
-                return stores.sorted(by: { $0.title < $1.title })
-            }
-        }()
-        List(sortedStoreList, id: \.id) { store in
+        List(
+            storeSelectSheetViewModel.sortedStoreList,
+            id: \.id
+        ) { store in
             StoreSelectRowView(store: store)
                 .listRowInsets(
                     EdgeInsets(top: 16, leading: 0, bottom: 0, trailing: 0))
@@ -206,6 +191,12 @@ fileprivate struct StoreSelectRowView: View {
     }
 }
 
-#Preview {
-    StoreSelectSheetView()
+struct StoreSelectSheetViewModel_Previews: PreviewProvider {
+    static var previews: some View {
+        devicePreviews {
+            StoreSelectSheetView(
+                storeSelectSheetViewModel: .init(router: AppEnvironment.previewEnv.router)
+            )
+        }
+    }
 }
