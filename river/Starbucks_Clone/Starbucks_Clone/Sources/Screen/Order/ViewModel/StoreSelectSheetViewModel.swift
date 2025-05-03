@@ -82,13 +82,15 @@ class StoreSelectSheetViewModel {
     }
     
     private func calculateDistance(from coordinates: [Double]) -> Double {
+        let currentCoordinates = LocationManager.shared.currentLocation?.coordinate
+        guard let currentCoordinates else { return 0 }
         let storeLocation: CLLocation = .init(
             latitude: coordinates[1],
             longitude: coordinates[0]
         )
         let currentLocation: CLLocation = .init(
-            latitude: 37.498908,
-            longitude: 126.867345
+            latitude: currentCoordinates.latitude,
+            longitude: currentCoordinates.longitude
         )
         let distanceFromStore = currentLocation.distance(from: storeLocation) / 1000
         
