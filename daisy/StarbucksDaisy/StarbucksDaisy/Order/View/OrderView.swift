@@ -9,15 +9,34 @@ import SwiftUI
 
 struct OrderView: View {
     
+    @State private var showPlaceSheet: Bool = false
     @Bindable var viewModel: OrderViewModel = .init()
     @Namespace private var underlineSegmentNamespace
     
     var body: some View {
-        VStack(spacing: 0) {
-            SegmentsView
-            Divider()
-            tabview
+        ZStack(alignment: .bottom) {
+            VStack(spacing: 0) {
+                
+                SegmentsView
+                
+                Divider()
+                
+                tabview
+            }
+            
+            VStack(spacing: 0) {
+                OrderStoreChoiceView
+                    .frame(height: 60)
+                    .background(Color.black02)
+                
+                Color.clear
+                    .frame(height: 1)
+            }
+            .onTapGesture {
+                showPlaceSheet.toggle()
+            }
         }
+        .sheet(isPresented: $showPlaceSheet, content: { OrderSheetView() })
     }
     
     private var SegmentsView: some View {
@@ -145,7 +164,7 @@ struct OrderView: View {
             LazyVStack (spacing: 26) {
                 ForEach(viewModel.OrderBeverageMenus, id: \.id) { menu in
                     Button(action: {
-                        
+                        print("order: \(menu.title)")
                     }, label: {
                         MenuItemCard(menu: menu)
                     })
@@ -155,6 +174,7 @@ struct OrderView: View {
             .padding(.horizontal, 23)
         }
         .scrollIndicators(.hidden)
+        .padding(.bottom, 60)
     }
     
     private var OrderFoodView: some View {
@@ -163,6 +183,24 @@ struct OrderView: View {
     
     private var OrderProductView: some View {
         Text("상품")
+    }
+    
+    private var OrderStoreChoiceView: some View {
+        VStack(spacing: 7) {
+            HStack {
+                Text("주문할 매장을 선택해 주세요")
+                    .font(.mainTextSemiBold16)
+                    .foregroundStyle(.white)
+                Spacer()
+                Image("bottom_arrow")
+            }
+            
+            Divider()
+                .frame(height: 1.5)
+                .background(.gray06)
+        }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 10)
     }
     
 }
