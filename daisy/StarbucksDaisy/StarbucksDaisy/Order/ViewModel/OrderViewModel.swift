@@ -5,13 +5,55 @@
 //  Created by 원주연 on 5/1/25.
 //
 
-import SwiftUI
+import Foundation
+import CoreLocation
 
 @Observable
-class OrderViewModel {
+class OrderViewModel: NSObject, CLLocationManagerDelegate {
     var selectedSegment: OrderSegment = .first
     var selectedMenuSegment: MenuSegment = .first
     var selectedPlaceSegment: PlaceSegment = .first
+
+    var stores: [StarbucksFeature] = []
+    var userLocation: CLLocation?
+    
+    private let locationManager = CLLocationManager()
+    
+    override init() {
+        super.init()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        loadStores()
+    }
+    
+    func loadStores() {
+        guard let url = Bundle.main.url(forResource: "스타벅스_2025 데이터", withExtension: "geojson") else {
+            print("json 파일 없음")
+            return
+        }
+        
+        do {
+            let data = try Data(contentsOf: url)
+            let decoded = try JSONDecoder().decode(StarbucksGeoJSON.self, from: data)
+            self.stores = decoded.features
+        } catch {
+            print("디코딩 실패: \(error)")
+        }
+    }
+    
+    func distanceFromUser(to store: StarbucksFeature) -> String {
+        guard let userLoc = userLocation else { return "거리 계산 중..." }
+        let storeLoc = CLLocation(latitude: store.geometry.locationCoordinate.latitude,
+                                  longitude: store.geometry.locationCoordinate.longitude)
+        let distance = userLoc.distance(from: storeLoc) / 1000.0 // km
+        return String(format: "%.2f km", distance)
+    }
+    
+    // CLLocationManagerDelegate
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        userLocation = locations.first
+    }
     
     var OrderBeverageMenus = [
         BeverageMenu(title: "추천", englishTitle: "Recommend", imageName: "BeverageMenu/img-0", showDot: true),

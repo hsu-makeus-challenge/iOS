@@ -12,15 +12,18 @@ struct OrderSheetView: View {
     @State var viewModel = OrderViewModel()
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             topNavigationBar
             
             Spacer()
             
+            scrollTopView
+                .padding(.horizontal, 32.5)
+                        
             ScrollView {
-                scrollTopView
                 
-                Spacer().frame(height: 28)
+                storeListView
+                    .padding(.top, 28)
             }
             .padding(.horizontal, 32.5)
         }
@@ -29,12 +32,13 @@ struct OrderSheetView: View {
     private var topNavigationBar: some View {
         HStack(alignment: .center) {
             
-            Spacer().frame(width: 158)
+            Spacer().frame(width: 18)
+            Spacer()
             
             Text("매장 설정")
                 .font(.mainTextMedium16)
             
-            Spacer().frame(width: 142)
+            Spacer()
             
             Button(action: {
                 
@@ -44,6 +48,7 @@ struct OrderSheetView: View {
             })
         }
         .padding(.vertical, 24)
+        .padding(.horizontal, 32.5)
     }
     
     private var scrollTopView: some View {
@@ -84,6 +89,48 @@ struct OrderSheetView: View {
                 .onTapGesture {
                     viewModel.selectedPlaceSegment = segment
                 }
+        }
+    }
+    
+    private var storeListView: some View {
+        ScrollView {
+            LazyVStack(alignment: .leading, spacing: 16) {
+                ForEach(viewModel.stores) { store in
+                    HStack(spacing: 16) {
+                        Image("storeImg0")
+                        
+                        VStack(alignment: .leading) {
+                            Text(store.properties.storeName)
+                                .font(.mainTextSemiBold13)
+                                .foregroundStyle(.black03)
+                            
+                            Spacer().frame(height: 3)
+                            
+                            Text(store.properties.address)
+                                .font(.mainTextMedium10)
+                                .foregroundStyle(.gray02)
+                            
+                            Spacer().frame(height: 15)
+                            
+                            HStack(spacing: 4) {
+                                if store.properties.category == "리저브 매장" {
+                                    Image("reserveStore")
+                                }
+                                
+                                if store.properties.category == "DT 매장" {
+                                    Image("dtStore")
+                                }
+                                
+                                Spacer()
+                                
+                                Text(viewModel.distanceFromUser(to: store))
+                                    .font(.mainTextMedium12)
+                                    .foregroundStyle(.black01)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
