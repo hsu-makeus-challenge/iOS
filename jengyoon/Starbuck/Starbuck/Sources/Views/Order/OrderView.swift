@@ -8,25 +8,31 @@
 import SwiftUI
 
 // MARK: - 메인 오더 뷰
+// 역할: UI 표시 및 ViewModel로부터 상태를 주입받아 뷰를 구성
 struct OrderView: View {
-    @State private var selectedSegment: OrderSegment = .allMenu
-    @State private var menuSegment: MenuSegment = .drink
+    @StateObject private var viewModel = OrderViewModel()
     
     var body: some View {
-        VStack {
-            OrderHeaderView
-            OrderSegmentView(selectedSegment: $selectedSegment)
+        VStack(alignment: .leading, spacing: 16) {
             
-            HStack {
-                
-                MenuSegmentView(menuSegment: $menuSegment)
-                
-                Spacer()
-            }
+            // 상단 타이틀 (Order)
+            OrderHeaderView
+            
+            // 상단 세그먼트 (전체/나만의/홀케이크 예약)
+            OrderSegmentView(selectedSegment: $viewModel.selectedSegment)
+            
+            // 하단 메뉴 세그먼트 (음료/푸드/상품)
+            MenuSegmentView(menuSegment: $viewModel.menuSegment)
+                .padding(.horizontal, 20)
+            
+            // 필터링된 메뉴 리스트
+            CoffeeMenuList(menuItems: viewModel.filteredItems)
+            
             Spacer()
         }
     }
     
+    // 헤더 뷰 정의
     private var OrderHeaderView: some View {
         HStack {
             Text("Order")
@@ -37,37 +43,6 @@ struct OrderView: View {
     }
 }
 
-enum MenuSegment: Int, CaseIterable {
-    case drink, food, product
-    
-    var title: String {
-        switch self {
-        case .drink: return "음료"
-        case .food: return "푸드"
-        case .product: return "상품"
-        }
-    }
-}
-
-struct MenuSegmentView: View {
-    @Binding var menuSegment: MenuSegment
-    var body: some View {
-        HStack {
-            ForEach(MenuSegment.allCases, id: \.self) { segment in
-                Button(action: {
-                    menuSegment = segment
-                }) {
-                    Text(segment.title)
-                        .font(.PretendardSemiBold16)
-                        .foregroundStyle(menuSegment == segment ? Color.black01 : Color.gray)
-                        .frame(width: 50)
-                        .padding(.vertical, 12)
-                }
-            }
-        }
-        .background(Color.white)
-    }
-}
 // MARK: - Preview
 #Preview {
     OrderView()
