@@ -36,11 +36,6 @@ struct PayView: View {
     }
 }
 
-struct OrderView: View {
-    var body: some View {
-        Text("Order")
-    }
-}
 
 
 
