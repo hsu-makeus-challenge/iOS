@@ -11,7 +11,8 @@ import SwiftUI
 // UI 표시 및 ViewModel로부터 상태를 주입받아 뷰를 구성
 struct OrderView: View {
     @StateObject private var viewModel = OrderViewModel()
-    
+    // 매장 바텀 시트뷰 상태 변수
+    @State private var isStoreSheetPresented = false
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             
@@ -36,7 +37,11 @@ struct OrderView: View {
                     EmptyView()
                 }
             }
-            Spacer()
+            
+            OrderStoreSelectBar(isSheetPresented: $isStoreSheetPresented)
+        }
+        .sheet(isPresented: $isStoreSheetPresented) {
+            SelectStoreSheetView()
         }
     }
     
