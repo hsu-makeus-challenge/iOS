@@ -9,10 +9,9 @@ import SwiftUI
 import MapKit
 
 struct MapView: View {
-    @State private var selectedCoordinate: CLLocationCoordinate2D? = nil
-    @State private var cameraCenter: CLLocationCoordinate2D? = nil
     @Bindable private var locationManager: LocationManager
     @Bindable private var storeSelectSheetViewModel: StoreSelectSheetViewModel
+    @State private var showReloadBtn: Bool = false
     
     init(
         storeSelectSheetViewModel: StoreSelectSheetViewModel,
@@ -23,13 +22,29 @@ struct MapView: View {
     }
 
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
             MapViewRepresentable(
-                selectedCoordinate: $selectedCoordinate,
-                cameraCenter: $cameraCenter,
                 locationManager: locationManager,
-                storeSelectSheetViewModel: storeSelectSheetViewModel
+                storeSelectSheetViewModel: storeSelectSheetViewModel,
+                showReloadBtn: $showReloadBtn
             ).ignoresSafeArea()
+            
+            if showReloadBtn {
+                VStack {
+                    Spacer().frame(height: 22)
+                    // TODO: 재검색 기능 추후 추가하기
+                    Button {
+                        print("reload")
+                    } label: {
+                        Text("이 지역 검색")
+                            .font(.mainTextRegular13)
+                            .foregroundStyle(Color(.gray06))
+                    }
+                    .frame(width: 88, height: 36)
+                    .background(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                }
+            }
         }
     }
 }
