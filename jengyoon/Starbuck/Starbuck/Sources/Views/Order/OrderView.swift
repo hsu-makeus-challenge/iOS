@@ -8,7 +8,7 @@
 import SwiftUI
 
 // MARK: - 메인 오더 뷰
-// 역할: UI 표시 및 ViewModel로부터 상태를 주입받아 뷰를 구성
+// UI 표시 및 ViewModel로부터 상태를 주입받아 뷰를 구성
 struct OrderView: View {
     @StateObject private var viewModel = OrderViewModel()
     
@@ -26,8 +26,16 @@ struct OrderView: View {
                 .padding(.horizontal, 20)
             
             // 필터링된 메뉴 리스트
-            CoffeeMenuList(menuItems: viewModel.filteredItems)
-            
+            Group {
+                switch viewModel.selectedSegment {
+                case .allMenu:
+                    CoffeeMenuList(menuItems: viewModel.filteredItems)
+                case .myMenu:
+                    EmptyView()
+                case .cakeReservation:
+                    EmptyView()
+                }
+            }
             Spacer()
         }
     }
