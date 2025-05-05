@@ -1,0 +1,13 @@
+//
+//  OrderViewModel.swift
+//  Starbucks_Clone
+//
+//  Created by jaewon Lee on 5/1/25.
+//
+
+import Foundation
+
+@Observable
+class OrderViewModel {
+    var orderModel: OrderModel = .moakData
+}

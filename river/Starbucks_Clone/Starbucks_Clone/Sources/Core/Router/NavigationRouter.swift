@@ -20,7 +20,7 @@ enum Route: Hashable {
     case receipt
 }
 
-enum ModalDestination: Identifiable {
+enum FullScreenModalDestination: Identifiable {
     case fullScreenAd
     case mainTab
     
@@ -32,6 +32,16 @@ enum ModalDestination: Identifiable {
     }
 }
 
+enum SheetModalDestination: Identifiable {
+    case storeSelectBanner
+    
+    var id: String {
+        switch self {
+        case .storeSelectBanner: return "storeSelectBanner"
+        }
+    }
+}
+
 /// 네비게이션 상태를 관리하는 라우터
 /// NavigationStack과 함께 사용되며, 뷰 전환을 제어
 @Observable
@@ -39,7 +49,13 @@ class NavigationRouter {
     
     /// 현재 네비게이션 스택의 경로를 나타냄.
     var path = NavigationPath()
-    var actionModal: ModalDestination? = nil
+    var actionFullScreenModal: FullScreenModalDestination? = nil
+    var actionSheetModal: SheetModalDestination? = nil
+    
+    // 모달 활성화 여부 계산
+    var isShowingModal: Bool {
+        actionFullScreenModal != nil || actionSheetModal != nil
+    }
     
     // MARK: - NavigationStack
     
@@ -62,7 +78,11 @@ class NavigationRouter {
     
     // MARK: - Modal
     
-    func present(_ modal: ModalDestination) {
-        actionModal = modal
+    func fullScreenPresent(_ modal: FullScreenModalDestination) {
+        actionFullScreenModal = modal
+    }
+    
+    func sheetPresent(_ modal: SheetModalDestination) {
+        actionSheetModal = modal
     }
 }
