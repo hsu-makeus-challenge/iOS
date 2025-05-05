@@ -102,6 +102,9 @@
 		FF89C1842DA78559002BEBA9 /* Navigation */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Navigation; sourceTree = "<group>"; };
 		FF89C18A2DA7A769002BEBA9 /* AppRootView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AppRootView; sourceTree = "<group>"; };
 		FF89C18E2DA7B0B0002BEBA9 /* Additional */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Additional; sourceTree = "<group>"; };
+		FF8F9CE62DC76C0F0005824D /* Order */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Order; sourceTree = "<group>"; };
+		FF8F9CEB2DC781810005824D /* Order */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Order; sourceTree = "<group>"; };
+		FF8F9CF22DC7881E0005824D /* Order */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Order; sourceTree = "<group>"; };
 		FF96846D2D932655009914B3 /* Components */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Components; sourceTree = "<group>"; };
 		FF9723172DA90F550009B889 /* Receipt */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Receipt; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -171,6 +174,7 @@
 		3CFD97B39B9B1F9402805C71 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FF8F9CE62DC76C0F0005824D /* Order */,
 				FF89C18E2DA7B0B0002BEBA9 /* Additional */,
 				FF89C18A2DA7A769002BEBA9 /* AppRootView */,
 				FF6F76802DA705C1003079EE /* Shop */,
@@ -235,6 +239,7 @@
 		7E1E553C8E48254FEEF67B1A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FF8F9CEB2DC781810005824D /* Order */,
 				FF9723172DA90F550009B889 /* Receipt */,
 				FF6F76862DA71102003079EE /* Shop */,
 				FF6F750C2D9E77A8003079EE /* Login */,
@@ -270,6 +275,7 @@
 		D63F2DD2A4425E7FF0092A12 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				FF8F9CF22DC7881E0005824D /* Order */,
 				FF6F76832DA710B5003079EE /* Shop */,
 				FF6F75102D9E781E003079EE /* Other */,
 				FF6F75012D9E5529003079EE /* Login */,
@@ -336,6 +342,9 @@
 				FF89C1842DA78559002BEBA9 /* Navigation */,
 				FF89C18A2DA7A769002BEBA9 /* AppRootView */,
 				FF89C18E2DA7B0B0002BEBA9 /* Additional */,
+				FF8F9CE62DC76C0F0005824D /* Order */,
+				FF8F9CEB2DC781810005824D /* Order */,
+				FF8F9CF22DC7881E0005824D /* Order */,
 				FF96846D2D932655009914B3 /* Components */,
 				FF9723172DA90F550009B889 /* Receipt */,
 			);
