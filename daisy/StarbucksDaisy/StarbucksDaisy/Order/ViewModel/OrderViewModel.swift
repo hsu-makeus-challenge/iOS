@@ -13,7 +13,7 @@ class OrderViewModel: NSObject, CLLocationManagerDelegate {
     var selectedSegment: OrderSegment = .first
     var selectedMenuSegment: MenuSegment = .first
     var selectedPlaceSegment: PlaceSegment = .first
-
+    
     var stores: [StarbucksFeature] = []
     var userLocation: CLLocation?
     
@@ -23,7 +23,6 @@ class OrderViewModel: NSObject, CLLocationManagerDelegate {
         super.init()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
         loadStores()
     }
     
@@ -37,9 +36,14 @@ class OrderViewModel: NSObject, CLLocationManagerDelegate {
             let data = try Data(contentsOf: url)
             let decoded = try JSONDecoder().decode(StarbucksGeoJSON.self, from: data)
             self.stores = decoded.features
+            sortStoresByDistance()
         } catch {
             print("디코딩 실패: \(error)")
         }
+    }
+    
+    func requestUserLocationOnce() {
+        locationManager.startUpdatingLocation()
     }
     
     func distanceFromUser(to store: StarbucksFeature) -> String {
@@ -47,12 +51,28 @@ class OrderViewModel: NSObject, CLLocationManagerDelegate {
         let storeLoc = CLLocation(latitude: store.geometry.locationCoordinate.latitude,
                                   longitude: store.geometry.locationCoordinate.longitude)
         let distance = userLoc.distance(from: storeLoc) / 1000.0 // km
-        return String(format: "%.2f km", distance)
+        return String(format: "%.1f km", distance)
+    }
+    
+    func sortStoresByDistance() {
+        guard let userLoc = userLocation else { return }
+        
+        self.stores.sort {
+            let loc1 = CLLocation(latitude: $0.geometry.locationCoordinate.latitude,
+                                  longitude: $0.geometry.locationCoordinate.longitude)
+            let loc2 = CLLocation(latitude: $1.geometry.locationCoordinate.latitude,
+                                  longitude: $1.geometry.locationCoordinate.longitude)
+            return userLoc.distance(from: loc1) < userLoc.distance(from: loc2)
+        }
     }
     
     // CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        userLocation = locations.first
+        if let location = locations.first {
+                userLocation = location
+                locationManager.stopUpdatingLocation() // 위치 한 번만 받도록 정지
+            }
+        sortStoresByDistance()
     }
     
     var OrderBeverageMenus = [

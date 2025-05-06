@@ -19,13 +19,18 @@ struct OrderSheetView: View {
             
             scrollTopView
                 .padding(.horizontal, 32.5)
-                        
+            
             ScrollView {
                 
                 storeListView
                     .padding(.top, 28)
             }
             .padding(.horizontal, 32.5)
+            .scrollIndicators(.hidden)
+        }
+        .task {
+            // OrderSheetView가 처음 나타날 때 위치 측정 시작
+            viewModel.requestUserLocationOnce()
         }
     }
     
