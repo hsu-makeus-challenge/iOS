@@ -114,6 +114,18 @@ struct OrderSheetView: View {
                             Text(store.properties.address)
                                 .font(.mainTextMedium10)
                                 .foregroundStyle(.gray02)
+//                            Text(viewModel.storeAddresses[store.id] ?? "주소 불러오는 중...")
+//                                .font(.mainTextMedium10)
+//                                .foregroundStyle(.gray02)
+//                                .task {
+//                                    if viewModel.storeAddresses[store.id] == nil {
+//                                        let address = await viewModel.reverseGeocode(
+//                                            latitude: store.properties.yCoordinate,
+//                                            longitude: store.properties.xCoordinate
+//                                        )
+//                                        viewModel.storeAddresses[store.id] = address
+//                                    }
+//                                }
                             
                             Spacer().frame(height: 15)
                             

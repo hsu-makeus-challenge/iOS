@@ -15,6 +15,7 @@ class OrderViewModel: NSObject, CLLocationManagerDelegate {
     var selectedPlaceSegment: PlaceSegment = .first
     
     var stores: [StarbucksFeature] = []
+    var storeAddresses: [String: String] = [:] // storeID: 주소
     var userLocation: CLLocation?
     
     private let locationManager = CLLocationManager()
@@ -64,6 +65,38 @@ class OrderViewModel: NSObject, CLLocationManagerDelegate {
                                   longitude: $1.geometry.locationCoordinate.longitude)
             return userLoc.distance(from: loc1) < userLoc.distance(from: loc2)
         }
+    }
+    
+    func reverseGeocode(latitude: Double, longitude: Double) async -> String {
+        let geocoder = CLGeocoder()
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        
+        do {
+            let placemarks = try await geocoder.reverseGeocodeLocation(location)
+            if let placemark = placemarks.first {
+                let addressParts = [
+                    placemark.administrativeArea,
+                    placemark.locality,
+                    placemark.subLocality,
+                    placemark.thoroughfare
+                ].compactMap { $0 }
+                
+                if addressParts.isEmpty {
+                    print("📭 주소 구성 요소 없음 for \(latitude), \(longitude)")
+                    return "주소 정보 없음"
+                }
+                
+                let address = addressParts.joined(separator: " ")
+                print("📍 역지오코딩 주소: \(address)")
+                return address
+            } else {
+                print("⚠️ placemarks.first is nil for \(latitude), \(longitude)")
+            }
+        } catch {
+            print("❌ 역지오코딩 에러: \(error.localizedDescription)")
+        }
+        
+        return "주소 정보 없음"
     }
     
     // CLLocationManagerDelegate
