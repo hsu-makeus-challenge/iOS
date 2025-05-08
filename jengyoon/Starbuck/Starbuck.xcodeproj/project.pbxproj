@@ -26,6 +26,7 @@
 		C87EE176AD207D08A51D8E1C /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6F9415C82BD901C6AA812805 /* Pretendard-Thin.otf */; };
 		D137A0CE8238989E873328EF /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D2E6CFDB2FE55DB301BB7E93 /* Pretendard-ExtraBold.otf */; };
 		F9B59708E65FFDC479FA292D /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C05EE3A01621AA71D5A3474 /* Pretendard-SemiBold.otf */; };
+		FF5FBBBF2DCCA35000646675 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5FBBBE2DCCA35000646675 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		F8D54BB8F383F5345CEFC4FB /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		F971E5B6815CB1BE429AAFDA /* CustomColor.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CustomColor.xcassets; sourceTree = "<group>"; };
 		FB5860E6E14B3D180E9A7ABF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FF5FBBBE2DCCA35000646675 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -169,6 +171,7 @@
 				D63F2DD2A4425E7FF0092A12 /* ViewModels */,
 				3CFD97B39B9B1F9402805C71 /* Views */,
 				CF9B6D9BD6286FD79B02F2D7 /* StarbuckApp.swift */,
+				FF5FBBBE2DCCA35000646675 /* AppDelegate.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				9F4761109412ED75AEFC6F93 /* ColorExtension.swift in Sources */,
 				7840DC737DE4A9321BFA6B04 /* FontManager.swift in Sources */,
 				B2EECE92459A9FE846F262F6 /* StarbuckApp.swift in Sources */,
+				FF5FBBBF2DCCA35000646675 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
