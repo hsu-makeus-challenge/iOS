@@ -44,5 +44,9 @@ class LoginViewModel: ObservableObject {
     
     /// 카카오 로그인 성공 시 호출되는 메서드
     /// 토큰 요청 및.사용자 정보 요청은 kakaoLovinViewModel에서 처리
-    
+    func loginWithKakao(nickname: String) {
+        isLogin = true
+        loginError = nil
+        KeychainWrapper.save(nickname, for: .nickname)
+    }
 }
