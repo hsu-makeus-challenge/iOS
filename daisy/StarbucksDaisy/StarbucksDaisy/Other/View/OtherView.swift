@@ -12,29 +12,45 @@ struct OtherView: View {
     @EnvironmentObject var router: NavigationRouter
     @Environment(LoginViewModel.self) var loginViewModel
     
-    @AppStorage("nickname") var storedNickname: String = "(작성한 닉네임)"
-    
     var body: some View {
-        VStack(spacing: 41) {
-            
-            TopBackground
-            
+        ScrollView {
+            VStack {
+                
+                TopBackground
+                
+                Spacer().frame(height: 41)
+                
+                ContentsView
+                
+            }
+            .background(Color.white01)
+        }
+        .scrollIndicators(.hidden)
+    }
+    
+    private var ContentsView: some View {
+        VStack {
             TopContentView
             
+            Spacer()
+            
             PayContentView
+    
+            Spacer()
             
             ServiceContentView
-            Spacer()
+            
         }
-        .background(Color.white01)
-        .padding(.horizontal, 10)
+        .frame(height: 683)
     }
     
     private var TopBackground: some View {
         HStack {
             Text("Other")
                 .font(.mainTextBold24)
+            
             Spacer()
+            
             Button(action: {
                 print("로그아웃")}) {
                     Image("logout")
@@ -42,8 +58,9 @@ struct OtherView: View {
                         .frame(width: 35, height: 35)
                 }
         }
+        .padding(.top, 28)
+        .padding(.bottom, 16)
         .padding(.horizontal, 23.5)
-        .frame(width: 440, height: 80)
         .background(.white)
     }
     
@@ -81,7 +98,9 @@ struct OtherView: View {
                     OtherButtonView(buttonImage: "myMenu", buttonText: "나만의 메뉴")
                 })
             }
+            .padding(.horizontal, 24)
         }
+        .padding(.horizontal, 22)
     }
     
     /// Pay
@@ -93,14 +112,15 @@ struct OtherView: View {
             
             HStack {
                 Button(action: {
-                    print("스토어케어")
+                    print("스타벅스 카드 등록")
                 }, label:  {
                     OtherLabelView(image: "card", text: "스타벅스 카드 등록")
                 })
                 
                 Spacer()
+                
                 Button(action: {
-                    print("스토어케어")
+                    print("카드 교환권 등록")
                 }, label:  {
                     OtherLabelView(image: "card_change", text: "카드 교환권 등록")
                 })
@@ -110,24 +130,25 @@ struct OtherView: View {
             
             HStack {
                 Button(action: {
-                    print("스토어케어")
+                    print("쿠폰 등록")
                 }, label:  {
                     OtherLabelView(image: "coupon", text: "쿠폰 등록")
                 })
                 
                 Spacer()
                 Button(action: {
-                    print("스토어케어")
+                    print("쿠폰 히스토리")
                 }, label:  {
                     OtherLabelView(image: "coupon_history", text: "쿠폰 히스토리")
                 })
             }
             .padding(.vertical, 16)
+            
             Divider()
                 .foregroundStyle(.black.opacity(0.12))
                 .padding(.horizontal, 1)
         }
-        .padding(.horizontal, 1)
+        .padding(.horizontal, 20)
         .frame(height: 164)
     }
     
@@ -181,7 +202,7 @@ struct OtherView: View {
             }
             .padding(.vertical, 16)
         }
-        .padding(.horizontal, 1)
+        .padding(.horizontal, 20)
         .frame(height: 228)
         
     }
@@ -192,5 +213,6 @@ struct OtherView_Previews: PreviewProvider {
     static var previews: some View {
         OtherView()
             .environmentObject(NavigationRouter())
+            .environment(LoginViewModel())
     }
 }
