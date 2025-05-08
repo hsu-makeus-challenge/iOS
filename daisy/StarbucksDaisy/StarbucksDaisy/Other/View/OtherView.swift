@@ -10,6 +10,7 @@ import SwiftUI
 struct OtherView: View {
     
     @EnvironmentObject var router: NavigationRouter
+    @Environment(LoginViewModel.self) var loginViewModel
     
     @AppStorage("nickname") var storedNickname: String = "(작성한 닉네임)"
     
@@ -49,7 +50,7 @@ struct OtherView: View {
     private var TopContentView: some View {
         VStack() {
             Group {
-                Text("\(storedNickname)")
+                Text("\(loginViewModel.nickname)")
                     .foregroundStyle(.green01)
                 + Text(" 님")
                     .foregroundStyle(.black)

@@ -11,23 +11,42 @@ struct ContentView: View {
     @EnvironmentObject var router: NavigationRouter
     @State private var showLoginView = false
     
+    @Environment(LoginViewModel.self) var loginViewModel
+    
     var body: some View {
         ZStack {
             NavigationStack(path: $router.path) {
                 if showLoginView {
-                    LoginView()
-                        .navigationDestination(for: Route.self) { route in
-                            switch route {
-                            case .emailLogin:
-                                SignupView()
-                            case .coffeDetail(let coffee):
-                                CoffeeDetailView(coffee: coffee)
-                            case .mainTabBar:
-                                TabbarView()
-                            case .mobileReceipt:
-                                ReceiptView()
+                    if !loginViewModel.isLoggedIn {
+                        LoginView()
+                            .navigationDestination(for: Route.self) { route in
+                                switch route {
+                                case .emailLogin:
+                                    SignupView()
+                                case .coffeDetail(let coffee):
+                                    CoffeeDetailView(coffee: coffee)
+                                case .mainTabBar:
+                                    TabbarView()
+                                case .mobileReceipt:
+                                    ReceiptView()
+                                }
                             }
-                        }
+                    } else {
+                        TabbarView()
+                            .navigationDestination(for: Route.self) { route in
+                                switch route {
+                                case .emailLogin:
+                                    SignupView()
+                                case .coffeDetail(let coffee):
+                                    CoffeeDetailView(coffee: coffee)
+                                case .mainTabBar:
+                                    TabbarView()
+                                case .mobileReceipt:
+                                    ReceiptView()
+                                }
+                            }
+                        
+                    }
                 } else {
                     SplashView()
                         .onAppear() {
@@ -37,6 +56,10 @@ struct ContentView: View {
                         }
                 }
             }
+        }
+        .onAppear {
+            print("ContentViewOnAppear")
+            loginViewModel.autoLoginIfPossible()
         }
     }
 }

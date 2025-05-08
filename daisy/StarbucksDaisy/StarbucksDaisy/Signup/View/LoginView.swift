@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct LoginView: View {
-    @StateObject var viewModel = LoginViewModel()
     @EnvironmentObject var router: NavigationRouter
+    @Environment(LoginViewModel.self) var loginViewModel
+    
+    @State private var id = ""
+    @State private var pw = ""
     
     @FocusState private var isIDFocused: Bool   // 아이디 텍스트 필드의 포커스 상태
     @FocusState private var isPasswordFocused: Bool  // 비밀번호 텍스트 필드의 포커스 상태
@@ -56,7 +59,7 @@ struct LoginView: View {
         
         VStack(spacing: 47) {
             VStack(alignment: .leading) {
-                TextField("아이디", text: $viewModel.loginModel.id)
+                TextField("아이디", text: $id)
                     .focused($isIDFocused)
                     .font(.mainTextRegular13)
                     .foregroundStyle(Color.black01)
@@ -68,7 +71,7 @@ struct LoginView: View {
             .frame(height: 20)
             
             VStack(alignment: .leading) {
-                TextField("비밀번호", text: $viewModel.loginModel.password)
+                TextField("비밀번호", text: $pw)
                     .focused($isPasswordFocused)
                     .font(.mainTextRegular13)
                     .foregroundStyle(Color.black01)
@@ -79,7 +82,17 @@ struct LoginView: View {
             .frame(height: 20)
 
             Button(action: {
-                viewModel.login(router: router)
+                let storedId = KeychainService.shared.load(key: "user_id")
+                let storedPw = KeychainService.shared.load(key: "user_pw")
+                let storedNickname = KeychainService.shared.load(key: "user_nickname")
+                
+                if id == storedId && pw == storedPw {
+                    loginViewModel.nickname = storedNickname ?? ""
+                    loginViewModel.isLoggedIn = true
+                    print("로그인 성공")
+                }
+                
+                
             }, label: {
                 RoundedRectangle(cornerRadius: 20)
                     .frame(height: 46)
