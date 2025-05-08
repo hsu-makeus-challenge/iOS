@@ -25,8 +25,8 @@ class KakaoLoginViewModel: ObservableObject {
     
     // 카카오 로그인 페이지로 이동하는 메서드
     func loginWithKakao() {
-        let clientID = "카카오 REST API 키"
-        let redirectURI = "myapp://oauth"
+        let clientID = ""
+        let redirectURI = "https://songtarbuck.com/oauth"
         let urlStr = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=\(clientID)&redirect_uri=\(redirectURI)"
         
         // URL이 유효하면 카카오 로그인 페이지를 열어 인증 진행
@@ -37,7 +37,7 @@ class KakaoLoginViewModel: ObservableObject {
     
     // authorization code를 이용해 asccess token을 요청
     private func requestToken(with code: String) {
-        let url = URL(string: "https://kauth.kakao.com/oauth/token")!
+        let url = URL(string: "")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
@@ -45,8 +45,8 @@ class KakaoLoginViewModel: ObservableObject {
         // 요청 파라미터 설정
         let params = [
             "grant_type": "authorization_code",
-            "client_id": "카카오 REST API 키",
-            "redirect_uri": "myapp://oauth",
+            "client_id": "",
+            "redirect_uri": "https://songtarbuck.com/oauth",
             "code": code
         ]
         request.httpBody = params.map { "\($0.key)=\($0.value)" }
