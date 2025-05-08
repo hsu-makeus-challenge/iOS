@@ -59,6 +59,14 @@ extension Font {
         return .pretend(type: .semibold, size: 18)
     }
     
+    static var mainTextMedium10: Font {
+        return .pretend(type: .medium, size: 10)
+    }
+    
+    static var mainTextMedium12: Font {
+        return .pretend(type: .medium, size: 12)
+    }
+    
     static var mainTextMedium16: Font {
         return .pretend(type: .medium, size: 16)
     }
