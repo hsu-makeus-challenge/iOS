@@ -12,6 +12,7 @@ struct MapViewRepresentable: UIViewRepresentable {
     @Bindable var locationManager: LocationManager
     @Bindable var storeSelectSheetViewModel: StoreSelectSheetViewModel
     @Binding var showReloadBtn: Bool
+    @Binding var isUserInteracting: Bool
     
     func makeCoordinator() -> Coordinator {
         Coordinator(parent: self)
@@ -59,20 +60,48 @@ struct MapViewRepresentable: UIViewRepresentable {
     // MARK: - Nested Type의 Coordinator 클래스
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MapViewRepresentable
+        var isProgrammaticChange = true // 초기에는 시스템에 의한 변경임
         
         init(parent: MapViewRepresentable) {
             self.parent = parent
         }
         
+        func mapView(
+            _ mapView: MKMapView,
+            regionWillChangeAnimated animated: Bool
+        ) {
+            if mapViewIsBeginInteractedWith(mapView) {
+                isProgrammaticChange = false
+                parent.isUserInteracting = true
+            }
+        }
+        
         // FIXME: 줌 레벨이 당겨지는 과정에서 카메라 이동이 감지되어 사용자가 지도 이동하기 전에 showReloadBtn가 true로 바뀌는 버그 수정 필요
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-            // 카메라 이동 완료 감지
-            let center = mapView.centerCoordinate
-            print("지도 중심 좌표가 바뀌었음: \(center.latitude), \(center.longitude)")
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.parent.showReloadBtn = true
+            if !isProgrammaticChange {
+                DispatchQueue.main.async {
+                    self.parent.isUserInteracting = false
+                }
             }
+            isProgrammaticChange = false
+        }
+        
+        private func mapViewIsBeginInteractedWith(_ mapView: MKMapView) -> Bool {
+            for recognizer in mapView.gestureRecognizers ?? [] {
+                if recognizer.state == .began
+                    || recognizer.state == .changed
+                    || recognizer.state == .ended {
+                    return true
+                }
+            }
+//            return false
+//            for subView in mapView.subviews {
+//                if let scrollView = subView as? UIScrollView,
+//                   scrollView.isDragging {
+//                    return true
+//                }
+//            }
+            return false
         }
     }
 }

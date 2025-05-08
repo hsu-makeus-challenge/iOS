@@ -12,6 +12,7 @@ struct MapView: View {
     @Bindable private var locationManager: LocationManager
     @Bindable private var storeSelectSheetViewModel: StoreSelectSheetViewModel
     @State private var showReloadBtn: Bool = false
+    @State private var isUserInteracting: Bool = false
     
     init(
         storeSelectSheetViewModel: StoreSelectSheetViewModel,
@@ -26,10 +27,11 @@ struct MapView: View {
             MapViewRepresentable(
                 locationManager: locationManager,
                 storeSelectSheetViewModel: storeSelectSheetViewModel,
-                showReloadBtn: $showReloadBtn
+                showReloadBtn: $showReloadBtn,
+                isUserInteracting: $isUserInteracting
             ).ignoresSafeArea()
             
-            if showReloadBtn {
+            if isUserInteracting {
                 VStack {
                     Spacer().frame(height: 22)
                     // TODO: 재검색 기능 추후 추가하기
