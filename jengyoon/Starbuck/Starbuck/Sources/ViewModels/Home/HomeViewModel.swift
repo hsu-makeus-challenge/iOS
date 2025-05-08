@@ -9,12 +9,11 @@ import Foundation
 import SwiftUI
 
 class HomeViewModel: ObservableObject {
-    /// 회원가입시 저장된 닉네임 불러오기
-    @AppStorage("userNickname") private var nickname: String = ""
-    
+
     /// 뷰에서 접근하는 닉네임
     var displayName: String {
-        nickname.isEmpty ? "(설정 닉네임)" : nickname
+        let nickname = KeychainWrapper.load(for: .nickname) ?? ""
+        return nickname.isEmpty ? "(설정 닉네임)" : nickname
     }
     
     /// 추천 메뉴 더미 데이터

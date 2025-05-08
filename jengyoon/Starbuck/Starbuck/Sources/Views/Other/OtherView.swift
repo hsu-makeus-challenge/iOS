@@ -9,8 +9,9 @@ import SwiftUI
 
 struct OtherView: View {
     /// 회원가입시 저장한 닉네임을 표시
-    /// UserDefaults의 "nickname" 키에 저장된 값을 불러온다.
-    @AppStorage("nickname") private var nickname : String?
+    /// 키체인에서 닉네임 불러온 닉네임 상태 변수
+    @State private var nickname: String = ""
+    
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var router: NavigationRouter
     
@@ -31,8 +32,10 @@ struct OtherView: View {
                 otherBottomView
             }//: VStack
         } //: ZStack
-        
-        
+        .onAppear {
+            // 뷰 등장 시 닉네임 로드
+            nickname = KeychainWrapper.load(for: .nickname) ?? ""
+        }
     }
     
     // MARK: - Properties
@@ -49,8 +52,8 @@ struct OtherView: View {
                 dismiss()
             }) {
                 Image("logout")
-                        .resizable()
-                        .frame(width: 35, height: 35)
+                    .resizable()
+                    .frame(width: 35, height: 35)
             }
         }
         .padding(.horizontal, 20)
@@ -61,15 +64,14 @@ struct OtherView: View {
     private var otherTitleView: some View {
         VStack (spacing: 24) {
             Group {
-                if let nickname {
-                    Text("\(nickname)")
-                        .foregroundStyle(Color(.green01))
-                    + Text("님")
-                }
-                else {
+                if nickname.isEmpty {
                     Text("작성한 닉네임")
-                        .foregroundStyle(Color(.green01))
-                    + Text("님")
+                        .foregroundStyle(Color(.green01)) +
+                    Text("님")
+                } else {
+                    Text(nickname)
+                        .foregroundStyle(Color(.green01)) +
+                    Text("님")
                 }
                 Text("환영합니다! 🙌")
             }
@@ -86,42 +88,42 @@ struct OtherView: View {
     
     /// 결제 관련 버튼 뷰
     /// - 버튼을 컴포넌트화 하여 재사용성 높임
-      private var otherPayView: some View {
-          VStack() {
-              HStack {
-                  Text("Pay")
-                      .font(.PretendardSemiBold18)
-                      .frame(height: 28)
-                  
-                  Spacer()
-              }
-              
-              Spacer().frame(height: 8)
-          
-              HStack {
-                  OtherViewButton(text: "스타벅스 카드 등록", textColor: .black, font: .PretendardSemiBold16, icon: "other2.1", action: {print("스타벅스 카드 등록 클릭")})
-                  
-                  Spacer()
-                  
-                  OtherViewButton(text: "카드 교환권 등록", textColor: .black, font: .PretendardSemiBold16, icon: "other2.2", action: {print("카드 교환권 클릭")})
-                  
-                  Spacer().frame(width: 10)
-              }
-              .padding(.vertical, 16)
-              
-              HStack {
-                  OtherViewButton(text: "쿠폰 등록", textColor: .black, font: .PretendardSemiBold16, icon: "other2.3", action: {print("쿠폰 등록 클릭")})
-                  
-                  Spacer()
-                  
-                  OtherViewButton(text: "쿠폰 히스토리", textColor: .black ,font: .PretendardSemiBold16, icon: "other2.4", action: {print("쿠폰 히스토리 클릭")})
-                  
-                  Spacer().frame(width: 30)
-              }
-              .padding(.vertical, 16)
-          } //: VStack
-          .padding(.horizontal, 10)
-      }
+    private var otherPayView: some View {
+        VStack() {
+            HStack {
+                Text("Pay")
+                    .font(.PretendardSemiBold18)
+                    .frame(height: 28)
+                
+                Spacer()
+            }
+            
+            Spacer().frame(height: 8)
+            
+            HStack {
+                OtherViewButton(text: "스타벅스 카드 등록", textColor: .black, font: .PretendardSemiBold16, icon: "other2.1", action: {print("스타벅스 카드 등록 클릭")})
+                
+                Spacer()
+                
+                OtherViewButton(text: "카드 교환권 등록", textColor: .black, font: .PretendardSemiBold16, icon: "other2.2", action: {print("카드 교환권 클릭")})
+                
+                Spacer().frame(width: 10)
+            }
+            .padding(.vertical, 16)
+            
+            HStack {
+                OtherViewButton(text: "쿠폰 등록", textColor: .black, font: .PretendardSemiBold16, icon: "other2.3", action: {print("쿠폰 등록 클릭")})
+                
+                Spacer()
+                
+                OtherViewButton(text: "쿠폰 히스토리", textColor: .black ,font: .PretendardSemiBold16, icon: "other2.4", action: {print("쿠폰 히스토리 클릭")})
+                
+                Spacer().frame(width: 30)
+            }
+            .padding(.vertical, 16)
+        } //: VStack
+        .padding(.horizontal, 10)
+    }
     
     /// 고객지원 뷰
     /// - 버튼을 컴포넌트화 하여 재사용성 높임

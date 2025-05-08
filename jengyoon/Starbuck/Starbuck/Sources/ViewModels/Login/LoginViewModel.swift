@@ -16,16 +16,19 @@ class LoginViewModel: ObservableObject {
     @Published var inputEmail: String = ""
     @Published var inputPassword: String = ""
     
-    // MARK: - AppStorage에 저장된 회원 정보 불러오기
-    @AppStorage("userEmail") private var savedEmail: String = ""
-    @AppStorage("userPassword") private var savedPassword: String = ""
-    
     // MARK: - 로그인 상태
     @Published var isLogin: Bool = false
     @Published var loginError: String? = nil
     
     // MARK: - 로그인 로직
     func login() {
+        guard let savedEmail = KeychainWrapper.load(for: .email),
+              let savedPassword = KeychainWrapper.load(for: .password) else {
+            loginError = "저장된 사용자 정보가 없습니다."
+            isLogin = false
+            return
+        }
+        
         if (inputEmail == savedEmail && inputPassword == savedPassword) {
             isLogin = true
             loginError = nil
