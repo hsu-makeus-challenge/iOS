@@ -6,13 +6,30 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		0EDF87092DCCAB55004DAE42 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0EDF87082DCCAB55004DAE42 /* Alamofire */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		0EDF86E02DCCA78A004DAE42 /* Weak6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weak6.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0EDF870D2DCCACE6004DAE42 /* Exceptions for "Weak6" folder in "Weak6" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 0EDF86DF2DCCA78A004DAE42 /* Weak6 */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0EDF86E22DCCA78A004DAE42 /* Weak6 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0EDF870D2DCCACE6004DAE42 /* Exceptions for "Weak6" folder in "Weak6" target */,
+			);
 			path = Weak6;
 			sourceTree = "<group>";
 		};
@@ -23,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EDF87092DCCAB55004DAE42 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +83,7 @@
 			);
 			name = Weak6;
 			packageProductDependencies = (
+				0EDF87082DCCAB55004DAE42 /* Alamofire */,
 			);
 			productName = Weak6;
 			productReference = 0EDF86E02DCCA78A004DAE42 /* Weak6.app */;
@@ -94,6 +113,9 @@
 			);
 			mainGroup = 0EDF86D72DCCA78A004DAE42;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				0EDF87072DCCAB55004DAE42 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0EDF86E12DCCA78A004DAE42 /* Products */;
 			projectDirPath = "";
@@ -127,6 +149,8 @@
 /* Begin XCBuildConfiguration section */
 		0EDF86EC2DCCA78D004DAE42 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 0EDF86E22DCCA78A004DAE42 /* Weak6 */;
+			baseConfigurationReferenceRelativePath = Secret.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -190,6 +214,8 @@
 		};
 		0EDF86ED2DCCA78D004DAE42 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 0EDF86E22DCCA78A004DAE42 /* Weak6 */;
+			baseConfigurationReferenceRelativePath = Secret.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -255,6 +281,7 @@
 				DEVELOPMENT_TEAM = 6H8Y6F23HB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Weak6/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -284,6 +311,7 @@
 				DEVELOPMENT_TEAM = 6H8Y6F23HB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Weak6/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -324,6 +352,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0EDF87072DCCAB55004DAE42 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0EDF87082DCCAB55004DAE42 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0EDF87072DCCAB55004DAE42 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0EDF86D82DCCA78A004DAE42 /* Project object */;
 }

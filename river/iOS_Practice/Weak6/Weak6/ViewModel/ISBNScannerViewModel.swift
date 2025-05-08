@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+@Observable
+class ISBNScannerViewModel {
+    var bookModel: BookModel.Documents?
+}
