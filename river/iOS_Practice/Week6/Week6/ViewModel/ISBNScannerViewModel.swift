@@ -14,20 +14,17 @@ class ISBNScannerViewModel {
     
     var bookModel: BookModel.Documents?
     var errorMessage: String?
-    
     var isShowSaveView: Bool = false
     
     func searchBook(isbn: String) async {
-        
         self.errorMessage = nil
         
         do {
             let result = try await KakaoAPIService.shared.searchBook(query: isbn)
             self.bookModel = result.documents.first
-            self.isShowSaveView = true
+            isShowSaveView = true
         } catch {
             self.errorMessage = error.localizedDescription
-            print("전체 에러 정보:", error)
         }
     }
     
@@ -41,3 +38,6 @@ class ISBNScannerViewModel {
         }
     }
 }
+
+
+

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ISBNScanncerView: View {
+struct ISBNScannerView: View {
     
     @Bindable var viewModel: ISBNScannerViewModel = .init()
     
@@ -23,8 +23,14 @@ struct ISBNScanncerView: View {
                     await viewModel.searchBook(isbn: isbn)
                 }
             }
+            
+            backgroundView()
         }
-        backgroundView()
+        .sheet(isPresented: $viewModel.isShowSaveView, content: {
+            SuccessISBNView(viewModel: viewModel)
+                .presentationDetents([.fraction(0.4)])
+                .presentationDragIndicator(.visible)
+        })
     }
     
     @ViewBuilder
@@ -71,6 +77,5 @@ struct ISBNScanncerView: View {
 }
 
 #Preview {
-    ISBNScanncerView()
+    ISBNScannerView()
 }
-

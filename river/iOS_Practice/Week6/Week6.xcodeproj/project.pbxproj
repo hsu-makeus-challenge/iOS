@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0EDF87092DCCAB55004DAE42 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 0EDF87082DCCAB55004DAE42 /* Alamofire */; };
+		0EDF87EB2DCDE0C0004DAE42 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0EDF87EA2DCDE0C0004DAE42 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EDF87EB2DCDE0C0004DAE42 /* Kingfisher in Frameworks */,
 				0EDF87092DCCAB55004DAE42 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,6 +86,7 @@
 			name = Week6;
 			packageProductDependencies = (
 				0EDF87082DCCAB55004DAE42 /* Alamofire */,
+				0EDF87EA2DCDE0C0004DAE42 /* Kingfisher */,
 			);
 			productName = Weak6;
 			productReference = 0EDF86E02DCCA78A004DAE42 /* Week6.app */;
@@ -115,6 +118,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				0EDF87072DCCAB55004DAE42 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				0EDF87E92DCDE0C0004DAE42 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0EDF86E12DCCA78A004DAE42 /* Products */;
@@ -277,16 +281,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Weak6/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Week6/Preview Content\"";
 				DEVELOPMENT_TEAM = 6H8Y6F23HB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Weak6/Info.plist;
+				INFOPLIST_FILE = Week6/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,16 +312,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Weak6/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Week6/Preview Content\"";
 				DEVELOPMENT_TEAM = 6H8Y6F23HB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Weak6/Info.plist;
+				INFOPLIST_FILE = Week6/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -362,6 +368,14 @@
 				minimumVersion = 5.10.2;
 			};
 		};
+		0EDF87E92DCDE0C0004DAE42 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.3.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -369,6 +383,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0EDF87072DCCAB55004DAE42 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		0EDF87EA2DCDE0C0004DAE42 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0EDF87E92DCDE0C0004DAE42 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
