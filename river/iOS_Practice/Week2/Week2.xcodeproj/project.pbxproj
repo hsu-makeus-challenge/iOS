@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		0E08E4BE2D92EDD800469F04 /* Weak2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weak2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E08E4BE2D92EDD800469F04 /* Week2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Week2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		0E08E4C02D92EDD800469F04 /* Weak2 */ = {
+		0E08E4C02D92EDD800469F04 /* Week2 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Weak2;
+			path = Week2;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +32,7 @@
 		0E08E4B52D92EDD800469F04 = {
 			isa = PBXGroup;
 			children = (
-				0E08E4C02D92EDD800469F04 /* Weak2 */,
+				0E08E4C02D92EDD800469F04 /* Week2 */,
 				0E08E4BF2D92EDD800469F04 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,7 +40,7 @@
 		0E08E4BF2D92EDD800469F04 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0E08E4BE2D92EDD800469F04 /* Weak2.app */,
+				0E08E4BE2D92EDD800469F04 /* Week2.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +48,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0E08E4BD2D92EDD800469F04 /* Weak2 */ = {
+		0E08E4BD2D92EDD800469F04 /* Week2 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0E08E4CC2D92EDDA00469F04 /* Build configuration list for PBXNativeTarget "Weak2" */;
+			buildConfigurationList = 0E08E4CC2D92EDDA00469F04 /* Build configuration list for PBXNativeTarget "Week2" */;
 			buildPhases = (
 				0E08E4BA2D92EDD800469F04 /* Sources */,
 				0E08E4BB2D92EDD800469F04 /* Frameworks */,
@@ -61,13 +61,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				0E08E4C02D92EDD800469F04 /* Weak2 */,
+				0E08E4C02D92EDD800469F04 /* Week2 */,
 			);
-			name = Weak2;
+			name = Week2;
 			packageProductDependencies = (
 			);
 			productName = Weak2;
-			productReference = 0E08E4BE2D92EDD800469F04 /* Weak2.app */;
+			productReference = 0E08E4BE2D92EDD800469F04 /* Week2.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -85,7 +85,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0E08E4B92D92EDD800469F04 /* Build configuration list for PBXProject "Weak2" */;
+			buildConfigurationList = 0E08E4B92D92EDD800469F04 /* Build configuration list for PBXProject "Week2" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -99,7 +99,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0E08E4BD2D92EDD800469F04 /* Weak2 */,
+				0E08E4BD2D92EDD800469F04 /* Week2 */,
 			);
 		};
 /* End PBXProject section */
@@ -251,7 +251,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Weak2/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Week2/Preview Content\"";
 				DEVELOPMENT_TEAM = 6H8Y6F23HB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -280,7 +280,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Weak2/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Week2/Preview Content\"";
 				DEVELOPMENT_TEAM = 6H8Y6F23HB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -305,7 +305,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0E08E4B92D92EDD800469F04 /* Build configuration list for PBXProject "Weak2" */ = {
+		0E08E4B92D92EDD800469F04 /* Build configuration list for PBXProject "Week2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0E08E4CA2D92EDDA00469F04 /* Debug */,
@@ -314,7 +314,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0E08E4CC2D92EDDA00469F04 /* Build configuration list for PBXNativeTarget "Weak2" */ = {
+		0E08E4CC2D92EDDA00469F04 /* Build configuration list for PBXNativeTarget "Week2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0E08E4CD2D92EDDA00469F04 /* Debug */,

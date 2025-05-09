@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		0E9776822DC339A30037F8FD /* Weak5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weak5.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E9776822DC339A30037F8FD /* Week5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Week5.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		0E9776842DC339A30037F8FD /* Weak5 */ = {
+		0E9776842DC339A30037F8FD /* Week5 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Weak5;
+			path = Week5;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +32,7 @@
 		0E9776792DC339A30037F8FD = {
 			isa = PBXGroup;
 			children = (
-				0E9776842DC339A30037F8FD /* Weak5 */,
+				0E9776842DC339A30037F8FD /* Week5 */,
 				0E9776832DC339A30037F8FD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,7 +40,7 @@
 		0E9776832DC339A30037F8FD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0E9776822DC339A30037F8FD /* Weak5.app */,
+				0E9776822DC339A30037F8FD /* Week5.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +48,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0E9776812DC339A30037F8FD /* Weak5 */ = {
+		0E9776812DC339A30037F8FD /* Week5 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0E9776902DC339A60037F8FD /* Build configuration list for PBXNativeTarget "Weak5" */;
+			buildConfigurationList = 0E9776902DC339A60037F8FD /* Build configuration list for PBXNativeTarget "Week5" */;
 			buildPhases = (
 				0E97767E2DC339A30037F8FD /* Sources */,
 				0E97767F2DC339A30037F8FD /* Frameworks */,
@@ -61,13 +61,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				0E9776842DC339A30037F8FD /* Weak5 */,
+				0E9776842DC339A30037F8FD /* Week5 */,
 			);
-			name = Weak5;
+			name = Week5;
 			packageProductDependencies = (
 			);
 			productName = Weak5;
-			productReference = 0E9776822DC339A30037F8FD /* Weak5.app */;
+			productReference = 0E9776822DC339A30037F8FD /* Week5.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -85,7 +85,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0E97767D2DC339A30037F8FD /* Build configuration list for PBXProject "Weak5" */;
+			buildConfigurationList = 0E97767D2DC339A30037F8FD /* Build configuration list for PBXProject "Week5" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -99,7 +99,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0E9776812DC339A30037F8FD /* Weak5 */,
+				0E9776812DC339A30037F8FD /* Week5 */,
 			);
 		};
 /* End PBXProject section */
@@ -251,7 +251,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Weak5/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Week5/Preview Content\"";
 				DEVELOPMENT_TEAM = 6H8Y6F23HB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -280,7 +280,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Weak5/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Week5/Preview Content\"";
 				DEVELOPMENT_TEAM = 6H8Y6F23HB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -305,7 +305,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0E97767D2DC339A30037F8FD /* Build configuration list for PBXProject "Weak5" */ = {
+		0E97767D2DC339A30037F8FD /* Build configuration list for PBXProject "Week5" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0E97768E2DC339A60037F8FD /* Debug */,
@@ -314,7 +314,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0E9776902DC339A60037F8FD /* Build configuration list for PBXNativeTarget "Weak5" */ = {
+		0E9776902DC339A60037F8FD /* Build configuration list for PBXNativeTarget "Week5" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0E9776912DC339A60037F8FD /* Debug */,
