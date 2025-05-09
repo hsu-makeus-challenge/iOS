@@ -7,32 +7,19 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		8B4D96F72D8B152A006F83DD /* StarbucksDaisy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarbucksDaisy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E9316102DA54A2200B06EB8 /* Week4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Week4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		8B4D97222D8B1940006F83DD /* Exceptions for "StarbucksDaisy" folder in "StarbucksDaisy" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 8B4D96F62D8B152A006F83DD /* StarbucksDaisy */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		8B4D96F92D8B152A006F83DD /* StarbucksDaisy */ = {
+		0E9316122DA54A2200B06EB8 /* Week4 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				8B4D97222D8B1940006F83DD /* Exceptions for "StarbucksDaisy" folder in "StarbucksDaisy" target */,
-			);
-			path = StarbucksDaisy;
+			path = Week4;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8B4D96F42D8B152A006F83DD /* Frameworks */ = {
+		0E93160D2DA54A2200B06EB8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -42,18 +29,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8B4D96EE2D8B152A006F83DD = {
+		0E9316072DA54A2200B06EB8 = {
 			isa = PBXGroup;
 			children = (
-				8B4D96F92D8B152A006F83DD /* StarbucksDaisy */,
-				8B4D96F82D8B152A006F83DD /* Products */,
+				0E9316122DA54A2200B06EB8 /* Week4 */,
+				0E9316112DA54A2200B06EB8 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		8B4D96F82D8B152A006F83DD /* Products */ = {
+		0E9316112DA54A2200B06EB8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8B4D96F72D8B152A006F83DD /* StarbucksDaisy.app */,
+				0E9316102DA54A2200B06EB8 /* Week4.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,64 +48,64 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8B4D96F62D8B152A006F83DD /* StarbucksDaisy */ = {
+		0E93160F2DA54A2200B06EB8 /* Week4 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8B4D97052D8B152B006F83DD /* Build configuration list for PBXNativeTarget "StarbucksDaisy" */;
+			buildConfigurationList = 0E93161E2DA54A2400B06EB8 /* Build configuration list for PBXNativeTarget "Week4" */;
 			buildPhases = (
-				8B4D96F32D8B152A006F83DD /* Sources */,
-				8B4D96F42D8B152A006F83DD /* Frameworks */,
-				8B4D96F52D8B152A006F83DD /* Resources */,
+				0E93160C2DA54A2200B06EB8 /* Sources */,
+				0E93160D2DA54A2200B06EB8 /* Frameworks */,
+				0E93160E2DA54A2200B06EB8 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				8B4D96F92D8B152A006F83DD /* StarbucksDaisy */,
+				0E9316122DA54A2200B06EB8 /* Week4 */,
 			);
-			name = StarbucksDaisy;
+			name = Week4;
 			packageProductDependencies = (
 			);
-			productName = StarbucksDaisy;
-			productReference = 8B4D96F72D8B152A006F83DD /* StarbucksDaisy.app */;
+			productName = Weak4;
+			productReference = 0E9316102DA54A2200B06EB8 /* Week4.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		8B4D96EF2D8B152A006F83DD /* Project object */ = {
+		0E9316082DA54A2200B06EB8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1610;
-				LastUpgradeCheck = 1610;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
-					8B4D96F62D8B152A006F83DD = {
-						CreatedOnToolsVersion = 16.1;
+					0E93160F2DA54A2200B06EB8 = {
+						CreatedOnToolsVersion = 16.2;
 					};
 				};
 			};
-			buildConfigurationList = 8B4D96F22D8B152A006F83DD /* Build configuration list for PBXProject "StarbucksDaisy" */;
+			buildConfigurationList = 0E93160B2DA54A2200B06EB8 /* Build configuration list for PBXProject "Week4" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 8B4D96EE2D8B152A006F83DD;
+			mainGroup = 0E9316072DA54A2200B06EB8;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 8B4D96F82D8B152A006F83DD /* Products */;
+			productRefGroup = 0E9316112DA54A2200B06EB8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8B4D96F62D8B152A006F83DD /* StarbucksDaisy */,
+				0E93160F2DA54A2200B06EB8 /* Week4 */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		8B4D96F52D8B152A006F83DD /* Resources */ = {
+		0E93160E2DA54A2200B06EB8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -128,7 +115,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8B4D96F32D8B152A006F83DD /* Sources */ = {
+		0E93160C2DA54A2200B06EB8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -138,7 +125,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		8B4D97032D8B152B006F83DD /* Debug */ = {
+		0E93161C2DA54A2400B06EB8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -190,7 +177,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -201,7 +188,7 @@
 			};
 			name = Debug;
 		};
-		8B4D97042D8B152B006F83DD /* Release */ = {
+		0E93161D2DA54A2400B06EB8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -247,7 +234,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -257,21 +244,17 @@
 			};
 			name = Release;
 		};
-		8B4D97062D8B152B006F83DD /* Debug */ = {
+		0E93161F2DA54A2400B06EB8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"StarbucksDaisy/Preview Content\"";
-				DEVELOPMENT_TEAM = GF3B5LP7RQ;
+				DEVELOPMENT_ASSET_PATHS = "\"Week4/Preview Content\"";
+				DEVELOPMENT_TEAM = 6H8Y6F23HB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = StarbucksDaisy/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 접근 권한이 필요합니다.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "이 앱은 현재 위치를 표시하기 위해 위치 정보가 필요합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 앨범 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -282,7 +265,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = umc.com.DaisyStarbucks;
+				PRODUCT_BUNDLE_IDENTIFIER = "UMC-8th.Weak4";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -290,21 +273,17 @@
 			};
 			name = Debug;
 		};
-		8B4D97072D8B152B006F83DD /* Release */ = {
+		0E9316202DA54A2400B06EB8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"StarbucksDaisy/Preview Content\"";
-				DEVELOPMENT_TEAM = GF3B5LP7RQ;
+				DEVELOPMENT_ASSET_PATHS = "\"Week4/Preview Content\"";
+				DEVELOPMENT_TEAM = 6H8Y6F23HB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = StarbucksDaisy/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 접근 권한이 필요합니다.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "이 앱은 현재 위치를 표시하기 위해 위치 정보가 필요합니다.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 앨범 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -315,7 +294,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = umc.com.DaisyStarbucks;
+				PRODUCT_BUNDLE_IDENTIFIER = "UMC-8th.Weak4";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -326,25 +305,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8B4D96F22D8B152A006F83DD /* Build configuration list for PBXProject "StarbucksDaisy" */ = {
+		0E93160B2DA54A2200B06EB8 /* Build configuration list for PBXProject "Week4" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8B4D97032D8B152B006F83DD /* Debug */,
-				8B4D97042D8B152B006F83DD /* Release */,
+				0E93161C2DA54A2400B06EB8 /* Debug */,
+				0E93161D2DA54A2400B06EB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8B4D97052D8B152B006F83DD /* Build configuration list for PBXNativeTarget "StarbucksDaisy" */ = {
+		0E93161E2DA54A2400B06EB8 /* Build configuration list for PBXNativeTarget "Week4" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8B4D97062D8B152B006F83DD /* Debug */,
-				8B4D97072D8B152B006F83DD /* Release */,
+				0E93161F2DA54A2400B06EB8 /* Debug */,
+				0E9316202DA54A2400B06EB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 8B4D96EF2D8B152A006F83DD /* Project object */;
+	rootObject = 0E9316082DA54A2200B06EB8 /* Project object */;
 }

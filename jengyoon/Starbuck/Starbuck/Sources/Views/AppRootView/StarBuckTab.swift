@@ -34,7 +34,7 @@ struct StarBuckTab: View {
             } //: label
             
             Tab {
-                EmptyView()
+                OrderView()
             } label: {
                 Label {
                     Text("Order")
