@@ -9,12 +9,21 @@ import SwiftUI
 
 struct ISBNScanncerView: View {
     
+    @Bindable var viewModel: ISBNScannerViewModel = .init()
+    
     let title: String = "바코드를 스캔해주세요"
     let subTitle: String = "ISBN 바코드 스캔을 통해 \n책의 정보를 빠르고 정확하게 가져올 수 있어요!"
     
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
+        ZStack {
+            BarcodeScannerView { isbn in
+                Task {
+                    await viewModel.searchBook(isbn: isbn)
+                }
+            }
+        }
         backgroundView()
     }
     
