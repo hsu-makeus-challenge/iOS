@@ -19,6 +19,10 @@ struct MapViewControllerWrapper: UIViewControllerRepresentable {
         let vc = MapViewController()
         vc.regionToSet = region
         vc.mapView.delegate = context.coordinator
+        // 콜백 방식으로 클로저 등록하여 사용자 제스처 감지
+//        vc.onUserInteractionChanged = { isInteracting in
+//            self.isUserInteracting = isInteracting
+//        }
         return vc
     }
     
@@ -49,6 +53,7 @@ struct MapViewControllerWrapper: UIViewControllerRepresentable {
         Coordinator(parent: self)
     }
     
+    /// Coordinator를 사용하여 딜리게이트 구현
     class Coordinator: NSObject, MKMapViewDelegate {
         private var parent: MapViewControllerWrapper
         private var isSystemAnimationFlag: Bool = true
@@ -76,6 +81,8 @@ class MapViewController: UIViewController {
     
     let mapView = MKMapView()
     var regionToSet: MKCoordinateRegion?
+//    var onUserInteractionChanged: ((Bool) -> Void)?
+//    private var isSystemAnimationFlag: Bool = true
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -92,6 +99,7 @@ class MapViewController: UIViewController {
     }
     
     private func setupMapView() {
+//        mapView.delegate = self
         mapView.isRotateEnabled = false
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .none
@@ -109,3 +117,18 @@ class MapViewController: UIViewController {
         ])
     }
 }
+
+/// 콜백 방식으로 딜리게이트 구현
+//extension MapViewController: MKMapViewDelegate {
+//    func mapView(
+//        _ mapView: MKMapView,
+//        regionWillChangeAnimated animated: Bool
+//    ) {
+//        if isSystemAnimationFlag {
+//            isSystemAnimationFlag = false
+//        } else {
+//            onUserInteractionChanged?(true)
+//            print("사용자 움직임")
+//        }
+//    }
+//}
