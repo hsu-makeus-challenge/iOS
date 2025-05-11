@@ -58,7 +58,8 @@ struct MapView: View {
                 MapViewControllerWrapper(
                     region: region,
                     locationManager: locationManager,
-                    storeSelectSheetViewModel: storeSelectSheetViewModel
+                    storeSelectSheetViewModel: storeSelectSheetViewModel,
+                    isUserInteracting: $isUserInteracting
                 )
             } else {
                 ProgressView("Loading map...")

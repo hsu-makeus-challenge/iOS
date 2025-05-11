@@ -13,10 +13,12 @@ struct MapViewControllerWrapper: UIViewControllerRepresentable {
     let region: MKCoordinateRegion
     @Bindable var locationManager: LocationManager
     @Bindable var storeSelectSheetViewModel: StoreSelectSheetViewModel
+    @Binding var isUserInteracting: Bool
     
     func makeUIViewController(context: Context) -> MapViewController {
         let vc = MapViewController()
         vc.regionToSet = region
+        vc.mapView.delegate = context.coordinator
         return vc
     }
     
@@ -42,13 +44,37 @@ struct MapViewControllerWrapper: UIViewControllerRepresentable {
         }
         uiViewController.mapView.addAnnotations(annotations)
     }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(parent: self)
+    }
+    
+    class Coordinator: NSObject, MKMapViewDelegate {
+        private var parent: MapViewControllerWrapper
+        private var isSystemAnimationFlag: Bool = true
+        
+        init(parent: MapViewControllerWrapper) {
+            self.parent = parent
+        }
+        
+        func mapView(
+            _ mapView: MKMapView,
+            regionWillChangeAnimated animated: Bool
+        ) {
+            if isSystemAnimationFlag {
+                isSystemAnimationFlag = false
+                print("사용자 감지: \(parent.isUserInteracting)")
+            } else {
+                parent.isUserInteracting = true
+                print("사용자 감지: \(parent.isUserInteracting)")
+            }
+        }
+    }
 }
 
 class MapViewController: UIViewController {
     
     let mapView = MKMapView()
-    private var isSystemAnimationFlag: Bool = true
-    
     var regionToSet: MKCoordinateRegion?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,7 +92,6 @@ class MapViewController: UIViewController {
     }
     
     private func setupMapView() {
-        mapView.delegate = self
         mapView.isRotateEnabled = false
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .none
@@ -82,18 +107,5 @@ class MapViewController: UIViewController {
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
-    }
-}
-
-extension MapViewController: MKMapViewDelegate {
-    func mapView(
-        _ mapView: MKMapView,
-        regionWillChangeAnimated animated: Bool
-    ) {
-        if isSystemAnimationFlag {
-            isSystemAnimationFlag = false
-        } else {
-            print("사용자 움직임")
-        }
     }
 }
