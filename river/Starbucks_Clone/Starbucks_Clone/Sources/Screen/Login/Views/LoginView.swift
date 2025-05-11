@@ -33,7 +33,7 @@ struct LoginView: View {
             
             Spacer().frame(height: 19)
             
-            SocialLoginButtonView()
+            SocialLoginButtonView(loginViewModel: loginViewModel)
         }
         .padding(.horizontal, 19)
     }
@@ -159,6 +159,12 @@ struct EmailLoginBtnView: View {
 }
 
 struct SocialLoginButtonView: View {
+    @Bindable private var loginViewModel: LoginViewModel
+    
+    init(loginViewModel: LoginViewModel) {
+        self.loginViewModel = loginViewModel
+    }
+    
     var body: some View {
         VStack {
             kakaoLoginButtonView
@@ -171,7 +177,7 @@ struct SocialLoginButtonView: View {
     
     private var kakaoLoginButtonView: some View {
         Button {
-            print("Kakao Login")
+            loginViewModel.kakaoLoginWithRestAPI()
         } label: {
             HStack {
                 Image(.kakaoLogo)

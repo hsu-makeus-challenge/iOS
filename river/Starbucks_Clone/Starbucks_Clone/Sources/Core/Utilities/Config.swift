@@ -22,10 +22,17 @@ enum Config {
         return apiKey
     }()
     
-    static let kakaoLoginURL: String = {
+    static let kakaoLoginBaseURL: String = {
         guard let loginURL = Config.infoDictionary["KAKAO_LOGIN_URL"] as? String else {
             fatalError()
         }
         return loginURL
+    }()
+    
+    static let redirectURI: String = {
+        guard let redirectURI = Config.infoDictionary["REDIRECT_URI"] as? String else {
+            fatalError()
+        }
+        return redirectURI
     }()
 }
