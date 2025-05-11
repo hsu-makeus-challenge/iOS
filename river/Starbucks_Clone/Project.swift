@@ -16,6 +16,8 @@ let project = Project(
                     ],
                     "NSLocationWhenInUseUsageDescription": "앱이 실행 중일 때 위치 정보를 사용합니다.",
                     "NSLocationAlwaysUsageDescription": "앱이 백그라운드에서도 위치 정보를 사용합니다."
+                    "KAKAO_API_KEY": "$(KAKAO_API_KEY)"
+                    "KAKAO_LOGIN_URL": "$(KAKAO_LOGIN_URL)"
                 ]
             ),
             sources: ["Starbucks_Clone/Sources/**"],
