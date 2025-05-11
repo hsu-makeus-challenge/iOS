@@ -40,11 +40,29 @@ struct MapView: View {
 //                }
 //            }
             
-            MapViewRepresentable(
-                locationManager: locationManager,
-                storeSelectSheetViewModel: storeSelectSheetViewModel
-            )
-            .ignoresSafeArea()
+//            MapViewWrapper(
+//                locationManager: locationManager,
+//                storeSelectSheetViewModel: storeSelectSheetViewModel
+//            )
+//            .ignoresSafeArea()
+            
+            if let current = locationManager.currentLocation {
+                let region = MKCoordinateRegion(
+                    center: CLLocationCoordinate2D(
+                        latitude: current.coordinate.latitude,
+                        longitude: current.coordinate.longitude
+                    ),
+                    span: MKCoordinateSpan(latitudeDelta: 0.18, longitudeDelta: 0.18)
+                )
+                
+                MapViewControllerWrapper(
+                    region: region,
+                    locationManager: locationManager,
+                    storeSelectSheetViewModel: storeSelectSheetViewModel
+                )
+            } else {
+                ProgressView("Loading map...")
+            }
         }
     }
 }
