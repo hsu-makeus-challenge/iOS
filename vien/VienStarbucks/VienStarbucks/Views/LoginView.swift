@@ -84,7 +84,7 @@ struct IdPwdView: View {
 
 struct LoginButtonView: View {
     @ObservedObject var loginViewModel: LoginViewModel
-    
+
     var body: some View {
         Button(action: {
             print("ID: \(loginViewModel.id)")
@@ -100,6 +100,40 @@ struct LoginButtonView: View {
         }
     }
 }
+
+struct KakaoLoginButton: View {
+    var body: some View {
+        Button {
+            let clientID = "당신의 REST API 키"
+            let redirectURI = "myapp://oauth"
+            
+            let urlString = "https://kauth.kakao.com/oauth/authorize?client_id=\(clientID)&redirect_uri=\(redirectURI)&response_type=code"
+            
+            
+            print("👉 URL: \(urlString)") // ✅ 찍어보자
+
+            
+            if let url = URL(string: urlString) {
+                UIApplication.shared.open(url)
+            }
+        } label: {
+            HStack {
+                Image(systemName: "message.fill")
+                Spacer()
+                Text("카카오 로그인")
+                    .font(.headline)
+                    .foregroundColor(.black)
+                Spacer()
+            }
+            .padding()
+        }
+        .frame(height: 50)
+        .background(Color.yellow)
+        .cornerRadius(10)
+        .padding(.horizontal, 40)
+    }
+}
+
 
 struct SignUpView: View {
     var body: some View {

@@ -6,7 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		826C41A02DD13F09000C5BE5 /* KakaoAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826C419F2DD13F04000C5BE5 /* KakaoAuthManager.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		826C419F2DD13F04000C5BE5 /* KakaoAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthManager.swift; sourceTree = "<group>"; };
 		82BAA8542D8C4D7900F8FB43 /* VienStarbucks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VienStarbucks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -107,6 +112,7 @@
 		82BAA84B2D8C4D7900F8FB43 = {
 			isa = PBXGroup;
 			children = (
+				826C419F2DD13F04000C5BE5 /* KakaoAuthManager.swift */,
 				82B60F492DA018A400F48140 /* Signup */,
 				82B60F442DA0185F00F48140 /* Login */,
 				82BAA8562D8C4D7900F8FB43 /* VienStarbucks */,
@@ -196,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				826C41A02DD13F09000C5BE5 /* KakaoAuthManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +336,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VienStarbucks/Preview Content\"";
+				DEVELOPMENT_TEAM = VRLZVZ52F5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VienStarbucks/Info.plist;
@@ -358,6 +366,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VienStarbucks/Preview Content\"";
+				DEVELOPMENT_TEAM = VRLZVZ52F5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VienStarbucks/Info.plist;
