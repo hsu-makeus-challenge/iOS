@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 @Observable
 class LoginViewModel {
@@ -49,5 +50,14 @@ class LoginViewModel {
         router.push(.signup(title: title))
     }
     
-    
+    func kakaoLoginWithRestAPI() {
+        let kakoAPIKey = Config.kakaoAPIKey
+        let redirectURI = Config.redirectURI
+        
+        let loginURL = Config.kakaoLoginBaseURL + "?response_type=code&client_id=\(kakoAPIKey)&redirect_uri=\(redirectURI)"
+        
+        if let url = URL(string: loginURL) {
+            UIApplication.shared.open(url)
+        }
+    }
 }
