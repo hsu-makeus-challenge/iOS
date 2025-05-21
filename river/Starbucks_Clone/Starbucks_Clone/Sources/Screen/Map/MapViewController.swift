@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import SnapKit
 
 class MapViewController: UIViewController {
     
@@ -33,6 +34,7 @@ class MapViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupMapView()
+        setupView()
         setupLayout()
     }
     
@@ -51,27 +53,30 @@ class MapViewController: UIViewController {
         mapView.userTrackingMode = .none
     }
     
+    private func setupView() {
+        guard let trackingButton = trackingButton else {
+            print("No tracking button")
+            return
+        }
+        view.addSubview(mapView)
+        mapView.addSubview(trackingButton)
+    }
+    
     private func setupLayout() {
         guard let trackingButton = trackingButton else {
             print("No tracking button")
             return
         }
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        trackingButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(mapView)
         
-        mapView.addSubview(trackingButton)
-
-        NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: view.topAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            // FIXME: 레이아웃 위치 수정하기
-            trackingButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -16),
-            trackingButton.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -32)
-        ])
+        mapView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        trackingButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset( -30)
+            make.bottom.equalToSuperview().offset(-30)
+            make.width.height.equalTo(40)
+        }
     }
 }
 
