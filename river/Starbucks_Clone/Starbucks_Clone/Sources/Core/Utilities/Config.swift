@@ -35,4 +35,11 @@ enum Config {
         }
         return redirectURI
     }()
+    
+    static let osrmURL: String = {
+        guard let url = Config.infoDictionary["OSRM_URL"] as? String else {
+            fatalError()
+        }
+        return url
+    }()
 }
