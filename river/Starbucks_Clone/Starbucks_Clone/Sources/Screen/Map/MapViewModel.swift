@@ -17,7 +17,7 @@ class MapViewModel {
         Coordinator(latitude: 37.501546, longitude: 126.882223)
     ]
     
-    init(provider: MoyaProvider<OsrmAPI> = APIManager.shared.createProvider(for: OsrmAPI.self)) {
+    init(provider: MoyaProvider<OsrmAPI> = APIManager.shared.testProvider(for: OsrmAPI.self)) {
         self.provider = provider
     }
     

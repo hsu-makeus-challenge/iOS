@@ -64,4 +64,29 @@ extension OsrmAPI {
             )
         }
     }
+    
+    var sampleData: Data {
+        switch self {
+        case .requestRoute:
+            let json = """
+            {
+              "routes": [
+                {
+                  "geometry": {
+                    "coordinates": [
+                      [126.867394, 37.499588],
+                      [126.882223, 37.501546]
+                    ],
+                    "type": "LineString"
+                  },
+                  "distance": 1500.0,
+                  "duration": 300.0
+                }
+              ],
+              "code": "Ok"
+            }
+            """
+            return Data(json.utf8)
+        }
+    }
 }

@@ -14,6 +14,7 @@ class MapViewController: UIViewController {
     var regionToSet: MKCoordinateRegion?
 //    var onUserInteractionChanged: ((Bool) -> Void)?
 //    private var isSystemAnimationFlag: Bool = true
+    private let trackingButton: MKUserTrackingButton?
     
     init(
         mapView: MKMapView,
@@ -21,6 +22,7 @@ class MapViewController: UIViewController {
     ) {
         self.mapView = mapView
         self.regionToSet = regionToSet
+        self.trackingButton = MKUserTrackingButton(mapView: mapView)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -50,14 +52,25 @@ class MapViewController: UIViewController {
     }
     
     private func setupLayout() {
+        guard let trackingButton = trackingButton else {
+            print("No tracking button")
+            return
+        }
         mapView.translatesAutoresizingMaskIntoConstraints = false
+        trackingButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mapView)
+        
+        mapView.addSubview(trackingButton)
 
         NSLayoutConstraint.activate([
             mapView.topAnchor.constraint(equalTo: view.topAnchor),
             mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            // FIXME: 레이아웃 위치 수정하기
+            trackingButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -16),
+            trackingButton.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -32)
         ])
     }
 }
