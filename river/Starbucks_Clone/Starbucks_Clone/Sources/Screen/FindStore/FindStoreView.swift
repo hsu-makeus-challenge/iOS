@@ -8,9 +8,17 @@
 import SwiftUI
 
 struct FindStoreView: View {
-    @State private var findStoreViewModel: FindStoreViewModel = .init()
-    @State private var locationManager = LocationManager.shared
+    @Bindable private var findStoreViewModel: FindStoreViewModel
+    @State private var locationManager: LocationManager
     @State private var tabState: FindStoreTabState = .findStore
+    
+    init(
+        findStoreViewModel: FindStoreViewModel,
+        locationManager: LocationManager
+    ) {
+        self.findStoreViewModel = findStoreViewModel
+        self.locationManager = locationManager
+    }
     
     var body: some View {
         VStack {
@@ -70,6 +78,7 @@ fileprivate struct HeaderSegmentView: View {
 }
 
 fileprivate struct FindStoreMapView: View {
+    @Namespace private var underlineSegmentedBar
     @Bindable private var findStoreViewModel: FindStoreViewModel
     @Binding private var tabState: FindStoreTabState
     @Bindable private var locationManager = LocationManager.shared
@@ -85,24 +94,24 @@ fileprivate struct FindStoreMapView: View {
     }
     
     fileprivate var body: some View {
-        TabView(selection: $tabState) {
-            MapView(
-                viewModel: findStoreViewModel,
-                locationManager: locationManager
-            )
-            .tag(FindStoreTabState.findStore)
-            
-            Text("Good")
-                .tag(FindStoreTabState.directions)
+        Group {
+            if tabState == .findStore {
+                MapView(
+                    viewModel: findStoreViewModel,
+                    locationManager: locationManager
+                )
+            } else if tabState == .directions {
+                Text("directions")
+                    .padding()
+            }
         }
-        .tabViewStyle(.page(indexDisplayMode: .never))
-        .animation(
-            .easeInOut(duration: 0.5),
-            value: tabState
+        .matchedGeometryEffect(
+            id: "underline",
+            in: underlineSegmentedBar
         )
     }
 }
 
 #Preview {
-    FindStoreView()
+    FindStoreView(findStoreViewModel: .init(), locationManager: .shared)
 }

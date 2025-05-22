@@ -17,6 +17,7 @@ struct ContentView: View {
     
     /// SplashView 노출 여부를 관리하는 상태 값
     @State private var showSplash: Bool = true
+    @State private var locationManager = LocationManager.shared
     
     init() {
         GlobalNavigationBarStyle.apply()
@@ -89,7 +90,10 @@ struct ContentView: View {
                 case .receipt:
                     ReceiptView()
                 case .findStore:
-                    FindStoreView()
+                    FindStoreView(
+                        findStoreViewModel: .init(),
+                        locationManager: locationManager
+                    )
                 }
             }
         }

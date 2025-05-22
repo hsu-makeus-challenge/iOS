@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 @Observable
-class StoreSelectSheetViewModel: StoreAnnotationProvidable {
+class StoreSelectSheetViewModel: MapControllable {
     private var router: NavigationRouter
     
     init(router: NavigationRouter) {
@@ -25,6 +25,10 @@ class StoreSelectSheetViewModel: StoreAnnotationProvidable {
     
     var sortedStoreList: [StoreList] {
         storeSheetModel.sorted(by: storeSortType)
+    }
+    
+    var nearbyStores: [StoreList] {
+        storeList.filter { $0.distance < 10 }
     }
     
     func loadStarbucksStores() {

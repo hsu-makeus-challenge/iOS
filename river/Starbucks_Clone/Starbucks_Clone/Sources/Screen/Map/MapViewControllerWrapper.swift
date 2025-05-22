@@ -32,18 +32,10 @@ struct MapViewControllerWrapper<ViewModel: MapControllable>: UIViewControllerRep
         _ uiViewController: MapViewController,
         context: Context
     ) {
-        guard let storeSelectSheetViewModel = viewModel as? StoreSelectSheetViewModel else {
-            print("StoreSelectSheetViewModel 다운 캐스팅 실패")
-            return
-        }
-        let nearbyStores = storeSelectSheetViewModel.storeList.filter {
-            $0.distance <= 10.0 // 거리가 10Km 이하인 매장만 필터링
-        }
-        
         uiViewController.mapView.removeAnnotations(
             uiViewController.mapView.annotations
         )
-        let annotations = nearbyStores.map { store -> MKPointAnnotation in
+        let annotations = viewModel.nearbyStores.map { store -> MKPointAnnotation in
             let annotation = MKPointAnnotation()
             annotation.title = store.title
             annotation.coordinate = CLLocationCoordinate2D(
