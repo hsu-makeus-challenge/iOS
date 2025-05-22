@@ -6,17 +6,24 @@
 //
 
 import Foundation
+import CoreLocation
 
 @Observable
-class FindStoreViewModel: MapControllable {
-    
-    var storeSheetModel: StoreSheetModel = .init(storeList: [])
-    
-    var storeList: [StoreList] {
-        storeSheetModel.storeList
+class FindStoreViewModel: BaseMapViewModel {
+    override func loadStarbucksStores() {
+        JSONFileLoader.shared.load(
+            named: "스타벅스_2025 데이터",
+            fileExtension: "geojson"
+        ) { [weak self] (result: Result<StarbucksGeoJSON, Error>) in
+            guard let self = self else { return }
+            switch result {
+            case .success(let model):
+                self.storeSheetModel.storeList = self.makeStoreList(from: model.features)
+            case .failure(let error):
+                print("error: \(error.localizedDescription)")
+            }
+        }
     }
     
-    var nearbyStores: [StoreList] {
-        storeList.filter { $0.distance < 10 }
-    }
+    
 }

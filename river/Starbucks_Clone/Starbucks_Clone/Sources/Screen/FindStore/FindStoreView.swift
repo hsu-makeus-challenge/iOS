@@ -18,6 +18,7 @@ struct FindStoreView: View {
     ) {
         self.findStoreViewModel = findStoreViewModel
         self.locationManager = locationManager
+        self.findStoreViewModel.loadStarbucksStores()
     }
     
     var body: some View {

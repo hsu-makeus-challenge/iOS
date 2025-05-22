@@ -14,4 +14,7 @@ protocol MapControllable: Observable, AnyObject {
     var storeList: [StoreList] { get }
     
     var nearbyStores: [StoreList] { get }
+    
+    /// 스타벅스 위치 정보 로드하는 함수(GeoJson 파싱)
+    func loadStarbucksStores()
 }
