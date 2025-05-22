@@ -9,11 +9,11 @@ import UIKit
 import SwiftUI
 import MapKit
 
-struct MapViewControllerWrapper: UIViewControllerRepresentable {
+struct MapViewControllerWrapper<ViewModel: MapControllable>: UIViewControllerRepresentable {
     private let mapView = MKMapView()
     let region: MKCoordinateRegion
     @Bindable var locationManager: LocationManager
-    @Bindable var storeSelectSheetViewModel: StoreSelectSheetViewModel
+    @Bindable var viewModel: ViewModel
     @Binding var isUserInteracting: Bool
     @Binding var isSystemAnimationFlag: Bool
     
@@ -32,6 +32,10 @@ struct MapViewControllerWrapper: UIViewControllerRepresentable {
         _ uiViewController: MapViewController,
         context: Context
     ) {
+        guard let storeSelectSheetViewModel = viewModel as? StoreSelectSheetViewModel else {
+            print("StoreSelectSheetViewModel 다운 캐스팅 실패")
+            return
+        }
         let nearbyStores = storeSelectSheetViewModel.storeList.filter {
             $0.distance <= 10.0 // 거리가 10Km 이하인 매장만 필터링
         }

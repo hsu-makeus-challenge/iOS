@@ -32,7 +32,7 @@ struct StoreSelectSheetView: View {
             
             if showMap {
                 MapView(
-                    storeSelectSheetViewModel: storeSelectSheetViewModel,
+                    viewModel: storeSelectSheetViewModel,
                     locationManager: locationManager
                 )
             } else {

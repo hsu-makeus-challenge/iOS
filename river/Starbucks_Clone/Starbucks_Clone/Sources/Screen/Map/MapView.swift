@@ -8,17 +8,17 @@
 import SwiftUI
 import MapKit
 
-struct MapView: View {
+struct MapView<ViewModel: MapControllable>: View {
     @Bindable private var locationManager: LocationManager
-    @Bindable private var storeSelectSheetViewModel: StoreSelectSheetViewModel
+    @Bindable private var viewModel: ViewModel
     @State private var isUserInteracting: Bool = false
     @State private var isSystemAnimationFlag: Bool = true
     
     init(
-        storeSelectSheetViewModel: StoreSelectSheetViewModel,
+        viewModel: ViewModel,
         locationManager: LocationManager
     ) {
-        self.storeSelectSheetViewModel = storeSelectSheetViewModel
+        self._viewModel = Bindable(wrappedValue: viewModel)
         self.locationManager = locationManager
     }
 
@@ -36,7 +36,7 @@ struct MapView: View {
                 MapViewControllerWrapper(
                     region: region,
                     locationManager: locationManager,
-                    storeSelectSheetViewModel: storeSelectSheetViewModel,
+                    viewModel: viewModel,
                     isUserInteracting: $isUserInteracting,
                     isSystemAnimationFlag: $isSystemAnimationFlag
                 )

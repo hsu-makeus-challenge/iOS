@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct FindStoreView: View {
+    @State private var locationManager = LocationManager.shared
     @State private var tabState: FindStoreTabState = .findStore
     
     var body: some View {
         VStack {
             HeaderSegmentView(tabState: $tabState)
+            
+            FindStoreMapView(tabState: $tabState, locationManager: locationManager)
         }
     }
 }
@@ -58,6 +61,33 @@ fileprivate struct HeaderSegmentView: View {
                 }
             }
         }
+    }
+}
+
+fileprivate struct FindStoreMapView: View {
+    @Binding private var tabState: FindStoreTabState
+    @Bindable private var locationManager = LocationManager.shared
+    
+    init(
+        tabState: Binding<FindStoreTabState>,
+        locationManager: LocationManager
+    ) {
+        self._tabState = tabState
+        self.locationManager = locationManager
+    }
+    
+    fileprivate var body: some View {
+        TabView(selection: $tabState) {
+            Text("Map")
+            .tag(FindStoreTabState.findStore)
+            Text("Good")
+                .tag(FindStoreTabState.directions)
+        }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .animation(
+            .easeInOut(duration: 0.5),
+            value: tabState
+        )
     }
 }
 

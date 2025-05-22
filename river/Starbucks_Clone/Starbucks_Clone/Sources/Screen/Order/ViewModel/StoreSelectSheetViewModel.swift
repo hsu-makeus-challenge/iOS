@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 @Observable
-class StoreSelectSheetViewModel {
+class StoreSelectSheetViewModel: StoreAnnotationProvidable {
     private var router: NavigationRouter
     
     init(router: NavigationRouter) {
