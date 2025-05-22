@@ -88,6 +88,8 @@ struct ContentView: View {
                         }
                 case .receipt:
                     ReceiptView()
+                case .findStore:
+                    FindStoreView()
                 }
             }
         }

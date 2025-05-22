@@ -18,4 +18,8 @@ class OtherViewModel {
     func navigateToReciept() {
         router.push(.receipt)
     }
+    
+    func navigateToFindStore() {
+        router.push(.findStore)
+    }
 }

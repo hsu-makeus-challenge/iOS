@@ -8,6 +8,6 @@
 import Foundation
 
 @Observable
-class FindStoreViewModel {
+class FindStoreViewModel: MapControllable {
     
 }
