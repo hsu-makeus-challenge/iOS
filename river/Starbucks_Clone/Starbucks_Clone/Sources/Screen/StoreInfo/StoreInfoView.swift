@@ -116,11 +116,17 @@ fileprivate struct StoreDirectionView: View {
     }
 }
 
+enum SearchType {
+    case startedLocation
+    case finishedLocation
+}
+
 // MARK: 출발-도착지 입력 뷰
 fileprivate struct StoreDirectionContentView: View {
     @Bindable private var storeInfoViewModel: StoreInfoViewModel
     @State private var startLocationTextField: String = ""
     @State private var finishedLocationTextField: String = ""
+    @State private var searchType: SearchType = .startedLocation
     
     init(
         storeInfoViewModel: StoreInfoViewModel
@@ -145,7 +151,12 @@ fileprivate struct StoreDirectionContentView: View {
             }
             .padding(.horizontal, 31)
             
-            FindStoreListView(storeInfoViewModel: storeInfoViewModel)
+            FindStoreListView(
+                storeInfoViewModel: storeInfoViewModel,
+                searchType: $searchType,
+                startLocationTextField: $startLocationTextField,
+                finishedLocationTextField: $finishedLocationTextField
+            )
         }
     }
     
@@ -185,6 +196,7 @@ fileprivate struct StoreDirectionContentView: View {
                     Task {
                         await storeInfoViewModel.addressSearchWithKakao(startLocationTextField)
                     }
+                    searchType = .startedLocation
                 } else {
                     print("출발 장소를 입력해 주세요")
                 }
@@ -215,6 +227,7 @@ fileprivate struct StoreDirectionContentView: View {
                     Task {
                         await storeInfoViewModel.addressSearchWithKakao(finishedLocationTextField)
                     }
+                    searchType = .finishedLocation
                 } else {
                     print("출발 장소를 입력해 주세요")
                 }
@@ -245,26 +258,49 @@ fileprivate struct FindLocationBtnView: View {
 
 fileprivate struct FindStoreListView: View {
     @Bindable private var storeInfoViewModel: StoreInfoViewModel
+    @Binding private var searchType: SearchType
+    @Binding private var startLocationTextField: String
+    @Binding private var finishedLocationTextField: String
     
     init(
-        storeInfoViewModel: StoreInfoViewModel
+        storeInfoViewModel: StoreInfoViewModel,
+        searchType: Binding<SearchType>,
+        startLocationTextField: Binding<String>,
+        finishedLocationTextField: Binding<String>
     ) {
         self.storeInfoViewModel = storeInfoViewModel
+        self._searchType = searchType
+        self._startLocationTextField = startLocationTextField
+        self._finishedLocationTextField = finishedLocationTextField
     }
     
     fileprivate var body: some View {
         List(storeInfoViewModel.searchPlaceList, id: \.id) { place in
-            VStack(alignment: .leading, spacing: 8) {
-                Text("\(place.name)")
-                    .font(.mainTextMedium16)
-                    .foregroundStyle(Color(.black01))
-                
-                Text("\(place.address)")
-                    .font(.mainTextSemiBold14)
-                    .foregroundStyle(Color(.gray04))
+            Button {
+                switch searchType {
+                case .startedLocation:
+                    startLocationTextField = place.name
+                case .finishedLocation:
+                    finishedLocationTextField = place.name
+                }
+            } label: {
+                searchPlaceResultView(place)
             }
+
         }
         .listStyle(.plain)
+    }
+    
+    private func searchPlaceResultView(_ place: StoreInfoModel) -> some View {
+        return VStack(alignment: .leading, spacing: 8) {
+            Text("\(place.name)")
+                .font(.mainTextMedium16)
+                .foregroundStyle(Color(.black01))
+            
+            Text("\(place.address)")
+                .font(.mainTextSemiBold14)
+                .foregroundStyle(Color(.gray04))
+        }
     }
 }
 
