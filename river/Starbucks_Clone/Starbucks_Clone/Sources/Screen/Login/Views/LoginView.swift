@@ -177,7 +177,7 @@ struct SocialLoginButtonView: View {
     
     private var kakaoLoginButtonView: some View {
         Button {
-            loginViewModel.kakaoLoginWithRestAPI()
+            //
         } label: {
             HStack {
                 Image(.kakaoLogo)

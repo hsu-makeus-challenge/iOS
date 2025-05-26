@@ -7,15 +7,21 @@
 
 import Foundation
 import CoreLocation
+import Moya
 
 @Observable
 class StoreInfoViewModel: BaseMapViewModel {
     private let locationManager: LocationManager
+    private let provider: MoyaProvider<KakaoAPI>
     
     var currentAddress: String?
     
-    init(locationManager: LocationManager) {
+    init(
+        provider: MoyaProvider<KakaoAPI> = APIManager.shared.createProvider(for: KakaoAPI.self),
+        locationManager: LocationManager
+    ) {
         self.locationManager = locationManager
+        self.provider = provider
     }
     
     override func loadStarbucksStores() {
@@ -33,10 +39,26 @@ class StoreInfoViewModel: BaseMapViewModel {
         }
     }
     
-    func getCurrentLocationAddress() {
+    func getCurrentLocationAddress() async {
         guard let currentLocation = locationManager.currentLocation else { return }
-        Task {
+        do {
             currentAddress = try await GeocodingManager.shared.reverseGeoCode(with: currentLocation)
+        } catch {
+            print("지오코딩 실패: \(error.localizedDescription)")
+        }
+    }
+    
+    func addressSearchWithKakao(_ keyword: String) async {
+        do {
+            let response = try await provider.requestAsync(.addressSearch(query: keyword))
+            guard (200..<300).contains(response.statusCode) else {
+                print("API 실패 상태 코드: \(response.statusCode)")
+                return
+            }
+            let result = try JSONDecoder().decode(KakaoPlaceSearchResponse.self, from: response.data)
+            print(result.documents)
+        } catch {
+            print("Error: \(error.localizedDescription)")
         }
     }
 }

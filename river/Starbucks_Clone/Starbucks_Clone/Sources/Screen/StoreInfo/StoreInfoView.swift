@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StoreInfoView: View {
     @Bindable private var storeInfoViewModel: StoreInfoViewModel
-    @State private var tabState: FindStoreTabState = .findStore
+    @State private var tabState: StoreInfoTabState = .findStore
     
     init(
         storeInfoViewModel: StoreInfoViewModel
@@ -38,15 +38,15 @@ struct StoreInfoView: View {
 
 fileprivate struct HeaderSegmentView: View {
     @Namespace private var underlineSegmentedBar
-    @Binding private var tabState: FindStoreTabState
+    @Binding private var tabState: StoreInfoTabState
     
-    init(tabState: Binding<FindStoreTabState>) {
+    init(tabState: Binding<StoreInfoTabState>) {
         self._tabState = tabState
     }
     
     fileprivate var body: some View {
         HStack {
-            ForEach(FindStoreTabState.allCases) { state in
+            ForEach(StoreInfoTabState.allCases) { state in
                 Button {
                     withAnimation {
                         tabState = state
@@ -84,11 +84,11 @@ fileprivate struct HeaderSegmentView: View {
 fileprivate struct StoreDirectionView: View {
     @Namespace private var underlineSegmentedBar
     @Bindable private var storeInfoViewModel: StoreInfoViewModel
-    @Binding private var tabState: FindStoreTabState
+    @Binding private var tabState: StoreInfoTabState
     
     init(
         storeInfoViewModel: StoreInfoViewModel,
-        tabState: Binding<FindStoreTabState>
+        tabState: Binding<StoreInfoTabState>
     ) {
         self.storeInfoViewModel = storeInfoViewModel
         self._tabState = tabState
@@ -156,7 +156,9 @@ fileprivate struct StoreDirectionContentView: View {
             Spacer().frame(width: 15)
             
             Button {
-                storeInfoViewModel.getCurrentLocationAddress()
+                Task {
+                    await storeInfoViewModel.getCurrentLocationAddress()
+                }
                 if let currentAddress = storeInfoViewModel.currentAddress {
                     startLocationTextField = currentAddress
                 }
@@ -176,9 +178,19 @@ fileprivate struct StoreDirectionContentView: View {
             
             Spacer().frame(width: 8)
             
-            Image(.searchIcon)
-                .resizable()
-                .frame(width: 20, height: 20)
+            Button {
+                if startLocationTextField != "" {
+                    Task {
+                        await storeInfoViewModel.addressSearchWithKakao(startLocationTextField)
+                    }
+                } else {
+                    print("출발 장소를 입력해 주세요")
+                }
+            } label: {
+                Image(.searchIcon)
+                    .resizable()
+                    .frame(width: 20, height: 20)
+            }
         }
     }
     

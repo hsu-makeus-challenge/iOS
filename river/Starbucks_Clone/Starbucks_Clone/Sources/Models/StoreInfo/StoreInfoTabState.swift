@@ -1,5 +1,5 @@
 //
-//  FindStoreTabState.swift
+//  StoreInfoTabState.swift
 //  Starbucks_Clone
 //
 //  Created by jaewon Lee on 5/22/25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum FindStoreTabState: Int, CaseIterable, Identifiable {
+enum StoreInfoTabState: Int, CaseIterable, Identifiable {
     case findStore = 0
     case directions = 1
     
