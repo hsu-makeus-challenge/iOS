@@ -1,5 +1,5 @@
 //
-//  FindStoreViewModel.swift
+//  StoreInfoViewModel.swift
 //  Starbucks_Clone
 //
 //  Created by jaewon Lee on 5/22/25.
@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 @Observable
-class FindStoreViewModel: BaseMapViewModel {
+class StoreInfoViewModel: BaseMapViewModel {
     override func loadStarbucksStores() {
         JSONFileLoader.shared.load(
             named: "스타벅스_2025 데이터",
