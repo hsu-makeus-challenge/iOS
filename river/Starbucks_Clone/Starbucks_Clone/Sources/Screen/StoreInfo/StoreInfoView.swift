@@ -106,7 +106,7 @@ fileprivate struct StoreDirectionView: View {
 //                FindLocationView()
 //            }
             VStack {
-                StoreDirectionContentView()
+                StoreDirectionContentView(storeInfoViewModel: storeInfoViewModel)
             }
         }
         .matchedGeometryEffect(
@@ -118,8 +118,15 @@ fileprivate struct StoreDirectionView: View {
 
 // MARK: 출발-도착지 입력 뷰
 fileprivate struct StoreDirectionContentView: View {
+    @Bindable private var storeInfoViewModel: StoreInfoViewModel
     @State private var startLocationTextField: String = ""
     @State private var finishedLocationTextField: String = ""
+    
+    init(
+        storeInfoViewModel: StoreInfoViewModel
+    ) {
+        self.storeInfoViewModel = storeInfoViewModel
+    }
     
     fileprivate var body: some View {
         VStack {
@@ -149,7 +156,10 @@ fileprivate struct StoreDirectionContentView: View {
             Spacer().frame(width: 15)
             
             Button {
-                print("current location")
+                storeInfoViewModel.getCurrentLocationAddress()
+                if let currentAddress = storeInfoViewModel.currentAddress {
+                    startLocationTextField = currentAddress
+                }
             } label: {
                 Text("현재위치")
                     .font(.mainTextSemiBold16)

@@ -12,6 +12,8 @@ import CoreLocation
 class StoreInfoViewModel: BaseMapViewModel {
     private let locationManager: LocationManager
     
+    var currentAddress: String?
+    
     init(locationManager: LocationManager) {
         self.locationManager = locationManager
     }
@@ -31,5 +33,10 @@ class StoreInfoViewModel: BaseMapViewModel {
         }
     }
     
-    
+    func getCurrentLocationAddress() {
+        guard let currentLocation = locationManager.currentLocation else { return }
+        Task {
+            currentAddress = try await GeocodingManager.shared.reverseGeoCode(with: currentLocation)
+        }
+    }
 }
