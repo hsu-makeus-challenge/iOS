@@ -116,17 +116,10 @@ fileprivate struct StoreDirectionView: View {
     }
 }
 
-enum SearchType {
-    case startedLocation
-    case finishedLocation
-}
-
 // MARK: 출발-도착지 입력 뷰
 fileprivate struct StoreDirectionContentView: View {
     @Bindable private var storeInfoViewModel: StoreInfoViewModel
-    @State private var startLocationTextField: String = ""
-    @State private var finishedLocationTextField: String = ""
-    @State private var searchType: SearchType = .startedLocation
+    @State private var storeSearchState = StoreSearchState()
     
     init(
         storeInfoViewModel: StoreInfoViewModel
@@ -153,9 +146,7 @@ fileprivate struct StoreDirectionContentView: View {
             
             FindStoreListView(
                 storeInfoViewModel: storeInfoViewModel,
-                searchType: $searchType,
-                startLocationTextField: $startLocationTextField,
-                finishedLocationTextField: $finishedLocationTextField
+                storeSearchState: $storeSearchState
             )
         }
     }
@@ -173,7 +164,7 @@ fileprivate struct StoreDirectionContentView: View {
                     await storeInfoViewModel.getCurrentLocationAddress()
                 }
                 if let currentAddress = storeInfoViewModel.currentAddress {
-                    startLocationTextField = currentAddress
+                    storeSearchState.startAddress = currentAddress
                 }
             } label: {
                 Text("현재위치")
@@ -185,18 +176,20 @@ fileprivate struct StoreDirectionContentView: View {
             .background(Color(.brown01))
             .clipShape(RoundedRectangle(cornerRadius: 6))
             
-            TextField("출발지 입력", text: $startLocationTextField)
+            TextField("출발지 입력", text: $storeSearchState.startAddress)
                 .frame(height: 30)
                 .textFieldStyle(.roundedBorder)
             
             Spacer().frame(width: 8)
             
             Button {
-                if startLocationTextField != "" {
+                if storeSearchState.startAddress != "" {
                     Task {
-                        await storeInfoViewModel.addressSearchWithKakao(startLocationTextField)
+                        await storeInfoViewModel.addressSearchWithKakao(
+                            storeSearchState.startAddress
+                        )
                     }
-                    searchType = .startedLocation
+                    storeSearchState.searchType = .startedLocation
                 } else {
                     print("출발 장소를 입력해 주세요")
                 }
@@ -216,18 +209,20 @@ fileprivate struct StoreDirectionContentView: View {
             
             Spacer().frame(width: 15)
             
-            TextField("출발지 입력", text: $finishedLocationTextField)
+            TextField("출발지 입력", text: $storeSearchState.finishAddress)
                 .frame(height: 30)
                 .textFieldStyle(.roundedBorder)
             
             Spacer().frame(width: 8)
             
             Button {
-                if finishedLocationTextField != "" {
+                if storeSearchState.finishAddress != "" {
                     Task {
-                        await storeInfoViewModel.addressSearchWithKakao(finishedLocationTextField)
+                        await storeInfoViewModel.addressSearchWithKakao(
+                            storeSearchState.finishAddress
+                        )
                     }
-                    searchType = .finishedLocation
+                    storeSearchState.searchType = .finishedLocation
                 } else {
                     print("출발 장소를 입력해 주세요")
                 }
@@ -258,30 +253,24 @@ fileprivate struct FindLocationBtnView: View {
 
 fileprivate struct FindStoreListView: View {
     @Bindable private var storeInfoViewModel: StoreInfoViewModel
-    @Binding private var searchType: SearchType
-    @Binding private var startLocationTextField: String
-    @Binding private var finishedLocationTextField: String
+    @Binding private var storeSearchState: StoreSearchState
     
     init(
         storeInfoViewModel: StoreInfoViewModel,
-        searchType: Binding<SearchType>,
-        startLocationTextField: Binding<String>,
-        finishedLocationTextField: Binding<String>
+        storeSearchState: Binding<StoreSearchState>
     ) {
         self.storeInfoViewModel = storeInfoViewModel
-        self._searchType = searchType
-        self._startLocationTextField = startLocationTextField
-        self._finishedLocationTextField = finishedLocationTextField
+        self._storeSearchState = storeSearchState
     }
     
     fileprivate var body: some View {
         List(storeInfoViewModel.searchPlaceList, id: \.id) { place in
             Button {
-                switch searchType {
+                switch storeSearchState.searchType {
                 case .startedLocation:
-                    startLocationTextField = place.name
+                    storeSearchState.startAddress = place.name
                 case .finishedLocation:
-                    finishedLocationTextField = place.name
+                    storeSearchState.finishAddress = place.name
                 }
             } label: {
                 searchPlaceResultView(place)
