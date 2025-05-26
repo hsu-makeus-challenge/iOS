@@ -6,7 +6,8 @@ struct StarbucksCloneApp: App {
     @StateObject private var appEnvironment = AppEnvironment(
         router: NavigationRouter(),
         authService: AuthService(),
-        authStore: AuthStore()
+        authStore: AuthStore(),
+        locationManager: .shared
     )
     
     var body: some Scene {

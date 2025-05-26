@@ -9,15 +9,12 @@ import SwiftUI
 
 struct StoreInfoView: View {
     @Bindable private var storeInfoViewModel: StoreInfoViewModel
-    @State private var locationManager: LocationManager
     @State private var tabState: FindStoreTabState = .findStore
     
     init(
-        storeInfoViewModel: StoreInfoViewModel,
-        locationManager: LocationManager
+        storeInfoViewModel: StoreInfoViewModel
     ) {
         self.storeInfoViewModel = storeInfoViewModel
-        self.locationManager = locationManager
         self.storeInfoViewModel.loadStarbucksStores()
     }
     
@@ -33,8 +30,7 @@ struct StoreInfoView: View {
             
             StoreDirectionView(
                 storeInfoViewModel: storeInfoViewModel,
-                tabState: $tabState,
-                locationManager: locationManager
+                tabState: $tabState
             )
         }
     }
@@ -89,16 +85,13 @@ fileprivate struct StoreDirectionView: View {
     @Namespace private var underlineSegmentedBar
     @Bindable private var storeInfoViewModel: StoreInfoViewModel
     @Binding private var tabState: FindStoreTabState
-    @Bindable private var locationManager = LocationManager.shared
     
     init(
         storeInfoViewModel: StoreInfoViewModel,
-        tabState: Binding<FindStoreTabState>,
-        locationManager: LocationManager
+        tabState: Binding<FindStoreTabState>
     ) {
         self.storeInfoViewModel = storeInfoViewModel
         self._tabState = tabState
-        self.locationManager = locationManager
     }
     
     fileprivate var body: some View {
@@ -225,8 +218,5 @@ fileprivate struct FindStoreListView: View {
 }
 
 #Preview {
-    StoreInfoView(
-        storeInfoViewModel: .init(),
-        locationManager: .shared
-    )
+    StoreInfoView(storeInfoViewModel: .init(locationManager: .shared))
 }

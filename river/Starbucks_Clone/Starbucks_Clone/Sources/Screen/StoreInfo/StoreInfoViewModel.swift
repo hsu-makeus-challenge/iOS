@@ -10,6 +10,12 @@ import CoreLocation
 
 @Observable
 class StoreInfoViewModel: BaseMapViewModel {
+    private let locationManager: LocationManager
+    
+    init(locationManager: LocationManager) {
+        self.locationManager = locationManager
+    }
+    
     override func loadStarbucksStores() {
         JSONFileLoader.shared.load(
             named: "스타벅스_2025 데이터",

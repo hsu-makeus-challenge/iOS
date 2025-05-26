@@ -90,10 +90,7 @@ struct ContentView: View {
                 case .receipt:
                     ReceiptView()
                 case .findStore:
-                    StoreInfoView(
-                        storeInfoViewModel: .init(),
-                        locationManager: locationManager
-                    )
+                    StoreInfoView(storeInfoViewModel: env.makeStoreInfoViewModel())
                 }
             }
         }
