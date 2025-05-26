@@ -8,11 +8,11 @@
 import Foundation
 
 struct KakaoPlaceSearchResponse: Decodable {
-    let documents: [KakaoDocument]?
+    let documents: [KakaoSearchPlaceDocument]
     let meta: KakaoMeta?
 }
 
-struct KakaoDocument: Decodable {
+struct KakaoSearchPlaceDocument: Decodable {
     let id: String
     let placeName: String
     let categoryName: String

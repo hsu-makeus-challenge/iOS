@@ -130,21 +130,23 @@ fileprivate struct StoreDirectionContentView: View {
     
     fileprivate var body: some View {
         VStack {
-            startedLocationInput
+            Group {
+                startedLocationInput
+                
+                Spacer().frame(height: 13)
+                
+                finishedLocationInput
+                
+                Spacer().frame(height: 18)
+                
+                FindLocationBtnView()
+                
+                Spacer().frame(height: 28)
+            }
+            .padding(.horizontal, 31)
             
-            Spacer().frame(height: 13)
-            
-            finishedLocationInput
-            
-            Spacer().frame(height: 18)
-            
-            FindLocationBtnView()
-            
-            Spacer().frame(height: 28)
-            
-            FindStoreListView()
+            FindStoreListView(storeInfoViewModel: storeInfoViewModel)
         }
-        .padding(.horizontal, 31)
     }
     
     private var startedLocationInput: some View {
@@ -208,9 +210,20 @@ fileprivate struct StoreDirectionContentView: View {
             
             Spacer().frame(width: 8)
             
-            Image(.searchIcon)
-                .resizable()
-                .frame(width: 20, height: 20)
+            Button {
+                if finishedLocationTextField != "" {
+                    Task {
+                        await storeInfoViewModel.addressSearchWithKakao(finishedLocationTextField)
+                    }
+                } else {
+                    print("출발 장소를 입력해 주세요")
+                }
+            } label: {
+                Image(.searchIcon)
+                    .resizable()
+                    .frame(width: 20, height: 20)
+            }
+
         }
     }
 }
@@ -231,9 +244,25 @@ fileprivate struct FindLocationBtnView: View {
 }
 
 fileprivate struct FindStoreListView: View {
+    @Bindable private var storeInfoViewModel: StoreInfoViewModel
+    
+    init(
+        storeInfoViewModel: StoreInfoViewModel
+    ) {
+        self.storeInfoViewModel = storeInfoViewModel
+    }
+    
     fileprivate var body: some View {
-        List {
-            Color.blue
+        List(storeInfoViewModel.searchPlaceList, id: \.id) { place in
+            VStack(alignment: .leading, spacing: 8) {
+                Text("\(place.name)")
+                    .font(.mainTextMedium16)
+                    .foregroundStyle(Color(.black01))
+                
+                Text("\(place.address)")
+                    .font(.mainTextSemiBold14)
+                    .foregroundStyle(Color(.gray04))
+            }
         }
         .listStyle(.plain)
     }

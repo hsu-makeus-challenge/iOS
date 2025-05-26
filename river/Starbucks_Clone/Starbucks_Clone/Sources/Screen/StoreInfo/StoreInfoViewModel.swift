@@ -15,6 +15,7 @@ class StoreInfoViewModel: BaseMapViewModel {
     private let provider: MoyaProvider<KakaoAPI>
     
     var currentAddress: String?
+    var searchPlaceList: [StoreInfoModel] = []
     
     init(
         provider: MoyaProvider<KakaoAPI> = APIManager.shared.createProvider(for: KakaoAPI.self),
@@ -56,7 +57,12 @@ class StoreInfoViewModel: BaseMapViewModel {
                 return
             }
             let result = try JSONDecoder().decode(KakaoPlaceSearchResponse.self, from: response.data)
-            print(result.documents)
+            searchPlaceList = result.documents.map {
+                return StoreInfoModel(
+                    name: $0.placeName,
+                    address: $0.addressName
+                )
+            }
         } catch {
             print("Error: \(error.localizedDescription)")
         }
