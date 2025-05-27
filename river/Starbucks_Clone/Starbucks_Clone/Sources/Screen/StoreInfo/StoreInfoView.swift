@@ -15,7 +15,7 @@ struct StoreInfoView: View {
         storeInfoViewModel: StoreInfoViewModel
     ) {
         self.storeInfoViewModel = storeInfoViewModel
-        self.storeInfoViewModel.loadStarbucksStores()
+        self.storeInfoViewModel.loadStores()
     }
     
     var body: some View {

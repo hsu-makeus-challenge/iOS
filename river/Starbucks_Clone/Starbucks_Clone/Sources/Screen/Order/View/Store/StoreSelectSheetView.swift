@@ -16,7 +16,7 @@ struct StoreSelectSheetView: View {
     
     init(storeSelectSheetViewModel: StoreSelectSheetViewModel) {
         self.storeSelectSheetViewModel = storeSelectSheetViewModel
-        self.storeSelectSheetViewModel.loadStarbucksStores()
+        self.storeSelectSheetViewModel.loadStores()
     }
     
     var body: some View {
@@ -33,7 +33,7 @@ struct StoreSelectSheetView: View {
             if showMap {
                 MapView(
                     mapViewModel: env.makeMapViewModel(
-                        mapInteractable: storeSelectSheetViewModel
+                        storeProvider: storeSelectSheetViewModel
                     ))
             } else {
                 StoreListView(storeSelectSheetViewModel: storeSelectSheetViewModel)

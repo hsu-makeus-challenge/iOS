@@ -19,7 +19,7 @@ struct StoreListView: View {
     
     var body: some View {
         List(
-            storeSelectSheetViewModel.sortedStoreList,
+            storeSelectSheetViewModel.sortedStoreListWithDistance,
             id: \.id
         ) { store in
             StoreSelectRowView(store: store)
@@ -78,8 +78,4 @@ fileprivate struct StoreSelectRowView: View {
             }
         }
     }
-}
-
-#Preview {
-    StoreListView(storeSelectSheetViewModel: .init(router: AppEnvironment.previewEnv.router))
 }

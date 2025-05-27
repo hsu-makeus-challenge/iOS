@@ -13,7 +13,7 @@ import MapKit
 final class MapViewModel {
     private let provider: MoyaProvider<OsrmAPI>
     private let locationManager: LocationManager
-    private let mapInteractable: MapInteractable
+    private let storeProvider: StoreDataProvidable & NearbyStoreQueryable
     var region: MKCoordinateRegion? = nil
     
     private let coordinates = [
@@ -24,15 +24,15 @@ final class MapViewModel {
     init(
         provider: MoyaProvider<OsrmAPI> = APIManager.shared.testProvider(for: OsrmAPI.self),
         locationManager: LocationManager,
-        mapInteractable: MapInteractable
+        storeProvider: StoreDataProvidable & NearbyStoreQueryable
     ) {
-        self.mapInteractable = mapInteractable
+        self.storeProvider = storeProvider
         self.provider = provider
         self.locationManager = locationManager
     }
     
-    func getMapInteractable() -> MapInteractable {
-        return mapInteractable
+    func getStoreProvider() -> StoreDataProvidable & NearbyStoreQueryable {
+        return storeProvider
     }
     
     /// 현재 위치 받아온 후 region 생성하는 함수

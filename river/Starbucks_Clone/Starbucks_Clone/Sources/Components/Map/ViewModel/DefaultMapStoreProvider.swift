@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-class BaseMapViewModel: MapInteractable {
+class DefaultMapStoreProvider: StoreDataProvidable {
     var storeSheetModel: StoreSheetModel = .init(storeList: [])
     var storeSortType: StoreSortType = .distance
     
@@ -16,26 +16,17 @@ class BaseMapViewModel: MapInteractable {
         storeSheetModel.storeList
     }
     
-    var sortedStoreList: [StoreList] {
-        storeSheetModel.sorted(by: storeSortType)
-    }
-    
-    var nearbyStores: [StoreList] {
-        storeList.filter { $0.distance < 10 }
-    }
-    
-    func loadStarbucksStores() {
+    func loadStarbucksStores(completion: @escaping ([StoreFeature]) -> Void) {
         JSONFileLoader.shared.load(
             named: "스타벅스_2025 데이터",
             fileExtension: "geojson"
-        ) { [weak self] (result: Result<StarbucksGeoJSON, Error>) in
-            guard let self = self else { return }
+        ) { (result: Result<StarbucksGeoJSON, Error>) in
             switch result {
             case .success(let model):
-                print("nearbyStores: \(self.nearbyStores)")
-                print("model: \(model)")
+                completion(model.features)
             case .failure(let error):
                 print("error: \(error.localizedDescription)")
+                completion([])
             }
         }
     }

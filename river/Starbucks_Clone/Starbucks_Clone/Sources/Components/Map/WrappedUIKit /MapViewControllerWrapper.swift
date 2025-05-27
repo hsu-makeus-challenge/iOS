@@ -32,10 +32,11 @@ struct MapViewControllerWrapper: UIViewControllerRepresentable {
         _ uiViewController: MapViewController,
         context: Context
     ) {
+        let storeProvider = mapViewModel.getStoreProvider()
         uiViewController.mapView.removeAnnotations(
             uiViewController.mapView.annotations
         )
-        let annotations = mapViewModel.getMapInteractable().nearbyStores.map { store -> MKPointAnnotation in
+        let annotations = storeProvider.getNearbyStores(within: 10).map { store -> MKPointAnnotation in
             let annotation = MKPointAnnotation()
             annotation.title = store.title
             annotation.coordinate = CLLocationCoordinate2D(

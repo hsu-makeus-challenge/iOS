@@ -10,7 +10,7 @@ import CoreLocation
 import Moya
 
 @Observable
-class StoreInfoViewModel: BaseMapViewModel {
+class StoreInfoViewModel: DefaultMapStoreProvider {
     private let locationManager: LocationManager
     private let provider: MoyaProvider<KakaoAPI>
     
@@ -25,18 +25,9 @@ class StoreInfoViewModel: BaseMapViewModel {
         self.provider = provider
     }
     
-    override func loadStarbucksStores() {
-        JSONFileLoader.shared.load(
-            named: "스타벅스_2025 데이터",
-            fileExtension: "geojson"
-        ) { [weak self] (result: Result<StarbucksGeoJSON, Error>) in
-            guard let self = self else { return }
-            switch result {
-            case .success(let model):
-                starbucksStores = model.features
-            case .failure(let error):
-                print("error: \(error.localizedDescription)")
-            }
+    func loadStores() {
+        loadStarbucksStores { [weak self] stores in
+            self?.starbucksStores = stores
         }
     }
     
