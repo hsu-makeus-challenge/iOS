@@ -79,11 +79,7 @@ struct StoreDirectionContentView: View {
                     print("도착 장소를 입력해 주세요")
                     return
                 }
-                Task {
-                    await storeInfoViewModel.addressSearchWithKakao(
-                        storeSearchState.finishAddress
-                    )
-                }
+                storeInfoViewModel.searchStarbucksStore(storeSearchState.finishAddress)
                 storeSearchState.searchType = .finishedLocation
             }
         )

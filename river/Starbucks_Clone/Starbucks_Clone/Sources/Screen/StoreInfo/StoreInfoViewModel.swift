@@ -15,7 +15,8 @@ class StoreInfoViewModel: BaseMapViewModel {
     private let provider: MoyaProvider<KakaoAPI>
     
     var currentAddress: String?
-    var searchPlaceList: [StoreInfoModel] = []
+    var searchPlaceList: [StoreInfoModel] = [] // 카카오 API로 검색한 장소를 저장하는 프로퍼티
+    var starbucksStores: [StoreFeature] = [] // 로컬에 있는 스타벅스 geojson을 저장해두는 프로퍼티
     
     init(
         provider: MoyaProvider<KakaoAPI> = APIManager.shared.createProvider(for: KakaoAPI.self),
@@ -33,7 +34,7 @@ class StoreInfoViewModel: BaseMapViewModel {
             guard let self = self else { return }
             switch result {
             case .success(let model):
-                self.storeSheetModel.storeList = self.makeStoreList(from: model.features)
+                starbucksStores = model.features
             case .failure(let error):
                 print("error: \(error.localizedDescription)")
             }
@@ -65,6 +66,21 @@ class StoreInfoViewModel: BaseMapViewModel {
             }
         } catch {
             print("Error: \(error.localizedDescription)")
+        }
+    }
+    
+    func searchStarbucksStore(_ keyword: String) {
+        if !keyword.isEmpty {
+            searchPlaceList = starbucksStores.filter { store in
+                store.properties.storeName.contains(keyword)
+            }.map {
+                return StoreInfoModel(
+                    name: $0.properties.storeName,
+                    address: $0.properties.address
+                )
+            }
+        } else {
+            print("키워드가 없습니다.")
         }
     }
 }
