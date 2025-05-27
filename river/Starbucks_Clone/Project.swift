@@ -12,7 +12,11 @@ let project = Project(
             infoPlist: .file(path: "Starbucks_Clone/Resources/Info.plist"),
             sources: ["Starbucks_Clone/Sources/**"],
             resources: ["Starbucks_Clone/Resources/**"],
-            dependencies: []
+            dependencies: [
+                .external(name: "Alamofire"),
+                .external(name: "Moya"),
+                .external(name: "SnapKit"),
+            ]
         ),
         .target(
             name: "Starbucks_CloneTests",
