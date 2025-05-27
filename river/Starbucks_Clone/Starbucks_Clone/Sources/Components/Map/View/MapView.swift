@@ -13,6 +13,9 @@ struct MapView: View {
     @State private var isUserInteracting: Bool = false
     @State private var isSystemAnimationFlag: Bool = true
     
+    let start = CLLocationCoordinate2D(latitude: 37.499588, longitude: 126.867394)
+    let end = CLLocationCoordinate2D(latitude: 37.501546, longitude: 126.882223)
+    
     init(mapViewModel: MapViewModel) {
         self.mapViewModel = mapViewModel
         self.mapViewModel.updateRegionFromCurrentLocation()
@@ -25,7 +28,8 @@ struct MapView: View {
                     region: region,
                     mapViewModel: mapViewModel,
                     isUserInteracting: $isUserInteracting,
-                    isSystemAnimationFlag: $isSystemAnimationFlag
+                    isSystemAnimationFlag: $isSystemAnimationFlag,
+                    coordinates: mapViewModel.polylineCoordinates
                 )
                 .ignoresSafeArea()
             } else {
@@ -50,6 +54,11 @@ struct MapView: View {
                     .background(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
+            }
+        }
+        .onAppear {
+            Task {
+                await mapViewModel.fetchRouteWithOSRM(from: start, to: end)
             }
         }
     }

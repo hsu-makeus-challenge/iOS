@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 
+// FIXME: 시간될때 상속받아 StoreDataProvidable를 채택하는 구조에서 DI를 통해 함수와 프로퍼티 사용할 수 있도록 리팩토링 필요
 class DefaultMapStoreProvider: StoreDataProvidable {
     var storeSheetModel: StoreSheetModel = .init(storeList: [])
     var storeSortType: StoreSortType = .distance
