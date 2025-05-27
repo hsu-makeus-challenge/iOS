@@ -8,7 +8,7 @@
 import Foundation
 
 @Observable
-class StoreSelectSheetViewModel: DefaultMapStoreProvider, NearbyStoreQueryable {
+class StoreSelectSheetViewModel: DefaultMapStoreProvider {
     private let router: NavigationRouter
     
     init(
@@ -19,10 +19,6 @@ class StoreSelectSheetViewModel: DefaultMapStoreProvider, NearbyStoreQueryable {
     
     var sortedStoreListWithDistance: [StoreList] {
         storeList.sorted { $0.distance < $1.distance }
-    }
-    
-    func getNearbyStores(within range: Double) -> [StoreList] {
-        return storeList.filter { $0.distance < range }
     }
     
     func loadStores() {

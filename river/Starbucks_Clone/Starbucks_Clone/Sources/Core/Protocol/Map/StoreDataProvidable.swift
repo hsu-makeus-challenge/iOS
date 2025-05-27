@@ -11,6 +11,8 @@ import Foundation
 protocol StoreDataProvidable: AnyObject {
     var storeList: [StoreList] { get }
     
+    func getNearbyStores(within range: Double) -> [StoreList]
+    
     /// 스타벅스 위치 정보 로드하는 함수(GeoJson 파싱)
     func loadStarbucksStores(completion: @escaping ([StoreFeature]) -> Void)
 }

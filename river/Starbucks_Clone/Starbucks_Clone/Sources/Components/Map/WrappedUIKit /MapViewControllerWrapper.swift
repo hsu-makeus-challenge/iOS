@@ -11,12 +11,14 @@ import MapKit
 
 // TODO: MapView 리팩토링 필요(모든 뷰에서 재사용 가능하도록)
 struct MapViewControllerWrapper: UIViewControllerRepresentable {
-    private let mapView = MKMapView()
-    let region: MKCoordinateRegion
     @Bindable var mapViewModel: MapViewModel
     @Binding var isUserInteracting: Bool
     @Binding var isSystemAnimationFlag: Bool
+    private let mapView = MKMapView()
+    let region: MKCoordinateRegion
     
+    let showAnnotations: Bool
+    let showRouteOverlay: Bool
     let coordinates: [CLLocationCoordinate2D]
     
     func makeUIViewController(context: Context) -> MapViewController {
@@ -34,35 +36,14 @@ struct MapViewControllerWrapper: UIViewControllerRepresentable {
         _ uiViewController: MapViewController,
         context: Context
     ) {
-        let storeProvider = mapViewModel.getStoreProvider()
-        uiViewController.mapView.removeAnnotations(
-            uiViewController.mapView.annotations
-        )
-//        let annotations = storeProvider.getNearbyStores(within: 10).map { store -> MKPointAnnotation in
-//            let annotation = MKPointAnnotation()
-//            annotation.title = store.title
-//            annotation.coordinate = CLLocationCoordinate2D(
-//                latitude: store.coordinate.latitude,
-//                longitude: store.coordinate.longitude
-//            )
-//            return annotation
-//        }
-//        uiViewController.mapView.addAnnotations(annotations)
-//        
-//        uiViewController.mapView.removeOverlays(uiViewController.mapView.overlays)
+        let mapView = uiViewController.mapView
         
-        if coordinates.count > 1 {
-            let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
-            uiViewController.mapView.addOverlay(polyline)
-            
-            let region = MKCoordinateRegion(
-                center: coordinates.first!,
-                span: MKCoordinateSpan(
-                    latitudeDelta: 0.01,
-                    longitudeDelta: 0.01
-                )
-            )
-            uiViewController.mapView.setRegion(region, animated: true)
+        if showAnnotations {
+            addAnnotationsIfNeeded(to: mapView)
+        }
+        
+        if showRouteOverlay {
+            addOverlayIfNeeded(to: mapView)
         }
     }
     
@@ -105,5 +86,39 @@ struct MapViewControllerWrapper: UIViewControllerRepresentable {
             }
             return MKOverlayRenderer(overlay: overlay)
         }
+    }
+}
+
+private extension MapViewControllerWrapper {
+    func addAnnotationsIfNeeded(to mapView: MKMapView) {
+        let annotations = mapViewModel.getStoreProvider().getNearbyStores(within: 10).map { store -> MKPointAnnotation in
+            let annotation = MKPointAnnotation()
+            annotation.title = store.title
+            annotation.coordinate = CLLocationCoordinate2D(
+                latitude: store.coordinate.latitude,
+                longitude: store.coordinate.longitude
+            )
+            return annotation
+        }
+        mapView.removeAnnotations(mapView.annotations)
+        mapView.addAnnotations(annotations)
+    }
+    
+    func addOverlayIfNeeded(to mapView: MKMapView) {
+        guard showRouteOverlay,
+              coordinates.count > 1,
+        let regionCenter = coordinates.first else { return }
+        let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
+        mapView.removeOverlays(mapView.overlays)
+        mapView.addOverlay(polyline)
+        
+        let region = MKCoordinateRegion(
+            center: regionCenter,
+            span: MKCoordinateSpan(
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01
+            )
+        )
+        mapView.setRegion(region, animated: true)
     }
 }

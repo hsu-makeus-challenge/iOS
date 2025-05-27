@@ -34,7 +34,10 @@ struct StoreSelectSheetView: View {
                 MapView(
                     mapViewModel: env.makeMapViewModel(
                         storeProvider: storeSelectSheetViewModel
-                    ))
+                    ),
+                    showAnnotations: true,
+                    showRouteOverlay: false
+                )
             } else {
                 StoreListView(storeSelectSheetViewModel: storeSelectSheetViewModel)
                     .padding(.horizontal, 32.5)

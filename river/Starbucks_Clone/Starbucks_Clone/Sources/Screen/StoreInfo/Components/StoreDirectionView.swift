@@ -9,6 +9,7 @@ import SwiftUI
 
 // MARK: 매장 찾기&길찾기를 바인딩하는 뷰
 struct StoreDirectionView: View {
+    @EnvironmentObject private var env: AppEnvironment
     @Namespace private var underlineSegmentedBar
     @Bindable private var storeInfoViewModel: StoreInfoViewModel
     @Binding private var tabState: StoreInfoTabState
@@ -23,17 +24,17 @@ struct StoreDirectionView: View {
     
     var body: some View {
         Group {
-            // FIXME: 개발을 위한 조건문 주석
-//            if tabState == .findStore {
-//                MapView(
-//                    viewModel: findStoreViewModel,
-//                    locationManager: locationManager
-//                )
-//            } else if tabState == .directions {
-//                FindLocationView()
-//            }
-            VStack {
-                StoreDirectionContentView(storeInfoViewModel: storeInfoViewModel)
+            if tabState == .findStore {
+                MapView(
+                    mapViewModel: env.makeMapViewModel(storeProvider: storeInfoViewModel),
+                    showAnnotations: false,
+                    showRouteOverlay: true
+                )
+                
+            } else if tabState == .directions {
+                VStack {
+                    StoreDirectionContentView(storeInfoViewModel: storeInfoViewModel)
+                }
             }
         }
         .matchedGeometryEffect(

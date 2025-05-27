@@ -17,6 +17,10 @@ class DefaultMapStoreProvider: StoreDataProvidable {
         storeSheetModel.storeList
     }
     
+    func getNearbyStores(within range: Double) -> [StoreList] {
+        return storeList.filter { $0.distance < range }
+    }
+    
     func loadStarbucksStores(completion: @escaping ([StoreFeature]) -> Void) {
         JSONFileLoader.shared.load(
             named: "스타벅스_2025 데이터",

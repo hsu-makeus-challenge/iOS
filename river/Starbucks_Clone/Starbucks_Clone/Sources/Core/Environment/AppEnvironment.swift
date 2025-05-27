@@ -81,10 +81,7 @@ final class AppEnvironment: ObservableObject {
         return StoreInfoViewModel(locationManager: locationManager)
     }
     
-    func makeMapViewModel(
-        // 다형성에 의해 둘 중 하나라도 채택한 ViewModel이라면 DI가능
-        storeProvider: StoreDataProvidable & NearbyStoreQueryable
-    ) -> MapViewModel {
+    func makeMapViewModel(storeProvider: StoreDataProvidable) -> MapViewModel {
         return MapViewModel(
             locationManager: locationManager,
             storeProvider: storeProvider

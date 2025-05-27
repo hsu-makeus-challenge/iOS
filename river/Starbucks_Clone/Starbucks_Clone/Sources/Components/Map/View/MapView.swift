@@ -13,11 +13,20 @@ struct MapView: View {
     @State private var isUserInteracting: Bool = false
     @State private var isSystemAnimationFlag: Bool = true
     
+    private let showAnnotations: Bool
+    private let showRouteOverlay: Bool
+    
     let start = CLLocationCoordinate2D(latitude: 37.499588, longitude: 126.867394)
     let end = CLLocationCoordinate2D(latitude: 37.501546, longitude: 126.882223)
     
-    init(mapViewModel: MapViewModel) {
+    init(
+        mapViewModel: MapViewModel,
+        showAnnotations: Bool,
+        showRouteOverlay: Bool
+    ) {
         self.mapViewModel = mapViewModel
+        self.showAnnotations = showAnnotations
+        self.showRouteOverlay = showRouteOverlay
         self.mapViewModel.updateRegionFromCurrentLocation()
     }
 
@@ -25,10 +34,12 @@ struct MapView: View {
         ZStack(alignment: .top) {
             if let region = mapViewModel.region {
                 MapViewControllerWrapper(
-                    region: region,
                     mapViewModel: mapViewModel,
                     isUserInteracting: $isUserInteracting,
                     isSystemAnimationFlag: $isSystemAnimationFlag,
+                    region: region,
+                    showAnnotations: showAnnotations,
+                    showRouteOverlay: showRouteOverlay,
                     coordinates: mapViewModel.polylineCoordinates
                 )
                 .ignoresSafeArea()

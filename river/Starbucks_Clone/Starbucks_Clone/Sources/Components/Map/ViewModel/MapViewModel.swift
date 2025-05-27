@@ -13,7 +13,7 @@ import MapKit
 final class MapViewModel {
     private let provider: MoyaProvider<OsrmAPI>
     private let locationManager: LocationManager
-    private let storeProvider: StoreDataProvidable & NearbyStoreQueryable
+    private let storeProvider: StoreDataProvidable
     var region: MKCoordinateRegion? = nil
     
     var polylineCoordinates: [CLLocationCoordinate2D] = []
@@ -26,14 +26,14 @@ final class MapViewModel {
     init(
         provider: MoyaProvider<OsrmAPI> = APIManager.shared.createProvider(for: OsrmAPI.self),
         locationManager: LocationManager,
-        storeProvider: StoreDataProvidable & NearbyStoreQueryable
+        storeProvider: StoreDataProvidable
     ) {
         self.storeProvider = storeProvider
         self.provider = provider
         self.locationManager = locationManager
     }
     
-    func getStoreProvider() -> StoreDataProvidable & NearbyStoreQueryable {
+    func getStoreProvider() -> StoreDataProvidable {
         return storeProvider
     }
     
