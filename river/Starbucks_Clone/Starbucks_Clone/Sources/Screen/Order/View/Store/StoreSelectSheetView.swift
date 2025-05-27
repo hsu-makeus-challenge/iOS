@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StoreSelectSheetView: View {
-    
+    @EnvironmentObject private var env: AppEnvironment
     @State private var searchText: String = ""
     @State private var showMap: Bool = false
     @Bindable private var storeSelectSheetViewModel: StoreSelectSheetViewModel
@@ -32,9 +32,9 @@ struct StoreSelectSheetView: View {
             
             if showMap {
                 MapView(
-                    viewModel: storeSelectSheetViewModel,
-                    locationManager: locationManager
-                )
+                    mapViewModel: env.makeMapViewModel(
+                        mapInteractable: storeSelectSheetViewModel
+                    ))
             } else {
                 StoreListView(storeSelectSheetViewModel: storeSelectSheetViewModel)
                     .padding(.horizontal, 32.5)

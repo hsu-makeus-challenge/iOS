@@ -8,41 +8,28 @@
 import SwiftUI
 import MapKit
 
-struct MapView<ViewModel: MapControllable>: View {
-    @Bindable private var locationManager: LocationManager
-    @Bindable private var viewModel: ViewModel
+struct MapView: View {
+    @Bindable private var mapViewModel: MapViewModel
     @State private var isUserInteracting: Bool = false
     @State private var isSystemAnimationFlag: Bool = true
     
-    init(
-        viewModel: ViewModel,
-        locationManager: LocationManager
-    ) {
-        self._viewModel = Bindable(wrappedValue: viewModel)
-        self.locationManager = locationManager
+    init(mapViewModel: MapViewModel) {
+        self.mapViewModel = mapViewModel
+        self.mapViewModel.updateRegionFromCurrentLocation()
     }
 
     var body: some View {
         ZStack(alignment: .top) {
-            if let current = locationManager.currentLocation {
-                let region = MKCoordinateRegion(
-                    center: CLLocationCoordinate2D(
-                        latitude: current.coordinate.latitude,
-                        longitude: current.coordinate.longitude
-                    ),
-                    span: MKCoordinateSpan(latitudeDelta: 0.18, longitudeDelta: 0.18)
-                )
-                
+            if let region = mapViewModel.region {
                 MapViewControllerWrapper(
                     region: region,
-                    locationManager: locationManager,
-                    viewModel: viewModel,
+                    mapViewModel: mapViewModel,
                     isUserInteracting: $isUserInteracting,
                     isSystemAnimationFlag: $isSystemAnimationFlag
                 )
                 .ignoresSafeArea()
             } else {
-                ProgressView("Loading map...")
+                ProgressView("Loading View...")
             }
             
             if isUserInteracting {

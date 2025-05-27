@@ -80,4 +80,11 @@ final class AppEnvironment: ObservableObject {
     func makeStoreInfoViewModel() -> StoreInfoViewModel {
         return StoreInfoViewModel(locationManager: locationManager)
     }
+    
+    func makeMapViewModel(mapInteractable: MapInteractable) -> MapViewModel {
+        return MapViewModel(
+            locationManager: locationManager,
+            mapInteractable: mapInteractable
+        )
+    }
 }

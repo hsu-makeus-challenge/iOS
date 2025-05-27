@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-class BaseMapViewModel: MapControllable {
+class BaseMapViewModel: MapInteractable {
     var storeSheetModel: StoreSheetModel = .init(storeList: [])
     var storeSortType: StoreSortType = .distance
     

@@ -9,12 +9,11 @@ import UIKit
 import SwiftUI
 import MapKit
 
-// TODO: MapView 리팩토링 필요(모든 뷰에서 재사용 가능하도록 + LocationManager 같은 것들은 뷰모델에서 관리하도록 변경 역시 필요)
-struct MapViewControllerWrapper<ViewModel: MapControllable>: UIViewControllerRepresentable {
+// TODO: MapView 리팩토링 필요(모든 뷰에서 재사용 가능하도록)
+struct MapViewControllerWrapper: UIViewControllerRepresentable {
     private let mapView = MKMapView()
     let region: MKCoordinateRegion
-    @Bindable var locationManager: LocationManager
-    @Bindable var viewModel: ViewModel
+    @Bindable var mapViewModel: MapViewModel
     @Binding var isUserInteracting: Bool
     @Binding var isSystemAnimationFlag: Bool
     
@@ -36,7 +35,7 @@ struct MapViewControllerWrapper<ViewModel: MapControllable>: UIViewControllerRep
         uiViewController.mapView.removeAnnotations(
             uiViewController.mapView.annotations
         )
-        let annotations = viewModel.nearbyStores.map { store -> MKPointAnnotation in
+        let annotations = mapViewModel.getMapInteractable().nearbyStores.map { store -> MKPointAnnotation in
             let annotation = MKPointAnnotation()
             annotation.title = store.title
             annotation.coordinate = CLLocationCoordinate2D(
