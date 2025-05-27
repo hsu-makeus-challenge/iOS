@@ -9,6 +9,7 @@ import UIKit
 import SwiftUI
 import MapKit
 
+// TODO: MapView 리팩토링 필요(모든 뷰에서 재사용 가능하도록 + LocationManager 같은 것들은 뷰모델에서 관리하도록 변경 역시 필요)
 struct MapViewControllerWrapper<ViewModel: MapControllable>: UIViewControllerRepresentable {
     private let mapView = MKMapView()
     let region: MKCoordinateRegion
