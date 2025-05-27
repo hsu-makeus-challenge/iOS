@@ -74,7 +74,10 @@ class StoreInfoViewModel: BaseMapViewModel {
     func searchStarbucksStore(_ keyword: String) {
         if !keyword.isEmpty {
             searchPlaceList = starbucksStores.filter { store in
-                store.properties.storeName.contains(keyword)
+                // 매장명과 주소에서 키워드가 포함된 내용 필터링
+                let storeName = store.properties.storeName
+                let address = store.properties.address
+                return storeName.contains(keyword) || address.contains(keyword)
             }.map {
                 return StoreInfoModel(
                     name: $0.properties.storeName,
