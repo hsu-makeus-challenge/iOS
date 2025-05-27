@@ -49,10 +49,9 @@ struct StoreDirectionContentView: View {
             includeCurrentLocationButton: true,
             onCurrentLocationTap: {
                 Task {
-                    await storeInfoViewModel.getCurrentLocationAddress()
-                }
-                if let currentAddress = storeInfoViewModel.currentAddress {
-                    storeSearchState.startAddress = currentAddress
+                    if let currentAddress = await storeInfoViewModel.getCurrentLocationAddress() {
+                        storeSearchState.startAddress = currentAddress
+                    }
                 }
             },
             onSearchTap: {
