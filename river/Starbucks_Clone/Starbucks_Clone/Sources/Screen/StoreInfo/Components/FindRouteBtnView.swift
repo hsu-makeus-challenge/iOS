@@ -13,17 +13,19 @@ struct RouteCoordinate {
     let to: CLLocationCoordinate2D
 }
 
-// TODO: 버튼 누르면 경로 찾는 기능 구현하기
 struct FindLocationBtnView: View {
     @Binding private var storeSearchState: StoreSearchState
     @Bindable private var storeInfoViewModel: StoreInfoViewModel
+    @Binding private var tabState: StoreInfoTabState
     
     init(
         storeSearchState: Binding<StoreSearchState>,
-        storeInfoViewModel: StoreInfoViewModel
+        storeInfoViewModel: StoreInfoViewModel,
+        tabState: Binding<StoreInfoTabState>
     ) {
         self._storeSearchState = storeSearchState
         self.storeInfoViewModel = storeInfoViewModel
+        self._tabState = tabState
     }
     
     var body: some View {
@@ -33,6 +35,7 @@ struct FindLocationBtnView: View {
                     from: storeSearchState.startAddress,
                     to: storeSearchState.finishAddress
                 )
+                tabState = .findStore
             }
         } label: {
             Text("경로 찾기")

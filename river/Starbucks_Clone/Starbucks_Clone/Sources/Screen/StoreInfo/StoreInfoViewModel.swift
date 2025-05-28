@@ -13,7 +13,7 @@ import Moya
 class StoreInfoViewModel {
     private let locationManager: LocationManager
     private let provider: MoyaProvider<KakaoAPI>
-    private let mapViewModel: MapViewModel
+    let mapViewModel: MapViewModel
     
     var searchPlaceList: [StoreInfoModel] = [] // 카카오 API로 검색한 장소를 저장하는 프로퍼티
     var starbucksStores: [StoreFeature] = [] // 로컬에 있는 스타벅스 geojson을 저장해두는 프로퍼티
@@ -66,6 +66,7 @@ class StoreInfoViewModel {
                     from: startLocation.coordinate,
                     to: finishLocation.coordinate
                 )
+                print("route:\(route)")
                 await mapViewModel.fetchRouteWithOSRM(route)
             }
         } catch {
@@ -84,7 +85,7 @@ class StoreInfoViewModel {
             searchPlaceList = result.documents.map {
                 return StoreInfoModel(
                     name: $0.placeName,
-                    address: $0.addressName
+                    address: $0.roadAddressName
                 )
             }
         } catch {

@@ -16,12 +16,8 @@ final class MapViewModel: DefaultMapStoreProvider {
     private let locationManager: LocationManager
     var region: MKCoordinateRegion? = nil
     
+    /// 찾은 경로들의 모든 위도와 경도를 저장해두는 프로퍼티
     var polylineCoordinates: [CLLocationCoordinate2D] = []
-    
-    private let coordinates = [
-        Coordinator(latitude: 37.499588, longitude: 126.867394),
-        Coordinator(latitude: 37.501546, longitude: 126.882223)
-    ]
     
     init(
         provider: MoyaProvider<OsrmAPI> = APIManager.shared.createProvider(for: OsrmAPI.self),
@@ -44,10 +40,14 @@ final class MapViewModel: DefaultMapStoreProvider {
         }
     }
     
-    func fetchRouteWithOSRM(_ route: RouteCoordinate) async {
+    func fetchRouteWithOSRM(
+        _ coordinates: RouteCoordinate,
+        route: RouteType = .route,
+        profile: ProfileType = .foot
+    ) async {
         do {
             let response = try await provider.requestAsync(.requestRoute(
-                route: .route, profile: .foot, coordinates: coordinates
+                route: route, profile: profile, coordinates: coordinates
             ))
             let result = try JSONDecoder().decode(OSRMRouteResponse.self, from: response.data)
             if let firstRoute = result.routes.first {

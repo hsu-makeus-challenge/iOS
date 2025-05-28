@@ -26,14 +26,17 @@ struct StoreDirectionView: View {
         Group {
             if tabState == .findStore {
                 MapView(
-                    mapViewModel: env.makeMapViewModel(),
+                    mapViewModel: storeInfoViewModel.mapViewModel,
                     showAnnotations: false,
                     showRouteOverlay: true
                 )
                 
             } else if tabState == .directions {
                 VStack {
-                    StoreDirectionContentView(storeInfoViewModel: storeInfoViewModel)
+                    StoreDirectionContentView(
+                        storeInfoViewModel: storeInfoViewModel,
+                        tabState: $tabState
+                    )
                 }
             }
         }

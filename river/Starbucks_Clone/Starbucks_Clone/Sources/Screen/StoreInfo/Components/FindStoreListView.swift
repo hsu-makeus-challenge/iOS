@@ -24,7 +24,7 @@ struct FindStoreListView: View {
             Button {
                 switch storeSearchState.searchType {
                 case .startedLocation:
-                    storeSearchState.startAddress = place.name
+                    storeSearchState.startAddress = place.address
                 case .finishedLocation:
                     storeSearchState.finishAddress = place.address
                 }

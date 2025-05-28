@@ -19,7 +19,6 @@ struct MapViewControllerWrapper: UIViewControllerRepresentable {
     
     let showAnnotations: Bool
     let showRouteOverlay: Bool
-    let coordinates: [CLLocationCoordinate2D]
     
     func makeUIViewController(context: Context) -> MapViewController {
         let vc = MapViewController(mapView: mapView)
@@ -105,10 +104,15 @@ private extension MapViewControllerWrapper {
     }
     
     func addOverlayIfNeeded(to mapView: MKMapView) {
-        guard showRouteOverlay,
-              coordinates.count > 1,
-        let regionCenter = coordinates.first else { return }
-        let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
+        guard let regionCenter = mapViewModel.polylineCoordinates.first else {
+            print("plylineCoordinates: \(mapViewModel.polylineCoordinates)가 없습니다.")
+            return
+        }
+        let polyline = MKPolyline(
+            coordinates: mapViewModel.polylineCoordinates,
+            count: mapViewModel.polylineCoordinates.count
+        )
+        print("polyline: \(polyline.coordinate)")
         mapView.removeOverlays(mapView.overlays)
         mapView.addOverlay(polyline)
         

@@ -12,12 +12,8 @@ struct MapView: View {
     @Bindable private var mapViewModel: MapViewModel
     @State private var isUserInteracting: Bool = false
     @State private var isSystemAnimationFlag: Bool = true
-    
     private let showAnnotations: Bool
     private let showRouteOverlay: Bool
-    
-    let start = CLLocationCoordinate2D(latitude: 37.499588, longitude: 126.867394)
-    let end = CLLocationCoordinate2D(latitude: 37.501546, longitude: 126.882223)
     
     init(
         mapViewModel: MapViewModel,
@@ -39,8 +35,7 @@ struct MapView: View {
                     isSystemAnimationFlag: $isSystemAnimationFlag,
                     region: region,
                     showAnnotations: showAnnotations,
-                    showRouteOverlay: showRouteOverlay,
-                    coordinates: mapViewModel.polylineCoordinates
+                    showRouteOverlay: showRouteOverlay
                 )
                 .ignoresSafeArea()
             } else {

@@ -25,7 +25,7 @@ enum OsrmAPI: APITargetType {
     case requestRoute(
         route: RouteType,
         profile: ProfileType,
-        coordinates: [Coordinator]
+        coordinates: RouteCoordinate
     )
 }
 
@@ -40,12 +40,7 @@ extension OsrmAPI {
     var path: String {
         switch self {
         case let .requestRoute(route, profile, coordinates):
-            print("route: \(route.rawValue)")
-            print("profile: \(profile.rawValue)")
-            print("coordinates: \(coordinates)")
-            let coordString = coordinates
-                .map { "\($0.longitude),\($0.latitude)" }
-                .joined(separator: ";")
+            let coordString = "\(coordinates.from.longitude),\(coordinates.from.latitude);\(coordinates.to.longitude),\(coordinates.to.latitude)"
             let routingUrl = "/\(route.rawValue)/v1/\(profile.rawValue)/\(coordString)"
             return routingUrl
         }

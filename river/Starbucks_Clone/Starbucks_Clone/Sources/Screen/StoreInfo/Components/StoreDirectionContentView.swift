@@ -12,11 +12,14 @@ struct StoreDirectionContentView: View {
     @EnvironmentObject private var env: AppEnvironment
     @Bindable private var storeInfoViewModel: StoreInfoViewModel
     @State private var storeSearchState = StoreSearchState()
+    @Binding private var tabState: StoreInfoTabState
     
     init(
-        storeInfoViewModel: StoreInfoViewModel
+        storeInfoViewModel: StoreInfoViewModel,
+        tabState: Binding<StoreInfoTabState>
     ) {
         self.storeInfoViewModel = storeInfoViewModel
+        self._tabState = tabState
     }
     
     var body: some View {
@@ -32,7 +35,8 @@ struct StoreDirectionContentView: View {
                 
                 FindLocationBtnView(
                     storeSearchState: $storeSearchState,
-                    storeInfoViewModel: storeInfoViewModel
+                    storeInfoViewModel: storeInfoViewModel,
+                    tabState: $tabState
                 )
                 
                 Spacer().frame(height: 28)
