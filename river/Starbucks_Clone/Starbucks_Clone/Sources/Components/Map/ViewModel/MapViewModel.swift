@@ -9,11 +9,11 @@ import Foundation
 import Moya
 import MapKit
 
+/// MapViewModel을 주입받아야 지도 기능 사용 가능
 @Observable
-final class MapViewModel {
+final class MapViewModel: DefaultMapStoreProvider {
     private let provider: MoyaProvider<OsrmAPI>
     private let locationManager: LocationManager
-    private let storeProvider: StoreDataProvidable
     var region: MKCoordinateRegion? = nil
     
     var polylineCoordinates: [CLLocationCoordinate2D] = []
@@ -25,16 +25,10 @@ final class MapViewModel {
     
     init(
         provider: MoyaProvider<OsrmAPI> = APIManager.shared.createProvider(for: OsrmAPI.self),
-        locationManager: LocationManager,
-        storeProvider: StoreDataProvidable
+        locationManager: LocationManager
     ) {
-        self.storeProvider = storeProvider
         self.provider = provider
         self.locationManager = locationManager
-    }
-    
-    func getStoreProvider() -> StoreDataProvidable {
-        return storeProvider
     }
     
     /// 현재 위치 받아온 후 region 생성하는 함수
@@ -50,10 +44,7 @@ final class MapViewModel {
         }
     }
     
-    func fetchRouteWithOSRM(
-        from start: CLLocationCoordinate2D,
-        to end: CLLocationCoordinate2D
-    ) async {
+    func fetchRouteWithOSRM(_ route: RouteCoordinate) async {
         do {
             let response = try await provider.requestAsync(.requestRoute(
                 route: .route, profile: .foot, coordinates: coordinates

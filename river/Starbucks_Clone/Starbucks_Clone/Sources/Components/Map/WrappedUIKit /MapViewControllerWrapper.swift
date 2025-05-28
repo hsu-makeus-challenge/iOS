@@ -91,7 +91,7 @@ struct MapViewControllerWrapper: UIViewControllerRepresentable {
 
 private extension MapViewControllerWrapper {
     func addAnnotationsIfNeeded(to mapView: MKMapView) {
-        let annotations = mapViewModel.getStoreProvider().getNearbyStores(within: 10).map { store -> MKPointAnnotation in
+        let annotations = mapViewModel.getNearbyStores(within: 10).map { store -> MKPointAnnotation in
             let annotation = MKPointAnnotation()
             annotation.title = store.title
             annotation.coordinate = CLLocationCoordinate2D(

@@ -32,9 +32,7 @@ struct StoreSelectSheetView: View {
             
             if showMap {
                 MapView(
-                    mapViewModel: env.makeMapViewModel(
-                        storeProvider: storeSelectSheetViewModel
-                    ),
+                    mapViewModel: env.makeMapViewModel(),
                     showAnnotations: true,
                     showRouteOverlay: false
                 )
@@ -105,11 +103,11 @@ fileprivate struct StoreSelectHeaderView: View {
     private var sortedStore: some View {
         HStack {
             Button {
-                storeSelectSheetViewModel.storeSortType = .distance
+                storeSelectSheetViewModel.mapViewModel.storeSortType = .distance
             } label: {
                 Text("가까운 매장")
                     .foregroundStyle(
-                        storeSelectSheetViewModel.storeSortType == .distance
+                        storeSelectSheetViewModel.mapViewModel.storeSortType == .distance
                         ? Color(.black03)
                         : Color(.gray02)
                     )
@@ -121,11 +119,11 @@ fileprivate struct StoreSelectHeaderView: View {
                 .foregroundStyle(Color(.gray02))
             
             Button {
-                storeSelectSheetViewModel.storeSortType = .frequently
+                storeSelectSheetViewModel.mapViewModel.storeSortType = .frequently
             } label: {
                 Text("자주 가는 매장")
                     .foregroundStyle(
-                        storeSelectSheetViewModel.storeSortType == .frequently
+                        storeSelectSheetViewModel.mapViewModel.storeSortType == .frequently
                         ? Color(.black03)
                         : Color(.gray02)
                     )
@@ -141,9 +139,13 @@ fileprivate struct StoreSelectHeaderView: View {
 
 struct StoreSelectSheetViewModel_Previews: PreviewProvider {
     static var previews: some View {
+        let env = AppEnvironment.previewEnv
         devicePreviews {
             StoreSelectSheetView(
-                storeSelectSheetViewModel: .init(router: AppEnvironment.previewEnv.router)
+                storeSelectSheetViewModel: .init(
+                    router: env.router,
+                    mapViewModel: env.makeMapViewModel()
+                )
             )
         }
     }

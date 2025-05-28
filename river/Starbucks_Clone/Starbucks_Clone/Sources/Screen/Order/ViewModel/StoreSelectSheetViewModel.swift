@@ -8,23 +8,26 @@
 import Foundation
 
 @Observable
-class StoreSelectSheetViewModel: DefaultMapStoreProvider {
+class StoreSelectSheetViewModel {
     private let router: NavigationRouter
+    let mapViewModel: MapViewModel
     
     init(
-        router: NavigationRouter
+        router: NavigationRouter,
+        mapViewModel: MapViewModel
     ) {
         self.router = router
+        self.mapViewModel = mapViewModel
     }
     
     var sortedStoreListWithDistance: [StoreList] {
-        storeList.sorted { $0.distance < $1.distance }
+        mapViewModel.storeList.sorted { $0.distance < $1.distance }
     }
     
     func loadStores() {
-        loadStarbucksStores { [weak self] stores in
+        mapViewModel.loadStarbucksStores { [weak self] stores in
             guard let self = self else { return }
-            self.storeSheetModel.storeList = self.makeStoreList(from: stores)
+            self.mapViewModel.storeSheetModel.storeList = self.mapViewModel.makeStoreList(from: stores)
         }
     }
     

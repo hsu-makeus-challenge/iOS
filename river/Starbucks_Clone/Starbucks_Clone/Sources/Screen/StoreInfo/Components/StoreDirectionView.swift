@@ -26,7 +26,7 @@ struct StoreDirectionView: View {
         Group {
             if tabState == .findStore {
                 MapView(
-                    mapViewModel: env.makeMapViewModel(storeProvider: storeInfoViewModel),
+                    mapViewModel: env.makeMapViewModel(),
                     showAnnotations: false,
                     showRouteOverlay: true
                 )

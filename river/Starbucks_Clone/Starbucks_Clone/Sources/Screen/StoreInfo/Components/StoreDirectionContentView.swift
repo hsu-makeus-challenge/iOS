@@ -9,6 +9,7 @@ import SwiftUI
 
 // MARK: 출발-도착지 입력 뷰
 struct StoreDirectionContentView: View {
+    @EnvironmentObject private var env: AppEnvironment
     @Bindable private var storeInfoViewModel: StoreInfoViewModel
     @State private var storeSearchState = StoreSearchState()
     

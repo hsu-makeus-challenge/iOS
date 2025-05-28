@@ -74,17 +74,20 @@ final class AppEnvironment: ObservableObject {
     }
     
     func makeStoreSelectSheetViewModel() -> StoreSelectSheetViewModel {
-        return StoreSelectSheetViewModel(router: router)
+        return StoreSelectSheetViewModel(
+            router: router,
+            mapViewModel: makeMapViewModel()
+        )
     }
     
     func makeStoreInfoViewModel() -> StoreInfoViewModel {
-        return StoreInfoViewModel(locationManager: locationManager)
+        return StoreInfoViewModel(
+            locationManager: locationManager,
+            mapViewModel: makeMapViewModel()
+        )
     }
     
-    func makeMapViewModel(storeProvider: StoreDataProvidable) -> MapViewModel {
-        return MapViewModel(
-            locationManager: locationManager,
-            storeProvider: storeProvider
-        )
+    func makeMapViewModel() -> MapViewModel {
+        return MapViewModel(locationManager: locationManager)
     }
 }

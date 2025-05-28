@@ -36,6 +36,11 @@ struct StoreInfoView: View {
     }
 }
 
-#Preview {
-    StoreInfoView(storeInfoViewModel: .init(locationManager: .shared))
-}
+//#Preview {
+//    let env = AppEnvironment.previewEnv
+//    StoreInfoView(storeInfoViewModel: .init(
+//        locationManager: .shared,
+//        mapViewModel: env.makeMapViewModel(storeProvider: env.makeStoreInfoViewModel())
+//        )
+//    )
+//}

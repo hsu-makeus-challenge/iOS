@@ -67,10 +67,5 @@ struct MapView: View {
                 }
             }
         }
-        .onAppear {
-            Task {
-                await mapViewModel.fetchRouteWithOSRM(from: start, to: end)
-            }
-        }
     }
 }
