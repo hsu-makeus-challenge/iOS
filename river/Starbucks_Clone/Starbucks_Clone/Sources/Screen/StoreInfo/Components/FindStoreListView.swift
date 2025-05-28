@@ -26,7 +26,7 @@ struct FindStoreListView: View {
                 case .startedLocation:
                     storeSearchState.startAddress = place.name
                 case .finishedLocation:
-                    storeSearchState.finishAddress = place.name
+                    storeSearchState.finishAddress = place.address
                 }
             } label: {
                 searchPlaceResultView(place)

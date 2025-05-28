@@ -30,7 +30,10 @@ struct StoreDirectionContentView: View {
                 
                 Spacer().frame(height: 18)
                 
-                FindLocationBtnView()
+                FindLocationBtnView(
+                    storeSearchState: $storeSearchState,
+                    storeInfoViewModel: storeInfoViewModel
+                )
                 
                 Spacer().frame(height: 28)
             }

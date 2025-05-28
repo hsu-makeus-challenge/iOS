@@ -15,15 +15,25 @@ struct RouteCoordinate {
 
 // TODO: 버튼 누르면 경로 찾는 기능 구현하기
 struct FindLocationBtnView: View {
-//    private let mapViewModel: MapViewModel
-//    
-//    init(mapViewModel: MapViewModel) {
-//        self.mapViewModel = mapViewModel
-//    }
+    @Binding private var storeSearchState: StoreSearchState
+    @Bindable private var storeInfoViewModel: StoreInfoViewModel
+    
+    init(
+        storeSearchState: Binding<StoreSearchState>,
+        storeInfoViewModel: StoreInfoViewModel
+    ) {
+        self._storeSearchState = storeSearchState
+        self.storeInfoViewModel = storeInfoViewModel
+    }
     
     var body: some View {
         Button {
-            //
+            Task {
+                await storeInfoViewModel.findRouteBtnTapped(
+                    from: storeSearchState.startAddress,
+                    to: storeSearchState.finishAddress
+                )
+            }
         } label: {
             Text("경로 찾기")
                 .font(.mainTextMedium16)
