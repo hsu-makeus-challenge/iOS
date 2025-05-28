@@ -9,7 +9,6 @@ import SwiftUI
 
 // MARK: 매장 찾기&길찾기를 바인딩하는 뷰
 struct StoreDirectionView: View {
-    @EnvironmentObject private var env: AppEnvironment
     @Namespace private var underlineSegmentedBar
     @Bindable private var storeInfoViewModel: StoreInfoViewModel
     @Binding private var tabState: StoreInfoTabState
