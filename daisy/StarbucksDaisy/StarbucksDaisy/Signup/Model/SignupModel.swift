@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct SignupModel {
-    var nickname: String
-    var email: String
-    var pwd: String
-}
+//struct SignupModel {
+//    var nickname: String
+//    var email: String
+//    var pwd: String
+//}

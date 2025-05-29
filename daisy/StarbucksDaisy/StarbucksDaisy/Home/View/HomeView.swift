@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @State private var navigationTrue: Bool = false
     @EnvironmentObject var router: NavigationRouter
-    @AppStorage("nickname") var storedNickname: String = "(작성한 닉네임)"
+    @Environment(LoginViewModel.self) var loginViewModel
     
     var viewModel: HomeViewModel = .init()
     var coffeeViewModel: CoffeeDetailViewModel = .init()
@@ -125,7 +125,7 @@ struct HomeView: View {
         VStack(alignment: .leading, spacing: 25) {
             /// 텍스트
             (
-                Text(storedNickname)
+                Text(loginViewModel.nickname)
                     .font(.mainTextBold24)
                     .foregroundStyle(.brown01)
                 + Text("님을 위한 추천 메뉴")

@@ -8,20 +8,19 @@
 import Foundation
 import SwiftUI
 
-//@Observable
-class LoginViewModel:ObservableObject {
-    @Published var loginModel: LoginModel = .init(id: "", password: "")
+@Observable
+class LoginViewModel {
+
+    var isLoggedIn: Bool = false
+    var nickname: String = ""
     
-    @AppStorage("nickname") private var storedNickname: String?
-    @AppStorage("email") private var storedEmail: String?
-    @AppStorage("password") private var storedPassword: String?
-    
-    
-    func login(router: NavigationRouter) {
-        if loginModel.id == storedEmail && loginModel.password == storedPassword {
-            router.setPath([.mainTabBar])
-            print("로그인 성공")
-            print("ID: \(loginModel.id), Password: \(loginModel.password)")
+    func autoLoginIfPossible() {
+        if let id = KeychainService.shared.load(key: "user_id"),
+           let pw = KeychainService.shared.load(key: "user_pw"),
+           let nick = KeychainService.shared.load(key: "user_nickname") {
+            print("자동 로그인 성공: \(id), \(pw)")
+            self.nickname = nick
+            self.isLoggedIn = true
         }
     }
 }

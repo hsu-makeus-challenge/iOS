@@ -8,12 +8,20 @@
 import SwiftUI
 
 struct SignupView: View {
-    @StateObject var viewModel = SignupViewModel()
     @EnvironmentObject var router: NavigationRouter
+    @Environment(LoginViewModel.self) var loginViewModel
+    
+    @State private var id = ""
+    @State private var pw = ""
+    @State private var nickname = ""
 
     @FocusState private var isNicknameFocused: Bool
     @FocusState private var isEmailFocused: Bool
     @FocusState private var isPasswordFocused: Bool
+    
+    var isFormValid: Bool {
+        !id.isEmpty && !pw.isEmpty && !nickname.isEmpty
+    }
     
     var body: some View {
         VStack {
@@ -38,7 +46,7 @@ struct SignupView: View {
         VStack(spacing: 49) {
             /// 닉네임 텍스트필드
             VStack(spacing: 9) {
-                TextField("닉네임", text: $viewModel.user.nickname)
+                TextField("닉네임", text: $nickname)
                     .focused($isNicknameFocused)
                     .font(.mainTextRegular18)
 
@@ -49,7 +57,7 @@ struct SignupView: View {
             
             /// 이메일 텍스트필드
             VStack(spacing: 9) {
-                TextField("이메일", text: $viewModel.user.email)
+                TextField("이메일", text: $id)
                     .focused($isEmailFocused)
                     .font(.mainTextRegular18)
 
@@ -60,7 +68,7 @@ struct SignupView: View {
             
             /// 비밀번호 텍스트필드
             VStack(spacing: 9) {
-                TextField("비밀번호", text: $viewModel.user.pwd)
+                TextField("비밀번호", text: $pw)
                     .focused($isPasswordFocused)
                     .font(.mainTextRegular18)
 
@@ -76,20 +84,29 @@ struct SignupView: View {
     /// 생성하기 버튼
     private var ButtonView: some View {
         Button(action: {
-            if viewModel.isSignupEnabled {
-                viewModel.saveUser(router: router)
+            if isFormValid {
+                
+                KeychainService.shared.save(key: "user_nickname", value: nickname)
+                KeychainService.shared.save(key: "user_id", value: id)
+                KeychainService.shared.save(key: "user_pw", value: pw)
+                
+                loginViewModel.nickname = nickname
+                loginViewModel.isLoggedIn = true
+                router.reset()
+                print("사용자 회원가입 및 유저 정보 저장 완료")
+                
             }
         }, label: {
             RoundedRectangle(cornerRadius: 20)
                 .frame(height: 58)
-                .foregroundStyle(viewModel.isSignupEnabled ? .green01 : .gray00)
+                .foregroundStyle(isFormValid ? .green01 : .gray00)
                 .overlay(content: {
                     Text("생성하기")
                         .font(.makeMedium18)
                         .foregroundStyle(.white01)
                 })
         })
-        .disabled(!viewModel.isSignupEnabled)
+        .disabled(!isFormValid)
     }
     
     private var BackButton: some View {

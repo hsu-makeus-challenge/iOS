@@ -24,8 +24,7 @@ struct OtherLabelView: View {
             Text(text)
                 .font(.mainTextSemiBold16)
                 .foregroundStyle(.black02)
-            Spacer()
         }
-        .frame(width: 170)
+        .frame(maxWidth: 157, alignment: .leading)
     }
 }
