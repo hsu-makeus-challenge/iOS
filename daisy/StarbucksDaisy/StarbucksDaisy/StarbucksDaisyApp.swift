@@ -20,5 +20,6 @@ struct StarbucksDaisyApp: App {
                 .environment(loginViewModel)
         }
         .modelContainer(for: Receipt.self) // Receipt 모델을 저장하고 불러올 저장소
+        .modelContainer(for: PayCard.self) // PayCard 모델을 저장하고 불러올 저장소
     }
 }
