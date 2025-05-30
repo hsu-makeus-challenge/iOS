@@ -31,6 +31,13 @@ class PayCard: Identifiable {
     
 }
 
+extension PayCard {
+    var maskedCardNumber: String {
+        let last4 = cardNumber.suffix(4)
+        return "****-****-\(last4)"
+    }
+}
+
 var payCards: [PayCard] = [
     PayCard(image: "payCardImage1", cardName: "아무카드A", balance: 999, cardNumber: "123412341234"),
     PayCard(image: "payCardImage2", cardName: "아무카드B", balance: 12000, cardNumber: "123456789123")
