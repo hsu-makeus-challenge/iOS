@@ -19,7 +19,7 @@ struct OffsetModifer: ViewModifier {
         content
             .overlay(content: {
                 GeometryReader(content: { proxy in
-                    Color.red
+                    Color.clear
                         .preference(key: OffsetKey.self, value: proxy.frame(in: .named("SCROLL")).minY)
                         .onPreferenceChange(OffsetKey.self) { value in
                             if startValue == 0 {
