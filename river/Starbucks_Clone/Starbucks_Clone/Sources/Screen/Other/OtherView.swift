@@ -13,6 +13,19 @@ struct OtherGridItem: Identifiable {
     let id = UUID()
     let icon: ImageResource
     let title: String
+    let type: ItemType
+}
+
+enum ItemType {
+    case payCard
+    case payCouponExchange
+    case payCouponAdd
+    case payCouponHistory
+    case storeCare
+    case customerSounds
+    case storeInfo
+    case returnInfo
+    case myReview
 }
 
 struct OtherView: View {
@@ -24,27 +37,54 @@ struct OtherView: View {
     }
     
     private let payGtidItems: [OtherGridItem] = [
-        .init(icon: .Pay.payCard, title: "스타벅스 카드 등록"),
+        .init(
+            icon: .Pay.payCard,
+            title: "스타벅스 카드 등록",
+            type: .payCard
+        ),
         .init(
             icon: .Pay.payCouponExchange,
-            title: "카드 교환권 등록"
+            title: "카드 교환권 등록",
+            type: .payCouponExchange
         ),
         .init(
             icon: .Pay.payCouponAdd,
-            title: "쿠폰 등록"
+            title: "쿠폰 등록",
+            type: .payCouponAdd
         ),
         .init(
             icon: .Pay.payCouponHistory,
-            title: "쿠폰 히스토리"
+            title: "쿠폰 히스토리",
+            type: .payCouponHistory
         ),
     ]
     
     private let customerSupportItems: [OtherGridItem] = [
-        .init(icon: .CustomerSupport.storeCare, title: "스토어 케어"),
-        .init(icon: .CustomerSupport.customerSound, title: "고객의 소리"),
-        .init(icon: .CustomerSupport.storeInfo, title: "매장 정보"),
-        .init(icon: .CustomerSupport.returnInfo, title: "반납기 정보"),
-        .init(icon: .CustomerSupport.myReview, title: "마이 스타벅스 리뷰")
+        .init(
+            icon: .CustomerSupport.storeCare,
+            title: "스토어 케어",
+            type: .storeCare
+        ),
+        .init(
+            icon: .CustomerSupport.customerSound,
+            title: "고객의 소리",
+            type: .customerSounds
+        ),
+        .init(
+            icon: .CustomerSupport.storeInfo,
+            title: "매장 정보",
+            type: .storeInfo
+        ),
+        .init(
+            icon: .CustomerSupport.returnInfo,
+            title: "반납기 정보",
+            type: .returnInfo
+        ),
+        .init(
+            icon: .CustomerSupport.myReview,
+            title: "마이 스타벅스 리뷰",
+            type: .myReview
+        )
     ]
     
     var body: some View {
@@ -57,12 +97,14 @@ struct OtherView: View {
             
             // Pay 관련 메뉴 섹션
             OtherSectionView(
+                otherViewModel: otherViewModel,
                 items: payGtidItems,
                 title: "Pay"
             )
             
             // 고객센터 관련 메뉴 섹션
             OtherSectionView(
+                otherViewModel: otherViewModel,
                 items: customerSupportItems,
                 title: "고객지원"
             )
@@ -154,6 +196,7 @@ struct OtherWelcomeView: View {
 }
 
 struct OtherSectionView: View {
+    @Bindable private var otherViewModel: OtherViewModel
     
     private let columns = [
         GridItem(.flexible()),
@@ -164,9 +207,11 @@ struct OtherSectionView: View {
     private let title: String
     
     init(
+        otherViewModel: OtherViewModel,
         items: [OtherGridItem],
         title: String
     ) {
+        self.otherViewModel = otherViewModel
         self.items = items
         self.title = title
     }
@@ -184,8 +229,8 @@ struct OtherSectionView: View {
             ) {
                 ForEach(items, id: \.title) { item in
                     OtherSectionGridItem(
-                        icon: item.icon,
-                        title: item.title
+                        otherViewModel: otherViewModel,
+                        item: item
                     )
                 }
             }
@@ -200,28 +245,29 @@ struct OtherSectionView: View {
 // MARK: - 각 섹션별 메뉴 버튼
 
 struct OtherSectionGridItem: View {
-    
-    private var icon: ImageResource
-    private var title: String
+    @Bindable private var otherViewModel: OtherViewModel
+    private var item: OtherGridItem
     
     init(
-        icon: ImageResource,
-        title: String
+        otherViewModel: OtherViewModel,
+        item: OtherGridItem
     ) {
-        self.icon = icon
-        self.title = title
+        self.otherViewModel = otherViewModel
+        self.item = item
     }
     
     var body: some View {
         Button {
-            print("\(title)")
+            if item.type == .storeInfo {
+                otherViewModel.navigateToFindStore()
+            }
         } label: {
             HStack {
-                Image(icon)
+                Image(item.icon)
                     .resizable()
                     .frame(width: 32, height: 32)
                 
-                Text("\(title)")
+                Text("\(item.title)")
                     .font(.mainTextSemiBold16)
                     .foregroundStyle(.black)
             }

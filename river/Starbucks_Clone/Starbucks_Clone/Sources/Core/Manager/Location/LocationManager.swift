@@ -59,7 +59,7 @@ class LocationManager: NSObject {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
     }
-
+    
     // MARK: - 위치 추적
     func startUpdatingLocation() {
         locationManager.startUpdatingLocation()
@@ -77,7 +77,7 @@ class LocationManager: NSObject {
     func stopUpdatingHeading() {
         locationManager.stopUpdatingHeading()
     }
-
+    
     // MARK: - Significant Location Change
     func startMonitoringSignificantLocationChanges() {
         locationManager.startMonitoringSignificantLocationChanges()
@@ -121,7 +121,7 @@ class LocationManager: NSObject {
             }
         }
     }
-
+    
     /// 등록된 모든 지오펜스 모니터링 중지
     func stopMonitoringAllGeofences() {
         for region in locationManager.monitoredRegions {

@@ -6,94 +6,29 @@
 //
 
 import Foundation
-import CoreLocation
 
 @Observable
 class StoreSelectSheetViewModel {
-    private var router: NavigationRouter
+    private let router: NavigationRouter
+    let mapViewModel: MapViewModel
     
-    init(router: NavigationRouter) {
+    init(
+        router: NavigationRouter,
+        mapViewModel: MapViewModel
+    ) {
         self.router = router
+        self.mapViewModel = mapViewModel
     }
     
-    var storeSheetModel: StoreSheetModel = .init(storeList: [])
-    var storeSortType: StoreSortType = .distance
-    
-    var storeList: [StoreList] {
-        storeSheetModel.storeList
+    var sortedStoreListWithDistance: [StoreList] {
+        mapViewModel.storeList.sorted { $0.distance < $1.distance }
     }
     
-    var sortedStoreList: [StoreList] {
-        storeSheetModel.sorted(by: storeSortType)
-    }
-    
-    func loadStarbucksStores() {
-        JSONFileLoader.shared.load(
-            named: "스타벅스_2025 데이터",
-            fileExtension: "geojson"
-        ) { [weak self] (result: Result<StarbucksGeoJSON, Error>) in
-            switch result {
-            case .success(let model):
-                self?.storeSheetModel.storeList = self?.makeStoreList(
-                    from: model.features
-                ) ?? []
-            case .failure(let error):
-                print("error: \(error.localizedDescription)")
-            }
+    func loadStores() {
+        mapViewModel.loadStarbucksStores { [weak self] stores in
+            guard let self = self else { return }
+            self.mapViewModel.storeSheetModel.storeList = self.mapViewModel.makeStoreList(from: stores)
         }
     }
     
-    private func makeStoreList(from features: [StoreFeature]) -> [StoreList] {
-        let storeImage: [String] = [
-            "Order/Sheet/image1",
-            "Order/Sheet/image2",
-            "Order/Sheet/image3",
-            "Order/Sheet/image4",
-            "Order/Sheet/image5",
-            "Order/Sheet/image6",
-            "Order/Sheet/image7",
-        ]
-        
-        return features.enumerated().compactMap { idx, feature in
-            let props = feature.properties
-            return StoreList(
-                imageName: storeImage[idx % storeImage.count],
-                title: props.storeName,
-                address: props.address,
-                storeType: parseStoreType(from: feature.properties.category),
-                coordinate: Coordinator(
-                    latitude: feature.geometry.coordinates[1],
-                    longitude: feature.geometry.coordinates[0]
-                ),
-                distance: calculateDistance(from: feature.geometry.coordinates)
-            )
-        }
-    }
-    
-    private func parseStoreType(from category: String) -> Set<StoreType>? {
-        var type = Set<StoreType>()
-        if category.contains("리저브 매장") {
-            type.insert(.reserve)
-        }
-        if category.contains("DT 매장") {
-            type.insert(.driveThru)
-        }
-        return type.isEmpty ? nil : type
-    }
-    
-    private func calculateDistance(from coordinates: [Double]) -> Double {
-        let currentCoordinates = LocationManager.shared.currentLocation?.coordinate
-        guard let currentCoordinates else { return 0 }
-        let storeLocation: CLLocation = .init(
-            latitude: coordinates[1],
-            longitude: coordinates[0]
-        )
-        let currentLocation: CLLocation = .init(
-            latitude: currentCoordinates.latitude,
-            longitude: currentCoordinates.longitude
-        )
-        let distanceFromStore = currentLocation.distance(from: storeLocation) / 1000
-        
-        return Double(distanceFromStore)
-    }
 }

@@ -15,24 +15,24 @@ enum Config {
         return dict
     }()
     
-    static let kakaoAPIKey: String = {
-        guard let apiKey = Config.infoDictionary["KAKAO_API_KEY"] as? String else {
+    static let kakaoRestAPIKey: String = {
+        guard let apiKey = Config.infoDictionary["KAKAO_REST_API_KEY"] as? String else {
             fatalError()
         }
         return apiKey
     }()
     
-    static let kakaoLoginBaseURL: String = {
-        guard let loginURL = Config.infoDictionary["KAKAO_LOGIN_URL"] as? String else {
+    static let kakaoBaseURL: String = {
+        guard let url = Config.infoDictionary["KAKAO_URL"] as? String else {
             fatalError()
         }
-        return loginURL
+        return url
     }()
     
-    static let redirectURI: String = {
-        guard let redirectURI = Config.infoDictionary["REDIRECT_URI"] as? String else {
+    static let osrmURL: String = {
+        guard let url = Config.infoDictionary["OSRM_URL"] as? String else {
             fatalError()
         }
-        return redirectURI
+        return url
     }()
 }

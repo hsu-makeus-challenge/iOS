@@ -16,7 +16,8 @@ final class AppEnvironment: ObservableObject {
     static let previewEnv = AppEnvironment(
         router: NavigationRouter(),
         authService: AuthService(),
-        authStore: AuthStore()
+        authStore: AuthStore(),
+        locationManager: .shared
     )
     
     /// 화면 전환을 담당하는 라우터
@@ -28,15 +29,19 @@ final class AppEnvironment: ObservableObject {
     /// 로그인 상태를 관리하는 Store
     let authStore: AuthStoreProtocol
     
+    let locationManager: LocationManager
+    
     /// AppEnvironment를 초기화
     init(
         router: NavigationRouter,
         authService: AuthServiceProtocol,
-        authStore: AuthStoreProtocol
+        authStore: AuthStoreProtocol,
+        locationManager: LocationManager
     ) {
         self.router = router
         self.authService = authService
         self.authStore = authStore
+        self.locationManager = locationManager
     }
     
     /// LoginViewModel 생성
@@ -69,6 +74,20 @@ final class AppEnvironment: ObservableObject {
     }
     
     func makeStoreSelectSheetViewModel() -> StoreSelectSheetViewModel {
-        return StoreSelectSheetViewModel(router: router)
+        return StoreSelectSheetViewModel(
+            router: router,
+            mapViewModel: makeMapViewModel()
+        )
+    }
+    
+    func makeStoreInfoViewModel() -> StoreInfoViewModel {
+        return StoreInfoViewModel(
+            locationManager: locationManager,
+            mapViewModel: makeMapViewModel()
+        )
+    }
+    
+    func makeMapViewModel() -> MapViewModel {
+        return MapViewModel(locationManager: locationManager)
     }
 }

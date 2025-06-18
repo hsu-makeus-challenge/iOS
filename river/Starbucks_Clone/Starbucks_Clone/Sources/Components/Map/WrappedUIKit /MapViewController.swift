@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import SnapKit
 
 class MapViewController: UIViewController {
     
@@ -14,6 +15,7 @@ class MapViewController: UIViewController {
     var regionToSet: MKCoordinateRegion?
 //    var onUserInteractionChanged: ((Bool) -> Void)?
 //    private var isSystemAnimationFlag: Bool = true
+    private let trackingButton: MKUserTrackingButton?
     
     init(
         mapView: MKMapView,
@@ -21,6 +23,7 @@ class MapViewController: UIViewController {
     ) {
         self.mapView = mapView
         self.regionToSet = regionToSet
+        self.trackingButton = MKUserTrackingButton(mapView: mapView)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -31,6 +34,7 @@ class MapViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupMapView()
+        setupView()
         setupLayout()
     }
     
@@ -49,16 +53,30 @@ class MapViewController: UIViewController {
         mapView.userTrackingMode = .none
     }
     
-    private func setupLayout() {
-        mapView.translatesAutoresizingMaskIntoConstraints = false
+    private func setupView() {
+        guard let trackingButton = trackingButton else {
+            print("No tracking button")
+            return
+        }
         view.addSubview(mapView)
-
-        NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: view.topAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
+        mapView.addSubview(trackingButton)
+    }
+    
+    private func setupLayout() {
+        guard let trackingButton = trackingButton else {
+            print("No tracking button")
+            return
+        }
+        
+        mapView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        trackingButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset( -30)
+            make.bottom.equalToSuperview().offset(-30)
+            make.width.height.equalTo(40)
+        }
     }
 }
 

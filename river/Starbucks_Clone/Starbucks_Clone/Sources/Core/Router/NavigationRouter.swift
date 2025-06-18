@@ -18,6 +18,7 @@ enum Route: Hashable {
         temperatureType: TemperatureType
     )
     case receipt
+    case findStore
 }
 
 enum FullScreenModalDestination: Identifiable {

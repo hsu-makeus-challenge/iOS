@@ -9,40 +9,37 @@ import SwiftUI
 import MapKit
 
 struct MapView: View {
-    @Bindable private var locationManager: LocationManager
-    @Bindable private var storeSelectSheetViewModel: StoreSelectSheetViewModel
+    @Bindable private var mapViewModel: MapViewModel
     @State private var isUserInteracting: Bool = false
     @State private var isSystemAnimationFlag: Bool = true
+    private let showAnnotations: Bool
+    private let showRouteOverlay: Bool
     
     init(
-        storeSelectSheetViewModel: StoreSelectSheetViewModel,
-        locationManager: LocationManager
+        mapViewModel: MapViewModel,
+        showAnnotations: Bool,
+        showRouteOverlay: Bool
     ) {
-        self.storeSelectSheetViewModel = storeSelectSheetViewModel
-        self.locationManager = locationManager
+        self.mapViewModel = mapViewModel
+        self.showAnnotations = showAnnotations
+        self.showRouteOverlay = showRouteOverlay
+        self.mapViewModel.updateRegionFromCurrentLocation()
     }
 
     var body: some View {
         ZStack(alignment: .top) {
-            if let current = locationManager.currentLocation {
-                let region = MKCoordinateRegion(
-                    center: CLLocationCoordinate2D(
-                        latitude: current.coordinate.latitude,
-                        longitude: current.coordinate.longitude
-                    ),
-                    span: MKCoordinateSpan(latitudeDelta: 0.18, longitudeDelta: 0.18)
-                )
-                
+            if let region = mapViewModel.region {
                 MapViewControllerWrapper(
-                    region: region,
-                    locationManager: locationManager,
-                    storeSelectSheetViewModel: storeSelectSheetViewModel,
+                    mapViewModel: mapViewModel,
                     isUserInteracting: $isUserInteracting,
-                    isSystemAnimationFlag: $isSystemAnimationFlag
+                    isSystemAnimationFlag: $isSystemAnimationFlag,
+                    region: region,
+                    showAnnotations: showAnnotations,
+                    showRouteOverlay: showRouteOverlay
                 )
                 .ignoresSafeArea()
             } else {
-                ProgressView("Loading map...")
+                ProgressView("Loading View...")
             }
             
             if isUserInteracting {
