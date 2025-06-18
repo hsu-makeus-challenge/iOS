@@ -9,7 +9,10 @@ import SwiftUI
 import SwiftData
 
 struct PayView: View {
-    @Query var payCards: [PayCard]
+    @Query(
+        sort: \PayCard.createdAt,
+        order: .forward
+    ) var payCards: [PayCard]
     @Environment(\.modelContext) private var context
     @State private var activeID: UUID?
     

@@ -15,6 +15,7 @@ class PayCard: Identifiable {
     var cardName: String
     var balance: Int
     var cardNumber: String
+    var createdAt: Date
 
     init(
         image: String,
@@ -27,14 +28,10 @@ class PayCard: Identifiable {
         self.cardName = cardName
         self.balance = balance
         self.cardNumber = cardNumber
+        self.createdAt = Date()
     }
 
 }
-
-var payCards: [PayCard] = [
-    PayCard(image: "Pay/payCard 1", cardName: "아무카드A", balance: 999, cardNumber: "123412341234"),
-    PayCard(image: "Pay/payCard 2", cardName: "아무카드B", balance: 12000, cardNumber: "123456789123")
-]
 
 /// Custom View
 struct CustomCarousel<Content: View, Data: RandomAccessCollection>: View where Data.Element: Identifiable {
