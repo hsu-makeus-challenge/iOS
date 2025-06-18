@@ -30,7 +30,7 @@ struct MainTabView: View {
                     ? "payIcon_selected"
                     : "payIcon", value: 1
                 ) {
-                    EmptyView()
+                    PayView()
                 }
                 
                 Tab(
