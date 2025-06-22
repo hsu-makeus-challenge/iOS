@@ -78,12 +78,12 @@ struct ShopView: View {
             Text("Starbucks Online Store")
                 .font(headerOffsets.0 < threshold ? .PretendardBold20 : .PretendardBold24)
                 .padding(.horizontal)
-                .animation(.easeIn(duration: 0.4), value: headerOffsets.0)
+                .animation(.easeIn(duration: 0.7), value: headerOffsets.0)
             
             Spacer()
         }
         .frame(height: 90, alignment: .bottomLeading)
-        .safeAreaPadding(.bottom, headerOffsets.0 < threshold ? 20 : 0)
+        .safeAreaPadding(.bottom, headerOffsets.0 < threshold ? 10 : 0)
         .background(Color.white01)
     }
     
