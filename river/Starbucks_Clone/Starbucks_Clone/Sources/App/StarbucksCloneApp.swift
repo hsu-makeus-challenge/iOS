@@ -1,4 +1,12 @@
 import SwiftUI
+import SwiftData
+
+enum AppSchema {
+    static let modelTypes: [any PersistentModel.Type] = [
+        PayCard.self
+        // 나중에 모델 추가 시 여기에만 추가
+    ]
+}
 
 @main
 struct StarbucksCloneApp: App {
@@ -15,5 +23,6 @@ struct StarbucksCloneApp: App {
             ContentView()
                 .environmentObject(appEnvironment)
         }
+        .modelContainer(for: AppSchema.modelTypes)
     }
 }

@@ -9,21 +9,79 @@ import SwiftUI
 
 struct ShopView: View {
     @State private var shopViewModel: ShopViewModel = .init()
+    @State var headerOffsets: (CGFloat, CGFloat) = (0, 0)
     
     var body: some View {
-        ScrollView {
-            LazyVStack(alignment: .leading, spacing: 31) {
-                OnlineStoreView(shopViewModel: shopViewModel)
+        ScrollView(.vertical, content: {
+            VStack(spacing: 0) {
+                headerView()
                 
-                AllProductsView(shopViewModel: shopViewModel)
-                
-                BestProductsView(shopViewModel: shopViewModel)
-                
-                NewProductsView(shopViewModel: shopViewModel)
+                LazyVStack(alignment: .leading, spacing: 33, pinnedViews: [.sectionHeaders], content: {
+                    Section(content: {
+                        LazyVStack(alignment: .leading, spacing: 31) {
+                            OnlineStoreView(shopViewModel: shopViewModel)
+                            
+                            AllProductsView(shopViewModel: shopViewModel)
+                            
+                            BestProductsView(shopViewModel: shopViewModel)
+                            
+                            NewProductsView(shopViewModel: shopViewModel)
+                        }
+                        .padding(.horizontal, 16)
+
+                    }, header: {
+                        pinnedHeaderView()
+                            .modifier(OffsetModifier(offset: $headerOffsets.0, returnromStart: false))
+                            .modifier(OffsetModifier(offset: $headerOffsets.1))
+                    })
+                })
+                .safeAreaPadding(.horizontal, 16)
+                .contentMargins(.top, 20)
+                .padding(.bottom, 100)
             }
-            .padding(.horizontal, 16)
-        }
+            
+        })
+        .ignoresSafeArea()
+        .coordinateSpace(name: "SCROLL")
         .background(Color(.white01))
+    }
+    
+    @ViewBuilder
+    private func headerView() -> some View {
+        GeometryReader { proxy in
+            let minY = proxy.frame(in: .named("SCROLL")).minY
+            let size = proxy.size
+            let height = max(0, size.height + minY)
+            
+            Rectangle()
+                .fill(Color.white)
+                .frame(width: size.width, height: height, alignment: .top)
+                .offset(y: -minY)
+        }
+        .frame(height: 20)
+    }
+    
+    @ViewBuilder
+    private func pinnedHeaderView() -> some View {
+        
+        let threshhold = -(getScreenSize().height * 0.05)
+        
+        HStack {
+            if headerOffsets.0 < threshhold {
+                Spacer()
+            }
+            
+            Text("Starbucks Online Store")
+                .foregroundStyle(.black)
+                .font(headerOffsets.0 < threshhold ? .mainTextBold20 : .mainTextBold24)
+                .animation(.easeInOut(duration: 0.2), value: headerOffsets.0 < threshhold)
+            
+            Spacer()
+            
+        }
+        .frame(height: 90, alignment: .bottomLeading)
+        .safeAreaPadding(.bottom, headerOffsets.0 < threshhold ? 20 : 0)
+        .background(Color.white)
     }
 }
 
@@ -36,10 +94,6 @@ fileprivate struct OnlineStoreView: View {
     
     fileprivate var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Starbucks Online Store")
-                .font(.mainTextBold24)
-                .foregroundStyle(.black)
-            
             ScrollView(.horizontal) {
                 LazyHStack {
                     ForEach(
