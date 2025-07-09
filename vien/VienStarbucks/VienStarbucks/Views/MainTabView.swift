@@ -30,12 +30,6 @@ struct MainTabView: View {
 }
 
 
-struct PayView: View {
-    var body: some View {
-        Text("Pay")
-    }
-}
-
 struct OrderView: View {
     var body: some View {
         Text("Order")
