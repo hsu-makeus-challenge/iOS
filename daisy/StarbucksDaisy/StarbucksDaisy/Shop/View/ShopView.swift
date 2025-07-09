@@ -10,29 +10,36 @@ import SwiftUI
 struct ShopView: View {
     /// Best Items 섹션의 현재 페이지 상태를 추적
     @State private var currentBestItemPage = 0
+    @State var headerOffsets: (CGFloat, CGFloat) = (0, 0)
     
     var viewModel: ShopViewModel = .init()
     let columns = Array(repeating: GridItem(.flexible()), count: 2)
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
-                TopBanners
-                AllProducts
-                BestItems
-                NewProducts
-            }
+            headerView()
+            LazyVStack(spacing: 20, pinnedViews: [.sectionHeaders], content: {
+                Section(content: {
+                    TopBanners
+                    AllProducts
+                    BestItems
+                    NewProducts
+                }, header: {
+                    pinnedHeaderView()
+                        .modifier(OffsetModifier(offset: $headerOffsets.0, returnromStart: false))
+                        .modifier(OffsetModifier(offset: $headerOffsets.1))
+                })
+            })
         }
         .padding(.horizontal, 16)
+        .safeAreaPadding(.bottom, 90)
+        .ignoresSafeArea()
         .background(.white01)
         .scrollIndicators(.hidden)
+        .coordinateSpace(name: "SCROLL")
     }
     
     private var TopBanners: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("Starbucks Online Store")
-                .font(.mainTextBold24)
-            
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 28) {
                     Image("shopBanner1")
@@ -42,8 +49,6 @@ struct ShopView: View {
                 }
             }
             .scrollIndicators(.hidden)
-        }
-        .padding(.top, 27)
     }
     
     private var AllProducts: some View {
@@ -145,6 +150,52 @@ struct ShopView: View {
             }
             .frame(maxHeight: 446)
         }
+    }
+    
+    @ViewBuilder
+       private func headerView() -> some View {
+           GeometryReader { proxy in
+               let minY = proxy.frame(in: .named("SCROLL")).minY
+               let size = proxy.size
+               let height = max(0, size.height + minY)
+               
+               Rectangle()
+                   .fill(Color.white01)
+                   .frame(width: size.width, height: height, alignment: .top)
+                   .offset(y: -minY)
+           }
+           .frame(height: 27)
+       }
+
+    @ViewBuilder
+        private func pinnedHeaderView() -> some View {
+            
+            let threshhold = -(getScreenSize().height * 0.05)
+            
+            HStack {
+                if headerOffsets.0 < threshhold {
+                    Spacer()
+                }
+                
+                Text("Starbucks Online Store")
+                    .font(headerOffsets.0 < threshhold ? .mainTextBold16 : .mainTextBold24)
+                    .animation(.easeInOut(duration: 0.2), value: headerOffsets.0)
+                
+                Spacer()
+                
+            }
+            .frame(height: 90, alignment: .bottomLeading)
+            .safeAreaPadding(.bottom, headerOffsets.0 < threshhold ? 16 : 0)
+            .background(Color.white01)
+        }
+}
+
+extension View {
+    func getScreenSize() -> CGSize {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+            return .zero
+        }
+        return windowScene.screen.bounds.size
     }
 }
 
