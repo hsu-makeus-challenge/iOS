@@ -26,6 +26,7 @@
 		C87EE176AD207D08A51D8E1C /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6F9415C82BD901C6AA812805 /* Pretendard-Thin.otf */; };
 		D137A0CE8238989E873328EF /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D2E6CFDB2FE55DB301BB7E93 /* Pretendard-ExtraBold.otf */; };
 		F9B59708E65FFDC479FA292D /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C05EE3A01621AA71D5A3474 /* Pretendard-SemiBold.otf */; };
+		FF01BE6B2DF17ED000ACC3A5 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF01BE6A2DF17ED000ACC3A5 /* ViewExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,9 +86,11 @@
 		F8D54BB8F383F5345CEFC4FB /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		F971E5B6815CB1BE429AAFDA /* CustomColor.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CustomColor.xcassets; sourceTree = "<group>"; };
 		FB5860E6E14B3D180E9A7ABF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FF01BE6A2DF17ED000ACC3A5 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		FF01BE6C2DF1807200ACC3A5 /* Util */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Util; sourceTree = "<group>"; };
 		FF6F74DB2D9DAC70003079EE /* Home */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Home; sourceTree = "<group>"; };
 		FF6F75002D9E551F003079EE /* Home */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Home; sourceTree = "<group>"; };
 		FF6F75012D9E5529003079EE /* Login */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Login; sourceTree = "<group>"; };
@@ -159,6 +162,7 @@
 		3A2543C67DA0A3DAC99340AA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				FF01BE6C2DF1807200ACC3A5 /* Util */,
 				FF89C1842DA78559002BEBA9 /* Navigation */,
 				FF96846D2D932655009914B3 /* Components */,
 				BB0F89AD98F7C1411A6B3723 /* Extentions */,
@@ -268,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				CB20D40FB907E27B8DCFD96D /* ColorExtension.swift */,
+				FF01BE6A2DF17ED000ACC3A5 /* ViewExtension.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -328,6 +333,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				FF01BE6C2DF1807200ACC3A5 /* Util */,
 				FF6F74DB2D9DAC70003079EE /* Home */,
 				FF6F75002D9E551F003079EE /* Home */,
 				FF6F75012D9E5529003079EE /* Login */,
@@ -447,6 +453,7 @@
 				14609285C515C9B7AC7511FF /* TuistFonts+Starbuck.swift in Sources */,
 				9F4761109412ED75AEFC6F93 /* ColorExtension.swift in Sources */,
 				7840DC737DE4A9321BFA6B04 /* FontManager.swift in Sources */,
+				FF01BE6B2DF17ED000ACC3A5 /* ViewExtension.swift in Sources */,
 				B2EECE92459A9FE846F262F6 /* StarbuckApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

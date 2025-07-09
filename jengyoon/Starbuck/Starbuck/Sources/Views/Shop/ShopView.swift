@@ -11,6 +11,11 @@ import SwiftUI
 struct ShopView: View {
     // MARK: - Properties
     
+    /// 헤더 좌표 (좌표가아닌 튜플이다)
+    /// - let tuple: (CGFloat, CGFloat) = (10,20)
+    /// - print(tuple.0) : 10, print(tuple.1) : 20
+    @State var headerOffsets: (CGFloat, CGFloat) = (0,0)
+    
     /// 상품 데이터를 관리하는 뷰모델
     @StateObject private var viewModel = ShopViewModel()
     /// Best Items 섹션의 현재 페이지 상태를 추적
@@ -18,15 +23,68 @@ struct ShopView: View {
     
     // MARK: - Body
     var body: some View {
-        ScrollView {
+        ScrollView(.vertical) {
             VStack(spacing: 30) {
-                bannerSection      // 상단 배너 섹션
-                allProductsSection // 전체 상품 카테고리 섹션
-                bestItemsSection   // 베스트 상품 섹션
-                newProductsSection // 신규 상품 섹션
+                headerView
+                
+                LazyVStack(alignment: .leading, spacing: 33, pinnedViews: [.sectionHeaders], content: {
+                    Section(content: {
+                        bannerSection      // 상단 배너 섹션
+                        allProductsSection // 전체 상품 카테고리 섹션
+                        bestItemsSection   // 베스트 상품 섹션
+                        newProductsSection // 신규 상품 섹션
+                    }, header: {
+                        pinnedHeaderView()
+                            .modifier(OffsetModifer(offset: $headerOffsets.0, returnromStart: false))
+                            .modifier(OffsetModifer(offset: $headerOffsets.1))
+                    })
+                })
+                .contentMargins(.top, 20)
+                
             }
-            .background(Color.white01)
         }
+        .ignoresSafeArea()
+        .coordinateSpace(name: "SCROLL")
+        .background(Color.white01)
+    }
+    // MARK: - HeaderView
+    /// 상단공간 처리할 뷰
+    @ViewBuilder
+    private var headerView: some View {
+        GeometryReader { proxy in
+            let minY = proxy.frame(in: .named("SCROLL")).minY
+            let size = proxy.size
+            let height = max(0, size.height + minY)
+            
+            Rectangle()
+                .fill(Color.white01)
+                .frame(width: size.width, height: height, alignment: .top)
+                .offset(y: -minY)
+        }
+        .frame(height: 10)
+    }
+    
+    /// 고정된 헤더뷰
+    @ViewBuilder
+    private func pinnedHeaderView() -> some View {
+        
+        let threshold = -(getScreenSize().height * 0.05)
+        
+        HStack {
+            if headerOffsets.0 < threshold {
+                Spacer()
+            }
+            
+            Text("Starbucks Online Store")
+                .font(headerOffsets.0 < threshold ? .PretendardBold20 : .PretendardBold24)
+                .padding(.horizontal)
+                .animation(.easeIn(duration: 0.7), value: headerOffsets.0)
+            
+            Spacer()
+        }
+        .frame(height: 90, alignment: .bottomLeading)
+        .safeAreaPadding(.bottom, headerOffsets.0 < threshold ? 10 : 0)
+        .background(Color.white01)
     }
     
     // MARK: - Banner Section
@@ -35,10 +93,6 @@ struct ShopView: View {
     /// - 각 배너는 전체 화면 너비에서 좌우 여백을 뺀 크기로 표시
     private var bannerSection: some View {
         VStack (alignment: .leading) {
-            Text("Starbucks Online Store")
-                .font(.PretendardBold24)
-                .padding(.horizontal)
-            
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 20) {
                     ForEach(viewModel.bannerImages, id: \.self) { imageName in
