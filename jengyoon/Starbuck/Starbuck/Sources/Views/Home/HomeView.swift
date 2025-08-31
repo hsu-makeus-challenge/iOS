@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HomeView: View {
     /// 관찰 가능한 객체를 HomeView에서 직접 생성후 소유한다.
-    /// AppStorage에 저장된 닉네임과 더미데이터 랜더링
     @StateObject private var viewModel = HomeViewModel()
     
     @State private var showAdvertisement = false

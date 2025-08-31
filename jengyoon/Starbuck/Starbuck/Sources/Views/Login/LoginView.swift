@@ -19,6 +19,7 @@ struct LoginView: View {
     @EnvironmentObject private var router: NavigationRouter
     @FocusState private var focusField: Field?
     @StateObject private var viewModel = LoginViewModel()
+    @StateObject private var kakaoVM = KakaoLoginViewModel()
     
     var body: some View {
         ZStack {
@@ -120,7 +121,11 @@ struct LoginView: View {
                     router.navigate(to: .signup)
                 }
             
-            SocialLoginButton(buttonColor: Color.yellow, textColor: Color.black, text: "카카오 로그인", font: .PretendardMedium16, icon: "kakao", action: {})
+            SocialLoginButton(buttonColor: Color.yellow, textColor: Color.black, text: "카카오 로그인", font: .PretendardMedium16, icon: "kakao", action: {
+                // 카카오 버튼을 누르면 LoginViewModel과 연결하여 로그인 절차 진행
+                kakaoVM.loginViewModel = viewModel
+                kakaoVM.loginWithKakao()
+            })
             
             
             SocialLoginButton(buttonColor: Color.black, textColor: Color.white, text: "Apple로 로그인", font: .PretendardMedium16, icon: "apple", action: {})
